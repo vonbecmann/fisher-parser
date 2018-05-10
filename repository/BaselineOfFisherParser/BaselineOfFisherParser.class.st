@@ -11,7 +11,13 @@ BaselineOfFisherParser >> baseline: spec [
 		for: #common
 		do: [ 
 			spec
-				package: 'AWijngaarden-Core';
+				baseline: 'EarleyParser'
+				with: [ 
+					spec
+						repository: 'github://vonbecmann/earley-parser/repository';
+						loads: #('Parser') ].
+			spec
+				package: 'AWijngaarden-Core' with: [ spec requires: #('EarleyParser') ];
 				package: 'AWijngaarden-Tests' with: [ spec requires: #('AWijngaarden-Core') ].
 			spec
 				group: 'default' with: #('Core' 'Tests');
