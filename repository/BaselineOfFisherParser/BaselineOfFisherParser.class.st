@@ -14,7 +14,8 @@ BaselineOfFisherParser >> baseline: spec [
 				package: 'AWijngaarden-Core';
 				package: 'AWijngaarden-Tests' with: [ spec requires: #('AWijngaarden-Core') ].
 			spec
-				group: 'default' with: #('AWijngaarden-Core');
+				group: 'default' with: #('Core' 'Tests');
+				group: 'Core' with: #('AWijngaarden-Core');
 				group: 'Tests' with: #('AWijngaarden-Tests');
 				yourself ]
 ]
