@@ -7,5 +7,24 @@ However, care must be taken in choosing the metanotions so that any sequence of 
 Class {
 	#name : #AWMetanotion,
 	#superclass : #Object,
+	#instVars : [
+		'name'
+	],
 	#category : #'AWijngaarden-Core'
 }
+
+{ #category : #'instance creation' }
+AWMetanotion class >> named: aString [
+	^ self basicNew initializeName: aString
+]
+
+{ #category : #initialization }
+AWMetanotion >> initializeName: aString [ 
+	self initialize.
+	name := aString asSymbol
+]
+
+{ #category : #printing }
+AWMetanotion >> printOn: aStream [
+	aStream nextPutAll: name
+]
