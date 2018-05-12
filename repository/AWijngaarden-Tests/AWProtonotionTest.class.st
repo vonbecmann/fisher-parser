@@ -10,3 +10,10 @@ AWProtonotionTest >> testAsString [
 		assert: (AWProtonotion named: 'long') asString 
 		equals: 'long'
 ]
+
+{ #category : #tests }
+AWProtonotionTest >> testAsString01 [
+	self 
+		assert: (AWProtonotion named: 'short') asString 
+		equals: 'short'
+]
