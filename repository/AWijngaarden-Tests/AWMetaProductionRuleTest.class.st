@@ -17,7 +17,7 @@ AWMetaProductionRuleTest >> testAsString01 [
 		assert:
 			(AWMetaProductionRule
 				head: (AWMetanotion named: 'SIZE')
-				body: (AWHypernotion withAll: {(AWProtonotion named: 'long')})) asString
+				body: (AWHypernotion withAll: {(AWProtonotion with: 'long')})) asString
 		equals: 'SIZE:: long.'
 ]
 
@@ -28,7 +28,7 @@ AWMetaProductionRuleTest >> testAsString02 [
 			(AWMetaProductionRule
 				head: (AWMetanotion named: 'SIZE')
 				body: (AWHypernotion withAll: 
-							{(AWProtonotion named: 'long'). (AWMetanotion named: 'SIZE')})) asString
+							{(AWProtonotion with: 'long'). (AWMetanotion named: 'SIZE')})) asString
 		equals: 'SIZE:: long SIZE.'
 ]
 
@@ -39,6 +39,6 @@ AWMetaProductionRuleTest >> testAsString03 [
 			(AWMetaProductionRule
 				head: (AWMetanotion named: 'N')
 				body: (AWHypernotion withAll: 
-							{(AWProtonotion named: 'n'). (AWMetanotion named: 'N')})) asString
+							{(AWProtonotion with: 'n'). (AWMetanotion named: 'N')})) asString
 		equals: 'N:: n N.'
 ]

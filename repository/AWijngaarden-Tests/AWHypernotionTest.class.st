@@ -9,7 +9,7 @@ AWHypernotionTest >> testAsString [
 	self
 		assert:
 			(AWHypernotion
-				withAll: {(AWProtonotion named: 'letter'). (AWMetanotion named: 'ALPHA')}) asString
+				withAll: {(AWProtonotion with: 'letter'). (AWMetanotion named: 'ALPHA')}) asString
 		equals: 'letter ALPHA'
 ]
 
@@ -18,7 +18,7 @@ AWHypernotionTest >> testAsString01 [
 	self
 		assert:
 			(AWHypernotion
-				withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion named: 'list'). }) asString
+				withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'list'). }) asString
 		equals: 'NOTION list'
 ]
 
@@ -28,9 +28,9 @@ AWHypernotionTest >> testAsString02 [
 		assert:
 			(AWHypernotion
 				withAll:
-					{(AWProtonotion named: 'letter').
+					{(AWProtonotion with: 'letter').
 					(AWMetanotion named: 'ALPHA').
-					(AWProtonotion named: 'symbol')}) asString
+					(AWProtonotion with: 'symbol')}) asString
 		equals: 'letter ALPHA symbol'
 ]
 
@@ -40,8 +40,8 @@ AWHypernotionTest >> testAsString03 [
 		assert:
 			(AWHypernotion
 				withAll:
-					{(AWProtonotion named: 'letter').
-					(AWProtonotion named: 'a').
-					(AWProtonotion named: 'symbol')}) asString
+					{(AWProtonotion with: 'letter').
+					(AWProtonotion with: 'a').
+					(AWProtonotion with: 'symbol')}) asString
 		equals: 'letter a symbol'
 ]
