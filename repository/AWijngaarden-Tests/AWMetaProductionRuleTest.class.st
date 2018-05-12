@@ -10,3 +10,24 @@ AWMetaProductionRuleTest >> testAsString [
 		assert: (AWMetaProductionRule head: (AWMetanotion named: 'EMPTY')) asString 
 		equals: 'EMPTY:: .'
 ]
+
+{ #category : #tests }
+AWMetaProductionRuleTest >> testAsString01 [
+	self
+		assert:
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'SIZE')
+				body: (AWHypernotion withAll: {(AWProtonotion named: 'long')})) asString
+		equals: 'SIZE:: long.'
+]
+
+{ #category : #tests }
+AWMetaProductionRuleTest >> testAsString02 [
+	self
+		assert:
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'SIZE')
+				body: (AWHypernotion withAll: 
+							{(AWProtonotion named: 'long'). (AWMetanotion named: 'SIZE')})) asString
+		equals: 'SIZE:: long SIZE.'
+]

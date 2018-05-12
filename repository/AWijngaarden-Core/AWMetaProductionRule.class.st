@@ -25,6 +25,11 @@ AWMetaProductionRule class >> head: aMetanotion [
 	^ self basicNew initializeHead: aMetanotion body: nil
 ]
 
+{ #category : #'instance creation' }
+AWMetaProductionRule class >> head: aMetanotion body: aHypernotion [
+	^ self basicNew initializeHead: aMetanotion body: aHypernotion
+]
+
 { #category : #initialization }
 AWMetaProductionRule >> initializeHead: aMetanotion body: aHypernotion [
 	self initialize.
