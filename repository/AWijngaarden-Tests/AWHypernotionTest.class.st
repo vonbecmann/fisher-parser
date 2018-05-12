@@ -33,3 +33,15 @@ AWHypernotionTest >> testAsString02 [
 					(AWProtonotion named: 'symbol')}) asString
 		equals: 'letter ALPHA symbol'
 ]
+
+{ #category : #tests }
+AWHypernotionTest >> testAsString03 [
+	self
+		assert:
+			(AWHypernotion
+				withAll:
+					{(AWProtonotion named: 'letter').
+					(AWProtonotion named: 'a').
+					(AWProtonotion named: 'symbol')}) asString
+		equals: 'letter a symbol'
+]

@@ -31,3 +31,14 @@ AWMetaProductionRuleTest >> testAsString02 [
 							{(AWProtonotion named: 'long'). (AWMetanotion named: 'SIZE')})) asString
 		equals: 'SIZE:: long SIZE.'
 ]
+
+{ #category : #tests }
+AWMetaProductionRuleTest >> testAsString03 [
+	self
+		assert:
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'N')
+				body: (AWHypernotion withAll: 
+							{(AWProtonotion named: 'n'). (AWMetanotion named: 'N')})) asString
+		equals: 'N:: n N.'
+]
