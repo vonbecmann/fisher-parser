@@ -34,7 +34,7 @@ AWHyperRule >> initializeHead: aHypernotion body: aHypernotionCollection [
 	body := aHypernotionCollection
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 AWHyperRule >> isRepresentation [
 	^ body size = 1 and: [ body first isTerminal ]
 ]
