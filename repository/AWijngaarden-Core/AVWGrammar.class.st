@@ -38,6 +38,28 @@ AVWGrammar class >> metarules: metaruleArray hyperrules: hyperrulesArray represe
 	^ self basicNew initializeMetaRules: metarules andHyperrules: hyperrules 
 ]
 
+{ #category : #'inspector extensions' }
+AVWGrammar >> gtInspectorHyperRulesIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite list
+		title: [ 'Hyper Rules' ];
+		display: [ hyperrules ];
+		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		showOnly: 50;
+		yourself
+]
+
+{ #category : #'inspector extensions' }
+AVWGrammar >> gtInspectorMetaRulesIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite list
+		title: [ 'Meta Rules' ];
+		display: [ metarules ];
+		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		showOnly: 50;
+		yourself
+]
+
 { #category : #accessing }
 AVWGrammar >> hyperrulesSize [
 	^ hyperrules size
