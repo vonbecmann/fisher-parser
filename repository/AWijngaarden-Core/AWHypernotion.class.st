@@ -32,6 +32,17 @@ AWHypernotion class >> withAll: aCollection [
 		yourself
 ]
 
+{ #category : #'inspector extensions' }
+AWHypernotion >> gtInspectorNotionsIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite list
+		title: [ 'Notions' ];
+		display: [ notions ];
+		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		showOnly: 50;
+		yourself
+]
+
 { #category : #initialization }
 AWHypernotion >> initializeNotions: aCollection [
 	self initialize.
@@ -41,6 +52,11 @@ AWHypernotion >> initializeNotions: aCollection [
 { #category : #testing }
 AWHypernotion >> isEmpty [
 	^ notions isEmpty
+]
+
+{ #category : #testing }
+AWHypernotion >> isTerminal [
+	^ notions size = 1 and: [ notions first isTerminal ]
 ]
 
 { #category : #printing }

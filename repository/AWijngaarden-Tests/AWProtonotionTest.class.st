@@ -17,3 +17,8 @@ AWProtonotionTest >> testAsString01 [
 		assert: (AWProtonotion with: 'short') asString 
 		equals: 'short'
 ]
+
+{ #category : #tests }
+AWProtonotionTest >> testIsTerminal [
+	self deny: (AWProtonotion with: 'long') isTerminal
+]

@@ -23,6 +23,11 @@ AWProtonotion >> initializeContents: aString [
 	contents := aString
 ]
 
+{ #category : #testing }
+AWProtonotion >> isTerminal [
+	^ false
+]
+
 { #category : #printing }
 AWProtonotion >> printOn: aStream [
 	aStream nextPutAll: contents

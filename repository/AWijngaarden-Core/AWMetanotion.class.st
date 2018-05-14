@@ -24,6 +24,11 @@ AWMetanotion >> initializeName: aString [
 	name := aString asSymbol
 ]
 
+{ #category : #testing }
+AWMetanotion >> isTerminal [
+	^ false
+]
+
 { #category : #printing }
 AWMetanotion >> printOn: aStream [
 	aStream nextPutAll: name

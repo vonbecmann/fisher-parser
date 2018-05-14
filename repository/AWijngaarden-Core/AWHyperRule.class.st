@@ -1,12 +1,15 @@
 "
 The second set of rules in a W-grammar is called the *hyper-rules*.
 The hyper-rules ""stand for"" some possibly infinite set of production
-rules. The format of a hyper-rule is:
+rules. 
 
-a non-empty hypernotion,
-followed by a colon,
-followed by a sequence of ""hyperalternatives"" separated by semicolons,
-followed by a period.
+- A ""hyper-rule"" consists of the following items, in order:
+  - a nonempty hypernotion H;
+  - a colon;
+  - a nonempty sequence of ""hyperalternatives"" separated by semicolons;
+  - a point
+
+- A ""hyperalternative"" is a nonempty sequence of hypernotions separated by commas.
 
 "
 Class {
@@ -29,6 +32,11 @@ AWHyperRule >> initializeHead: aHypernotion body: aHypernotionCollection [
 	self initialize.
 	head := aHypernotion.
 	body := aHypernotionCollection
+]
+
+{ #category : #'as yet unclassified' }
+AWHyperRule >> isRepresentation [
+	^ body size = 1 and: [ body first isTerminal ]
 ]
 
 { #category : #printing }

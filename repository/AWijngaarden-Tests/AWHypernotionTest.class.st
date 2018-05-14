@@ -53,6 +53,33 @@ AWHypernotionTest >> testAsString04 [
 ]
 
 { #category : #tests }
+AWHypernotionTest >> testAsString05 [
+	self 
+		assert: (AWHypernotion with: (AWProtonotion with: 'letter')) asString 
+		equals: 'letter'
+]
+
+{ #category : #tests }
 AWHypernotionTest >> testIsEmpty [
 	self assert: AWHypernotion new isEmpty
+]
+
+{ #category : #tests }
+AWHypernotionTest >> testIsTerminal [
+	self deny: AWHypernotion new isTerminal
+]
+
+{ #category : #tests }
+AWHypernotionTest >> testIsTerminal02 [
+	self assert: (AWHypernotion with: (NCTerminal character: $a)) isTerminal
+]
+
+{ #category : #tests }
+AWHypernotionTest >> testIsTerminal03 [
+	self deny: (AWHypernotion with: (AWProtonotion with: 'a')) isTerminal
+]
+
+{ #category : #tests }
+AWHypernotionTest >> testIsTerminal04 [
+	self deny: (AWHypernotion with: (AWMetanotion named: 'NOTION')) isTerminal
 ]

@@ -10,3 +10,8 @@ AWMetanotionTest >> testAsString [
 		assert: (AWMetanotion named: 'TALLY') asString 
 		equals: 'TALLY'
 ]
+
+{ #category : #tests }
+AWMetanotionTest >> testIsTerminal [
+	self deny: (AWMetanotion named: 'TALLY') isTerminal
+]
