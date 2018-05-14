@@ -22,7 +22,7 @@ Class {
 
 { #category : #'instance creation' }
 AWMetaProductionRule class >> head: aMetanotion [
-	^ self basicNew initializeHead: aMetanotion body: nil
+	^ self basicNew initializeHead: aMetanotion body: (AWHypernotion new)
 ]
 
 { #category : #'instance creation' }
@@ -41,7 +41,7 @@ AWMetaProductionRule >> initializeHead: aMetanotion body: aHypernotion [
 AWMetaProductionRule >> printOn: aStream [
 	aStream
 		print: head;
-		nextPutAll: ':: '.
-	body ifNotNil: [ aStream print: body ].
-	aStream nextPut: $.
+		nextPutAll: ':: ';
+		print: body;
+		nextPut: $.
 ]

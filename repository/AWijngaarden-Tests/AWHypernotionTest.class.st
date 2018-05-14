@@ -45,3 +45,9 @@ AWHypernotionTest >> testAsString03 [
 					(AWProtonotion with: 'symbol')}) asString
 		equals: 'letter a symbol'
 ]
+
+{ #category : #tests }
+AWHypernotionTest >> testAsString04 [
+	self assert: (AWHypernotion withAll: {}) asString equals: ''.
+	self assert: AWHypernotion new asString equals: ''
+]

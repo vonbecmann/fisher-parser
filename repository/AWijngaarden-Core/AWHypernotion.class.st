@@ -13,6 +13,11 @@ Class {
 }
 
 { #category : #'instance creation' }
+AWHypernotion class >> new [
+	^ self basicNew initializeNotions: #()
+]
+
+{ #category : #'instance creation' }
 AWHypernotion class >> withAll: aCollection [
 	^ self basicNew initializeNotions: aCollection
 ]
