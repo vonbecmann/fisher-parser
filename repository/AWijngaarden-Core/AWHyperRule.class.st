@@ -1,3 +1,14 @@
+"
+The second set of rules in a W-grammar is called the *hyper-rules*.
+The hyper-rules ""stand for"" some possibly infinite set of production
+rules. The format of a hyper-rule is:
+
+a non-empty hypernotion,
+followed by a colon,
+followed by a sequence of ""hyperalternatives"" separated by semicolons,
+followed by a period.
+
+"
 Class {
 	#name : #AWHyperRule,
 	#superclass : #Object,

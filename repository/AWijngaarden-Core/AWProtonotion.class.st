@@ -7,23 +7,23 @@ Class {
 	#name : #AWProtonotion,
 	#superclass : #Object,
 	#instVars : [
-		'content'
+		'contents'
 	],
 	#category : #'AWijngaarden-Core'
 }
 
 { #category : #'instance creation' }
 AWProtonotion class >> with: aString [
-	^ self basicNew initializeContent: aString
+	^ self basicNew initializeContents: aString
 ]
 
 { #category : #initialization }
-AWProtonotion >> initializeContent: aString [
+AWProtonotion >> initializeContents: aString [
 	self initialize.
-	content := aString
+	contents := aString
 ]
 
 { #category : #printing }
 AWProtonotion >> printOn: aStream [
-	aStream nextPutAll: content
+	aStream nextPutAll: contents
 ]

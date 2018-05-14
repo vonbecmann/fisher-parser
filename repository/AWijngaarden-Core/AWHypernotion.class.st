@@ -18,6 +18,11 @@ AWHypernotion class >> new [
 ]
 
 { #category : #'instance creation' }
+AWHypernotion class >> with: aNotion [
+	^ self basicNew initializeNotions: (Array with: aNotion)
+]
+
+{ #category : #'instance creation' }
 AWHypernotion class >> withAll: aCollection [
 	^ self basicNew initializeNotions: aCollection
 ]
@@ -26,6 +31,11 @@ AWHypernotion class >> withAll: aCollection [
 AWHypernotion >> initializeNotions: aCollection [
 	self initialize.
 	notions := Array withAll: aCollection
+]
+
+{ #category : #testing }
+AWHypernotion >> isEmpty [
+	^ notions isEmpty
 ]
 
 { #category : #printing }

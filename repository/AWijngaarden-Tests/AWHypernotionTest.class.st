@@ -51,3 +51,8 @@ AWHypernotionTest >> testAsString04 [
 	self assert: (AWHypernotion withAll: {}) asString equals: ''.
 	self assert: AWHypernotion new asString equals: ''
 ]
+
+{ #category : #tests }
+AWHypernotionTest >> testIsEmpty [
+	self assert: AWHypernotion new isEmpty
+]
