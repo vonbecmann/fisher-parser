@@ -32,6 +32,22 @@ AWHypernotion class >> withAll: aCollection [
 		yourself
 ]
 
+{ #category : #comparing }
+AWHypernotion >> = anObject [
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class == anObject class
+		ifFalse: [ ^ false ].
+	notions size == anObject notions size
+		ifFalse: [ ^ false ].
+	notions
+		with: anObject notions
+		do: [ :first :second | 
+			first = second
+				ifFalse: [ ^ false ] ].
+	^ true
+]
+
 { #category : #'inspector extensions' }
 AWHypernotion >> gtInspectorNotionsIn: composite [
 	<gtInspectorPresentationOrder: 0>
@@ -41,6 +57,14 @@ AWHypernotion >> gtInspectorNotionsIn: composite [
 		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
+]
+
+{ #category : #comparing }
+AWHypernotion >> hash [
+	| hash |
+	hash := self class hash.
+	notions do: [ :each | hash := (hash + each hash) hashMultiply ].
+	^ hash
 ]
 
 { #category : #initialization }
@@ -57,6 +81,11 @@ AWHypernotion >> isEmpty [
 { #category : #testing }
 AWHypernotion >> isTerminal [
 	^ notions size = 1 and: [ notions first isTerminal ]
+]
+
+{ #category : #accessing }
+AWHypernotion >> notions [
+	^ notions
 ]
 
 { #category : #printing }

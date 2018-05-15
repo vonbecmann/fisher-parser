@@ -15,24 +15,25 @@ Class {
 JEVWParser class >> vwEvaluator [
 	^ ESSingleSynthesizedAttributeEvaluator grammar: self vwGrammar actions: 
 {
+(('hypernotion' -> 1) -> [ :nodes | AWHypernotion withAll: nodes ]).
+(('protonotion then metanotion' -> 1) -> [ :node | Array with: node ]).
+(('protonotion then metanotion' -> 2)
+	-> [ :nodes | Array streamContents: [ :s | s nextPut: nodes first; nextPutAll: nodes second ]]).
+(('protonotion then metanotion' -> 3)
+	-> [ :nodes | Array streamContents: [ :s | s nextPut: nodes first; nextPutAll: nodes third ]]).
+(('metanotion then protonotion' -> 1) -> [ :node | Array with: node ]).
+(('metanotion then protonotion' -> 2)
+	-> [ :nodes | Array streamContents: [ :s | s nextPut: nodes first; nextPutAll: nodes second ]]).
+(('metanotion then protonotion' -> 3)
+	-> [ :nodes | Array streamContents: [ :s | s nextPut: nodes first; nextPutAll: nodes third ]]).
 (('metanotion' -> 1) -> [ :node | AWMetanotion named: node ]).
-(('large syntactic mark plus' -> 1) -> [ :node | node ]).
 (('large syntactic mark plus' -> 2) 
 	-> [ :nodes | 
-			String 
-				streamContents: [ :s | 
-					s 
-						nextPutAll: nodes first; 
-						nextPutAll: nodes second ] ]).
+			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ] ]).
 (('protonotion' -> 1) -> [ :node | AWProtonotion with: node ]).
-(('small syntactic mark plus' -> 1) -> [ :node | node ]).
 (('small syntactic mark plus' -> 2) 
 	-> [ :nodes | 
-			String 
-				streamContents: [ :s | 
-					s 
-						nextPutAll: nodes first; 
-						nextPutAll: nodes second ] ]).
+			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ] ]).
 (('small syntactic mark symbol' -> 1) -> [ :node | String with: node ]).
 (('large syntactic mark symbol' -> 1) -> [ :node | String with: node ]). }
 ]

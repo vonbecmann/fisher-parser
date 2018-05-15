@@ -20,6 +20,32 @@ JEVWEvaluatorTest >> setUp [
 	
 ]
 
+{ #category : #'tests - hypernotion' }
+JEVWEvaluatorTest >> testEvaluatesHypernotion [
+	self
+		assertThatEvaluates: 'NOTION option'
+		startingAt: 'hypernotion'
+		equals:
+			(AWHypernotion
+				withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'option')})
+]
+
+{ #category : #'tests - hypernotion' }
+JEVWEvaluatorTest >> testEvaluatesHypernotion02 [
+	self
+		assertThatEvaluates: 'option'
+		startingAt: 'hypernotion'
+		equals: (AWHypernotion with: (AWProtonotion with: 'option'))
+]
+
+{ #category : #'tests - hypernotion' }
+JEVWEvaluatorTest >> testEvaluatesHypernotion03 [
+	self
+		assertThatEvaluates: 'NOTION'
+		startingAt: 'hypernotion'
+		equals: (AWHypernotion with: (AWMetanotion named: 'NOTION'))
+]
+
 { #category : #'tests - metanotion' }
 JEVWEvaluatorTest >> testEvaluatesMetanotion [
 	self
