@@ -46,6 +46,24 @@ JEVWEvaluatorTest >> testEvaluatesHypernotion03 [
 		equals: (AWHypernotion with: (AWMetanotion named: 'NOTION'))
 ]
 
+{ #category : #'tests - hypernotion' }
+JEVWEvaluatorTest >> testEvaluatesHypernotion04 [
+	self
+		assertThatEvaluates: 'WHETHER (NOTETY1) is (NOTETY2)'
+		startingAt: 'hypernotion'
+		equals:
+			(AWHypernotion
+				withAll:
+					{(AWMetanotion named: 'WHETHER').
+					(AWProtonotion with: '(').
+					(AWMetanotion named: 'NOTETY1').
+					(AWProtonotion with: ')').
+					(AWProtonotion with: 'is').
+					(AWProtonotion with: '(').
+					(AWMetanotion named: 'NOTETY2').
+					(AWProtonotion with: ')')})
+]
+
 { #category : #'tests - metanotion' }
 JEVWEvaluatorTest >> testEvaluatesMetanotion [
 	self
