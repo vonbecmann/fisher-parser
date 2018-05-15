@@ -18,6 +18,18 @@ AWMetanotion class >> named: aString [
 	^ self basicNew initializeName: aString
 ]
 
+{ #category : #comparing }
+AWMetanotion >> = anObject [
+	self == anObject
+		ifTrue: [ ^ true ].
+	^ self class == anObject class and: [ name == anObject named ]
+]
+
+{ #category : #comparing }
+AWMetanotion >> hash [
+	^ (self class hash + name hash) hashMultiply
+]
+
 { #category : #initialization }
 AWMetanotion >> initializeName: aString [ 
 	self initialize.
@@ -27,6 +39,11 @@ AWMetanotion >> initializeName: aString [
 { #category : #testing }
 AWMetanotion >> isTerminal [
 	^ false
+]
+
+{ #category : #accessing }
+AWMetanotion >> named [
+	^ name
 ]
 
 { #category : #printing }

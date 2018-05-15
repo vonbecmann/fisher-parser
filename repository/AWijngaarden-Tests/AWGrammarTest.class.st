@@ -40,5 +40,6 @@ c symbol:	  ""c""."
 				(#('b' 'symbol') -> (NCTerminal character: $b)).
 				(#('c' 'symbol') -> (NCTerminal character: $c))}.
 	self assert: anbncn metarulesSize equals: 7.
+	self assert: anbncn metanotionsSize equals: 4.
 	self assert: anbncn hyperrulesSize equals: 6.
 ]
