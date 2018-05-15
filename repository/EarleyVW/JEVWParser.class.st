@@ -12,6 +12,32 @@ Class {
 }
 
 { #category : #grammar }
+JEVWParser class >> vwEvaluator [
+	^ ESSingleSynthesizedAttributeEvaluator grammar: self vwGrammar actions: 
+{
+(('metanotion' -> 1) -> [ :node | AWMetanotion named: node ]).
+(('large syntactic mark plus' -> 1) -> [ :node | node ]).
+(('large syntactic mark plus' -> 2) 
+	-> [ :nodes | 
+			String 
+				streamContents: [ :s | 
+					s 
+						nextPutAll: nodes first; 
+						nextPutAll: nodes second ] ]).
+(('protonotion' -> 1) -> [ :node | AWProtonotion with: node ]).
+(('small syntactic mark plus' -> 1) -> [ :node | node ]).
+(('small syntactic mark plus' -> 2) 
+	-> [ :nodes | 
+			String 
+				streamContents: [ :s | 
+					s 
+						nextPutAll: nodes first; 
+						nextPutAll: nodes second ] ]).
+(('small syntactic mark symbol' -> 1) -> [ :node | String with: node ]).
+(('large syntactic mark symbol' -> 1) -> [ :node | String with: node ]). }
+]
+
+{ #category : #grammar }
 JEVWParser class >> vwGrammar [
 	^ JEGrammar
 		e1vw: 

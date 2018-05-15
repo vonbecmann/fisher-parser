@@ -17,6 +17,23 @@ AWProtonotion class >> with: aString [
 	^ self basicNew initializeContents: aString
 ]
 
+{ #category : #comparing }
+AWProtonotion >> = anObject [
+	self == anObject
+		ifTrue: [ ^ true ].
+	^ self class == anObject class and: [ contents = anObject contents ]
+]
+
+{ #category : #accessing }
+AWProtonotion >> contents [
+	^ contents
+]
+
+{ #category : #comparing }
+AWProtonotion >> hash [
+	^ (self class hash + contents hash) hashMultiply
+]
+
 { #category : #initialization }
 AWProtonotion >> initializeContents: aString [
 	self initialize.
