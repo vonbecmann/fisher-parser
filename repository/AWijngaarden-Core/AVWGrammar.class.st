@@ -6,18 +6,21 @@ Class {
 	#name : #AVWGrammar,
 	#superclass : #Object,
 	#instVars : [
+		'metanotions',
 		'metarules',
 		'hyperrules',
-		'metanotions'
+		'terminals'
 	],
 	#category : #'AWijngaarden-Core'
 }
 
 { #category : #'instance creation' }
 AVWGrammar class >> metarules: metaruleArray hyperrules: hyperrulesArray representations: terminalNotionToRepresentationList [
-	| metanotions metarules hyperrules |
+	| metanotions terminals metarules hyperrules |
 	metanotions := Set new.
 	metaruleArray do: [ :each | metanotions add: (AWMetanotion named: each first) ].
+	terminals := Set new.
+	terminalNotionToRepresentationList do: [ :assoc | terminals add: assoc value ].
 	metarules := OrderedCollection new.
 	metaruleArray
 		collect: [ :each | 
@@ -39,7 +42,10 @@ AVWGrammar class >> metarules: metaruleArray hyperrules: hyperrulesArray represe
 				body: {(AWHypernotion with: assoc value)} ]
 		thenDo: [ :hrule | hyperrules add: hrule ].
 	^ self basicNew
-		initializeMetanotions: metanotions metaRules: metarules andHyperrules: hyperrules;
+		initializeMetanotions: metanotions 
+		metarules: metarules 
+		hyperrules: hyperrules
+		terminals: terminals;
 		yourself
 ]
 
@@ -82,11 +88,12 @@ AVWGrammar >> hyperrulesSize [
 ]
 
 { #category : #initialization }
-AVWGrammar >> initializeMetanotions: metanotionSet metaRules: metaruleCollection andHyperrules: hyperruleCollection [
+AVWGrammar >> initializeMetanotions: metanotionSet metarules: metaruleCollection hyperrules: hyperruleCollection terminals: terminalSet [
 	self initialize.
 	metanotions := metanotionSet.
 	metarules := metaruleCollection.
-	hyperrules := hyperruleCollection
+	hyperrules := hyperruleCollection.
+	terminals := terminalSet
 ]
 
 { #category : #accessing }
@@ -97,4 +104,9 @@ AVWGrammar >> metanotionsSize [
 { #category : #accessing }
 AVWGrammar >> metarulesSize [
 	^ metarules size
+]
+
+{ #category : #accessing }
+AVWGrammar >> terminalsSize [
+	^ terminals size
 ]

@@ -42,4 +42,5 @@ c symbol:	  ""c""."
 	self assert: anbncn metarulesSize equals: 7.
 	self assert: anbncn metanotionsSize equals: 4.
 	self assert: anbncn hyperrulesSize equals: 6.
+	self assert: anbncn terminalsSize equals: 3
 ]
