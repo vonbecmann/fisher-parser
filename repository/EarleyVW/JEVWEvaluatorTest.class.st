@@ -89,6 +89,65 @@ JEVWEvaluatorTest >> testEvaluatesMetaProductionRule02 [
 				body: (AWHypernotion with: (AWProtonotion with: 'c')))}
 ]
 
+{ #category : #'tests - metaproduction rule' }
+JEVWEvaluatorTest >> testEvaluatesMetaProductionRule03 [
+	self
+		assertThatEvaluates: 'N:: n; Nn.'
+		startingAt: 'metaproduction rule'
+		equals:
+			{(AWMetaProductionRule
+				head: (AWMetanotion named: 'N')
+				body: (AWHypernotion with: (AWProtonotion with: 'n'))).
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'N')
+				body: (AWHypernotion withAll: {(AWMetanotion named: 'N'). (AWProtonotion with: 'n')}))}
+]
+
+{ #category : #'tests - metaproductions' }
+JEVWEvaluatorTest >> testEvaluatesMetaProductions [
+	self
+		assertThatEvaluates:
+'TALLY:: 		i TALLETY.
+TALLETY:: 	TALLY; EMPTY.
+EMPTY:: 		.
+LETTER:: 		a; b; c.'
+		startingAt: 'metaproductions'
+		equals:
+			{(AWMetaProductionRule
+				head: (AWMetanotion named: 'TALLY')
+				body: (AWHypernotion withAll: {(AWProtonotion with: 'i'). (AWMetanotion named: 'TALLETY')})).
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'TALLETY')
+				body: (AWHypernotion with: (AWMetanotion named: 'TALLY'))).
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'TALLETY')
+				body: (AWHypernotion with: (AWMetanotion named: 'EMPTY'))).
+			(AWMetaProductionRule head: (AWMetanotion named: 'EMPTY')).
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'LETTER')
+				body: (AWHypernotion with: (AWProtonotion with: 'a'))).
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'LETTER')
+				body: (AWHypernotion with: (AWProtonotion with: 'b'))).
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'LETTER')
+				body: (AWHypernotion with: (AWProtonotion with: 'c')))}
+]
+
+{ #category : #'tests - metaproductions' }
+JEVWEvaluatorTest >> testEvaluatesMetaProductions02 [
+	self
+		assertThatEvaluates: 'TALLETY:: 	TALLY; EMPTY.'
+		startingAt: 'metaproductions'
+		equals:
+			{(AWMetaProductionRule
+				head: (AWMetanotion named: 'TALLETY')
+				body: (AWHypernotion with: (AWMetanotion named: 'TALLY'))).
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'TALLETY')
+				body: (AWHypernotion with: (AWMetanotion named: 'EMPTY')))}
+]
+
 { #category : #'tests - metanotion' }
 JEVWEvaluatorTest >> testEvaluatesMetanotion [
 	self

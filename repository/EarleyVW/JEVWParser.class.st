@@ -15,6 +15,8 @@ Class {
 JEVWParser class >> vwEvaluator [
 	^ ESSingleSynthesizedAttributeEvaluator grammar: self vwGrammar actions: 
 {
+(('metaproductions' -> 2) 
+	-> [ :nodes | Array streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes third ]]).
 (('metaproduction rule' -> 1) 
 	-> [ :nodes | nodes fifth collect: [ :each | AWMetaProductionRule head: nodes first body: each ]]).
 (('hypernotion alternatives' -> 1) -> [ :node | Array with: node ]).
