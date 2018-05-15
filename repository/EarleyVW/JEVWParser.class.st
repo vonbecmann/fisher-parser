@@ -15,6 +15,13 @@ Class {
 JEVWParser class >> vwEvaluator [
 	^ ESSingleSynthesizedAttributeEvaluator grammar: self vwGrammar actions: 
 {
+(('metaproduction rule' -> 1) 
+	-> [ :nodes | nodes fifth collect: [ :each | AWMetaProductionRule head: nodes first body: each ]]).
+(('hypernotion alternatives' -> 1) -> [ :node | Array with: node ]).
+(('hypernotion alternatives' -> 2) 
+	-> [ :nodes | Array streamContents: [:s | s nextPutAll: nodes first; nextPut: nodes fourth ]]).
+(('hypernotion option' -> 1) -> [ :node | node ]).
+(('hypernotion option' -> 2) -> [ AWHypernotion new ]).
 (('hypernotion' -> 1) -> [ :nodes | AWHypernotion withAll: nodes ]).
 (('protonotion then metanotion' -> 1) -> [ :node | Array with: node ]).
 (('protonotion then metanotion' -> 2)
@@ -34,6 +41,10 @@ JEVWParser class >> vwEvaluator [
 (('small syntactic mark plus' -> 2) 
 	-> [ :nodes | 
 			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ] ]).
+(('layout' -> 1) -> [ nil ]).
+(('layout' -> 2) -> [ nil ]).
+(('separator plus' -> 1) -> [ nil ]).
+(('separator plus' -> 2) -> [ nil ]).
 (('small syntactic mark symbol' -> 1) -> [ :node | String with: node ]).
 (('large syntactic mark symbol' -> 1) -> [ :node | String with: node ]). }
 ]

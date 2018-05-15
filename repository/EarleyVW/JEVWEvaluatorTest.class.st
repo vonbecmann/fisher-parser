@@ -64,6 +64,31 @@ JEVWEvaluatorTest >> testEvaluatesHypernotion04 [
 					(AWProtonotion with: ')')})
 ]
 
+{ #category : #'tests - metaproduction rule' }
+JEVWEvaluatorTest >> testEvaluatesMetaProductionRule [
+	self
+		assertThatEvaluates: 'EMPTY:: .'
+		startingAt: 'metaproduction rule'
+		equals: {(AWMetaProductionRule head: (AWMetanotion named: 'EMPTY'))}
+]
+
+{ #category : #'tests - metaproduction rule' }
+JEVWEvaluatorTest >> testEvaluatesMetaProductionRule02 [
+	self
+		assertThatEvaluates: 'LETTER:: a; b; c.'
+		startingAt: 'metaproduction rule'
+		equals:
+			{(AWMetaProductionRule
+				head: (AWMetanotion named: 'LETTER')
+				body: (AWHypernotion with: (AWProtonotion with: 'a'))).
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'LETTER')
+				body: (AWHypernotion with: (AWProtonotion with: 'b'))).
+			(AWMetaProductionRule
+				head: (AWMetanotion named: 'LETTER')
+				body: (AWHypernotion with: (AWProtonotion with: 'c')))}
+]
+
 { #category : #'tests - metanotion' }
 JEVWEvaluatorTest >> testEvaluatesMetanotion [
 	self

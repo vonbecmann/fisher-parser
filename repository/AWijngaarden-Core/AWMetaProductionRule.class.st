@@ -22,12 +22,44 @@ Class {
 
 { #category : #'instance creation' }
 AWMetaProductionRule class >> head: aMetanotion [
-	^ self basicNew initializeHead: aMetanotion body: (AWHypernotion new)
+	^ self basicNew
+		initializeHead: aMetanotion body: AWHypernotion new;
+		yourself
 ]
 
 { #category : #'instance creation' }
 AWMetaProductionRule class >> head: aMetanotion body: aHypernotion [
-	^ self basicNew initializeHead: aMetanotion body: aHypernotion
+	^ self basicNew
+		initializeHead: aMetanotion body: aHypernotion;
+		yourself
+]
+
+{ #category : #comparing }
+AWMetaProductionRule >> = anObject [
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class == anObject class
+		ifFalse: [ ^ false ].
+	head = anObject head
+		ifFalse: [ ^ false ].
+	body = anObject body
+		ifFalse: [ ^ false ].
+	^ true
+]
+
+{ #category : #accessing }
+AWMetaProductionRule >> body [
+	^ body
+]
+
+{ #category : #comparing }
+AWMetaProductionRule >> hash [
+	^ ((self class hash + head hash) hashMultiply + body hash) hashMultiply
+]
+
+{ #category : #accessing }
+AWMetaProductionRule >> head [
+	^ head
 ]
 
 { #category : #initialization }
