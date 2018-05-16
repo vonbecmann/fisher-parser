@@ -36,6 +36,57 @@ JEVWEvaluatorTest >> testEvaluatesHyperRule02 [
 		equals: {(AWHyperRule head: (AWHypernotion with: (AWProtonotion with: 'empty')))}
 ]
 
+{ #category : #'tests - hyper rule' }
+JEVWEvaluatorTest >> testEvaluatesHyperRule03 [
+	self
+		assertThatEvaluates: 'NOTION sequence: NOTION; NOTION, NOTION sequence.'
+		startingAt: 'hyper rule'
+		equals:
+			{(AWHyperRule
+				head:
+					(AWHypernotion
+						withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'sequence')})
+				body: {(AWHypernotion with: (AWMetanotion named: 'NOTION'))}).
+			(AWHyperRule
+				head:
+					(AWHypernotion
+						withAll: {(AWMetanotion named: 'NOTION').(AWProtonotion with: 'sequence')})
+				body:
+					{(AWHypernotion with: (AWMetanotion named: 'NOTION')).
+					(AWHypernotion
+						withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'sequence')})})}
+]
+
+{ #category : #'tests - hyper rules' }
+JEVWEvaluatorTest >> testEvaluatesHyperRules [
+	self
+		assertThatEvaluates:
+'program:	 			TALLY as, TALLY bs, TALLY cs.
+i TALLY LETTER s: 	i LETTER s, TALLY LETTER s.
+i LETTER s: 			LETTER symbol.'	
+		startingAt: 'hyper rules'
+		equals: {
+(AWHyperRule 
+	head: (AWHypernotion with: (AWProtonotion with: 'program'))
+	body: 	{(AWHypernotion withAll: {(AWMetanotion named: 'TALLY').(AWProtonotion with: 'as')}).
+			(AWHypernotion withAll: {(AWMetanotion named: 'TALLY').(AWProtonotion with: 'bs')}).
+			(AWHypernotion withAll: {(AWMetanotion named: 'TALLY').(AWProtonotion with: 'cs')})}).
+(AWHyperRule 
+	head: 
+		(AWHypernotion 
+			withAll: {(AWProtonotion with: 'i').(AWMetanotion named: 'TALLY').
+						(AWMetanotion named: 'LETTER').(AWProtonotion with: 's')})
+	body:{(AWHypernotion 
+				withAll: {(AWProtonotion with: 'i').(AWMetanotion named: 'LETTER').(AWProtonotion with: 's')}).
+			(AWHypernotion 
+				withAll: {(AWMetanotion named: 'TALLY').(AWMetanotion named: 'LETTER').(AWProtonotion with: 's')})}).
+(AWHyperRule 
+	head: 
+		(AWHypernotion 
+			withAll: {(AWProtonotion with: 'i').(AWMetanotion named: 'LETTER').(AWProtonotion with: 's')})
+	body:{(AWHypernotion withAll: {(AWMetanotion named: 'LETTER').(AWProtonotion with: 'symbol')})})}
+]
+
 { #category : #'tests - hypernotion' }
 JEVWEvaluatorTest >> testEvaluatesHypernotion [
 	self
