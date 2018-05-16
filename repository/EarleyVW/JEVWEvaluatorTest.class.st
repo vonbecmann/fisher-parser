@@ -8,6 +8,13 @@ Class {
 }
 
 { #category : #asserting }
+JEVWEvaluatorTest >> assertThatEvaluates: aString equals: expected [
+	self 
+		assert: (evaluator evaluate: aString) 
+		equals: expected
+]
+
+{ #category : #asserting }
 JEVWEvaluatorTest >> assertThatEvaluates: aString startingAt: aNonterminalNamed equals: expected [
 	self 
 		assert: (evaluator evaluate: aString startingAt: aNonterminalNamed) 
@@ -17,6 +24,53 @@ JEVWEvaluatorTest >> assertThatEvaluates: aString startingAt: aNonterminalNamed 
 { #category : #initialization }
 JEVWEvaluatorTest >> setUp [
 	evaluator := JEVWParser vwEvaluator.
+	
+]
+
+{ #category : #tests }
+JEVWEvaluatorTest >> testEvaluates [
+	self
+		assertThatEvaluates:
+'ALPHA:: 		a; b; c; d; e.
+
+s:  		ALPHA.
+ALPHA: 	letter ALPHA symbol;
+			ALPHA, letter ALPHA symbol.'
+		equals: {
+{(AWMetaProductionRule
+	head: (AWMetanotion named: 'ALPHA')
+	body: (AWHypernotion with: (AWProtonotion with: 'a'))).
+ (AWMetaProductionRule
+	head: (AWMetanotion named: 'ALPHA')
+	body: (AWHypernotion with: (AWProtonotion with: 'b'))).
+ (AWMetaProductionRule
+	head: (AWMetanotion named: 'ALPHA')
+	body: (AWHypernotion with: (AWProtonotion with: 'c'))).
+ (AWMetaProductionRule
+	head: (AWMetanotion named: 'ALPHA')
+	body: (AWHypernotion with: (AWProtonotion with: 'd'))).
+ (AWMetaProductionRule
+	head: (AWMetanotion named: 'ALPHA')
+	body: (AWHypernotion with: (AWProtonotion with: 'e')))}.
+{ 
+(AWHyperRule 
+	head: (AWHypernotion with: (AWProtonotion with: 's'))
+	body: 	{(AWHypernotion with: (AWMetanotion named: 'ALPHA'))}).
+(AWHyperRule 
+	head: (AWHypernotion with: (AWMetanotion named: 'ALPHA'))
+	body:{
+	(AWHypernotion 
+		withAll: {(AWProtonotion with: 'letter').
+		(AWMetanotion named: 'ALPHA').
+		(AWProtonotion with: 'symbol')})}).
+(AWHyperRule 
+	head: (AWHypernotion with: (AWMetanotion named: 'ALPHA'))
+	body:{(AWHypernotion with: (AWMetanotion named: 'ALPHA')).
+			(AWHypernotion 
+				withAll: {(AWProtonotion with: 'letter').
+							(AWMetanotion named: 'ALPHA').
+							(AWProtonotion with: 'symbol')})
+	})}}.
 	
 ]
 
