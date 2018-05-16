@@ -20,6 +20,22 @@ JEVWEvaluatorTest >> setUp [
 	
 ]
 
+{ #category : #'tests - hyper rule' }
+JEVWEvaluatorTest >> testEvaluatesHyperRule [
+	self
+		assertThatEvaluates: 'empty: .'
+		startingAt: 'hyper rule'
+		equals: {(AWHyperRule head: (AWHypernotion with: (AWProtonotion with: 'empty')))}
+]
+
+{ #category : #'tests - hyper rule' }
+JEVWEvaluatorTest >> testEvaluatesHyperRule02 [
+	self
+		assertThatEvaluates: 'empty:.'
+		startingAt: 'hyper rule'
+		equals: {(AWHyperRule head: (AWHypernotion with: (AWProtonotion with: 'empty')))}
+]
+
 { #category : #'tests - hypernotion' }
 JEVWEvaluatorTest >> testEvaluatesHypernotion [
 	self

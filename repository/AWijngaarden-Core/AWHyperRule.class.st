@@ -23,8 +23,53 @@ Class {
 }
 
 { #category : #'instance creation' }
+AWHyperRule class >> head: aHypernotion [
+	^ self basicNew
+		initializeHead: aHypernotion body: {};
+		yourself
+]
+
+{ #category : #'instance creation' }
 AWHyperRule class >> head: aHypernotion body: aHypernotionCollection [
-	^ self basicNew initializeHead: aHypernotion body: aHypernotionCollection
+	^ self basicNew
+		initializeHead: aHypernotion body: aHypernotionCollection;
+		yourself
+]
+
+{ #category : #comparing }
+AWHyperRule >> = anObject [
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class  == anObject class
+		ifFalse: [ ^ false ].
+	head = anObject head
+		ifFalse: [ ^ false ].
+	body size == anObject body size
+		ifFalse: [ ^ false ].
+	body
+		with: anObject body
+		do: [ :first :second | 
+			first = second
+				ifFalse: [ ^ false ] ].
+	^ true
+]
+
+{ #category : #accessing }
+AWHyperRule >> body [
+	^ body
+]
+
+{ #category : #comparing }
+AWHyperRule >> hash [
+	| hash |
+	hash := (self class hash + head hash) hashMultiply.
+	body do: [ :each | hash := (hash + each hash) hashMultiply ].
+	^ hash
+]
+
+{ #category : #accessing }
+AWHyperRule >> head [
+	^ head
 ]
 
 { #category : #initialization }

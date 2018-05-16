@@ -24,6 +24,11 @@ JEVWParser class >> vwEvaluator [
 	-> [ :nodes | Array streamContents: [:s | s nextPutAll: nodes first; nextPut: nodes fourth ]]).
 (('hypernotion option' -> 1) -> [ :node | node ]).
 (('hypernotion option' -> 2) -> [ AWHypernotion new ]).
+(('hyper rule' -> 1) 
+	-> [ :nodes | nodes fourth collect: [ :each | AWHyperRule head: nodes first body: each ]]).
+(('hyperalternatives' -> 1) -> [ :node | Array with: node ]).
+(('hyperalternative option' -> 1) -> [ :node | node ]).
+(('hyperalternative option' -> 2) -> [ Array empty ]).
 (('hypernotion' -> 1) -> [ :nodes | AWHypernotion withAll: nodes ]).
 (('protonotion then metanotion' -> 1) -> [ :node | Array with: node ]).
 (('protonotion then metanotion' -> 2)
