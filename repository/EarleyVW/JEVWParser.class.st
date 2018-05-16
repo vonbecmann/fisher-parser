@@ -8,8 +8,24 @@ see vwGrammar method on class side.
 Class {
 	#name : #JEVWParser,
 	#superclass : #Object,
+	#instVars : [
+		'evaluator'
+	],
+	#classInstVars : [
+		'instance'
+	],
 	#category : #'EarleyVW-Core'
 }
+
+{ #category : #accessing }
+JEVWParser class >> instance [
+	^ instance ifNil: [ instance := self new ]
+]
+
+{ #category : #accessing }
+JEVWParser class >> reset [
+	instance := nil
+]
 
 { #category : #grammar }
 JEVWParser class >> vwEvaluator [
@@ -136,4 +152,15 @@ separator plus:
 			('comma symbol' -> (NCTerminal character: $,)).
 			('dot symbol' -> (NCTerminal character: $.)).
 			('separator symbol' -> (NCTerminal charSet: Character separators)).}
+]
+
+{ #category : #initialization }
+JEVWParser >> initialize [
+	super initialize.
+	evaluator := self class vwEvaluator
+]
+
+{ #category : #parsing }
+JEVWParser >> parse: aString [
+	^ evaluator evaluate: aString
 ]
