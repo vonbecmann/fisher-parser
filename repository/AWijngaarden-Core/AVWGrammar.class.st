@@ -1,5 +1,9 @@
 "
-vw Grammar.
+Adriaan ""Aad"" van Wijngaarden (2 November 1916 – 7 February 1987).
+https://en.wikipedia.org/wiki/Adriaan_van_Wijngaarden
+
+a Van Wijngaarden grammar (also vW-grammar or W-grammar) is a two-level grammar which provides a technique to define potentially infinite context-free grammars in a finite number of rules. 
+https://en.wikipedia.org/wiki/Van_Wijngaarden_grammar
 
 "
 Class {
