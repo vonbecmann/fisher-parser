@@ -15,3 +15,17 @@ AWMetanotionTest >> testAsString [
 AWMetanotionTest >> testIsTerminal [
 	self deny: (AWMetanotion named: 'TALLY') isTerminal
 ]
+
+{ #category : #tests }
+AWMetanotionTest >> testSymbolAsNotion [
+	self 
+		assert: #'TALLY' asNotion
+		equals: (AWMetanotion named: 'TALLY')
+]
+
+{ #category : #tests }
+AWMetanotionTest >> testSymbolAsNotion02 [
+	self 
+		assert: #TALLY asNotion
+		equals: (AWMetanotion named: 'TALLY')
+]

@@ -22,3 +22,10 @@ AWProtonotionTest >> testAsString01 [
 AWProtonotionTest >> testIsTerminal [
 	self deny: (AWProtonotion with: 'long') isTerminal
 ]
+
+{ #category : #tests }
+AWProtonotionTest >> testStringAsNotion [
+	self 
+		assert: 'long' asNotion 
+		equals: (AWProtonotion with: 'long')
+]
