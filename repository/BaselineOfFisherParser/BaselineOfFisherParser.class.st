@@ -18,13 +18,16 @@ BaselineOfFisherParser >> baseline: spec [
 						loads: #('Parser') ].
 			spec
 				package: 'AWijngaarden-Core';
+				package: 'AWijngaarden-Tests' with: [ spec requires: #('AWijngaarden-Core') ];
 				package: 'EarleyVW' with: [ spec requires: #('EarleyParser' 'AWijngaarden-Core') ];
-				package: 'FisherParser-UI';
-				package: 'AWijngaarden-Tests' with: [ spec requires: #('AWijngaarden-Core') ].
+				package: 'FisherParser-Core';
+				package: 'FisherParser-Tests' 
+					with: [ spec requires: #('AWijngaarden-Core' 'EarleyVW' 'FisherParser-Core') ];
+				package: 'FisherParser-UI'.
 			spec
 				group: 'default' with: #('Core' 'Tests' 'UI');
-				group: 'Core' with: #('AWijngaarden-Core' 'EarleyVW');
-				group: 'Tests' with: #('AWijngaarden-Tests');
+				group: 'Core' with: #('AWijngaarden-Core' 'EarleyVW' 'FisherParser-Core');
+				group: 'Tests' with: #('AWijngaarden-Tests' 'FisherParser-Tests');
 				group: 'UI' with: #('FisherParser-UI');
 				yourself ]
 ]
