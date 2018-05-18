@@ -5,6 +5,17 @@ Class {
 }
 
 { #category : #tests }
+AWGrammarTest >> testRepresentationsIsEmpty [
+	self 
+		should: 
+			[ AVWGrammar 
+				metarules: #(#(EMPTY #())) 
+				hyperrules: #(#(#('program') #())) 
+				representations: #() ] 
+		raise: Error
+]
+
+{ #category : #tests }
 AWGrammarTest >> testanbncn [
 	"
 TALLY::		  i TALLETY.

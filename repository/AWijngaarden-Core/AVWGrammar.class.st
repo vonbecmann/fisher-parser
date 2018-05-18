@@ -21,8 +21,9 @@ Class {
 { #category : #'instance creation' }
 AVWGrammar class >> metarules: metaruleArray hyperrules: hyperrulesArray representations: terminalNotionToRepresentationList [
 	| metanotions terminals metarules hyperrules |
-	metanotions := Set new.
-	metaruleArray do: [ :each | metanotions add: (AWMetanotion named: each first) ].
+	self
+		assert: terminalNotionToRepresentationList isNotEmpty
+		description: 'The collection of rules cannot be empty.'.
 	terminals := Set new.
 	terminalNotionToRepresentationList do: [ :assoc | terminals add: assoc value ].
 	metarules := OrderedCollection new.
@@ -32,6 +33,8 @@ AVWGrammar class >> metarules: metaruleArray hyperrules: hyperrulesArray represe
 				head: (AWMetanotion named: each first)
 				body: (AWHypernotion withAll: (each second collect: [ :n | n asNotion ])) ]
 		thenDo: [ :metarule | metarules add: metarule ].
+	metanotions := Set new.
+	metarules do: [ :metarule | metanotions add: metarule head ].
 	hyperrules := OrderedCollection new.
 	hyperrulesArray
 		collect: [ :each | 
