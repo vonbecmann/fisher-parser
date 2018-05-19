@@ -59,10 +59,11 @@ AVWGrammar class >> metanotions: metanotionSet protonotions: protonotionSet hype
 { #category : #'inspector extensions' }
 AVWGrammar >> gtInspectorHyperRulesIn: composite [
 	<gtInspectorPresentationOrder: 1>
-	^ composite list
+	^ composite table
 		title: [ 'Hyper Rules' ];
 		display: [ hyperRules ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		column: 'Hyper Rule'
+			evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
 ]
@@ -70,21 +71,10 @@ AVWGrammar >> gtInspectorHyperRulesIn: composite [
 { #category : #'inspector extensions' }
 AVWGrammar >> gtInspectorMetaRulesIn: composite [
 	<gtInspectorPresentationOrder: 0>
-	^ composite list
+	^ composite table
 		title: [ 'Meta Rules' ];
 		display: [ metaRules ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		showOnly: 50;
-		yourself
-]
-
-{ #category : #'inspector extensions' }
-AVWGrammar >> gtInspectorMetanotionsIn: composite [
-	<gtInspectorPresentationOrder: 2>
-	^ composite list
-		title: [ 'Metanotions' ];
-		display: [ metanotions ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		column: 'Meta Rule' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
 ]
