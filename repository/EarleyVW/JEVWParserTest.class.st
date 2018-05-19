@@ -22,8 +22,8 @@ i LETTER s:	  LETTER symbol.'
 			{(#('a' 'symbol') -> (NCTerminal character: $a)).
 			(#('b' 'symbol') -> (NCTerminal character: $b)).
 			(#('c' 'symbol') -> (NCTerminal character: $c))}.
-	self assert: anbncn metarulesSize equals: 7.
+	self assert: anbncn metaRulesSize equals: 7.
 	self assert: anbncn metanotionsSize equals: 4.
-	self assert: anbncn hyperrulesSize equals: 6.
+	self assert: anbncn hyperRulesSize equals: 6.
 	self assert: anbncn terminalsSize equals: 3
 ]

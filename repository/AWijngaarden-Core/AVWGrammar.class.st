@@ -11,48 +11,44 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'metanotions',
-		'metarules',
-		'hyperrules',
-		'terminals'
+		'terminals',
+		'startSymbol',
+		'hyperRules',
+		'metaRules'
 	],
 	#category : #'AWijngaarden-Core'
 }
 
 { #category : #'instance creation' }
-AVWGrammar class >> metarules: metaruleArray hyperrules: hyperrulesArray representations: terminalNotionToRepresentationList [
-	| metanotions terminals metarules hyperrules |
-	self
-		assert: terminalNotionToRepresentationList isNotEmpty
-		description: 'The collection of rules cannot be empty.'.
-	terminals := Set new.
-	terminalNotionToRepresentationList do: [ :assoc | terminals add: assoc value ].
-	metarules := OrderedCollection new.
-	metaruleArray
-		collect: [ :each | 
-			AWMetaProductionRule
-				head: (AWMetanotion named: each first)
-				body: (AWHypernotion withAll: (each second collect: [ :n | n asNotion ])) ]
-		thenDo: [ :metarule | metarules add: metarule ].
-	metanotions := Set new.
-	metarules do: [ :metarule | metanotions add: metarule head ].
-	hyperrules := OrderedCollection new.
-	hyperrulesArray
-		collect: [ :each | 
-			AWHyperRule
-				head: (AWHypernotion withAll: (each first collect: [ :n | n asNotion ]))
-				body: (each second collect: [ :hn | AWHypernotion withAll: (hn collect: [ :n | n asNotion ]) ]) ]
-		thenDo: [ :hrule | hyperrules add: hrule ].
-	terminalNotionToRepresentationList
-		collect: [ :assoc | 
-			AWHyperRule
-				head: (AWHypernotion withAll: (assoc key collect: [ :n | n asNotion ]))
-				body: {(AWHypernotion with: assoc value)} ]
-		thenDo: [ :hrule | hyperrules add: hrule ].
+AVWGrammar class >> metaRules: metaRuleArray hyperRules: hyperRuleArray representations: terminalNotionToRepresentationList [
+	| builder |
+	builder := AVWGrammarBuilder new.
+	builder
+		metaRules:
+			(metaRuleArray
+				collect: [ :each | 
+					AWMetaProductionRule
+						head: (AWMetanotion named: each first)
+						body: (AWHypernotion withAll: (each second collect: [ :n | n asNotion ])) ]).
+	builder
+		hyperRules:
+			(hyperRuleArray
+				collect: [ :each | 
+					AWHyperRule
+						head: (AWHypernotion withAll: (each first collect: [ :n | n asNotion ]))
+						body: (each second collect: [ :hn | AWHypernotion withAll: (hn collect: [ :n | n asNotion ]) ]) ]).
+	builder representations: terminalNotionToRepresentationList.
+	^ builder build
+]
+
+{ #category : #private }
+AVWGrammar class >> metanotions: aMetanotionSet metaRules: aMetaRuleCollection hyperRules: aHyperRuleCollection terminals: terminalSet startAt: aHypernotion [
 	^ self basicNew
-		initializeMetanotions: metanotions 
-		metarules: metarules 
-		hyperrules: hyperrules
-		terminals: terminals;
+		initializeMetanotions: aMetanotionSet
+			metaRules: aMetaRuleCollection
+			hyperRules: aHyperRuleCollection
+			terminals: terminalSet
+			startSymbol: aHypernotion; 
 		yourself
 ]
 
@@ -61,7 +57,7 @@ AVWGrammar >> gtInspectorHyperRulesIn: composite [
 	<gtInspectorPresentationOrder: 1>
 	^ composite list
 		title: [ 'Hyper Rules' ];
-		display: [ hyperrules ];
+		display: [ hyperRules ];
 		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
@@ -72,7 +68,7 @@ AVWGrammar >> gtInspectorMetaRulesIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ composite list
 		title: [ 'Meta Rules' ];
-		display: [ metarules ];
+		display: [ metaRules ];
 		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
@@ -90,17 +86,23 @@ AVWGrammar >> gtInspectorMetanotionsIn: composite [
 ]
 
 { #category : #accessing }
-AVWGrammar >> hyperrulesSize [
-	^ hyperrules size
+AVWGrammar >> hyperRulesSize [
+	^ hyperRules size
 ]
 
 { #category : #initialization }
-AVWGrammar >> initializeMetanotions: metanotionSet metarules: metaruleCollection hyperrules: hyperruleCollection terminals: terminalSet [
+AVWGrammar >> initializeMetanotions: metanotionSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection terminals: terminalSet startSymbol: aHypernotion [
 	self initialize.
 	metanotions := metanotionSet.
-	metarules := metaruleCollection.
-	hyperrules := hyperruleCollection.
-	terminals := terminalSet
+	metaRules := metaRuleCollection.
+	hyperRules := hyperRuleCollection.
+	terminals := terminalSet.
+	startSymbol := aHypernotion 
+]
+
+{ #category : #accessing }
+AVWGrammar >> metaRulesSize [
+	^ metaRules size
 ]
 
 { #category : #accessing }
@@ -109,8 +111,8 @@ AVWGrammar >> metanotionsSize [
 ]
 
 { #category : #accessing }
-AVWGrammar >> metarulesSize [
-	^ metarules size
+AVWGrammar >> startSymbol [
+	^ startSymbol
 ]
 
 { #category : #accessing }
