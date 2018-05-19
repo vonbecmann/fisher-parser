@@ -48,6 +48,11 @@ AWHypernotion >> = anObject [
 	^ true
 ]
 
+{ #category : #accessing }
+AWHypernotion >> first [
+	^ notions first
+]
+
 { #category : #'inspector extensions' }
 AWHypernotion >> gtInspectorNotionsIn: composite [
 	<gtInspectorPresentationOrder: 0>
@@ -91,6 +96,11 @@ AWHypernotion >> isTerminal [
 ]
 
 { #category : #accessing }
+AWHypernotion >> metanotions [
+	^ notions select: [ :each | each isMetanotion ]
+]
+
+{ #category : #accessing }
 AWHypernotion >> notions [
 	^ notions
 ]
@@ -100,4 +110,9 @@ AWHypernotion >> printOn: aStream [
 	notions 
 		do: [ :each | aStream print: each ] 
 		separatedBy: [ aStream space ]
+]
+
+{ #category : #accessing }
+AWHypernotion >> protonotions [
+	^ notions select: [ :each | each isProtonotion ]
 ]

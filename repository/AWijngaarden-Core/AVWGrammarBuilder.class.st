@@ -22,21 +22,32 @@ Class {
 
 { #category : #building }
 AVWGrammarBuilder >> build [
-	| metanotions terminals allHyperRules |
+	| metanotions protonotions terminals allHyperRules |
 	metanotions := Set new.
-	metaRules do: [ :metaRule | metanotions add: metaRule head ].
+	protonotions := Set new.
+	metaRules
+		do: [ :metaRule | 
+			metanotions add: metaRule head.
+			metanotions addAll: metaRule body metanotions.
+			protonotions addAll: metaRule body protonotions ].
+	hyperRules
+		do: [ :hyperRule | 
+			protonotions addAll: hyperRule head protonotions.
+			hyperRule body do: [ :each | protonotions addAll: each protonotions ] ].
 	terminals := Set new.
 	representations
 		do: [ :hyperRule | 
 			self assert: hyperRule isRepresentation.
-			terminals add: hyperRule body first ].
+			protonotions addAll: hyperRule head protonotions.
+			terminals add: hyperRule body first first ].
 	allHyperRules := OrderedCollection withAll: hyperRules.
 	allHyperRules addAll: representations.
 	^ AVWGrammar
 		metanotions: metanotions
+		protonotions: protonotions
+		terminals: terminals
 		metaRules: metaRules
 		hyperRules: allHyperRules
-		terminals: terminals
 		startAt: hyperRules first head
 ]
 

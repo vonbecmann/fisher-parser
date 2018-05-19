@@ -11,10 +11,11 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'metanotions',
+		'protonotions',
 		'terminals',
-		'startSymbol',
+		'metaRules',
 		'hyperRules',
-		'metaRules'
+		'startNotion'
 	],
 	#category : #'AWijngaarden-Core'
 }
@@ -42,13 +43,14 @@ AVWGrammar class >> metaRules: metaRuleArray hyperRules: hyperRuleArray represen
 ]
 
 { #category : #private }
-AVWGrammar class >> metanotions: aMetanotionSet metaRules: aMetaRuleCollection hyperRules: aHyperRuleCollection terminals: terminalSet startAt: aHypernotion [
+AVWGrammar class >> metanotions: metanotionSet protonotions: protonotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startAt: aHypernotion [
 	^ self basicNew
-		initializeMetanotions: aMetanotionSet
-			metaRules: aMetaRuleCollection
-			hyperRules: aHyperRuleCollection
+		initializeMetanotions: metanotionSet
+			protonotions: protonotionSet
 			terminals: terminalSet
-			startSymbol: aHypernotion; 
+			metaRules: metaRuleCollection
+			hyperRules: hyperRuleCollection
+			startNotion: aHypernotion;
 		yourself
 ]
 
@@ -91,13 +93,14 @@ AVWGrammar >> hyperRulesSize [
 ]
 
 { #category : #initialization }
-AVWGrammar >> initializeMetanotions: metanotionSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection terminals: terminalSet startSymbol: aHypernotion [
+AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startNotion: aHypernotion [
 	self initialize.
 	metanotions := metanotionSet.
+	protonotions := protonotionSet.
+	terminals := terminalSet.
 	metaRules := metaRuleCollection.
 	hyperRules := hyperRuleCollection.
-	terminals := terminalSet.
-	startSymbol := aHypernotion 
+	startNotion := aHypernotion
 ]
 
 { #category : #accessing }
@@ -106,13 +109,33 @@ AVWGrammar >> metaRulesSize [
 ]
 
 { #category : #accessing }
+AVWGrammar >> metanotions [
+	^ metanotions 
+]
+
+{ #category : #accessing }
 AVWGrammar >> metanotionsSize [
 	^ metanotions size
 ]
 
 { #category : #accessing }
-AVWGrammar >> startSymbol [
-	^ startSymbol
+AVWGrammar >> protonotionSize [
+	^ protonotions size
+]
+
+{ #category : #accessing }
+AVWGrammar >> protonotions [
+	^ protonotions
+]
+
+{ #category : #accessing }
+AVWGrammar >> startNotion [
+	^ startNotion
+]
+
+{ #category : #accessing }
+AVWGrammar >> terminals [
+	^ terminals 
 ]
 
 { #category : #accessing }
