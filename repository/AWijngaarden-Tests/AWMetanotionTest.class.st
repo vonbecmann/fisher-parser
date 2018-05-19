@@ -12,6 +12,16 @@ AWMetanotionTest >> testAsString [
 ]
 
 { #category : #tests }
+AWMetanotionTest >> testIsMetanotion [
+	self assert: (AWMetanotion named: 'TALLY') isMetanotion
+]
+
+{ #category : #tests }
+AWMetanotionTest >> testIsProtonotion [
+	self deny: (AWMetanotion named: 'TALLY') isProtonotion
+]
+
+{ #category : #tests }
 AWMetanotionTest >> testIsTerminal [
 	self deny: (AWMetanotion named: 'TALLY') isTerminal
 ]

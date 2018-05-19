@@ -41,6 +41,16 @@ AWProtonotion >> initializeContents: aString [
 ]
 
 { #category : #testing }
+AWProtonotion >> isMetanotion [
+	^ false
+]
+
+{ #category : #testing }
+AWProtonotion >> isProtonotion [
+	^ true
+]
+
+{ #category : #testing }
 AWProtonotion >> isTerminal [
 	^ false
 ]

@@ -79,6 +79,13 @@ AWHypernotion >> isEmpty [
 ]
 
 { #category : #testing }
+AWHypernotion >> isProtonotion [
+	"its metanotion free"
+
+	^ notions noneSatisfy: [ :notion | notion isMetanotion ]
+]
+
+{ #category : #testing }
 AWHypernotion >> isTerminal [
 	^ notions size = 1 and: [ notions first isTerminal ]
 ]

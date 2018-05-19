@@ -65,6 +65,21 @@ AWHypernotionTest >> testIsEmpty [
 ]
 
 { #category : #tests }
+AWHypernotionTest >> testIsProtonotion [
+	self assert: (AWHypernotion with: (AWProtonotion with: 'a')) isProtonotion
+]
+
+{ #category : #tests }
+AWHypernotionTest >> testIsProtonotion02 [
+	self deny: (AWHypernotion with: (AWMetanotion named: 'ALPHA')) isProtonotion
+]
+
+{ #category : #tests }
+AWHypernotionTest >> testIsProtonotion03 [
+	self assert: (AWHypernotion with: (NCTerminal character: $a)) isProtonotion
+]
+
+{ #category : #tests }
 AWHypernotionTest >> testIsTerminal [
 	self deny: AWHypernotion new isTerminal
 ]

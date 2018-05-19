@@ -37,6 +37,16 @@ AWMetanotion >> initializeName: aString [
 ]
 
 { #category : #testing }
+AWMetanotion >> isMetanotion [
+	^ true
+]
+
+{ #category : #testing }
+AWMetanotion >> isProtonotion [
+	^ false
+]
+
+{ #category : #testing }
 AWMetanotion >> isTerminal [
 	^ false
 ]

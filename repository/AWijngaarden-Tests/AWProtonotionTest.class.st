@@ -19,6 +19,16 @@ AWProtonotionTest >> testAsString01 [
 ]
 
 { #category : #tests }
+AWProtonotionTest >> testIsMetanotion [
+	self deny: (AWProtonotion with: 'long') isMetanotion
+]
+
+{ #category : #tests }
+AWProtonotionTest >> testIsProtonotion [
+	self assert: (AWProtonotion with: 'long') isProtonotion
+]
+
+{ #category : #tests }
 AWProtonotionTest >> testIsTerminal [
 	self deny: (AWProtonotion with: 'long') isTerminal
 ]
