@@ -12,6 +12,7 @@ Class {
 	#instVars : [
 		'metanotions',
 		'protonotions',
+		'hypernotions',
 		'terminals',
 		'metaRules',
 		'hyperRules',
@@ -43,10 +44,11 @@ AVWGrammar class >> metaRules: metaRuleArray hyperRules: hyperRuleArray represen
 ]
 
 { #category : #private }
-AVWGrammar class >> metanotions: metanotionSet protonotions: protonotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startAt: aHypernotion [
+AVWGrammar class >> metanotions: metanotionSet protonotions: protonotionSet hypernotions: hypernotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startAt: aHypernotion [
 	^ self basicNew
 		initializeMetanotions: metanotionSet
 			protonotions: protonotionSet
+			hypernotions: hypernotionSet 
 			terminals: terminalSet
 			metaRules: metaRuleCollection
 			hyperRules: hyperRuleCollection
@@ -92,11 +94,22 @@ AVWGrammar >> hyperRulesSize [
 	^ hyperRules size
 ]
 
+{ #category : #accessing }
+AVWGrammar >> hypernotions [
+	^ hypernotions
+]
+
+{ #category : #accessing }
+AVWGrammar >> hypernotionsSize [
+	^ hypernotions size
+]
+
 { #category : #initialization }
-AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startNotion: aHypernotion [
+AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet hypernotions: hypernotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startNotion: aHypernotion [
 	self initialize.
 	metanotions := metanotionSet.
 	protonotions := protonotionSet.
+	hypernotions := hypernotionSet.
 	terminals := terminalSet.
 	metaRules := metaRuleCollection.
 	hyperRules := hyperRuleCollection.

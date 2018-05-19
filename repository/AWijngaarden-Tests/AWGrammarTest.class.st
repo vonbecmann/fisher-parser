@@ -46,6 +46,20 @@ AWGrammarTest >> testanbncn [
 		hasSameElements: 
 			(#('i' 'a' 'b' 'c' 'program' 'as' 'bs' 'cs' 's' 'symbol')
 				collect: [ :each | each asNotion ]).
+	self assert: anbncn hypernotionsSize equals: 21.
+	self 
+		assertCollection: anbncn hypernotions 
+		hasSameElements: {
+			#('i' TALLETY) asNotion.	#(TALLY) asNotion. #(EMPTY) asNotion.
+			#() asNotion. #('a') asNotion. #('b') asNotion. #('c') asNotion.
+			#('program') asNotion. 
+			#(TALLY 'as') asNotion. #(TALLY 'bs') asNotion. #(TALLY 'cs') asNotion. 
+			#('i' TALLY LETTER 's') asNotion.
+			#('i' LETTER 's') asNotion. #(TALLY LETTER 's') asNotion. 
+			#(LETTER 'symbol') asNotion.
+			#('a' 'symbol') asNotion.  (NCTerminal character: $a) asNotion.
+			#('b' 'symbol') asNotion. (NCTerminal character: $b) asNotion.
+			#('c' 'symbol') asNotion. (NCTerminal character: $c) asNotion}.
 	self assert: anbncn terminalsSize equals: 3.
 	self 
 		assertCollection: anbncn terminals 
