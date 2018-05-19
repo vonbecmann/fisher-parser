@@ -59,3 +59,12 @@ AWHyperRuleTest >> testIsRepresentation04 [
 		body: {}.
 	self deny: hyperrule isRepresentation
 ]
+
+{ #category : #tests }
+AWHyperRuleTest >> testIsRepresentation05 [
+	| hyperrule |
+	hyperrule := AWHyperRule
+		head: (AWHypernotion with: (AWMetanotion named: #LETTER))
+		body: {(AWHypernotion with: (NCTerminal character: $a))}.
+	self deny: hyperrule isRepresentation
+]

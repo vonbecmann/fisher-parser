@@ -81,7 +81,9 @@ AWHyperRule >> initializeHead: aHypernotion body: aHypernotionCollection [
 
 { #category : #testing }
 AWHyperRule >> isRepresentation [
-	^ body size = 1 and: [ body first isTerminal ]
+	"head is metanotion free and the body is a terminal"
+
+	^ head isProtonotion and: [ body size = 1 and: [ body first isTerminal ] ]
 ]
 
 { #category : #printing }
