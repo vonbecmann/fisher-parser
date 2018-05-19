@@ -7,11 +7,7 @@ Class {
 { #category : #tests }
 AWGrammarTest >> testRepresentationsIsEmpty [
 	self 
-		should: 
-			[ AVWGrammar 
-				metaRules: #(#(EMPTY #())) 
-				hyperRules: #(#(#('program') #())) 
-				representations: #() ] 
+		should: [ AVWGrammar evw: 'EMPTY:: . program: .' representations: #() ] 
 		raise: Error
 ]
 
@@ -19,18 +15,16 @@ AWGrammarTest >> testRepresentationsIsEmpty [
 AWGrammarTest >> testanbncn [
 	| anbncn |
 	anbncn := AVWGrammar
-		metaRules:
-			#(	#(TALLY #('i' TALLETY)) 
-				#(TALLETY #(TALLY)) 
-				#(TALLETY #(EMPTY)) 
-				#(EMPTY #()) 
-				#(LETTER #('a')) 
-				#(LETTER #('b')) 
-				#(LETTER #('c')))
-		hyperRules:
-			#(	#(#('program') #(#(TALLY 'as') #(TALLY 'bs') #(TALLY 'cs'))) 
-				#(#('i' TALLY LETTER 's') #(#('i' LETTER 's') #(TALLY LETTER 's'))) 
-				#(#('i' LETTER 's') #(#(LETTER 'symbol'))) ) 
+		evw: 
+'TALLY::		  i TALLETY.
+TALLETY::	  TALLY; EMPTY.
+EMPTY::		  .
+LETTER::	  a; b; c.
+
+program:	  TALLY as, TALLY bs, TALLY cs.
+
+i TALLY LETTER s: i LETTER s, TALLY LETTER s.
+i LETTER s:	  LETTER symbol.'
 		representations:
 			{	(#('a' 'symbol') -> (NCTerminal character: $a)).
 				(#('b' 'symbol') -> (NCTerminal character: $b)).

@@ -22,28 +22,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-AVWGrammar class >> metaRules: metaRuleArray hyperRules: hyperRuleArray representations: terminalNotionToRepresentationList [
-	| builder |
-	builder := AVWGrammarBuilder new.
-	builder
-		metaRules:
-			(metaRuleArray
-				collect: [ :each | 
-					AWMetaProductionRule
-						head: (AWMetanotion named: each first)
-						body: (AWHypernotion withAll: (each second collect: [ :n | n asNotion ])) ]).
-	builder
-		hyperRules:
-			(hyperRuleArray
-				collect: [ :each | 
-					AWHyperRule
-						head: (AWHypernotion withAll: (each first collect: [ :n | n asNotion ]))
-						body: (each second collect: [ :hn | AWHypernotion withAll: (hn collect: [ :n | n asNotion ]) ]) ]).
-	builder representations: terminalNotionToRepresentationList.
-	^ builder build
-]
-
-{ #category : #private }
 AVWGrammar class >> metanotions: metanotionSet protonotions: protonotionSet hypernotions: hypernotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startAt: aHypernotion [
 	^ self basicNew
 		initializeMetanotions: metanotionSet
