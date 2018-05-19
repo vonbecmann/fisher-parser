@@ -22,7 +22,7 @@ AFisherUI class >> fisherToolsOn: aBuilder [
 		withSeparatorAfter;
 		order: 1;
 		with: 
-			[ (aBuilder item: #Fisher)
+			[ (aBuilder item: #'Fisher Tools')
 				with: 
 				[ (aBuilder item: #FisherBrowser)
 						label: 'System Browser';
