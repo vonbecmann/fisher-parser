@@ -36,12 +36,12 @@ TALLETY::	  TALLY; EMPTY.
 EMPTY::		  .
 LETTER::	  a; b; c.
 
-program:	  TALLY as, TALLY bs, TALLY cs.
+an bn cn:	  TALLY as, TALLY bs, TALLY cs.
 
 i TALLY LETTER s: i LETTER s, TALLY LETTER s.
 i LETTER s:	  LETTER symbol.'
 		representations:
-			{	(#('a' 'symbol') -> (NCTerminal character: $a)).
-				(#('b' 'symbol') -> (NCTerminal character: $b)).
-				(#('c' 'symbol') -> (NCTerminal character: $c))}
+			{(#('a' 'symbol') -> (NCTerminal character: $a)).
+			(#('b' 'symbol') -> (NCTerminal character: $b)).
+			(#('c' 'symbol') -> (NCTerminal character: $c))}
 ]

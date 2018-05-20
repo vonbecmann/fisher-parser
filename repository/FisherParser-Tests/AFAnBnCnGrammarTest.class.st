@@ -22,14 +22,14 @@ AFAnBnCnGrammarTest >> testInstanceCreation [
 	self
 		assertCollection: grammar protonotions
 		hasSameElements:
-			(#('i' 'a' 'b' 'c' 'program' 'as' 'bs' 'cs' 's' 'symbol')
+			(#('i' 'a' 'b' 'c' 'as' 'bs' 'cs' 's' 'symbol' 'an' 'bn' 'cn')
 				collect: [ :each | each asNotion ]).
 	self
 		assertCollection: grammar hypernotions
 		hasSameElements:
 			{#('i' TALLETY) asNotion. #(TALLY) asNotion. #(EMPTY) asNotion.
 			#() asNotion. #('a') asNotion. #('b') asNotion. #('c') asNotion.
-			#('program') asNotion.
+			#('an' 'bn' 'cn') asNotion.
 			#(TALLY 'as') asNotion. #(TALLY 'bs') asNotion. #(TALLY 'cs') asNotion.
 			#('i' TALLY LETTER 's') asNotion.
 			#('i' LETTER 's') asNotion.
