@@ -1,7 +1,7 @@
 Class {
 	#name : #AWGrammarTest,
 	#superclass : #TestCase,
-	#category : #'AWijngaarden-Tests'
+	#category : #'EarleyVW-Tests'
 }
 
 { #category : #tests }
@@ -80,17 +80,14 @@ i LETTER s:	  LETTER symbol.'
 				(#('b' 'symbol') -> (NCTerminal character: $b)).
 				(#('c' 'symbol') -> (NCTerminal character: $c))}.
 	self assert: anbncn startNotion equals: (AWHypernotion with: 'anbncn' asNotion).
-	self assert: anbncn metanotionsSize equals: 4.
 	self 
 		assertCollection: anbncn metanotions
 		hasSameElements: (#(TALLY TALLETY EMPTY LETTER) collect: [ :each | each asNotion ]).
-	self assert: anbncn protonotionSize equals: 10.
 	self 
 		assertCollection: anbncn protonotions
 		hasSameElements: 
 			(#('i' 'a' 'b' 'c' 'anbncn' 'as' 'bs' 'cs' 's' 'symbol')
 				collect: [ :each | each asNotion ]).
-	self assert: anbncn hypernotionsSize equals: 21.
 	self 
 		assertCollection: anbncn hypernotions 
 		hasSameElements: {
@@ -104,7 +101,6 @@ i LETTER s:	  LETTER symbol.'
 			#('a' 'symbol') asNotion.  (NCTerminal character: $a) asNotion.
 			#('b' 'symbol') asNotion. (NCTerminal character: $b) asNotion.
 			#('c' 'symbol') asNotion. (NCTerminal character: $c) asNotion}.
-	self assert: anbncn terminalsSize equals: 3.
 	self 
 		assertCollection: anbncn terminals 
 		hasSameElements: {(NCTerminal character: $a). 

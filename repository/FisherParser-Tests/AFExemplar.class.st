@@ -9,7 +9,7 @@ Class {
 
 { #category : #'instance creation' }
 AFExemplar class >> a3b3c3 [
-	^ AVWGrammar
+	^ AFVWGrammar 
 		evw:
 'TALLY::  i TALLETY.
 TALLETY:: TALLY; EMPTY.
@@ -17,9 +17,9 @@ EMPTY::   .
 LETTER::  a; b; c.
 THREE::   iii.
 
-program:          THREE as, THREE bs, THREE cs, stop symbol.
-i TALLY LETTER s: i LETTER s, TALLY LETTER s.
-i LETTER s:       LETTER symbol.'
+three as three bs three cs: 	THREE as, THREE bs, THREE cs, stop symbol.
+i TALLY LETTER s: 					i LETTER s, TALLY LETTER s.
+i LETTER s:       					LETTER symbol.'
 		representations:
 			{(#('a' 'symbol') -> (NCTerminal character: $a)).
 			(#('b' 'symbol') -> (NCTerminal character: $b)).
@@ -29,7 +29,7 @@ i LETTER s:       LETTER symbol.'
 
 { #category : #'instance creation' }
 AFExemplar class >> anbncn [
-	^ AVWGrammar
+	^ AFVWGrammar
 		evw:
 'TALLY::		  i TALLETY.
 TALLETY::	  TALLY; EMPTY.

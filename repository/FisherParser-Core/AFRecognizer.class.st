@@ -1,3 +1,6 @@
+"
+first attempt to recognize a string of a vw grammar
+"
 Class {
 	#name : #AFRecognizer,
 	#superclass : #Object,

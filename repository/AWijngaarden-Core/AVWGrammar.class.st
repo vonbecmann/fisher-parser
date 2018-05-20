@@ -67,11 +67,6 @@ AVWGrammar >> hypernotions [
 	^ hypernotions
 ]
 
-{ #category : #accessing }
-AVWGrammar >> hypernotionsSize [
-	^ hypernotions size
-]
-
 { #category : #initialization }
 AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet hypernotions: hypernotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startNotion: aHypernotion [
 	self initialize.
@@ -94,11 +89,6 @@ AVWGrammar >> metanotions [
 	^ metanotions 
 ]
 
-{ #category : #accessing }
-AVWGrammar >> metanotionsSize [
-	^ metanotions size
-]
-
 { #category : #printing }
 AVWGrammar >> printOn: aStream [
 	aStream
@@ -106,11 +96,6 @@ AVWGrammar >> printOn: aStream [
 		nextPut: $(;
 		print: startNotion;
 		nextPut: $)
-]
-
-{ #category : #accessing }
-AVWGrammar >> protonotionSize [
-	^ protonotions size
 ]
 
 { #category : #accessing }
@@ -126,9 +111,4 @@ AVWGrammar >> startNotion [
 { #category : #accessing }
 AVWGrammar >> terminals [
 	^ terminals 
-]
-
-{ #category : #accessing }
-AVWGrammar >> terminalsSize [
-	^ terminals size
 ]
