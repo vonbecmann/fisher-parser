@@ -7,11 +7,11 @@ Class {
 	#instVars : [
 		'grammar'
 	],
-	#category : #'FisherParser-Core'
+	#category : #'FisherParser-Core-Implementation'
 }
 
 { #category : #'instance creation' }
-AFRecognizer class >> given: aVWGrammar [
+AFRecognizer class >> of: aVWGrammar [
 	^ self basicNew
 		initializeGrammar: aVWGrammar;
 		yourself
@@ -19,7 +19,24 @@ AFRecognizer class >> given: aVWGrammar [
 
 { #category : #testing }
 AFRecognizer >> accepts: aString [
-	^ true
+	| chart |
+	chart := self evaluate: aString.
+	^ chart last includes: (grammar startHyperRule dotAtEnd startedAt: chart first)
+]
+
+{ #category : #testing }
+AFRecognizer >> evaluate: aString [
+	| chart n |
+	n := aString size + 1.
+	chart := (1 to: n) collect: [ :index | AFColumn number: index ].
+	chart first add: (grammar startHyperRule dotAtBeginning startedAt: chart first).
+	chart 
+		withIndexDo: [ :column :i |
+			
+			
+		
+		  ].
+	^ chart
 ]
 
 { #category : #initialization }

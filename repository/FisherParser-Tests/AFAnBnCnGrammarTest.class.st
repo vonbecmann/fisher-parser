@@ -13,9 +13,14 @@ AFAnBnCnGrammarTest >> setUp [
 ]
 
 { #category : #tests }
+AFAnBnCnGrammarTest >> testAcceptsABC [
+	self assert: (grammar accepts: 'abc')
+]
+
+{ #category : #tests }
 AFAnBnCnGrammarTest >> testInstanceCreation [
 
-	self assert: grammar startNotion equals: (AWHypernotion with: 'start' asNotion).
+	self assert: grammar startNotion equals: #('start' 'notion') asNotion.
 	self
 		assertCollection: grammar metanotions
 		hasSameElements: (#(TALLY TALLETY EMPTY LETTER) collect: [ :each | each asNotion ]).

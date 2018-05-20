@@ -1,7 +1,7 @@
 Class {
 	#name : #AFAVWGrammarTest,
 	#superclass : #TestCase,
-	#category : #'FisherParser-Tests'
+	#category : #'FisherParser-Tests-Grammar'
 }
 
 { #category : #tests }

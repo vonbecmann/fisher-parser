@@ -9,7 +9,7 @@ Class {
 		'startNotion',
 		'startHyperRule'
 	],
-	#category : #'FisherParser-Core'
+	#category : #'FisherParser-Core-Public'
 }
 
 { #category : #'instance creation' }
@@ -24,7 +24,12 @@ AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToReprese
 
 { #category : #testing }
 AFVWGrammar >> accepts: aString [
-	^ (AFRecognizer given: self) accepts: aString
+	^ (AFRecognizer of: self) accepts: aString
+]
+
+{ #category : #testing }
+AFVWGrammar >> analizeAccepts: aString [
+	^ (AFAnalyticalRecognizer of: self) accepts: aString
 ]
 
 { #category : #accessing }
@@ -39,7 +44,10 @@ AFVWGrammar >> hypernotions [
 
 { #category : #initialization }
 AFVWGrammar >> initialize [
-	startNotion := AWHypernotion with: (AWProtonotion with: 'start')
+	startNotion := AWHypernotion
+		withAll:
+			{(AWProtonotion with: 'start').
+			(AWProtonotion with: 'notion')}
 ]
 
 { #category : #initialization }
@@ -62,6 +70,11 @@ AFVWGrammar >> metanotions [
 { #category : #accessing }
 AFVWGrammar >> protonotions [
 	^ vwGrammar protonotions 
+]
+
+{ #category : #private }
+AFVWGrammar >> startHyperRule [
+	^ startHyperRule
 ]
 
 { #category : #accessing }
