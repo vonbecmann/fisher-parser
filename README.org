@@ -1,2 +1,8 @@
 * Parsing van Wijngaarden grammars
   - Anthony J. Fisher
+* Continuous Integration 
+  - [[https://travis-ci.org/vonbecmann/fisher-parser][https://travis-ci.org/vonbecmann/fisher-parser.svg?branch=master]]
+
+
+ 
+
