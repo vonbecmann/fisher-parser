@@ -99,6 +99,15 @@ AVWGrammar >> metanotionsSize [
 	^ metanotions size
 ]
 
+{ #category : #printing }
+AVWGrammar >> printOn: aStream [
+	aStream
+		nextPutAll: self className;
+		nextPut: $(;
+		print: startNotion;
+		nextPut: $)
+]
+
 { #category : #accessing }
 AVWGrammar >> protonotionSize [
 	^ protonotions size

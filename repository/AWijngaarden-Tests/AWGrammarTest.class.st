@@ -5,6 +5,56 @@ Class {
 }
 
 { #category : #tests }
+AWGrammarTest >> testDuplicatedHyperRule [
+	| duplicatedHyperRuleGrammar |
+	duplicatedHyperRuleGrammar := AVWGrammar
+		evw:
+'EMPTY:: 	.
+
+program:	  TALLY as, TALLY bs, TALLY cs.
+program:	  TALLY as, TALLY bs, TALLY cs.'
+		representations:
+			{(#('a' 'symbol') -> (NCTerminal character: $a)).
+			(#('b' 'symbol') -> (NCTerminal character: $b)).
+			(#('c' 'symbol') -> (NCTerminal character: $c))}.
+	self assert: duplicatedHyperRuleGrammar metaRulesSize equals: 1.
+	self assert: duplicatedHyperRuleGrammar hyperRulesSize equals: 4
+]
+
+{ #category : #tests }
+AWGrammarTest >> testDuplicatedHyperRule02 [
+	| duplicatedHyperRuleGrammar |
+	duplicatedHyperRuleGrammar := AVWGrammar
+		evw: 'EMPTY::. program: .'
+		representations:
+			{(#('a' 'symbol') -> (NCTerminal character: $a)).
+			(#('a' 'symbol') -> (NCTerminal character: $a)).
+			(#('b' 'symbol') -> (NCTerminal character: $b)).
+			(#('c' 'symbol') -> (NCTerminal character: $c))}.
+	self assert: duplicatedHyperRuleGrammar metaRulesSize equals: 1.
+	self assert: duplicatedHyperRuleGrammar hyperRulesSize equals: 4
+]
+
+{ #category : #tests }
+AWGrammarTest >> testDuplicatedMetaRule [
+	| duplicatedMetaRuleGrammar |
+	duplicatedMetaRuleGrammar := AVWGrammar
+		evw:
+'TALLY::		  i TALLETY.
+TALLY::		  i TALLETY.
+TALLETY::	  TALLY; EMPTY.
+EMPTY::		  .
+
+program:	 .'
+		representations:
+			{(#('a' 'symbol') -> (NCTerminal character: $a)).
+			(#('b' 'symbol') -> (NCTerminal character: $b)).
+			(#('c' 'symbol') -> (NCTerminal character: $c))}.
+	self assert: duplicatedMetaRuleGrammar metaRulesSize equals: 4.
+	self assert: duplicatedMetaRuleGrammar hyperRulesSize equals: 4
+]
+
+{ #category : #tests }
 AWGrammarTest >> testRepresentationsIsEmpty [
 	self 
 		should: [ AVWGrammar evw: 'EMPTY:: . program: .' representations: #() ] 
@@ -21,7 +71,7 @@ TALLETY::	  TALLY; EMPTY.
 EMPTY::		  .
 LETTER::	  a; b; c.
 
-program:	  TALLY as, TALLY bs, TALLY cs.
+anbncn:	  TALLY as, TALLY bs, TALLY cs.
 
 i TALLY LETTER s: i LETTER s, TALLY LETTER s.
 i LETTER s:	  LETTER symbol.'
@@ -29,7 +79,7 @@ i LETTER s:	  LETTER symbol.'
 			{	(#('a' 'symbol') -> (NCTerminal character: $a)).
 				(#('b' 'symbol') -> (NCTerminal character: $b)).
 				(#('c' 'symbol') -> (NCTerminal character: $c))}.
-	self assert: anbncn startNotion equals: (AWHypernotion with: 'program' asNotion).
+	self assert: anbncn startNotion equals: (AWHypernotion with: 'anbncn' asNotion).
 	self assert: anbncn metanotionsSize equals: 4.
 	self 
 		assertCollection: anbncn metanotions
@@ -38,7 +88,7 @@ i LETTER s:	  LETTER symbol.'
 	self 
 		assertCollection: anbncn protonotions
 		hasSameElements: 
-			(#('i' 'a' 'b' 'c' 'program' 'as' 'bs' 'cs' 's' 'symbol')
+			(#('i' 'a' 'b' 'c' 'anbncn' 'as' 'bs' 'cs' 's' 'symbol')
 				collect: [ :each | each asNotion ]).
 	self assert: anbncn hypernotionsSize equals: 21.
 	self 
@@ -46,7 +96,7 @@ i LETTER s:	  LETTER symbol.'
 		hasSameElements: {
 			#('i' TALLETY) asNotion.	#(TALLY) asNotion. #(EMPTY) asNotion.
 			#() asNotion. #('a') asNotion. #('b') asNotion. #('c') asNotion.
-			#('program') asNotion. 
+			#('anbncn') asNotion. 
 			#(TALLY 'as') asNotion. #(TALLY 'bs') asNotion. #(TALLY 'cs') asNotion. 
 			#('i' TALLY LETTER 's') asNotion.
 			#('i' LETTER 's') asNotion. #(TALLY LETTER 's') asNotion. 
