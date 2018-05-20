@@ -7,8 +7,9 @@ AVWGrammar class >> evw: aVWRuleString representations: terminalNotionToRepresen
 	| vwRules builder |
 	vwRules := JEVWParser instance parse: aVWRuleString.
 	builder := AVWGrammarBuilder new.
-	builder metaRules: vwRules first.
-	builder hyperRules: vwRules second.
-	builder representations: terminalNotionToRepresentationList.
-	^ builder build
+	^ builder
+		metaRules: vwRules first;
+		hyperRules: vwRules second;
+		representations: terminalNotionToRepresentationList;
+		build
 ]
