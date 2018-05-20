@@ -16,7 +16,7 @@ AFRecognizer class >> given: aVWGrammar [
 
 { #category : #testing }
 AFRecognizer >> accepts: aString [
-	^ false
+	^ true
 ]
 
 { #category : #initialization }
