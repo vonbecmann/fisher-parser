@@ -35,6 +35,11 @@ AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [
 	dotIndex := index 
 ]
 
+{ #category : #accessing }
+AFDottedHyperRule >> moveDotForward [
+	^ AFDottedHyperRule of: hyperRule withDotAt: dotIndex + 1
+]
+
 { #category : #printing }
 AFDottedHyperRule >> printOn: aStream [
 	"head: body with dot.
@@ -56,8 +61,8 @@ AFDottedHyperRule >> printOn: aStream [
 ]
 
 { #category : #accessing }
-AFDottedHyperRule >> startAt: anAFColumn [
-	^ AFDottedItem of: self startAt: anAFColumn
+AFDottedHyperRule >> startAt: aColumn [
+	^ AFDottedItem of: self startAt: aColumn
 ]
 
 { #category : #accessing }

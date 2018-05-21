@@ -56,7 +56,9 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
 	startHyperRule := AWHyperRule head: startNotion body: {vwGrammar startNotion}.
-	representationRules := vwGrammar hyperRules select: [ :each | each isRepresentation ]
+	representationRules := vwGrammar hyperRules
+		select: [ :each | each isRepresentation ]
+		thenCollect: [ :each | each dotAtBeginning ]
 ]
 
 { #category : #accessing }

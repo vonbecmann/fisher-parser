@@ -25,9 +25,9 @@ AFRecognizer >> accepts: aString [
 ]
 
 { #category : #testing }
-AFRecognizer >> evaluate: aString [
+AFRecognizer >> evaluate: words [
 	| chart n |
-	n := aString size + 1.
+	n := words size + 1.
 	chart := (1 to: n) collect: [ :index | AFColumn number: index ].
 	chart first add: (grammar startHyperRule dotAtBeginning startAt: chart first).
 	chart
@@ -36,12 +36,12 @@ AFRecognizer >> evaluate: aString [
 				ifTrue: [ ^ Error signal: 'failed at ' , (chart at: i - 1) asString ].
 			i < n
 				ifTrue: [ 
-					grammar representationRules 
-						do: [ :hyperRule |
-							(hyperRule dotAtBeginning symbolAtDot matches: (aString at: i))
-								ifTrue: [
-									column add: (hyperRule dotAtBeginning startAt: column).
-									(chart at: i + 1) add: (hyperRule dotAtEnd startAt: column) ]]]].
+					grammar representationRules
+						do: [ :dottedHRule | 
+							(dottedHRule symbolAtDot matches: (words at: i))
+								ifTrue: [ 
+									column add: (dottedHRule startAt: column).
+									(chart at: i + 1) add: (dottedHRule moveDotForward startAt: column) ] ] ] ].
 	^ chart
 ]
 

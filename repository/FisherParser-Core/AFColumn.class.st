@@ -13,7 +13,7 @@ Class {
 	#category : #'FisherParser-Core-Implementation'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 AFColumn class >> number: anInteger [
 	^ self basicNew
 		initializeNumber: anInteger;
