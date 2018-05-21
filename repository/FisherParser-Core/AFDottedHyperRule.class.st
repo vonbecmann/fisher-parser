@@ -37,7 +37,7 @@ AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [
 
 { #category : #accessing }
 AFDottedHyperRule >> moveDotForward [
-	^ AFDottedHyperRule of: hyperRule withDotAt: dotIndex + 1
+	^ self class of: hyperRule withDotAt: dotIndex + 1
 ]
 
 { #category : #printing }
