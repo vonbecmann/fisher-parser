@@ -64,6 +64,11 @@ AFColumn >> initializeNumber: anInteger [
 	number := anInteger
 ]
 
+{ #category : #testing }
+AFColumn >> isEmpty [
+	^ orderedItems isEmpty
+]
+
 { #category : #printing }
 AFColumn >> printOn: aStream [
 	"Column [number]"

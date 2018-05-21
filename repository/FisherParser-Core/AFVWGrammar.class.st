@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'vwGrammar',
 		'startNotion',
-		'startHyperRule'
+		'startHyperRule',
+		'representationRules'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -54,7 +55,8 @@ AFVWGrammar >> initialize [
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
-	startHyperRule := AWHyperRule head: startNotion body: {vwGrammar startNotion}
+	startHyperRule := AWHyperRule head: startNotion body: {vwGrammar startNotion}.
+	representationRules := vwGrammar hyperRules select: [ :each | each isRepresentation ]
 ]
 
 { #category : #accessing }
@@ -70,6 +72,11 @@ AFVWGrammar >> metanotions [
 { #category : #accessing }
 AFVWGrammar >> protonotions [
 	^ vwGrammar protonotions 
+]
+
+{ #category : #private }
+AFVWGrammar >> representationRules [
+	^ representationRules
 ]
 
 { #category : #private }

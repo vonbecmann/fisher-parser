@@ -56,6 +56,11 @@ AFDottedHyperRule >> printOn: aStream [
 ]
 
 { #category : #accessing }
-AFDottedHyperRule >> startedAt: aColumn [
-	^ AFDottedItem of: self startAt: aColumn
+AFDottedHyperRule >> startAt: anAFColumn [
+	^ AFDottedItem of: self startAt: anAFColumn
+]
+
+{ #category : #accessing }
+AFDottedHyperRule >> symbolAtDot [
+	^ hyperRule body at: dotIndex
 ]

@@ -58,6 +58,11 @@ AVWGrammar >> gtInspectorMetaRulesIn: composite [
 ]
 
 { #category : #accessing }
+AVWGrammar >> hyperRules [
+	^ hyperRules
+]
+
+{ #category : #accessing }
 AVWGrammar >> hyperRulesSize [
 	^ hyperRules size
 ]
