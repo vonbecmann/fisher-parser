@@ -33,6 +33,51 @@ AFHyperRuleTest >> testAsString02 [
 ]
 
 { #category : #tests }
+AFHyperRuleTest >> testEqual [
+	| one another |
+	one := AFHyperRule head: (AWHypernotion with: (AWMetanotion named: 'EMPTY')) body: {}.
+	another := AFHyperRule head: (AWHypernotion with: (AWMetanotion named: 'EMPTY')) body: {}.
+
+	self deny: one == another.
+	self assert: one equals: another.
+	self assert: one hash equals: another hash
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testEqual02 [
+	| one another |
+	one := AFHyperRule head: (AWHypernotion with: (AWMetanotion named: 'EMPTY')) body: {}.
+	another := one.
+
+	self assert: one == another.
+	self assert: one equals: another.
+	self assert: one hash equals: another hash
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testEqual03 [
+	| one another |
+	one := AFHyperRule
+		head:
+			(AWHypernotion
+				withAll:
+					{(AWMetanotion named: 'NOTION').
+					(AWProtonotion with: 'option')})
+		body: {(AWHypernotion with: (AWMetanotion named: 'NOTION'))}.
+	another := AFHyperRule
+		head:
+			(AWHypernotion
+				withAll:
+					{(AWMetanotion named: 'NOTION').
+					(AWProtonotion with: 'option')})
+		body: {(AWHypernotion with: (AWMetanotion named: 'NOTION'))}.
+	self deny: one == another.
+	self assert: one equals: another.
+	self assert: one hash equals: another hash.
+	
+]
+
+{ #category : #tests }
 AFHyperRuleTest >> testIsRepresentation [
 	hyperRule := AFHyperRule head: (AWHypernotion with: (AWProtonotion with: 'letter')) body: {(AWHypernotion with: (NCTerminal character: $a))}.
 	self assert: hyperRule isRepresentation
