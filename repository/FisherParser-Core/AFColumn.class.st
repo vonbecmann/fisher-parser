@@ -20,6 +20,13 @@ AFColumn class >> number: anInteger [
 		yourself
 ]
 
+{ #category : #comparing }
+AFColumn >> = anObject [
+	self == anObject
+		ifTrue: [ ^ true ].
+	^ self class == anObject class and: [ number == anObject number ]
+]
+
 { #category : #adding }
 AFColumn >> add: anItem [
 	^ itemSet
@@ -46,6 +53,11 @@ AFColumn >> gtInspectorItemsIn: composite [
 		yourself
 ]
 
+{ #category : #comparing }
+AFColumn >> hash [
+	^ number hash
+]
+
 { #category : #testing }
 AFColumn >> includes: anItem [
 	^ itemSet includes: anItem
@@ -69,6 +81,11 @@ AFColumn >> initializeNumber: anInteger [
 { #category : #testing }
 AFColumn >> isEmpty [
 	^ orderedItems isEmpty
+]
+
+{ #category : #accessing }
+AFColumn >> number [
+	^ number
 ]
 
 { #category : #printing }
