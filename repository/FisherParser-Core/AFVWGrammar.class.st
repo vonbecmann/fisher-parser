@@ -1,5 +1,12 @@
 "
 a vw grammar with some restrictions that Fisher mentions in his paper.
+
+startNotion is a hypernotion. is a protonotion. 
+	augments the given grammar with this hypernotion.
+startHyperRule is hyper rule used by the algorithm.
+	augments the given grammar with this hyper rule.
+
+
 "
 Class {
 	#name : #AFVWGrammar,
