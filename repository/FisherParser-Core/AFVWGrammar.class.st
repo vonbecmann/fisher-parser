@@ -8,7 +8,8 @@ Class {
 		'vwGrammar',
 		'startNotion',
 		'startHyperRule',
-		'representationRules'
+		'representationRules',
+		'alternatives'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -26,6 +27,11 @@ AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToReprese
 { #category : #testing }
 AFVWGrammar >> accepts: aString [
 	^ (AFRecognizer of: self) accepts: aString
+]
+
+{ #category : #private }
+AFVWGrammar >> alternativesOf: aHypernotion [
+	^ alternatives at: aHypernotion ifAbsent: #()
 ]
 
 { #category : #testing }
@@ -48,7 +54,8 @@ AFVWGrammar >> initialize [
 	startNotion := AWHypernotion
 		withAll:
 			{(AWProtonotion with: 'start').
-			(AWProtonotion with: 'notion')}
+			(AWProtonotion with: 'notion')}.
+	alternatives := ArrayMultiValuedDictionary dictionary: Dictionary 
 ]
 
 { #category : #initialization }
@@ -58,7 +65,9 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	startHyperRule := AWHyperRule head: startNotion body: {vwGrammar startNotion}.
 	representationRules := vwGrammar hyperRules
 		select: [ :each | each isRepresentation ]
-		thenCollect: [ :each | each dotAtBeginning ]
+		thenCollect: [ :each | each dotAtBeginning ].
+	alternatives at: startNotion put: startHyperRule.
+	vwGrammar hyperRules do: [ :each | alternatives at: each head put: each ]
 ]
 
 { #category : #accessing }

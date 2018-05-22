@@ -24,24 +24,39 @@ AFRecognizer >> accepts: aString [
 	^ chart last includes: (grammar startHyperRule dotAtEnd startAt: chart first)
 ]
 
-{ #category : #testing }
+{ #category : #private }
+AFRecognizer >> addPreterminalsWith: word at: column [
+	grammar representationRules
+		do: [ :dottedHyperRule | 
+			(dottedHyperRule symbolAtDot matches: word)
+				ifTrue: [ column add: (dottedHyperRule startAt: column) ] ]
+]
+
+{ #category : #private }
 AFRecognizer >> evaluate: words [
 	| chart n |
 	n := words size + 1.
 	chart := (1 to: n) collect: [ :index | AFColumn number: index ].
-	chart first add: (grammar startHyperRule dotAtBeginning startAt: chart first).
+	self topDownPredict: grammar startNotion at: chart first.
 	chart
 		withIndexDo: [ :column :i | 
 			column isEmpty
 				ifTrue: [ ^ Error signal: 'failed at ' , (chart at: i - 1) asString ].
 			i < n
-				ifTrue: [ 
-					grammar representationRules
-						do: [ :dottedHRule | 
-							(dottedHRule symbolAtDot matches: (words at: i))
+				ifTrue: [ self addPreterminalsWith: (words at: i) at: column ].
+			column
+				processItems: [ :item | 
+					item isFinal
+						ifTrue: [  ]
+						ifFalse: [ 
+							item symbolAtDot isTerminal
 								ifTrue: [ 
-									column add: (dottedHRule startAt: column).
-									(chart at: i + 1) add: (dottedHRule moveDotForward startAt: column) ] ] ] ].
+									(i < n and: [ item symbolAtDot matches: (words at: i) ])
+										ifTrue: [ (chart at: i + 1) add: item moveDotForward ] ]
+								ifFalse: [
+									item symbolAtDot isProtonotion 
+										ifTrue: 	[ self topDownPredict: item symbolAtDot at: column ] 
+										ifFalse: 	[  ]  ] ] ] ].
 	^ chart
 ]
 
@@ -49,4 +64,10 @@ AFRecognizer >> evaluate: words [
 AFRecognizer >> initializeGrammar: aVWGrammar [
 	self initialize.
 	grammar := aVWGrammar
+]
+
+{ #category : #private }
+AFRecognizer >> topDownPredict: aHypernotion at: aColumn [
+	(grammar alternativesOf: aHypernotion)
+		do: [ :hrule | aColumn add: (hrule dotAtBeginning startAt: aColumn) ]
 ]

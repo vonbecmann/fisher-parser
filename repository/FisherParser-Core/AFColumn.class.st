@@ -22,14 +22,16 @@ AFColumn class >> number: anInteger [
 
 { #category : #adding }
 AFColumn >> add: anItem [
-	itemSet
-		like: anItem
-		ifAbsent: [ 	items nextPut: anItem.
-						itemSet add: anItem.
-						orderedItems addLast: anItem.
-						anItem
-							end: self;
-							yourself ]
+	^ itemSet
+		detect: 	[ :item | item = anItem ]
+		ifFound: 	[ :item | item ]
+		ifNone: 
+			[	items nextPut: anItem.
+				itemSet addLast: anItem.
+				orderedItems addLast: anItem.
+				anItem
+					end: self;
+					yourself ]
 ]
 
 { #category : #'inspector extensions' }
@@ -53,7 +55,7 @@ AFColumn >> includes: anItem [
 AFColumn >> initialize [
 	super initialize.
 	items := SinglyLinkedQueue new.
-	itemSet := Set new.
+	itemSet := SinglyLinkedList new.
 	orderedItems := SinglyLinkedList new
 	
 ]
@@ -78,6 +80,13 @@ AFColumn >> printOn: aStream [
 		nextPut: $[;
 		print: number;
 		nextPut: $]
+]
+
+{ #category : #accessing }
+AFColumn >> processItems: aBlock [
+	"process each item in order"
+
+	[ items isEmpty ] whileFalse: [ aBlock value: items next ]
 ]
 
 { #category : #printing }

@@ -35,6 +35,11 @@ AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [
 	dotIndex := index 
 ]
 
+{ #category : #testing }
+AFDottedHyperRule >> isFinal [
+	^ dotIndex > hyperRule body size
+]
+
 { #category : #accessing }
 AFDottedHyperRule >> moveDotForward [
 	^ self class of: hyperRule withDotAt: dotIndex + 1

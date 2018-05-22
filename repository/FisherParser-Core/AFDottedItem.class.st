@@ -41,6 +41,16 @@ AFDottedItem >> initializeDottedHyperRule: aDottedHyperRule start: aColumn [
 	start := aColumn
 ]
 
+{ #category : #testing }
+AFDottedItem >> isFinal [
+	^ dottedHyperRule isFinal
+]
+
+{ #category : #accessing }
+AFDottedItem >> moveDotForward [
+	^ self class of: dottedHyperRule moveDotForward startAt: start
+]
+
 { #category : #printing }
 AFDottedItem >> printIntervalOn: aStream [
 	end
@@ -64,4 +74,9 @@ AFDottedItem >> printOn: aStream [
 	aStream nextPutAll: ' @ '.
 	self printIntervalOn: aStream.
 	aStream nextPut: $]
+]
+
+{ #category : #accessing }
+AFDottedItem >> symbolAtDot [
+	^ dottedHyperRule symbolAtDot
 ]
