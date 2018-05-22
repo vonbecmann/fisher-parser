@@ -11,6 +11,12 @@ BaselineOfFisherParser >> baseline: spec [
 		for: #common
 		do: [ 
 			spec
+	        	baseline: 'MultiValuedDictionary'
+ 		   		with: [ spec repository: 'github://vonbecmann/multi-valued-dictionary:pharo6/repository' ].
+			spec
+	        	baseline: 'LinkedList'
+ 		   		with: [ spec repository: 'github://vonbecmann/linked-list:pharo6/repository' ].
+			spec
 				baseline: 'EarleyParser'
 				with: [ 
 					spec
@@ -20,9 +26,10 @@ BaselineOfFisherParser >> baseline: spec [
 				package: 'AWijngaarden-Core';
 				package: 'AWijngaarden-Tests' with: [ spec requires: #('AWijngaarden-Core') ];
 				package: 'EarleyVW' with: [ spec requires: #('EarleyParser' 'AWijngaarden-Core') ];
-				package: 'FisherParser-Core';
+				package: 'FisherParser-Core'
+					with: [ spec requires: #('MultiValuedDictionary' 'LinkedList' 'AWijngaarden-Core' 'EarleyVW') ];
 				package: 'FisherParser-Tests' 
-					with: [ spec requires: #('AWijngaarden-Core' 'EarleyVW' 'FisherParser-Core') ];
+					with: [ spec requires: #('FisherParser-Core') ];
 				package: 'FisherParser-UI'.
 			spec
 				group: 'default' with: #('Core' 'Tests' 'UI');
