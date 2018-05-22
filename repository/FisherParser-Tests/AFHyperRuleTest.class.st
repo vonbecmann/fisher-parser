@@ -1,0 +1,71 @@
+Class {
+	#name : #AFHyperRuleTest,
+	#superclass : #TestCase,
+	#instVars : [
+		'hyperRule'
+	],
+	#category : #'FisherParser-Tests-Implementation'
+}
+
+{ #category : #tests }
+AFHyperRuleTest >> setUp [
+	hyperRule := nil
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testAsString [
+	hyperRule := AFHyperRule
+		head: (AWHypernotion with: (AWMetanotion named: 'EMPTY'))
+		body: {}.
+	self assert: hyperRule asString equals: 'EMPTY: .'
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testAsString02 [
+	hyperRule := AFHyperRule
+		head:
+			(AWHypernotion
+				withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'option')})
+		body: {(AWHypernotion with: (AWMetanotion named: 'NOTION'))}.
+	self 
+		assert: hyperRule asString 
+		equals: 'NOTION option: NOTION.'
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testIsRepresentation [
+	hyperRule := AFHyperRule head: (AWHypernotion with: (AWProtonotion with: 'letter')) body: {(AWHypernotion with: (NCTerminal character: $a))}.
+	self assert: hyperRule isRepresentation
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testIsRepresentation02 [
+	hyperRule := AFHyperRule head: (AWHypernotion with: (AWProtonotion with: 'letter')) body: {(AWHypernotion with: (AWProtonotion with: 'a'))}.
+	self deny: hyperRule isRepresentation
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testIsRepresentation03 [
+	hyperRule := AFHyperRule
+		head:
+			(AWHypernotion
+				withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'option')})
+		body: {(AWHypernotion with: (AWMetanotion named: 'NOTION'))}.
+	self deny: hyperRule isRepresentation
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testIsRepresentation04 [
+	hyperRule := AFHyperRule
+		head: 	(AWHypernotion withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'option')})
+		body: {}.
+	self deny: hyperRule isRepresentation
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testIsRepresentation05 [
+	hyperRule := AFHyperRule
+		head: (AWHypernotion with: (AWMetanotion named: #LETTER))
+		body: {(AWHypernotion with: (NCTerminal character: $a))}.
+	self deny: hyperRule isRepresentation
+]

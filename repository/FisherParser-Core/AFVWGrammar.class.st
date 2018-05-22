@@ -69,12 +69,16 @@ AFVWGrammar >> initialize [
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
-	startHyperRule := AWHyperRule head: startNotion body: {vwGrammar startNotion}.
-	representationRules := vwGrammar hyperRules
-		select: [ :each | each isRepresentation ]
-		thenCollect: [ :each | each dotAtBeginning ].
+	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
 	alternatives at: startNotion put: startHyperRule.
-	vwGrammar hyperRules do: [ :each | alternatives at: each head put: each ]
+	vwGrammar hyperRules
+		do: [ :each | 
+			| newRule |
+			newRule := AFHyperRule head: each head body: each body copy.
+			alternatives at: newRule head put: newRule ].
+	representationRules := alternatives
+		select: [ :each | each isRepresentation ]
+		thenCollect: [ :each | each dotAtBeginning ]
 ]
 
 { #category : #accessing }

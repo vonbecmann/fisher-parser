@@ -17,7 +17,7 @@ AFDottedHyperRuleTest >> setUp [
 { #category : #tests }
 AFDottedHyperRuleTest >> testAsString [
 	dottedHyperRule := AFDottedHyperRule
-		atTheBeginningOf: (AWHyperRule head: #('start') asNotion body: {#('program') asNotion}).
+		atTheBeginningOf: (AFHyperRule head: #('start') asNotion body: {#('program') asNotion}).
 
 	self 
 		assert: dottedHyperRule asString 
@@ -27,7 +27,7 @@ AFDottedHyperRuleTest >> testAsString [
 { #category : #tests }
 AFDottedHyperRuleTest >> testAsString02 [
 	dottedHyperRule := AFDottedHyperRule
-		atTheEndOf: (AWHyperRule head: #('start') asNotion body: {#('program') asNotion}).
+		atTheEndOf: (AFHyperRule head: #('start') asNotion body: {#('program') asNotion}).
 
 	self 
 		assert: dottedHyperRule asString 
