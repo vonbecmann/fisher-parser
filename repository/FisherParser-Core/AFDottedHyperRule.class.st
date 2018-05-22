@@ -28,6 +28,30 @@ AFDottedHyperRule class >> of: aHyperRule withDotAt: index [
 		yourself
 ]
 
+{ #category : #comparing }
+AFDottedHyperRule >> = anObject [
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class == anObject class
+		ifFalse: [ ^ false ].
+	^ dotIndex == anObject dotIndex and: [ hyperRule = anObject hyperRule ]
+]
+
+{ #category : #accessing }
+AFDottedHyperRule >> dotIndex [
+	^ dotIndex
+]
+
+{ #category : #comparing }
+AFDottedHyperRule >> hash [
+	^ (hyperRule hash + dotIndex hash) hashMultiply
+]
+
+{ #category : #accessing }
+AFDottedHyperRule >> hyperRule [
+	^ hyperRule
+]
+
 { #category : #initialization }
 AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [ 
 	self initialize.
