@@ -74,7 +74,6 @@ AFVWGrammar >> initialize [
 			{(AWProtonotion with: 'start').
 			(AWProtonotion with: 'notion')}.
 	ortholetters := Set new.
-	metaProductionRules := ArrayMultiValuedDictionary dictionary: Dictionary.
 	alternatives := ArrayMultiValuedDictionary dictionary: Dictionary 
 ]
 
@@ -85,24 +84,16 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
 	alternatives at: startNotion put: startHyperRule.
 	vwGrammar hyperRules
-		do: [ :each | 
-			| newRule |
-			newRule := AFHyperRule head: each head body: each body copy.
-			alternatives at: newRule head put: newRule ].
+		collect: [ :each | each asAFHyperRule ]
+		thenDo: [ :newRule | alternatives at: newRule head put: newRule ].
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ].
-	vwGrammar protonotions
-		do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
-	vwGrammar metaRules
-		do: [ :metaRule | 
-			| newRule |
-			newRule := metaRule asProductionRule.
-			metaProductionRules at: newRule head put: newRule ].
-	orthoRepresentations := 
-			ortholetters
-				collect: [ :char | char asSymbol -> (NCTerminal character: char) ]
-				as: Array
+	vwGrammar protonotions do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
+	metaProductionRules := vwGrammar metaRules collect: [ :metaRule | metaRule asProductionRule ].
+	orthoRepresentations := ortholetters
+		collect: [ :char | char asSymbol -> (NCTerminal character: char) ]
+		as: Array
 ]
 
 { #category : #private }
@@ -118,6 +109,18 @@ AFVWGrammar >> metaRulesSize [
 { #category : #accessing }
 AFVWGrammar >> metanotions [
 	^ vwGrammar metanotions
+]
+
+{ #category : #printing }
+AFVWGrammar >> printOn: aStream [
+	"Append to the argument, aStream, a sequence of characters that  
+	identifies the receiver."
+
+	aStream
+		nextPutAll: self class name;
+		nextPut: $(;
+		print: startHyperRule;
+		nextPut: $)
 ]
 
 { #category : #accessing }

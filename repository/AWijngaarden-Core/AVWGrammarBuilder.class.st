@@ -22,7 +22,13 @@ Class {
 
 { #category : #building }
 AVWGrammarBuilder >> build [
-	| metanotions protonotions hypernotions terminals metaRuleSet hyperRuleSet |
+	| lineup index metanotions protonotions hypernotions terminals metaRuleSet hyperRuleSet representationSet |
+	lineup := OrderedCollection new
+		addAll: metaRules;
+		addAll: hyperRules;
+		addAll: representations;
+		yourself.
+	index := Dictionary new.
 	metanotions := Set new.
 	protonotions := Set new.
 	hypernotions := Set new.
@@ -34,14 +40,19 @@ AVWGrammarBuilder >> build [
 			metanotions addAll: metaRule body metanotions.
 			protonotions addAll: metaRule body protonotions.
 			hypernotions add: metaRule body ].
-	hyperRules
+	metaRuleSet
+		collect: [ :mrule | mrule -> (lineup findFirst: [ :each | mrule = each ]) ]
+		thenDo: [ :assoc | index add: assoc ].
+	hyperRuleSet := Set withAll: hyperRules.
+	hyperRuleSet
 		do: [ :hyperRule | 
 			protonotions addAll: hyperRule head protonotions.
 			hypernotions
 				add: hyperRule head;
 				addAll: hyperRule body.
 			hyperRule body do: [ :each | protonotions addAll: each protonotions ] ].
-	representations
+	representationSet := Set withAll: representations.
+	representationSet
 		do: [ :hyperRule | 
 			self assert: hyperRule isRepresentation.
 			protonotions addAll: hyperRule head protonotions.
@@ -49,17 +60,17 @@ AVWGrammarBuilder >> build [
 				add: hyperRule head;
 				addAll: hyperRule body.
 			terminals add: hyperRule body first first ].
-	hyperRuleSet := Set new.
+	hyperRuleSet addAll: representationSet.
 	hyperRuleSet
-		addAll: hyperRules;
-		addAll: representations.
+		collect: [ :hrule | hrule -> (lineup findFirst: [ :each | hrule = each ]) ]
+		thenDo: [ :assoc | index add: assoc ].
 	^ AVWGrammar
 		metanotions: metanotions
 		protonotions: protonotions
 		hypernotions: hypernotions
 		terminals: terminals
-		metaRules: metaRuleSet
-		hyperRules: hyperRuleSet
+		metaRules: (metaRuleSet sorted: [ :a :b | (index at: a) < (index at: b) ])
+		hyperRules: (hyperRuleSet sorted: [ :a :b | (index at: a) < (index at: b) ])
 		startAt: hyperRules first head
 ]
 
