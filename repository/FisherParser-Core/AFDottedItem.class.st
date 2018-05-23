@@ -19,6 +19,39 @@ AFDottedItem class >> of: aDottedHyperRule startAt: aColumn [
 		yourself
 ]
 
+{ #category : #'instance creation' }
+AFDottedItem class >> of: aDottedHyperRule startAt: firstColumn endAt: secondColumn [
+	^ self basicNew
+		initializeDottedHyperRule: aDottedHyperRule start: firstColumn;
+		end: secondColumn;
+		yourself
+]
+
+{ #category : #comparing }
+AFDottedItem >> = anItem [
+	self == anItem
+		ifTrue: [ ^ true ].
+	self class == anItem class
+		ifFalse: [ ^ false ].
+	start = anItem start
+		ifFalse: [ ^ false ].
+	dottedHyperRule = anItem dottedHyperRule
+		ifFalse: [ ^ false ].
+	end = anItem end
+		ifFalse: [ ^ false ].
+	^ true
+]
+
+{ #category : #accessing }
+AFDottedItem >> dottedHyperRule [
+	^ dottedHyperRule
+]
+
+{ #category : #accessing }
+AFDottedItem >> end [
+	^ end
+]
+
 { #category : #accessing }
 AFDottedItem >> end: aColumn [ 
 	end := aColumn
@@ -32,6 +65,11 @@ AFDottedItem >> gtDisplayIntervalString [
 { #category : #'inspector extensions' }
 AFDottedItem >> gtDisplayValueString [
 	^ String streamContents: [ :s | dottedHyperRule printOn: s ]
+]
+
+{ #category : #comparing }
+AFDottedItem >> hash [
+	^ ((dottedHyperRule hash + start hash) hashMultiply + end hash) hashMultiply
 ]
 
 { #category : #initialization }
@@ -74,6 +112,11 @@ AFDottedItem >> printOn: aStream [
 	aStream nextPutAll: ' @ '.
 	self printIntervalOn: aStream.
 	aStream nextPut: $]
+]
+
+{ #category : #accessing }
+AFDottedItem >> start [
+	^ start
 ]
 
 { #category : #accessing }

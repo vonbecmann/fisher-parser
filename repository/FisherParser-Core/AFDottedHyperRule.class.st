@@ -95,6 +95,11 @@ AFDottedHyperRule >> startAt: aColumn [
 ]
 
 { #category : #accessing }
+AFDottedHyperRule >> startAt: firstColumn endAt: secondColumn [
+	^ AFDottedItem of: self startAt: firstColumn endAt: secondColumn
+]
+
+{ #category : #accessing }
 AFDottedHyperRule >> symbolAtDot [
 	^ hyperRule body at: dotIndex
 ]
