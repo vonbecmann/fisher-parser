@@ -74,7 +74,6 @@ AFVWGrammar >> initialize [
 			{(AWProtonotion with: 'start').
 			(AWProtonotion with: 'notion')}.
 	ortholetters := Set new.
-	orthoRepresentations := SinglyLinkedList new.
 	metaProductionRules := ArrayMultiValuedDictionary dictionary: Dictionary.
 	alternatives := ArrayMultiValuedDictionary dictionary: Dictionary 
 ]
@@ -93,16 +92,17 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ].
-	vwGrammar protonotions do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
+	vwGrammar protonotions
+		do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
 	vwGrammar metaRules
 		do: [ :metaRule | 
 			| newRule |
 			newRule := metaRule asProductionRule.
 			metaProductionRules at: newRule head put: newRule ].
-	ortholetters
-		do: [ :char | 
-			orthoRepresentations
-				add: (NCProductionRule head: (NCNonterminal named: char) body: {(NCTerminal character: char)}) ]
+	orthoRepresentations := 
+			ortholetters
+				collect: [ :char | char asSymbol -> (NCTerminal character: char) ]
+				as: Array
 ]
 
 { #category : #private }
