@@ -48,6 +48,11 @@ AWHypernotion >> = anObject [
 	^ true
 ]
 
+{ #category : #enumerating }
+AWHypernotion >> do: aBlock [ 
+	notions do: aBlock 
+]
+
 { #category : #accessing }
 AWHypernotion >> first [
 	^ notions first

@@ -85,6 +85,11 @@ AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet 
 ]
 
 { #category : #accessing }
+AVWGrammar >> metaRules [
+	^ metaRules
+]
+
+{ #category : #accessing }
 AVWGrammar >> metaRulesSize [
 	^ metaRules size
 ]

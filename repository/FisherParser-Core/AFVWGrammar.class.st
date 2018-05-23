@@ -16,7 +16,10 @@ Class {
 		'startNotion',
 		'startHyperRule',
 		'representationRules',
-		'alternatives'
+		'alternatives',
+		'ortholetters',
+		'metaProductionRules',
+		'orthoRepresentations'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -37,8 +40,16 @@ AFVWGrammar >> accepts: aString [
 ]
 
 { #category : #private }
-AFVWGrammar >> alternativesOf: aHypernotion [
-	^ alternatives at: aHypernotion ifAbsent: #()
+AFVWGrammar >> alternativesOf: aProtonotion [
+	"^ alternatives at: aProtonotion ifAbsent: #()"
+
+	| matches |
+	matches := SinglyLinkedList new.
+	alternatives
+		do: [ :hrule | 
+			(self matches: hrule head against: aProtonotion)
+				ifTrue: [ matches addLast: hrule ] ].
+	^ matches
 ]
 
 { #category : #testing }
@@ -62,6 +73,9 @@ AFVWGrammar >> initialize [
 		withAll:
 			{(AWProtonotion with: 'start').
 			(AWProtonotion with: 'notion')}.
+	ortholetters := Set new.
+	orthoRepresentations := SinglyLinkedList new.
+	metaProductionRules := ArrayMultiValuedDictionary dictionary: Dictionary.
 	alternatives := ArrayMultiValuedDictionary dictionary: Dictionary 
 ]
 
@@ -78,7 +92,22 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 			alternatives at: newRule head put: newRule ].
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
-		thenCollect: [ :each | each dotAtBeginning ]
+		thenCollect: [ :each | each dotAtBeginning ].
+	vwGrammar protonotions do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
+	vwGrammar metaRules
+		do: [ :metaRule | 
+			| newRule |
+			newRule := metaRule asProductionRule.
+			metaProductionRules at: newRule head put: newRule ].
+	ortholetters
+		do: [ :char | 
+			orthoRepresentations
+				add: (NCProductionRule head: (NCNonterminal named: char) body: {(NCTerminal character: char)}) ]
+]
+
+{ #category : #private }
+AFVWGrammar >> matches: aHypernotion against: aProtonotion [ 
+	^ false
 ]
 
 { #category : #accessing }

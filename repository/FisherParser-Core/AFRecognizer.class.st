@@ -67,7 +67,7 @@ AFRecognizer >> initializeGrammar: aVWGrammar [
 ]
 
 { #category : #private }
-AFRecognizer >> topDownPredict: aHypernotion at: aColumn [
-	(grammar alternativesOf: aHypernotion)
+AFRecognizer >> topDownPredict: aProtonotion at: aColumn [
+	(grammar alternativesOf: aProtonotion)
 		do: [ :hrule | aColumn add: (hrule dotAtBeginning startAt: aColumn) ]
 ]

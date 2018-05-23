@@ -29,6 +29,11 @@ AWProtonotion >> contents [
 	^ contents
 ]
 
+{ #category : #enumerating }
+AWProtonotion >> do: aBlock [
+	contents do: aBlock
+]
+
 { #category : #comparing }
 AWProtonotion >> hash [
 	^ (self class hash + contents hash) hashMultiply
