@@ -86,19 +86,17 @@ AFVWGrammar >> initialize [
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
-	vwGrammar protonotions
-		do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
+	vwGrammar protonotions do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
 	orthoRepresentations := ortholetters
 		collect: [ :char | char asSymbol -> (NCTerminal character: char) ]
 		as: Array.
-	metaProductionRules := vwGrammar metaRules
-		collect: [ :metaRule | metaRule asProductionRule ].
+	metaProductionRules := vwGrammar metaRules collect: [ :metaRule | metaRule asProductionRule ].
 	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
 	alternatives at: startNotion put: startHyperRule.
 	vwGrammar hyperRules
 		collect: [ :each | each asAFHyperRule ]
 		thenDo: [ :newRule | alternatives at: newRule head put: newRule ].
-	representationRules := alternatives
+	representationRules := alternatives values
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ]
 ]
