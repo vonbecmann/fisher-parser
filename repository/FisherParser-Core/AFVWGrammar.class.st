@@ -12,12 +12,12 @@ Class {
 	#name : #AFVWGrammar,
 	#superclass : #Object,
 	#instVars : [
-		'vwGrammar',
+		'ortholetters',
 		'startNotion',
+		'vwGrammar',
 		'startHyperRule',
 		'representationRules',
 		'alternatives',
-		'ortholetters',
 		'metaProductionRules',
 		'orthoRepresentations'
 	],
@@ -55,6 +55,12 @@ AFVWGrammar >> analizeAccepts: aString [
 	^ (AFAnalyticalRecognizer of: self) accepts: aString
 ]
 
+{ #category : #'inspector extensions' }
+AFVWGrammar >> gtInspectorDefinitionIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ vwGrammar gtInspectorDefinitionIn: composite
+]
+
 { #category : #accessing }
 AFVWGrammar >> hyperRulesSize [
 	^ vwGrammar hyperRulesSize
@@ -67,18 +73,26 @@ AFVWGrammar >> hypernotions [
 
 { #category : #initialization }
 AFVWGrammar >> initialize [
-	startNotion := AWHypernotion
-		withAll:
-			{(AWProtonotion with: 'start').
-			(AWProtonotion with: 'notion')}.
+	super initialize.
 	ortholetters := Set new.
-	alternatives := ArrayMultiValuedDictionary dictionary: Dictionary 
+	startNotion := 
+		AWHypernotion 
+			withAll: {(AWProtonotion with: 'start').(AWProtonotion with: 'notion')}.
+	startNotion do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
+	alternatives := ArrayMultiValuedDictionary dictionary: Dictionary
 ]
 
 { #category : #initialization }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
+	vwGrammar protonotions
+		do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
+	orthoRepresentations := ortholetters
+		collect: [ :char | char asSymbol -> (NCTerminal character: char) ]
+		as: Array.
+	metaProductionRules := vwGrammar metaRules
+		collect: [ :metaRule | metaRule asProductionRule ].
 	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
 	alternatives at: startNotion put: startHyperRule.
 	vwGrammar hyperRules
@@ -86,13 +100,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		thenDo: [ :newRule | alternatives at: newRule head put: newRule ].
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
-		thenCollect: [ :each | each dotAtBeginning ].
-	vwGrammar protonotions do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
-	startNotion do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
-	metaProductionRules := vwGrammar metaRules collect: [ :metaRule | metaRule asProductionRule ].
-	orthoRepresentations := ortholetters
-		collect: [ :char | char asSymbol -> (NCTerminal character: char) ]
-		as: Array
+		thenCollect: [ :each | each dotAtBeginning ]
 ]
 
 { #category : #private }

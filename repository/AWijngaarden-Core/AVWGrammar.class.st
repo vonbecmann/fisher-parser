@@ -35,8 +35,18 @@ AVWGrammar class >> metanotions: metanotionSet protonotions: protonotionSet hype
 ]
 
 { #category : #'inspector extensions' }
+AVWGrammar >> gtInspectorDefinitionIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite list
+		title: [ 'Definition' ];
+		display: [ metaRules , hyperRules ];
+		showOnly: 50;
+		yourself
+]
+
+{ #category : #'inspector extensions' }
 AVWGrammar >> gtInspectorHyperRulesIn: composite [
-	<gtInspectorPresentationOrder: 1>
+	<gtInspectorPresentationOrder: 2>
 	^ composite table
 		title: [ 'Hyper Rules' ];
 		display: [ hyperRules ];
@@ -48,7 +58,7 @@ AVWGrammar >> gtInspectorHyperRulesIn: composite [
 
 { #category : #'inspector extensions' }
 AVWGrammar >> gtInspectorMetaRulesIn: composite [
-	<gtInspectorPresentationOrder: 0>
+	<gtInspectorPresentationOrder: 1>
 	^ composite table
 		title: [ 'Meta Rules' ];
 		display: [ metaRules ];
