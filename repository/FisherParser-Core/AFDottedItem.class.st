@@ -114,6 +114,11 @@ AFDottedItem >> printOn: aStream [
 	aStream nextPut: $]
 ]
 
+{ #category : #printing }
+AFDottedItem >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
 { #category : #accessing }
 AFDottedItem >> start [
 	^ start

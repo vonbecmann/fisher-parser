@@ -99,6 +99,11 @@ AFColumn >> printOn: aStream [
 		nextPut: $]
 ]
 
+{ #category : #printing }
+AFColumn >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
 { #category : #accessing }
 AFColumn >> processItems: aBlock [
 	"process each item in order"

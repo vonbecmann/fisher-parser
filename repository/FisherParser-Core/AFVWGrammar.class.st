@@ -123,6 +123,11 @@ AFVWGrammar >> printOn: aStream [
 		nextPut: $)
 ]
 
+{ #category : #printing }
+AFVWGrammar >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
 { #category : #accessing }
 AFVWGrammar >> protonotions [
 	^ vwGrammar protonotions 

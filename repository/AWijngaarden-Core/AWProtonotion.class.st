@@ -64,3 +64,8 @@ AWProtonotion >> isTerminal [
 AWProtonotion >> printOn: aStream [
 	aStream nextPutAll: contents
 ]
+
+{ #category : #printing }
+AWProtonotion >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]

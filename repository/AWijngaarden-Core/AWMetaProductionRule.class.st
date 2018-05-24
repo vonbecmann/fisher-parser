@@ -77,3 +77,8 @@ AWMetaProductionRule >> printOn: aStream [
 		print: body;
 		nextPut: $.
 ]
+
+{ #category : #printing }
+AWMetaProductionRule >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]

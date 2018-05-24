@@ -94,3 +94,8 @@ AWHyperRule >> printOn: aStream [
 	body do: [ :hn | aStream print: hn ] separatedBy: [ aStream nextPutAll: ', ' ].
 	aStream nextPut: $.
 ]
+
+{ #category : #printing }
+AWHyperRule >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]

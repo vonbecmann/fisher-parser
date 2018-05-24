@@ -117,6 +117,11 @@ AWHypernotion >> printOn: aStream [
 		separatedBy: [ aStream space ]
 ]
 
+{ #category : #printing }
+AWHypernotion >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
 { #category : #accessing }
 AWHypernotion >> protonotions [
 	^ notions select: [ :each | each isProtonotion ]

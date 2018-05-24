@@ -89,6 +89,11 @@ AFDottedHyperRule >> printOn: aStream [
 	aStream nextPut: $.
 ]
 
+{ #category : #printing }
+AFDottedHyperRule >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
 { #category : #accessing }
 AFDottedHyperRule >> startAt: aColumn [
 	^ AFDottedItem of: self startAt: aColumn

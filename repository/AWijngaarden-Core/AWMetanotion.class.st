@@ -60,3 +60,8 @@ AWMetanotion >> named [
 AWMetanotion >> printOn: aStream [
 	aStream nextPutAll: name
 ]
+
+{ #category : #printing }
+AWMetanotion >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]

@@ -108,6 +108,11 @@ AVWGrammar >> printOn: aStream [
 		nextPut: $)
 ]
 
+{ #category : #printing }
+AVWGrammar >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
 { #category : #accessing }
 AVWGrammar >> protonotions [
 	^ protonotions
