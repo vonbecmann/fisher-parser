@@ -17,6 +17,7 @@ Class {
 		'vwGrammar',
 		'orthoRepresentations',
 		'metaProductionRules',
+		'metaGrammar',
 		'startHyperRule',
 		'alternatives',
 		'representationRules'
@@ -76,28 +77,32 @@ AFVWGrammar >> initialize [
 	super initialize.
 	startNotion := AWHypernotion with: (AWProtonotion with: '((start))').
 	ortholetters := Set new.
-	startNotion do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
-	alternatives := ArrayMultiValuedDictionary dictionary: Dictionary
+	startNotion do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ]
 ]
 
 { #category : #initialization }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
-	vwGrammar protonotions do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
+	ortholetters addAll: vwGrammar ortholetters.
 	orthoRepresentations := ortholetters
 		collect: [ :char | char asSymbol -> (NCTerminal character: char) ]
 		as: Array.
-	metaProductionRules := vwGrammar metaRules collect: [ :metaRule | metaRule asProductionRule ].
+	metaProductionRules := vwGrammar metaRules
+		collect: [ :metaRule | metaRule asProductionRule ].
+	metaGrammar := JEGrammarBuilder new
+		productionRules: metaProductionRules;
+		representations: orthoRepresentations;
+		build.
 	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
-	alternatives at: startNotion put: startHyperRule.
+	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
 		collect: [ :each | each asAFHyperRule ]
-		thenDo: [ :newRule | alternatives at: newRule head put: newRule ].
+		thenDo: [ :newRule | alternatives addLast: newRule ].
 	representationRules := 
-		(alternatives 
+		alternatives
 			select: [ :each | each isRepresentation ]
-			thenCollect: [ :each | each dotAtBeginning ]) asArray
+			thenCollect: [ :each | each dotAtBeginning ]
 ]
 
 { #category : #private }

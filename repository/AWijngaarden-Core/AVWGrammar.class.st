@@ -11,6 +11,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'metanotions',
+		'ortholetters',
 		'protonotions',
 		'hypernotions',
 		'terminals',
@@ -83,10 +84,17 @@ AVWGrammar >> hypernotions [
 ]
 
 { #category : #initialization }
+AVWGrammar >> initialize [
+	super initialize.
+	ortholetters := Set new
+]
+
+{ #category : #initialization }
 AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet hypernotions: hypernotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startNotion: aHypernotion [
 	self initialize.
 	metanotions := metanotionSet.
 	protonotions := protonotionSet.
+	protonotions do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
 	hypernotions := hypernotionSet.
 	terminals := terminalSet.
 	metaRules := metaRuleCollection.
@@ -107,6 +115,11 @@ AVWGrammar >> metaRulesSize [
 { #category : #accessing }
 AVWGrammar >> metanotions [
 	^ metanotions 
+]
+
+{ #category : #accessing }
+AVWGrammar >> ortholetters [
+	^ ortholetters 
 ]
 
 { #category : #printing }
