@@ -41,8 +41,6 @@ AFVWGrammar >> accepts: aString [
 
 { #category : #private }
 AFVWGrammar >> alternativesOf: aProtonotion [
-	"^ alternatives at: aProtonotion ifAbsent: #()"
-
 	| matches |
 	matches := SinglyLinkedList new.
 	alternatives
@@ -90,6 +88,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ].
 	vwGrammar protonotions do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
+	startNotion do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
 	metaProductionRules := vwGrammar metaRules collect: [ :metaRule | metaRule asProductionRule ].
 	orthoRepresentations := ortholetters
 		collect: [ :char | char asSymbol -> (NCTerminal character: char) ]
@@ -97,8 +96,16 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 ]
 
 { #category : #private }
-AFVWGrammar >> matches: aHypernotion against: aProtonotion [ 
-	^ false
+AFVWGrammar >> matches: aHypernotion against: aProtonotion [
+	| hypernotionGrammar |
+	hypernotionGrammar := JEGrammarBuilder new
+		productionRules:
+			((SinglyLinkedList with: aHypernotion asProductionRule)
+				addAll: metaProductionRules;
+				yourself);
+		representations: orthoRepresentations;
+		build.
+	^ hypernotionGrammar accepts: aProtonotion asStrictString 
 ]
 
 { #category : #accessing }

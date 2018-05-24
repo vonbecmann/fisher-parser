@@ -13,6 +13,18 @@ AWHypernotion >> asArrayOfSymbols [
 ]
 
 { #category : #'*FisherParser-Core' }
+AWHypernotion >> asProductionRule [
+	^ NCProductionRule
+		head: (NCNonterminal named: (String streamContents: [ :s | self printOn: s ]))
+		body: self asArrayOfSymbols
+]
+
+{ #category : #'*FisherParser-Core' }
+AWHypernotion >> asStrictString [
+	^ String streamContents: [ :s | notions do: [ :each | each printOn: s ] ]
+]
+
+{ #category : #'*FisherParser-Core' }
 AWHypernotion >> matches: aCharacter [ 
 	^ notions first matches: aCharacter 
 ]
