@@ -14,19 +14,19 @@ AFHyperRuleTest >> setUp [
 
 { #category : #tests }
 AFHyperRuleTest >> testAsString [
-	hyperRule := AFHyperRule
-		head: (AWHypernotion with: (AWMetanotion named: 'EMPTY'))
-		body: {}.
+	hyperRule := 
+		AFHyperRule
+			head: (AWHypernotion with: #'EMPTY' asNotion)
+			body: {}.
 	self assert: hyperRule asString equals: 'EMPTY: .'
 ]
 
 { #category : #tests }
 AFHyperRuleTest >> testAsString02 [
-	hyperRule := AFHyperRule
-		head:
-			(AWHypernotion
-				withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'option')})
-		body: {(AWHypernotion with: (AWMetanotion named: 'NOTION'))}.
+	hyperRule := 
+		AFHyperRule
+			head: (AWHypernotion withAll: {(#'NOTION' asNotion). ('option' asNotion)})
+			body: {(AWHypernotion with: (#'NOTION' asNotion))}.
 	self 
 		assert: hyperRule asString 
 		equals: 'NOTION option: NOTION.'
@@ -35,8 +35,8 @@ AFHyperRuleTest >> testAsString02 [
 { #category : #tests }
 AFHyperRuleTest >> testEqual [
 	| one another |
-	one := AFHyperRule head: (AWHypernotion with: (AWMetanotion named: 'EMPTY')) body: {}.
-	another := AFHyperRule head: (AWHypernotion with: (AWMetanotion named: 'EMPTY')) body: {}.
+	one := AFHyperRule head: (AWHypernotion with: (#'EMPTY' asNotion)) body: {}.
+	another := AFHyperRule head: (AWHypernotion with: (#'EMPTY' asNotion)) body: {}.
 
 	self deny: one == another.
 	self assert: one equals: another.
@@ -46,7 +46,7 @@ AFHyperRuleTest >> testEqual [
 { #category : #tests }
 AFHyperRuleTest >> testEqual02 [
 	| one another |
-	one := AFHyperRule head: (AWHypernotion with: (AWMetanotion named: 'EMPTY')) body: {}.
+	one := AFHyperRule head: (AWHypernotion with: (#'EMPTY' asNotion)) body: {}.
 	another := one.
 
 	self assert: one == another.
@@ -57,20 +57,14 @@ AFHyperRuleTest >> testEqual02 [
 { #category : #tests }
 AFHyperRuleTest >> testEqual03 [
 	| one another |
-	one := AFHyperRule
-		head:
-			(AWHypernotion
-				withAll:
-					{(AWMetanotion named: 'NOTION').
-					(AWProtonotion with: 'option')})
-		body: {(AWHypernotion with: (AWMetanotion named: 'NOTION'))}.
-	another := AFHyperRule
-		head:
-			(AWHypernotion
-				withAll:
-					{(AWMetanotion named: 'NOTION').
-					(AWProtonotion with: 'option')})
-		body: {(AWHypernotion with: (AWMetanotion named: 'NOTION'))}.
+	one := 
+	AFHyperRule
+		head: 	(AWHypernotion withAll: {(#'NOTION' asNotion). ('option' asNotion)})
+		body: {(AWHypernotion with: (#'NOTION' asNotion))}.
+	another := 
+	AFHyperRule
+		head: 	(AWHypernotion withAll: {(#'NOTION' asNotion). ('option' asNotion)})
+		body: {(AWHypernotion with: (#'NOTION' asNotion))}.
 	self deny: one == another.
 	self assert: one equals: another.
 	self assert: one hash equals: another hash.
@@ -79,30 +73,35 @@ AFHyperRuleTest >> testEqual03 [
 
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation [
-	hyperRule := AFHyperRule head: (AWHypernotion with: (AWProtonotion with: 'letter')) body: {(AWHypernotion with: (NCTerminal character: $a))}.
+	hyperRule := 
+		AFHyperRule 
+			head: (AWHypernotion with: 'letter' asNotion) 
+			body: {(NCTerminal character: $a) asNotion}.
+			
 	self assert: hyperRule isRepresentation
 ]
 
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation02 [
-	hyperRule := AFHyperRule head: (AWHypernotion with: (AWProtonotion with: 'letter')) body: {(AWHypernotion with: (AWProtonotion with: 'a'))}.
+	hyperRule := 
+		AFHyperRule 
+			head: (AWHypernotion with: 'letter' asNotion) 
+			body: {(AWHypernotion with: 'a' asNotion)}.
 	self deny: hyperRule isRepresentation
 ]
 
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation03 [
 	hyperRule := AFHyperRule
-		head:
-			(AWHypernotion
-				withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'option')})
-		body: {(AWHypernotion with: (AWMetanotion named: 'NOTION'))}.
+		head: 	(AWHypernotion withAll: {#'NOTION' asNotion. 'option' asNotion})
+		body: {(AWHypernotion with: #'NOTION' asNotion)}.
 	self deny: hyperRule isRepresentation
 ]
 
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation04 [
 	hyperRule := AFHyperRule
-		head: 	(AWHypernotion withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'option')})
+		head: 	(AWHypernotion withAll: {#'NOTION' asNotion. 'option' asNotion})
 		body: {}.
 	self deny: hyperRule isRepresentation
 ]
@@ -110,7 +109,7 @@ AFHyperRuleTest >> testIsRepresentation04 [
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation05 [
 	hyperRule := AFHyperRule
-		head: (AWHypernotion with: (AWMetanotion named: #LETTER))
-		body: {(AWHypernotion with: (NCTerminal character: $a))}.
+		head: (AWHypernotion with: #LETTER asNotion)
+		body: {(NCTerminal character: $a) asNotion}.
 	self deny: hyperRule isRepresentation
 ]

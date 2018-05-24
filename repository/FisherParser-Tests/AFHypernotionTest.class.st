@@ -1,16 +1,21 @@
 Class {
 	#name : #AFHypernotionTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'hypernotion'
+	],
 	#category : #'FisherParser-Tests-Implementation'
 }
 
+{ #category : #initialization }
+AFHypernotionTest >> setUp [
+	hypernotion := nil
+]
+
 { #category : #tests }
 AFHypernotionTest >> testAsStrictString [
-	| hypernotion |
-	hypernotion := AWHypernotion
-		withAll:
-			{(AWProtonotion with: 'start').
-			(AWProtonotion with: 'notion')}.
+	hypernotion := AWHypernotion withAll: {'start' asNotion. 'notion' asNotion}.
+	
 	self 
 		assert: hypernotion asStrictString 
 		equals: 'startnotion'
@@ -18,10 +23,9 @@ AFHypernotionTest >> testAsStrictString [
 
 { #category : #tests }
 AFHypernotionTest >> testAsStrictString02 [
-	| hypernotion |
-	hypernotion := AWHypernotion
-		withAll:
-			{(AWMetanotion named: 'THREE').
-			(AWProtonotion with: 'cs')}.
-	self assert: hypernotion asStrictString equals: 'THREEcs'
+	hypernotion := AWHypernotion withAll: {#THREE asNotion. 'cs' asNotion}.
+
+	self 
+		assert: hypernotion asStrictString 
+		equals: 'THREEcs'
 ]

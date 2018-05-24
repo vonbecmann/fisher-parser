@@ -15,7 +15,7 @@ AWHypernotion >> asArrayOfSymbols [
 { #category : #'*FisherParser-Core' }
 AWHypernotion >> asProductionRule [
 	^ NCProductionRule
-		head: (NCNonterminal named: (String streamContents: [ :s | self printOn: s ]))
+		head: (NCNonterminal named: self printString)
 		body: self asArrayOfSymbols
 ]
 
