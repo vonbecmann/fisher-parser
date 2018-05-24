@@ -52,11 +52,9 @@ AFRecognizer >> evaluate: words [
 							item symbolAtDot isTerminal
 								ifTrue: [ 
 									(i < n and: [ item symbolAtDot matches: (words at: i) ])
-										ifTrue: [ (chart at: i + 1) add: item moveDotForward ] ]
-								ifFalse: [
-									item symbolAtDot isProtonotion 
-										ifTrue: 	[ self topDownPredict: item symbolAtDot at: column ] 
-										ifFalse: 	[  ]  ] ] ] ].
+										ifTrue: [ (chart at: i + 1) add: item moveDotForward ] ].
+							item symbolAtDot isProtonotion
+								ifTrue: [ self topDownPredict: item symbolAtDot at: column ] ] ] ].
 	^ chart
 ]
 
