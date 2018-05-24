@@ -12,14 +12,14 @@ Class {
 	#name : #AFVWGrammar,
 	#superclass : #Object,
 	#instVars : [
-		'ortholetters',
 		'startNotion',
+		'ortholetters',
 		'vwGrammar',
-		'startHyperRule',
-		'representationRules',
-		'alternatives',
+		'orthoRepresentations',
 		'metaProductionRules',
-		'orthoRepresentations'
+		'startHyperRule',
+		'alternatives',
+		'representationRules'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -74,10 +74,8 @@ AFVWGrammar >> hypernotions [
 { #category : #initialization }
 AFVWGrammar >> initialize [
 	super initialize.
+	startNotion := AWHypernotion with: (AWProtonotion with: '((start))').
 	ortholetters := Set new.
-	startNotion := 
-		AWHypernotion 
-			withAll: {(AWProtonotion with: 'start').(AWProtonotion with: 'notion')}.
 	startNotion do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
 	alternatives := ArrayMultiValuedDictionary dictionary: Dictionary
 ]
@@ -96,9 +94,10 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	vwGrammar hyperRules
 		collect: [ :each | each asAFHyperRule ]
 		thenDo: [ :newRule | alternatives at: newRule head put: newRule ].
-	representationRules := alternatives values
-		select: [ :each | each isRepresentation ]
-		thenCollect: [ :each | each dotAtBeginning ]
+	representationRules := 
+		(alternatives 
+			select: [ :each | each isRepresentation ]
+			thenCollect: [ :each | each dotAtBeginning ]) asArray
 ]
 
 { #category : #private }
