@@ -20,7 +20,8 @@ Class {
 		'metaGrammar',
 		'startHyperRule',
 		'alternatives',
-		'representationRules'
+		'representationRules',
+		'grammarBuilder'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -85,37 +86,25 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
 	ortholetters addAll: vwGrammar ortholetters.
-	orthoRepresentations := ortholetters
-		collect: [ :char | char asSymbol -> (NCTerminal character: char) ]
-		as: Array.
-	metaProductionRules := vwGrammar metaRules
-		collect: [ :metaRule | metaRule asProductionRule ].
-	metaGrammar := JEGrammarBuilder new
-		productionRules: metaProductionRules;
-		representations: orthoRepresentations;
-		build.
+	grammarBuilder := AFGrammarBuilder
+		productionRules: (vwGrammar metaRules collect: [ :metaRule | metaRule asProductionRule ])
+		representations: 
+			(ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
 	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
 		collect: [ :each | each asAFHyperRule ]
 		thenDo: [ :newRule | alternatives addLast: newRule ].
-	representationRules := 
-		alternatives
-			select: [ :each | each isRepresentation ]
-			thenCollect: [ :each | each dotAtBeginning ]
+	representationRules := alternatives
+		select: [ :each | each isRepresentation ]
+		thenCollect: [ :each | each dotAtBeginning ]
 ]
 
 { #category : #private }
 AFVWGrammar >> matches: aHypernotion against: aProtonotion [
-	| hypernotionGrammar |
-	hypernotionGrammar := JEGrammarBuilder new
-		productionRules:
-			((SinglyLinkedList with: aHypernotion asProductionRule)
-				addAll: metaProductionRules;
-				yourself);
-		representations: orthoRepresentations;
-		build.
-	^ hypernotionGrammar accepts: aProtonotion asStrictString 
+	| hnGrammar |
+	hnGrammar := grammarBuilder buildStartingAt: aHypernotion.
+	^ hnGrammar accepts: aProtonotion asStrictString
 ]
 
 { #category : #accessing }

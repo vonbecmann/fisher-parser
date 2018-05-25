@@ -13,13 +13,6 @@ AWHypernotion >> asArrayOfSymbols [
 ]
 
 { #category : #'*FisherParser-Core' }
-AWHypernotion >> asProductionRule [
-	^ NCProductionRule
-		head: (NCNonterminal named: self printString)
-		body: self asArrayOfSymbols
-]
-
-{ #category : #'*FisherParser-Core' }
 AWHypernotion >> asStrictString [
 	^ String streamContents: [ :s | notions do: [ :each | each printOn: s ] ]
 ]
