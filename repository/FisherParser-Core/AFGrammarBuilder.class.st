@@ -14,10 +14,10 @@ Class {
 	#category : #'FisherParser-Core-Implementation'
 }
 
-{ #category : #'as yet unclassified' }
-AFGrammarBuilder class >> productionRules: aCollection representations: aCollection2 [ 
+{ #category : #'instance creation' }
+AFGrammarBuilder class >> metaRules: metaRuleCollection orthoRepresentations: terminalNotionToRepresentationList [ 
 	^ self basicNew 
-		initializeProductionRules: aCollection representations: aCollection2;
+		initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList;
 		yourself
 ]
 
@@ -46,25 +46,25 @@ AFGrammarBuilder >> buildStartingAt: aHypernotion [
 AFGrammarBuilder >> initialize [
 	super initialize.
 	nonterminals := Set new.
-	terminals := Set new
+	terminals := Set new.
+	metaProductionRules := SinglyLinkedList new
 ]
 
 { #category : #initialization }
-AFGrammarBuilder >> initializeProductionRules: productionRuleCollection representations: terminalNotionToRepresentationList [
+AFGrammarBuilder >> initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList [
 	self initialize.
-	productionRuleCollection do: [ :each | nonterminals add: each head ].
+	metaRuleCollection do: [ :each | nonterminals add: each head asNonterminal ].
 	terminalNotionToRepresentationList
 		do: [ :assoc | 
 			nonterminals add: (NCNonterminal named: assoc key).
 			terminals add: assoc value ].
-	metaProductionRules := SinglyLinkedList new.
 	metaProductionRules
 		addAll:
-			(productionRuleCollection
+			(metaRuleCollection
 				collect: [ :each | 
 					NCProductionRule
-						head: (nonterminals like: each head)
-						body: (each body collect: [ :notion | nonterminals like: notion ]) ]).
+						head: (nonterminals like: each head asNonterminal)
+						body: (each body asArrayOfSymbols collect: [ :notion | nonterminals like: notion ]) ]).
 	metaProductionRules
 		addAll:
 			(terminalNotionToRepresentationList

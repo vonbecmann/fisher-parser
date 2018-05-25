@@ -15,9 +15,6 @@ Class {
 		'startNotion',
 		'ortholetters',
 		'vwGrammar',
-		'orthoRepresentations',
-		'metaProductionRules',
-		'metaGrammar',
 		'startHyperRule',
 		'alternatives',
 		'representationRules',
@@ -87,9 +84,8 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	vwGrammar := aVWGrammar.
 	ortholetters addAll: vwGrammar ortholetters.
 	grammarBuilder := AFGrammarBuilder
-		productionRules: (vwGrammar metaRules collect: [ :metaRule | metaRule asProductionRule ])
-		representations: 
-			(ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
+		metaRules: vwGrammar metaRules
+		orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
 	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
