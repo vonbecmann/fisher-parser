@@ -40,13 +40,19 @@ AFVWGrammar >> accepts: aString [
 
 { #category : #private }
 AFVWGrammar >> alternativesOf: aProtonotion [
-	| matches |
-	matches := SinglyLinkedList new.
+	| alternativesOfProtonotion |
+	alternativesOfProtonotion := SinglyLinkedList new.
 	alternatives
 		do: [ :hrule | 
 			(self matches: hrule head against: aProtonotion)
-				ifTrue: [ matches addLast: hrule ] ].
-	^ matches
+				ifTrue: [ | substitute |
+					substitute := 
+						self 
+							substitute: hrule 
+							accordingTo: hrule head 
+							matches: aProtonotion.
+					alternativesOfProtonotion addLast: substitute ] ].
+	^ alternativesOfProtonotion
 ]
 
 { #category : #testing }
@@ -148,6 +154,11 @@ AFVWGrammar >> startHyperRule [
 { #category : #accessing }
 AFVWGrammar >> startNotion [
 	^ startNotion
+]
+
+{ #category : #'as yet unclassified' }
+AFVWGrammar >> substitute: anAFHyperRule accordingTo: anAWHypernotion matches: anAWHypernotion3 [ 
+	^ anAFHyperRule 
 ]
 
 { #category : #accessing }

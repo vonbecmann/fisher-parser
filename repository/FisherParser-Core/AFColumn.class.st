@@ -117,3 +117,8 @@ AFColumn >> shortPrintOn: aStream [
 
 	number printOn: aStream
 ]
+
+{ #category : #accessing }
+AFColumn >> size [
+	^ itemSet size
+]

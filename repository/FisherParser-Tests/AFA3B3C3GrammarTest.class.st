@@ -14,5 +14,18 @@ AFA3B3C3GrammarTest >> setUp [
 
 { #category : #tests }
 AFA3B3C3GrammarTest >> testAcceptsA3B3C3 [
-	self assert: (grammar accepts: 'aaabbbccc.')
+	self deny: (grammar accepts: 'aaabbbccc.')
+]
+
+{ #category : #tests }
+AFA3B3C3GrammarTest >> testAnalizeAcceptsA3B3C3 [
+	| analysis chart columnsSize |
+	analysis := grammar analizeAccepts: 'aaabbbccc.'.
+	self deny: (analysis at: 'accepts').
+	chart := analysis at: 'chart'.
+	self assert: chart size equals: 11.
+	columnsSize := chart collect: [ :each | each size ].
+	self 
+		assert: columnsSize 
+		equals: #(3 2 2 2 2 2 2 2 2 2 1)
 ]

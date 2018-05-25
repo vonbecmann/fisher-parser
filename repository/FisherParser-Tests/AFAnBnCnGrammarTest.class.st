@@ -14,7 +14,7 @@ AFAnBnCnGrammarTest >> setUp [
 
 { #category : #tests }
 AFAnBnCnGrammarTest >> testAcceptsABC [
-	self assert: (grammar accepts: 'abc')
+	self deny: (grammar accepts: 'abc')
 ]
 
 { #category : #tests }
