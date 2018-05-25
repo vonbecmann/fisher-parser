@@ -50,7 +50,7 @@ AFVWGrammar >> alternativesOf: aProtonotion [
 						self 
 							substitute: hrule 
 							accordingTo: hrule head 
-							matches: aProtonotion.
+							thatAccepts: aProtonotion.
 					alternativesOfProtonotion addLast: substitute ] ].
 	^ alternativesOfProtonotion
 ]
@@ -58,6 +58,16 @@ AFVWGrammar >> alternativesOf: aProtonotion [
 { #category : #testing }
 AFVWGrammar >> analizeAccepts: aString [
 	^ (AFAnalyticalRecognizer of: self) accepts: aString
+]
+
+{ #category : #private }
+AFVWGrammar >> findNonterminal: nonterminal at: parse [
+	ESTDepthFirstVisitor new
+		preOrderBlock: [ :node | 
+			node model reason head = nonterminal
+				ifTrue: [ ^ node ] ];
+		visit: parse.
+	^ nil
 ]
 
 { #category : #'inspector extensions' }
@@ -156,9 +166,29 @@ AFVWGrammar >> startNotion [
 	^ startNotion
 ]
 
-{ #category : #'as yet unclassified' }
-AFVWGrammar >> substitute: anAFHyperRule accordingTo: anAWHypernotion matches: anAWHypernotion3 [ 
-	^ anAFHyperRule 
+{ #category : #private }
+AFVWGrammar >> substitute: aHyperRule accordingTo: aHypernotion thatAccepts: aProtonotion [
+	| substitutions |
+	substitutions := self substitutionsOf: aHypernotion thatAccepts: aProtonotion.
+	^ aHyperRule substituteMetanotionsBy: substitutions
+]
+
+{ #category : #private }
+AFVWGrammar >> substitutionsOf: aHypernotion thatAccepts: aProtonotion [
+	| hnGrammar parse hnNode assocs metanodes |
+	hnGrammar := grammarBuilder buildStartingAt: aHypernotion.
+	parse := hnGrammar parseTree: aProtonotion asStrictString.
+	hnNode := self findNonterminal: (NCNonterminal named: aHypernotion asString) at: parse.
+	metanodes := SinglyLinkedList new.
+	aHypernotion metanotions
+		collect: [ :each | each asNonterminal ]
+		thenDo: [ :nonterminal | 
+			hnNode children
+				select: [ :child | child reason head = nonterminal ]
+				thenDo: [ :node | metanodes add: node ] ].
+	assocs := SinglyLinkedList new.
+	metanodes do: [ :mnode | assocs add: mnode reason head named -> '' ].
+	^ Dictionary newFrom: assocs asArray
 ]
 
 { #category : #accessing }

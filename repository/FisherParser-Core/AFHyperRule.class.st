@@ -98,3 +98,8 @@ AFHyperRule >> printOn: aStream [
 AFHyperRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
+
+{ #category : #'as yet unclassified' }
+AFHyperRule >> substituteMetanotionsBy: aCollection [ 
+	^ self
+]
