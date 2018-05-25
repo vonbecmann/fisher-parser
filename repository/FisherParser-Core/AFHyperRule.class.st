@@ -1,5 +1,10 @@
 "
-a hyper rule used by the algorithm
+a hyper rule used by the algorithm.
+
+allows
+	- to create a dotted hyper rule of myself.
+	- to substitute metanotions and result on another hyper rule
+
 "
 Class {
 	#name : #AFHyperRule,
@@ -99,7 +104,7 @@ AFHyperRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #'as yet unclassified' }
-AFHyperRule >> substituteMetanotionsBy: aCollection [ 
+{ #category : #accessing }
+AFHyperRule >> substituteMetanotionsBy: anAssocCollection [ 
 	^ self
 ]
