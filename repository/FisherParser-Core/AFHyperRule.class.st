@@ -84,6 +84,11 @@ AFHyperRule >> initializeHead: aHypernotion body: aHypernotionCollection [
 ]
 
 { #category : #testing }
+AFHyperRule >> isEpsilon [
+	^ body isEmpty
+]
+
+{ #category : #testing }
 AFHyperRule >> isRepresentation [
 	"head is metanotion free and the body is a terminal"
 
@@ -105,6 +110,11 @@ AFHyperRule >> printString [
 ]
 
 { #category : #accessing }
-AFHyperRule >> substituteMetanotionsBy: anAssocCollection [ 
-	^ self
+AFHyperRule >> substituteMetanotionsBy: anAssocCollection [
+	^ AFHyperRule
+		head: (head substituteMetanotionsBy: anAssocCollection)
+		body:
+			(body
+				collect: [ :each | 
+					each substituteMetanotionsBy: anAssocCollection ])
 ]

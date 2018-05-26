@@ -39,19 +39,32 @@ AFVWGrammar >> accepts: aString [
 ]
 
 { #category : #private }
-AFVWGrammar >> alternativesOf: aProtonotion [
+AFVWGrammar >> alternativesThatFirstNotionAccepts: aProtonotion [
+	| alternativesOfProtonotion |
+	alternativesOfProtonotion := SinglyLinkedList new.
+	alternatives
+		do: [ :hrule | 
+			hrule isEpsilon
+				ifFalse: [ 
+					(self matches: hrule body first against: aProtonotion)
+						ifTrue: [ 
+							alternativesOfProtonotion
+								addLast:
+									(hrule
+										substituteMetanotionsBy: (self substitutionsOf: hrule body first thatAccepts: aProtonotion)) ] ] ].
+	^ alternativesOfProtonotion
+]
+
+{ #category : #private }
+AFVWGrammar >> alternativesThatHeadAccepts: aProtonotion [
 	| alternativesOfProtonotion |
 	alternativesOfProtonotion := SinglyLinkedList new.
 	alternatives
 		do: [ :hrule | 
 			(self matches: hrule head against: aProtonotion)
-				ifTrue: [ | substitute |
-					substitute := 
-						self 
-							substitute: hrule 
-							accordingTo: hrule head 
-							thatAccepts: aProtonotion.
-					alternativesOfProtonotion addLast: substitute ] ].
+				ifTrue: [ 
+					alternativesOfProtonotion 
+						addLast: (hrule substituteMetanotionsBy: (self substitutionsOf: hrule head thatAccepts: aProtonotion)) ] ].
 	^ alternativesOfProtonotion
 ]
 
@@ -167,13 +180,6 @@ AFVWGrammar >> startNotion [
 ]
 
 { #category : #private }
-AFVWGrammar >> substitute: aHyperRule accordingTo: aHypernotion thatAccepts: aProtonotion [
-	| substitutions |
-	substitutions := self substitutionsOf: aHypernotion thatAccepts: aProtonotion.
-	^ aHyperRule substituteMetanotionsBy: substitutions
-]
-
-{ #category : #private }
 AFVWGrammar >> substitutionsOf: aHypernotion thatAccepts: aProtonotion [
 	| hnGrammar parse hnNode assocs metanodes |
 	hnGrammar := grammarBuilder buildStartingAt: aHypernotion.
@@ -182,12 +188,21 @@ AFVWGrammar >> substitutionsOf: aHypernotion thatAccepts: aProtonotion [
 	metanodes := SinglyLinkedList new.
 	aHypernotion metanotions
 		collect: [ :each | each asNonterminal ]
-		thenDo: [ :nonterminal | 
-			hnNode children
-				select: [ :child | child reason head = nonterminal ]
-				thenDo: [ :node | metanodes add: node ] ].
-	assocs := SinglyLinkedList new.
-	metanodes do: [ :mnode | assocs add: mnode reason head named -> '' ].
+		thenDo:
+			[ :nonterminal | hnNode children select: [ :child | child model reason head = nonterminal ] thenDo: [ :node | metanodes add: node ] ].
+	assocs := metanodes
+		collect: [ :mnode | 
+			mnode model reason head named
+				->
+					(AWProtonotion
+						with:
+							(String
+								streamContents: [ :s | 
+									ESTDepthFirstVisitor new
+										preOrderBlock: [ :node | 
+											node model isTerminal
+												ifTrue: [ s nextPut: node model reason ] ];
+										visit: mnode ])) ].
 	^ Dictionary newFrom: assocs asArray
 ]
 

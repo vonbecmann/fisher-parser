@@ -21,3 +21,14 @@ AWHypernotion >> asStrictString [
 AWHypernotion >> matches: aCharacter [ 
 	^ notions first matches: aCharacter 
 ]
+
+{ #category : #'*FisherParser-Core' }
+AWHypernotion >> substituteMetanotionsBy: anAssocCollection [
+	^ AWHypernotion
+		withAll:
+			(notions
+				collect: [ :notion | 
+					(notion isMetanotion and: [ anAssocCollection includesKey: notion named ])
+						ifTrue: [ anAssocCollection at: notion named ]
+						ifFalse: [ notion ] ])
+]

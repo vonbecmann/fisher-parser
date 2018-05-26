@@ -13,8 +13,13 @@ AFAnBnCnGrammarTest >> setUp [
 ]
 
 { #category : #tests }
+AFAnBnCnGrammarTest >> testAcceptsA2B2C2 [
+	self assert: (grammar accepts: 'aabbcc')
+]
+
+{ #category : #tests }
 AFAnBnCnGrammarTest >> testAcceptsABC [
-	self deny: (grammar accepts: 'abc')
+	self assert: (grammar accepts: 'abc')
 ]
 
 { #category : #tests }

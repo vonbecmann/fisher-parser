@@ -33,6 +33,22 @@ AFRecognizer >> addPreterminalsWith: word at: column [
 ]
 
 { #category : #private }
+AFRecognizer >> bottomUpPredict: aProtonotion at: aColumn [ 
+	(grammar alternativesThatFirstNotionAccepts: aProtonotion)
+		do: [ :hrule | aColumn add: (hrule dotAtBeginning startAt: aColumn) ]
+]
+
+{ #category : #private }
+AFRecognizer >> complete: item at: column [
+	item predictionItems
+		do: [ :previous | 
+			(grammar matches: previous symbolAtDot against: item head)
+				ifTrue: [ | subs |
+					subs := grammar substitutionsOf: previous symbolAtDot thatAccepts: item head.
+					column add: (previous moveDotForwardAfterSubstitutingMetanotionsBy: subs) ] ]
+]
+
+{ #category : #private }
 AFRecognizer >> evaluate: words [
 	| chart n |
 	n := words size + 1.
@@ -47,7 +63,11 @@ AFRecognizer >> evaluate: words [
 			column
 				processItems: [ :item | 
 					item isFinal
-						ifTrue: [  ]
+						ifTrue: [ 
+							item head isProtonotion 
+								ifTrue: [
+										self bottomUpPredict: item head at: item start.
+										self complete: item at: column  ] ]
 						ifFalse: [ 
 							item symbolAtDot isTerminal
 								ifTrue: [ 
@@ -66,6 +86,6 @@ AFRecognizer >> initializeGrammar: aVWGrammar [
 
 { #category : #private }
 AFRecognizer >> topDownPredict: aProtonotion at: aColumn [
-	(grammar alternativesOf: aProtonotion)
+	(grammar alternativesThatHeadAccepts: aProtonotion)
 		do: [ :hrule | aColumn add: (hrule dotAtBeginning startAt: aColumn) ]
 ]

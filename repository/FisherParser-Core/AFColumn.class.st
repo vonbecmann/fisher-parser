@@ -8,7 +8,8 @@ Class {
 		'number',
 		'items',
 		'itemSet',
-		'orderedItems'
+		'orderedItems',
+		'predictionItems'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -30,12 +31,13 @@ AFColumn >> = anObject [
 { #category : #adding }
 AFColumn >> add: anItem [
 	^ itemSet
-		detect: 	[ :item | item = anItem ]
+		detect: 	[ :item | item equals: anItem ]
 		ifFound: 	[ :item | item ]
 		ifNone: 
 			[	items nextPut: anItem.
 				itemSet addLast: anItem.
 				orderedItems addLast: anItem.
+				anItem isFinal ifFalse: [ predictionItems addLast: anItem ].
 				anItem
 					end: self;
 					yourself ]
@@ -60,7 +62,10 @@ AFColumn >> hash [
 
 { #category : #testing }
 AFColumn >> includes: anItem [
-	^ itemSet includes: anItem
+	^ itemSet 
+		detect: [ :each | each equals: anItem ] 
+		ifFound: [ true ] 
+		ifNone: [ false ]
 ]
 
 { #category : #initialization }
@@ -68,7 +73,8 @@ AFColumn >> initialize [
 	super initialize.
 	items := SinglyLinkedQueue new.
 	itemSet := SinglyLinkedList new.
-	orderedItems := SinglyLinkedList new
+	orderedItems := SinglyLinkedList new.
+	predictionItems := SinglyLinkedList new
 	
 ]
 
@@ -86,6 +92,11 @@ AFColumn >> isEmpty [
 { #category : #accessing }
 AFColumn >> number [
 	^ number
+]
+
+{ #category : #accessing }
+AFColumn >> predictionItems [
+	^ predictionItems
 ]
 
 { #category : #printing }

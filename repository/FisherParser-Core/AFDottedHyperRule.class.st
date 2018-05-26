@@ -48,6 +48,11 @@ AFDottedHyperRule >> hash [
 ]
 
 { #category : #accessing }
+AFDottedHyperRule >> head [
+	^ hyperRule head
+]
+
+{ #category : #accessing }
 AFDottedHyperRule >> hyperRule [
 	^ hyperRule
 ]
@@ -67,6 +72,13 @@ AFDottedHyperRule >> isFinal [
 { #category : #accessing }
 AFDottedHyperRule >> moveDotForward [
 	^ self class of: hyperRule withDotAt: dotIndex + 1
+]
+
+{ #category : #accessing }
+AFDottedHyperRule >> moveDotForwardAfterSubstitutingMetanotionsBy: anAssocCollection [
+	^ self class
+		of: (hyperRule substituteMetanotionsBy: anAssocCollection)
+		withDotAt: dotIndex + 1
 ]
 
 { #category : #printing }

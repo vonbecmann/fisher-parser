@@ -57,6 +57,13 @@ AFDottedItem >> end: aColumn [
 	end := aColumn
 ]
 
+{ #category : #comparing }
+AFDottedItem >> equals: anItem [
+	^ self class == anItem class
+				and: [ start = anItem start 
+								and: [ dottedHyperRule = anItem dottedHyperRule ] ]
+]
+
 { #category : #'inspector extensions' }
 AFDottedItem >> gtDisplayIntervalString [
 	^ String streamContents: [ :s | self printIntervalOn: s ]
@@ -70,6 +77,11 @@ AFDottedItem >> gtDisplayValueString [
 { #category : #comparing }
 AFDottedItem >> hash [
 	^ ((dottedHyperRule hash + start hash) hashMultiply + end hash) hashMultiply
+]
+
+{ #category : #accessing }
+AFDottedItem >> head [
+	^ dottedHyperRule head
 ]
 
 { #category : #initialization }
@@ -87,6 +99,18 @@ AFDottedItem >> isFinal [
 { #category : #accessing }
 AFDottedItem >> moveDotForward [
 	^ self class of: dottedHyperRule moveDotForward startAt: start
+]
+
+{ #category : #accessing }
+AFDottedItem >> moveDotForwardAfterSubstitutingMetanotionsBy: anAssocCollection [
+	^ self class
+		of: (dottedHyperRule moveDotForwardAfterSubstitutingMetanotionsBy: anAssocCollection)
+		startAt: start
+]
+
+{ #category : #accessing }
+AFDottedItem >> predictionItems [
+	^ start predictionItems
 ]
 
 { #category : #printing }
