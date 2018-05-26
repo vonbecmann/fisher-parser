@@ -23,21 +23,17 @@ AFGrammarBuilder class >> metaRules: metaRuleCollection orthoRepresentations: te
 
 { #category : #building }
 AFGrammarBuilder >> buildStartingAt: aHypernotion [
-	| startNotion rule |
-	startNotion := NCNonterminal named: aHypernotion asString.
-	rule := 
-		NCProductionRule 
-			head: startNotion 
-			body: (aHypernotion asArrayOfSymbols collect: [ :each | nonterminals like: each ]).
+	| startNotion startRule |
+	startNotion := aHypernotion asNonterminal.
+	startRule := NCProductionRule
+		head: startNotion
+		body: (aHypernotion asArrayOfSymbols collect: [ :each | nonterminals like: each ]).
 	^ JEGrammar
 		productionRules:
-			((SinglyLinkedList with: rule)
+			((SinglyLinkedList with: startRule)
 				addAll: metaProductionRules;
 				yourself)
-		nonterminals:
-			((Set with: startNotion)
-				addAll: nonterminals;
-				yourself)
+		nonterminals: (nonterminals copyWith: startNotion)
 		terminals: terminals
 		startNonterminal: startNotion
 ]
