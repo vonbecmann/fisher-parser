@@ -62,7 +62,7 @@ AWHypernotion >> first [
 AWHypernotion >> gtInspectorNotionsIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ composite list
-		title: [ 'Notions' ];
+		title: [ notions size asString, ' notions' ];
 		display: [ notions ];
 		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		showOnly: 50;

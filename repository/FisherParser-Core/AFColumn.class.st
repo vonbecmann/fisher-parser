@@ -58,6 +58,18 @@ AFColumn >> gtInspectorItemsIn: composite [
 		yourself
 ]
 
+{ #category : #'inspector extensions' }
+AFColumn >> gtInspectorPredictionItemsIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite table
+		title: [ 'Prediction' ];
+		display: [ predictionItems asArray ];
+		column: '@ [start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 100;
+		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
+		showOnly: 50;
+		yourself
+]
+
 { #category : #comparing }
 AFColumn >> hash [
 	^ number hash
