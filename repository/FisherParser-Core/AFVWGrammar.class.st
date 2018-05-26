@@ -74,10 +74,24 @@ AFVWGrammar >> analizeAccepts: aString [
 ]
 
 { #category : #private }
-AFVWGrammar >> findNonterminal: nonterminal at: parse [
-	ESTDepthFirstVisitor new
+AFVWGrammar >> findMetanodesOf: hypernotion at: parse [
+	| metanodes hnode |
+	metanodes := SinglyLinkedList new.
+	hnode := self findNodeOf: hypernotion at: parse.
+	hypernotion metanotions
+		collect: [ :each | each asNonterminal ]
+		thenDo: [ :nonterminal | 
+			hnode children
+				select: [ :child | child model symbol = nonterminal ]
+				thenDo: [ :mnode | metanodes add: mnode ] ].
+	^ metanodes
+]
+
+{ #category : #private }
+AFVWGrammar >> findNodeOf: hypernotion at: parse [
+	ESTreeVisitor depthFirst new
 		preOrderBlock: [ :node | 
-			node model reason head = nonterminal
+			node model symbol = hypernotion asNonterminal
 				ifTrue: [ ^ node ] ];
 		visit: parse.
 	^ nil
@@ -181,32 +195,26 @@ AFVWGrammar >> startNotion [
 
 { #category : #private }
 AFVWGrammar >> substitutionsOf: aHypernotion thatAccepts: aProtonotion [
-	| hnGrammar parse hnNode assocs metanodes |
+	| hnGrammar parse metanodes substitutions |
 	hnGrammar := grammarBuilder buildStartingAt: aHypernotion.
 	parse := hnGrammar parseTree: aProtonotion asStrictString.
-	hnNode := self findNonterminal: aHypernotion asNonterminal at: parse.
-	metanodes := SinglyLinkedList new.
-	aHypernotion metanotions
-		collect: [ :each | each asNonterminal ]
-		thenDo:
-			[ :nonterminal | 
-				hnNode children 
-							select: [ :child | child model symbol = nonterminal ] 
-							thenDo: [ :node | metanodes add: node ] ].
-	assocs := metanodes
-		collect: [ :mnode | 
-			mnode model reason head named
-				->
-					(AWProtonotion
-						with:
-							(String
-								streamContents: [ :s | 
-									ESTDepthFirstVisitor new
-										preOrderBlock: [ :node | 
-											node model isTerminal
-												ifTrue: [ s nextPut: node model reason ] ];
-										visit: mnode ])) ].
-	^ Dictionary newFrom: assocs asArray
+	metanodes := self findMetanodesOf: aHypernotion at: parse.
+	substitutions := IdentityDictionary new.
+	metanodes
+		do: [ :mnode | 
+			substitutions
+				add:
+					mnode model symbol named
+						->
+							(AWProtonotion
+								with:
+									(String
+										streamContents: [ :s | 
+											ESTreeVisitor depthFirst new
+												preOrderBlock: [ :node | 
+													node model isTerminal ifTrue: [ s nextPut: node model reason ] ];
+												visit: mnode ])) ].
+	^ substitutions
 ]
 
 { #category : #accessing }
