@@ -184,12 +184,15 @@ AFVWGrammar >> substitutionsOf: aHypernotion thatAccepts: aProtonotion [
 	| hnGrammar parse hnNode assocs metanodes |
 	hnGrammar := grammarBuilder buildStartingAt: aHypernotion.
 	parse := hnGrammar parseTree: aProtonotion asStrictString.
-	hnNode := self findNonterminal: (NCNonterminal named: aHypernotion asString) at: parse.
+	hnNode := self findNonterminal: aHypernotion asNonterminal at: parse.
 	metanodes := SinglyLinkedList new.
 	aHypernotion metanotions
 		collect: [ :each | each asNonterminal ]
 		thenDo:
-			[ :nonterminal | hnNode children select: [ :child | child model reason head = nonterminal ] thenDo: [ :node | metanodes add: node ] ].
+			[ :nonterminal | 
+				hnNode children 
+							select: [ :child | child model symbol = nonterminal ] 
+							thenDo: [ :node | metanodes add: node ] ].
 	assocs := metanodes
 		collect: [ :mnode | 
 			mnode model reason head named
