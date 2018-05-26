@@ -37,7 +37,10 @@ AFColumn >> add: anItem [
 			[	items nextPut: anItem.
 				itemSet addLast: anItem.
 				orderedItems addLast: anItem.
-				anItem isFinal ifFalse: [ predictionItems addLast: anItem ].
+				anItem isFinal 
+					ifFalse: [ 
+						anItem symbolAtDot isTerminal 
+							ifFalse: [predictionItems addLast: anItem] ].
 				anItem
 					end: self;
 					yourself ]
