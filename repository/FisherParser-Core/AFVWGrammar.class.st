@@ -17,6 +17,7 @@ Class {
 		'vwGrammar',
 		'startHyperRule',
 		'alternatives',
+		'bottomUpAlternatives',
 		'representationRules',
 		'metaGrammar'
 	],
@@ -42,26 +43,20 @@ AFVWGrammar >> accepts: aString [
 AFVWGrammar >> alternativesThatFirstNotionAccepts: aProtonotion [
 	| alternativesOfProtonotion |
 	alternativesOfProtonotion := SinglyLinkedList new.
-	alternatives
+	bottomUpAlternatives
 		do: [ :hrule | 
-			hrule isEpsilon
-				ifFalse: [ 
-					| first |
-					first := hrule body first.
-					first isHypernotion
+			| first |
+			first := hrule body first.
+			first isHypernotion
+				ifTrue: [ 
+					(self startAt: first accepts: aProtonotion)
 						ifTrue: [ 
-							(self startAt: first accepts: aProtonotion)
-								ifTrue: [ 
-									alternativesOfProtonotion
-										addLast:
-											(hrule
-												substituteMetanotionsBy: 
-													(self 	substitutionsOf: first thatAccepts: aProtonotion)) ] ]
-						ifFalse: [
-							first isProtonotion 
-								ifTrue: [ 
-									first asStrictString = aProtonotion asStrictString 
-										ifTrue: [ alternativesOfProtonotion add: hrule ] ] ] ] ].
+							alternativesOfProtonotion
+								addLast: (hrule substituteMetanotionsBy: (self substitutionsOf: first thatAccepts: aProtonotion)) ] ]
+				ifFalse: [ 
+					first isProtonotion
+						ifTrue: [ first asStrictString = aProtonotion asStrictString
+								ifTrue: [ alternativesOfProtonotion add: hrule ] ] ] ].
 	^ alternativesOfProtonotion
 ]
 
@@ -128,9 +123,10 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
 	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
 	alternatives := SinglyLinkedList with: startHyperRule.
-	vwGrammar hyperRules
-		collect: [ :each | each asAFHyperRule ]
+	vwGrammar hyperRules 
+		collect: [ :each | each asAFHyperRule ] 
 		thenDo: [ :newRule | alternatives addLast: newRule ].
+	bottomUpAlternatives := alternatives reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ]
