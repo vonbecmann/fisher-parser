@@ -18,7 +18,7 @@ Class {
 		'startHyperRule',
 		'alternatives',
 		'representationRules',
-		'grammarBuilder'
+		'metaGrammar'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -140,7 +140,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
 	ortholetters addAll: vwGrammar ortholetters.
-	grammarBuilder := AFGrammarBuilder
+	metaGrammar := AFMetaGrammar
 		metaRules: vwGrammar metaRules
 		orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
 	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
@@ -155,7 +155,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 
 { #category : #private }
 AFVWGrammar >> matches: aHypernotion against: aProtonotion [
-	^ (grammarBuilder buildStartingAt: aHypernotion) accepts: aProtonotion asStrictString
+	^ (metaGrammar startAt: aHypernotion) accepts: aProtonotion asStrictString
 ]
 
 { #category : #accessing }
@@ -208,7 +208,7 @@ AFVWGrammar >> startNotion [
 { #category : #private }
 AFVWGrammar >> substitutionsOf: aHypernotion thatAccepts: aProtonotion [
 	| parse |
-	parse := (grammarBuilder buildStartingAt: aHypernotion) parseTree: aProtonotion asStrictString.
+	parse := (metaGrammar startAt: aHypernotion) parseTree: aProtonotion asStrictString.
 	^ self findMetanotionSubstitutionsOf: aHypernotion at: parse
 ]
 

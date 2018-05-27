@@ -2,9 +2,15 @@
 helps to build an hypernotion's grammar.
 given  the production and representation rules of the metalevel of a vw-grammar.
 
+holds the elements of the meta grammar. meta rules and ortho alphabet.
+
+and builds a grammar with
+	- an hypernotion 
+	- and the metagramar (nonterminals, terminals, meta rules)	
+and starts at the hypernotion
 "
 Class {
-	#name : #AFGrammarBuilder,
+	#name : #AFMetaGrammar,
 	#superclass : #Object,
 	#instVars : [
 		'nonterminals',
@@ -15,31 +21,14 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFGrammarBuilder class >> metaRules: metaRuleCollection orthoRepresentations: terminalNotionToRepresentationList [ 
+AFMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: terminalNotionToRepresentationList [ 
 	^ self basicNew 
 		initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList;
 		yourself
 ]
 
-{ #category : #building }
-AFGrammarBuilder >> buildStartingAt: aHypernotion [
-	| startNotion startRule |
-	startNotion := aHypernotion asNonterminal.
-	startRule := NCProductionRule
-		head: startNotion
-		body: (aHypernotion asArrayOfSymbols collect: [ :each | nonterminals like: each ]).
-	^ JEGrammar
-		productionRules:
-			((SinglyLinkedList with: startRule)
-				addAll: metaProductionRules;
-				yourself)
-		nonterminals: (nonterminals copyWith: startNotion)
-		terminals: terminals
-		startNonterminal: startNotion
-]
-
 { #category : #initialization }
-AFGrammarBuilder >> initialize [
+AFMetaGrammar >> initialize [
 	super initialize.
 	nonterminals := Set new.
 	terminals := Set new.
@@ -47,7 +36,7 @@ AFGrammarBuilder >> initialize [
 ]
 
 { #category : #initialization }
-AFGrammarBuilder >> initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList [
+AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList [
 	self initialize.
 	metaRuleCollection do: [ :each | nonterminals add: each head asNonterminal ].
 	terminalNotionToRepresentationList
@@ -68,4 +57,26 @@ AFGrammarBuilder >> initializeMetaProductionRules: metaRuleCollection representa
 					NCProductionRule
 						head: (nonterminals detect: [ :nonterminal | nonterminal named = assoc key ])
 						body: {(terminals like: assoc value)} ])
+]
+
+{ #category : #'instance creation' }
+AFMetaGrammar >> startAt: aHypernotion [
+	" 	builds a grammar with an hypernotion and the metagramar 
+		and starts at the given hypernotion "
+
+	| startNotion startRule |
+	startNotion := aHypernotion asNonterminal.
+	startRule := NCProductionRule
+		head: startNotion
+		body:
+			(aHypernotion asArrayOfSymbols
+				collect: [ :each | nonterminals like: each ]).
+	^ JEGrammar
+		productionRules:
+			((SinglyLinkedList with: startRule)
+				addAll: metaProductionRules;
+				yourself)
+		nonterminals: (nonterminals copyWith: startNotion)
+		terminals: terminals
+		startNonterminal: startNotion
 ]
