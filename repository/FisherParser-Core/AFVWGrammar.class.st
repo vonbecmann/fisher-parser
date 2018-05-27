@@ -76,11 +76,11 @@ AFVWGrammar >> analizeAccepts: aString [
 ]
 
 { #category : #private }
-AFVWGrammar >> findMetanotionSubstitutionsOf: hypernotion at: parse [
+AFVWGrammar >> findMetanotionSubstitutionsOf: aHypernotion at: parse [
 	| startNode substitutions |
 	substitutions := IdentityDictionary new.
-	startNode := self findNodeOf: hypernotion at: parse.
-	hypernotion metanotions
+	startNode := self findNodeOf: aHypernotion at: parse.
+	aHypernotion metanotions
 		collect: [ :each | each asNonterminal ]
 		thenDo: [ :nonterminal | 
 			startNode children
@@ -102,10 +102,10 @@ AFVWGrammar >> findMetanotionSubstitutionsOf: hypernotion at: parse [
 ]
 
 { #category : #private }
-AFVWGrammar >> findNodeOf: hypernotion at: parse [
+AFVWGrammar >> findNodeOf: aHypernotion at: parse [
 	ESTreeVisitor depthFirst new
 		preOrderBlock: [ :node | 
-			node model symbol = hypernotion asNonterminal
+			node model symbol = aHypernotion asNonterminal
 				ifTrue: [ ^ node ] ];
 		visit: parse.
 	^ nil
