@@ -46,12 +46,22 @@ AFVWGrammar >> alternativesThatFirstNotionAccepts: aProtonotion [
 		do: [ :hrule | 
 			hrule isEpsilon
 				ifFalse: [ 
-					(self matches: hrule body first against: aProtonotion)
+					| first |
+					first := hrule body first.
+					first isHypernotion
 						ifTrue: [ 
-							alternativesOfProtonotion
-								addLast:
-									(hrule substituteMetanotionsBy: 
-										(self substitutionsOf: hrule body first thatAccepts: aProtonotion)) ] ] ].
+							(self matches: first against: aProtonotion)
+								ifTrue: [ 
+									alternativesOfProtonotion
+										addLast:
+											(hrule
+												substituteMetanotionsBy: 
+													(self 	substitutionsOf: first thatAccepts: aProtonotion)) ] ]
+						ifFalse: [
+							first isProtonotion 
+								ifTrue: [ 
+									first asStrictString = aProtonotion asStrictString 
+										ifTrue: [ alternativesOfProtonotion add: hrule ] ] ] ] ].
 	^ alternativesOfProtonotion
 ]
 
@@ -61,12 +71,22 @@ AFVWGrammar >> alternativesThatHeadAccepts: aProtonotion [
 	alternativesOfProtonotion := SinglyLinkedList new.
 	alternatives
 		do: [ :hrule | 
-			(self matches: hrule head against: aProtonotion)
+			hrule head isHypernotion
 				ifTrue: [ 
-					alternativesOfProtonotion 
-						addLast: 
-							(hrule substituteMetanotionsBy: 
-								(self substitutionsOf: hrule head thatAccepts: aProtonotion)) ] ].
+					(self matches: hrule head against: aProtonotion)
+						ifTrue: [ 
+							alternativesOfProtonotion
+								addLast:
+									(hrule
+										substituteMetanotionsBy: 
+											(self 
+												substitutionsOf: hrule head 
+												thatAccepts: aProtonotion)) ] ]
+				ifFalse: [ 
+					hrule head isProtonotion
+						ifTrue: [ 
+							hrule head asStrictString = aProtonotion asStrictString
+								ifTrue: [ alternativesOfProtonotion addLast: hrule ] ] ] ].
 	^ alternativesOfProtonotion
 ]
 
