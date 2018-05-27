@@ -50,8 +50,8 @@ AFVWGrammar >> alternativesThatFirstNotionAccepts: aProtonotion [
 						ifTrue: [ 
 							alternativesOfProtonotion
 								addLast:
-									(hrule
-										substituteMetanotionsBy: (self substitutionsOf: hrule body first thatAccepts: aProtonotion)) ] ] ].
+									(hrule substituteMetanotionsBy: 
+										(self substitutionsOf: hrule body first thatAccepts: aProtonotion)) ] ] ].
 	^ alternativesOfProtonotion
 ]
 
@@ -64,7 +64,9 @@ AFVWGrammar >> alternativesThatHeadAccepts: aProtonotion [
 			(self matches: hrule head against: aProtonotion)
 				ifTrue: [ 
 					alternativesOfProtonotion 
-						addLast: (hrule substituteMetanotionsBy: (self substitutionsOf: hrule head thatAccepts: aProtonotion)) ] ].
+						addLast: 
+							(hrule substituteMetanotionsBy: 
+								(self substitutionsOf: hrule head thatAccepts: aProtonotion)) ] ].
 	^ alternativesOfProtonotion
 ]
 
@@ -74,17 +76,29 @@ AFVWGrammar >> analizeAccepts: aString [
 ]
 
 { #category : #private }
-AFVWGrammar >> findMetanodesOf: hypernotion at: parse [
-	| metanodes hnode |
-	metanodes := SinglyLinkedList new.
-	hnode := self findNodeOf: hypernotion at: parse.
+AFVWGrammar >> findMetanotionSubstitutionsOf: hypernotion at: parse [
+	| startNode substitutions |
+	substitutions := IdentityDictionary new.
+	startNode := self findNodeOf: hypernotion at: parse.
 	hypernotion metanotions
 		collect: [ :each | each asNonterminal ]
 		thenDo: [ :nonterminal | 
-			hnode children
+			startNode children
 				select: [ :child | child model symbol = nonterminal ]
-				thenDo: [ :mnode | metanodes add: mnode ] ].
-	^ metanodes
+				thenDo: [ :metanotionNode | 
+					substitutions
+						add:
+							metanotionNode model symbol named
+								-> (AWProtonotion
+										with:
+											(String
+												streamContents: [ :s | 
+													ESTreeVisitor depthFirst new
+														preOrderBlock: [ :node | 
+															node model isTerminal
+																ifTrue: [ s nextPut: node model reason ] ];
+														visit: metanotionNode ])) ] ].
+	^ substitutions 
 ]
 
 { #category : #private }
@@ -141,9 +155,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 
 { #category : #private }
 AFVWGrammar >> matches: aHypernotion against: aProtonotion [
-	| hnGrammar |
-	hnGrammar := grammarBuilder buildStartingAt: aHypernotion.
-	^ hnGrammar accepts: aProtonotion asStrictString
+	^ (grammarBuilder buildStartingAt: aHypernotion) accepts: aProtonotion asStrictString
 ]
 
 { #category : #accessing }
@@ -195,26 +207,9 @@ AFVWGrammar >> startNotion [
 
 { #category : #private }
 AFVWGrammar >> substitutionsOf: aHypernotion thatAccepts: aProtonotion [
-	| hnGrammar parse metanodes substitutions |
-	hnGrammar := grammarBuilder buildStartingAt: aHypernotion.
-	parse := hnGrammar parseTree: aProtonotion asStrictString.
-	metanodes := self findMetanodesOf: aHypernotion at: parse.
-	substitutions := IdentityDictionary new.
-	metanodes
-		do: [ :mnode | 
-			substitutions
-				add:
-					mnode model symbol named
-						->
-							(AWProtonotion
-								with:
-									(String
-										streamContents: [ :s | 
-											ESTreeVisitor depthFirst new
-												preOrderBlock: [ :node | 
-													node model isTerminal ifTrue: [ s nextPut: node model reason ] ];
-												visit: mnode ])) ].
-	^ substitutions
+	| parse |
+	parse := (grammarBuilder buildStartingAt: aHypernotion) parseTree: aProtonotion asStrictString.
+	^ self findMetanotionSubstitutionsOf: aHypernotion at: parse
 ]
 
 { #category : #accessing }
