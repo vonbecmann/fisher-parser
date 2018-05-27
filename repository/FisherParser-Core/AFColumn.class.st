@@ -40,7 +40,7 @@ AFColumn >> add: anItem [
 				anItem isFinal 
 					ifFalse: [ 
 						anItem symbolAtDot isTerminal 
-							ifFalse: [predictionItems addLast: anItem] ].
+							ifFalse: [ predictionItems addLast: anItem ] ].
 				anItem
 					end: self;
 					yourself ]
