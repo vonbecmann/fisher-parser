@@ -65,9 +65,9 @@ AFRecognizer >> evaluate: words [
 					item isFinal
 						ifTrue: [ 
 							item head isProtonotion 
-								ifTrue: [
-										self bottomUpPredict: item head at: item start.
-										self complete: item at: column  ] ]
+								ifTrue: 
+									 [ self bottomUpPredict: item head at: item start.
+									 	self complete: item at: column  ] ]
 						ifFalse: [ 
 							item symbolAtDot isTerminal
 								ifTrue: [ 
