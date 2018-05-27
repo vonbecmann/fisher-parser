@@ -50,7 +50,7 @@ AFVWGrammar >> alternativesThatFirstNotionAccepts: aProtonotion [
 					first := hrule body first.
 					first isHypernotion
 						ifTrue: [ 
-							(self matches: first against: aProtonotion)
+							(self startAt: first accepts: aProtonotion)
 								ifTrue: [ 
 									alternativesOfProtonotion
 										addLast:
@@ -71,21 +71,20 @@ AFVWGrammar >> alternativesThatHeadAccepts: aProtonotion [
 	alternativesOfProtonotion := SinglyLinkedList new.
 	alternatives
 		do: [ :hrule | 
-			hrule head isHypernotion
+			| head |
+			head := hrule head.
+			head isHypernotion
 				ifTrue: [ 
-					(self matches: hrule head against: aProtonotion)
+					(self startAt: head accepts: aProtonotion)
 						ifTrue: [ 
 							alternativesOfProtonotion
 								addLast:
 									(hrule
-										substituteMetanotionsBy: 
-											(self 
-												substitutionsOf: hrule head 
-												thatAccepts: aProtonotion)) ] ]
+										substituteMetanotionsBy:
+											(self substitutionsOf: head thatAccepts: aProtonotion)) ] ]
 				ifFalse: [ 
-					hrule head isProtonotion
-						ifTrue: [ 
-							hrule head asStrictString = aProtonotion asStrictString
+					head isProtonotion
+						ifTrue: [ head asStrictString = aProtonotion asStrictString
 								ifTrue: [ alternativesOfProtonotion addLast: hrule ] ] ] ].
 	^ alternativesOfProtonotion
 ]
@@ -137,11 +136,6 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		thenCollect: [ :each | each dotAtBeginning ]
 ]
 
-{ #category : #private }
-AFVWGrammar >> matches: aHypernotion against: aProtonotion [
-	^ (metaGrammar startAt: aHypernotion) accepts: aProtonotion asStrictString
-]
-
 { #category : #accessing }
 AFVWGrammar >> metaRulesSize [
 	^ vwGrammar metaRulesSize 
@@ -177,6 +171,11 @@ AFVWGrammar >> protonotions [
 { #category : #private }
 AFVWGrammar >> representationRules [
 	^ representationRules
+]
+
+{ #category : #private }
+AFVWGrammar >> startAt: aHypernotion accepts: aProtonotion [
+	^ (metaGrammar startAt: aHypernotion) accepts: aProtonotion asStrictString
 ]
 
 { #category : #private }

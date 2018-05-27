@@ -42,10 +42,22 @@ AFRecognizer >> bottomUpPredict: aProtonotion at: aColumn [
 AFRecognizer >> complete: item at: column [
 	item predictionItems
 		do: [ :previous | 
-			(grammar matches: previous symbolAtDot against: item head)
-				ifTrue: [ | subs |
-					subs := grammar substitutionsOf: previous symbolAtDot thatAccepts: item head.
-					column add: (previous moveDotForwardAfterSubstitutingMetanotionsBy: subs) ] ]
+			| symbolAtDot head |
+			symbolAtDot := previous symbolAtDot.
+			head := item head.
+			symbolAtDot isHypernotion
+				ifTrue: [ 
+					(grammar startAt: symbolAtDot accepts: head)
+						ifTrue: [ 
+							column
+								add:
+									(previous moveDotForwardAfterSubstitutingMetanotionsBy: 
+											(grammar substitutionsOf: symbolAtDot thatAccepts: head)) ] ]
+				ifFalse: [ 
+					symbolAtDot isProtonotion
+						ifTrue: [ 
+							symbolAtDot asStrictString = head asStrictString
+								ifTrue: [ column add: previous moveDotForward ] ] ] ]
 ]
 
 { #category : #private }
