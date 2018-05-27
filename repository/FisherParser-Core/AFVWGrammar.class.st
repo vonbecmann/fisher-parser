@@ -75,42 +75,6 @@ AFVWGrammar >> analizeAccepts: aString [
 	^ (AFAnalyticalRecognizer of: self) accepts: aString
 ]
 
-{ #category : #private }
-AFVWGrammar >> findMetanotionSubstitutionsOf: aHypernotion at: parse [
-	| startNode substitutions |
-	substitutions := IdentityDictionary new.
-	startNode := self findNodeOf: aHypernotion at: parse.
-	aHypernotion metanotions
-		collect: [ :each | each asNonterminal ]
-		thenDo: [ :nonterminal | 
-			startNode children
-				select: [ :child | child model symbol = nonterminal ]
-				thenDo: [ :metanotionNode | 
-					substitutions
-						add:
-							metanotionNode model symbol named
-								-> (AWProtonotion
-										with:
-											(String
-												streamContents: [ :s | 
-													ESTreeVisitor depthFirst new
-														preOrderBlock: [ :node | 
-															node model isTerminal
-																ifTrue: [ s nextPut: node model reason ] ];
-														visit: metanotionNode ])) ] ].
-	^ substitutions 
-]
-
-{ #category : #private }
-AFVWGrammar >> findNodeOf: aHypernotion at: parse [
-	ESTreeVisitor depthFirst new
-		preOrderBlock: [ :node | 
-			node model symbol = aHypernotion asNonterminal
-				ifTrue: [ ^ node ] ];
-		visit: parse.
-	^ nil
-]
-
 { #category : #'inspector extensions' }
 AFVWGrammar >> gtInspectorDefinitionIn: composite [
 	<gtInspectorPresentationOrder: 0>
@@ -209,7 +173,7 @@ AFVWGrammar >> startNotion [
 AFVWGrammar >> substitutionsOf: aHypernotion thatAccepts: aProtonotion [
 	| parse |
 	parse := (metaGrammar startAt: aHypernotion) parseTree: aProtonotion asStrictString.
-	^ self findMetanotionSubstitutionsOf: aHypernotion at: parse
+	^ parse metanotionSubstitutionsOf: aHypernotion
 ]
 
 { #category : #accessing }
