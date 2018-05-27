@@ -65,36 +65,87 @@ AWHypernotionTest >> testIsEmpty [
 ]
 
 { #category : #tests }
+AWHypernotionTest >> testIsHypernotion [
+	| hn |
+	hn := AWHypernotion new.
+	self assert: hn isHypernotion.
+	self deny: hn isTerminal.
+	self deny: hn isProtonotion
+]
+
+{ #category : #tests }
+AWHypernotionTest >> testIsHypernotion02 [
+	| hn |
+	hn := AWHypernotion with: (AWProtonotion with: 'a').
+
+	self deny: hn isHypernotion.
+	self assert: hn isProtonotion.
+	self deny: hn isTerminal
+]
+
+{ #category : #tests }
 AWHypernotionTest >> testIsProtonotion [
-	self assert: (AWHypernotion with: (AWProtonotion with: 'a')) isProtonotion
+	| hn |
+	hn := AWHypernotion with: (AWProtonotion with: 'a').
+
+	self assert: hn isProtonotion.
+	self deny: hn isTerminal.
+	self deny: hn isHypernotion.
+	
 ]
 
 { #category : #tests }
 AWHypernotionTest >> testIsProtonotion02 [
-	self deny: (AWHypernotion with: (AWMetanotion named: 'ALPHA')) isProtonotion
+	| hn |
+	hn := AWHypernotion with: (AWMetanotion named: 'ALPHA').
+
+	self deny: hn isProtonotion.
+	self deny: hn isTerminal.
+	self assert: hn isHypernotion.
 ]
 
 { #category : #tests }
 AWHypernotionTest >> testIsProtonotion03 [
-	self assert: (AWHypernotion with: (NCTerminal character: $a)) isProtonotion
+	| hn |
+	hn := AWHypernotion with: (NCTerminal character: $a).
+
+	self deny: hn isProtonotion.
+	self assert: hn isTerminal.
+	self deny: hn isHypernotion.
 ]
 
 { #category : #tests }
 AWHypernotionTest >> testIsTerminal [
-	self deny: AWHypernotion new isTerminal
+	| hn |
+	hn := AWHypernotion new.
+	self deny: hn isTerminal.
+	self deny: hn isProtonotion.
+	self assert: hn isHypernotion
 ]
 
 { #category : #tests }
 AWHypernotionTest >> testIsTerminal02 [
-	self assert: (AWHypernotion with: (NCTerminal character: $a)) isTerminal
+	| hn |
+	hn := AWHypernotion with: (NCTerminal character: $a).
+	self assert: hn isTerminal.
+	self deny: hn isProtonotion.
+	self deny: hn isHypernotion.
 ]
 
 { #category : #tests }
 AWHypernotionTest >> testIsTerminal03 [
-	self deny: (AWHypernotion with: (AWProtonotion with: 'a')) isTerminal
+	| hn |
+	hn := AWHypernotion with: (AWProtonotion with: 'a').
+	self deny: hn isTerminal.
+	self assert: hn isProtonotion.
+	self deny: hn isHypernotion
 ]
 
 { #category : #tests }
 AWHypernotionTest >> testIsTerminal04 [
-	self deny: (AWHypernotion with: (AWMetanotion named: 'NOTION')) isTerminal
+	| hn |
+	hn := AWHypernotion with: (AWMetanotion named: 'NOTION').
+	self deny: hn isTerminal.
+	self deny: hn isProtonotion.
+	self assert: hn isHypernotion
 ]

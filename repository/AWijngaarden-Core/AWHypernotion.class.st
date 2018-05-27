@@ -89,15 +89,20 @@ AWHypernotion >> isEmpty [
 ]
 
 { #category : #testing }
+AWHypernotion >> isHypernotion [
+	^ notions isEmpty or: [ notions anySatisfy: [ :notion | notion isMetanotion ] ]
+]
+
+{ #category : #testing }
 AWHypernotion >> isProtonotion [
 	"its metanotion free"
 
-	^ notions noneSatisfy: [ :notion | notion isMetanotion ]
+	^ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isProtonotion ] ]
 ]
 
 { #category : #testing }
 AWHypernotion >> isTerminal [
-	^ notions size = 1 and: [ notions first isTerminal ]
+	^ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isTerminal ] ]
 ]
 
 { #category : #accessing }
