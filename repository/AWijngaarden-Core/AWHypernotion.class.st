@@ -13,6 +13,11 @@ Class {
 }
 
 { #category : #'instance creation' }
+AWHypernotion class >> empty [
+	^ self new
+]
+
+{ #category : #'instance creation' }
 AWHypernotion class >> new [
 	^ self basicNew initializeNotions: #()
 ]

@@ -93,9 +93,8 @@ AFRecognizer >> evaluate: words [
 AFRecognizer >> gapScan: item at: column [
 	" gap scanner "
 
-	| empty substitution |
-	empty := AWHypernotion new.
-	substitution := grammar startAt: item symbolAtDot accepts: empty.
+	| substitution |
+	substitution := grammar startAt: item symbolAtDot accepts: AWHypernotion empty.
 	substitution isSolution
 		ifTrue: [ column add: (item moveDotForwardAfterSubstitutingMetanotionsBy: substitution) ]
 ]
