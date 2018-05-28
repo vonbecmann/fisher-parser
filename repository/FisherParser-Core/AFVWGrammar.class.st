@@ -45,16 +45,10 @@ AFVWGrammar >> alternativesThatFirstNotionAccepts: aProtonotion [
 	alternativesOfProtonotion := SinglyLinkedList new.
 	bottomUpAlternatives
 		do: [ :hrule | 
-			| first |
-			first := hrule body first.
-			first isHypernotion
-				ifTrue: [ | substitution |
-					substitution := self unify: first with: aProtonotion.
-					substitution isSolution
-						ifTrue: [ alternativesOfProtonotion addLast: (hrule substituteMetanotionsBy: substitution) ] ]
-				ifFalse: [ first isProtonotion
-						ifTrue: [ first asStrictString = aProtonotion asStrictString
-								ifTrue: [ alternativesOfProtonotion add: hrule ] ] ] ].
+			| substitution |
+			substitution := self unify: hrule body first with: aProtonotion.
+			substitution isSolution
+				ifTrue: [ alternativesOfProtonotion addLast: (hrule substituteMetanotionsBy: substitution) ] ].
 	^ alternativesOfProtonotion
 ]
 
@@ -64,16 +58,10 @@ AFVWGrammar >> alternativesThatHeadAccepts: aProtonotion [
 	alternativesOfProtonotion := SinglyLinkedList new.
 	alternatives
 		do: [ :hrule | 
-			| head |
-			head := hrule head.
-			head isHypernotion
-				ifTrue: [ | substitution |
-					substitution := self unify: head with: aProtonotion.
-					substitution isSolution
-						ifTrue: [ alternativesOfProtonotion addLast: (hrule substituteMetanotionsBy: substitution) ] ]
-				ifFalse: [ head isProtonotion
-						ifTrue: [ head asStrictString = aProtonotion asStrictString
-								ifTrue: [ alternativesOfProtonotion addLast: hrule ] ] ] ].
+			| substitution |
+			substitution := self unify: hrule head with: aProtonotion.
+			substitution isSolution
+				ifTrue: [ alternativesOfProtonotion addLast: (hrule substituteMetanotionsBy: substitution) ] ].
 	^ alternativesOfProtonotion
 ]
 

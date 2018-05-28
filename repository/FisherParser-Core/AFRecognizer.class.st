@@ -42,19 +42,10 @@ AFRecognizer >> bottomUpPredict: aProtonotion at: aColumn [
 AFRecognizer >> complete: item at: column [
 	item predictionItems
 		do: [ :previous | 
-			| symbolAtDot head |
-			symbolAtDot := previous symbolAtDot.
-			head := item head.
-			symbolAtDot isHypernotion
-				ifTrue: [ | substitution |
-					substitution := grammar unify: symbolAtDot with: head.
-					substitution isSolution
-						ifTrue: [ column add: (previous moveDotForwardAfterSubstitutingMetanotionsBy: substitution) ] ]
-				ifFalse: [ 
-					symbolAtDot isProtonotion
-						ifTrue: [ 
-							symbolAtDot asStrictString = head asStrictString
-								ifTrue: [ column add: previous moveDotForward ] ] ] ]
+			| substitution |
+			substitution := grammar unify: previous symbolAtDot with: item head.
+			substitution isSolution
+				ifTrue: [ column add: (previous moveDotForwardAfterSubstitutingMetanotionsBy: substitution) ] ]
 ]
 
 { #category : #private }
