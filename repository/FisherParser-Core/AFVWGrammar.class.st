@@ -183,13 +183,6 @@ AFVWGrammar >> startNotion [
 	^ startNotion
 ]
 
-{ #category : #private }
-AFVWGrammar >> substitutionsOf: aHypernotion thatAccepts: aProtonotion [
-	| parse |
-	parse := (metaGrammar startAt: aHypernotion) parseTree: aProtonotion asStrictString.
-	^ parse metanotionSubstitutionsOf: aHypernotion
-]
-
 { #category : #accessing }
 AFVWGrammar >> terminals [
 	^ vwGrammar terminals
