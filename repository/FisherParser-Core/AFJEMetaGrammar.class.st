@@ -8,9 +8,11 @@ and builds a grammar with
 	- an hypernotion 
 	- and the metagramar (nonterminals, terminals, meta rules)	
 and starts at the hypernotion
+
+using jay earley parser
 "
 Class {
-	#name : #AFMetaGrammar,
+	#name : #AFJEMetaGrammar,
 	#superclass : #Object,
 	#instVars : [
 		'nonterminals',
@@ -21,14 +23,14 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: terminalNotionToRepresentationList [ 
+AFJEMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: terminalNotionToRepresentationList [ 
 	^ self basicNew 
 		initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList;
 		yourself
 ]
 
 { #category : #private }
-AFMetaGrammar >> buildBodyOf: aHypernotion [
+AFJEMetaGrammar >> buildBodyOf: aHypernotion [
 	^ Array
 		streamContents: [ :s | 
 			aHypernotion
@@ -42,7 +44,7 @@ AFMetaGrammar >> buildBodyOf: aHypernotion [
 ]
 
 { #category : #initialization }
-AFMetaGrammar >> initialize [
+AFJEMetaGrammar >> initialize [
 	super initialize.
 	nonterminals := Set new.
 	terminals := Set new.
@@ -50,7 +52,7 @@ AFMetaGrammar >> initialize [
 ]
 
 { #category : #initialization }
-AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList [
+AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList [
 	self initialize.
 	metaRuleCollection do: [ :each | nonterminals add: each head asNonterminal ].
 	terminalNotionToRepresentationList
@@ -74,7 +76,7 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representatio
 ]
 
 { #category : #'instance creation' }
-AFMetaGrammar >> startAt: aHypernotion [
+AFJEMetaGrammar >> startAt: aHypernotion [
 	" 	builds a grammar with an hypernotion and the metagramar 
 		and starts at the given hypernotion "
 

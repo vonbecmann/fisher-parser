@@ -19,7 +19,7 @@ Class {
 		'alternatives',
 		'bottomUpAlternatives',
 		'representationRules',
-		'metaGrammar'
+		'unification'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -83,9 +83,10 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
 	ortholetters addAll: vwGrammar ortholetters.
-	metaGrammar := AFMetaGrammar
-		metaRules: vwGrammar metaRules
-		orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
+	unification := 
+		AFEarleyUnification 
+			metaRules: vwGrammar metaRules
+			orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
 	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules 
@@ -151,15 +152,5 @@ AFVWGrammar >> terminals [
 
 { #category : #private }
 AFVWGrammar >> unify: aHypernotion with: aProtonotion [
-	| hnGrammar strictProtonotion |
-	hnGrammar := metaGrammar startAt: aHypernotion.
-	strictProtonotion := aProtonotion asStrictString.
-	^ (hnGrammar accepts: strictProtonotion)
-		ifTrue: [ 
-			aHypernotion isHypernotion
-				ifTrue: [ 
-					AFSubstitution	solution: ((hnGrammar parseTree: strictProtonotion) metanotionSubstitutionsOf: aHypernotion) ]
-				ifFalse: [ "is a protonotion"
-					AFSubstitution emptySolution  ] ]
-		ifFalse: [ AFSubstitution noSolution ]
+	^ unification unify: aHypernotion with: aProtonotion
 ]
