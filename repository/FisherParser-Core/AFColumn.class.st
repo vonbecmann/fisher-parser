@@ -52,7 +52,7 @@ AFColumn >> gtInspectorItemsIn: composite [
 	^ composite table
 		title: [ orderedItems size asString , ' items' ];
 		display: [ orderedItems asArray ];
-		column: '@ [start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 100;
+		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
 		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
 		showOnly: 50;
 		yourself
@@ -64,7 +64,7 @@ AFColumn >> gtInspectorPredictionItemsIn: composite [
 	^ composite table
 		title: [ 'Prediction' ];
 		display: [ predictionItems asArray ];
-		column: '@ [start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 100;
+		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
 		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
 		showOnly: 50;
 		yourself
