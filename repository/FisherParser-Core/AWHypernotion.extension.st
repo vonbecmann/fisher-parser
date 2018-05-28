@@ -12,11 +12,6 @@ AWHypernotion >> apply: aSubstitution [
 ]
 
 { #category : #'*FisherParser-Core' }
-AWHypernotion >> asNonterminal [
-	^ NCNonterminal named: self printString
-]
-
-{ #category : #'*FisherParser-Core' }
 AWHypernotion >> asStrictString [
 	^ String streamContents: [ :s | notions do: [ :each | each printOn: s ] ]
 ]
