@@ -102,7 +102,7 @@ AFRecognizer >> initializeGrammar: aVWGrammar [
 
 { #category : #private }
 AFRecognizer >> topDownPredict: aProtonotion at: aColumn [
-	grammar alternatives
+	grammar alternatives 
 		do: [ :hrule | 
 			| substitution |
 			substitution := grammar unify: hrule head with: aProtonotion.

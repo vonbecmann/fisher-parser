@@ -155,8 +155,11 @@ AFVWGrammar >> unify: aHypernotion with: aProtonotion [
 	hnGrammar := metaGrammar startAt: aHypernotion.
 	strictProtonotion := aProtonotion asStrictString.
 	^ (hnGrammar accepts: strictProtonotion)
-		ifTrue: [ | parse |
-			parse := hnGrammar parseTree: strictProtonotion.
-			AFSubstitution solution: (parse metanotionSubstitutionsOf: aHypernotion) ]
-		ifFalse: [ AFSubstitution failed ]
+		ifTrue: [ 
+			aHypernotion isHypernotion
+				ifTrue: [ 
+					AFSubstitution	solution: ((hnGrammar parseTree: strictProtonotion) metanotionSubstitutionsOf: aHypernotion) ]
+				ifFalse: [ "is a protonotion"
+					AFSubstitution emptySolution  ] ]
+		ifFalse: [ AFSubstitution noSolution ]
 ]

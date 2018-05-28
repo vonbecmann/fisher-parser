@@ -11,11 +11,22 @@ Class {
 		'solution',
 		'metanotionSubstitutions'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : #'FisherParser-Core-MetaUnification'
 }
 
 { #category : #'instance creation' }
-AFSubstitution class >> failed [
+AFSubstitution class >> emptySolution [
+	" an empty solution "
+
+	^ self basicNew
+		initializeSolution: true substitutions: #();
+		yourself
+]
+
+{ #category : #'instance creation' }
+AFSubstitution class >> noSolution [
+	" no solution is possible "
+
 	^ self basicNew
 		initializeSolution: false substitutions: #();
 		yourself
@@ -23,6 +34,9 @@ AFSubstitution class >> failed [
 
 { #category : #'instance creation' }
 AFSubstitution class >> solution: anAssocCollection [
+	" a solution is possible with the given substitutions.
+		{('a metanotion's name' -> substitute). etc.} "
+
 	^ self basicNew
 		initializeSolution: true substitutions: anAssocCollection;
 		yourself
@@ -45,7 +59,7 @@ AFSubstitution >> initializeSolution: aBoolean substitutions: anAssocCollection 
 
 { #category : #testing }
 AFSubstitution >> isSolution [
-	"if this substitution is a solution to the unification problem"
+	"if this substitution is a solution to the syntactic unification problem"
 
 	^ solution
 ]

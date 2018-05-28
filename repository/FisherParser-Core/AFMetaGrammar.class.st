@@ -17,7 +17,7 @@ Class {
 		'terminals',
 		'metaProductionRules'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : #'FisherParser-Core-MetaUnification'
 }
 
 { #category : #'instance creation' }
