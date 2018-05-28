@@ -62,7 +62,7 @@ AFSubstitution class >> solution: aBoolean substitutions: anAssocCollection [
 { #category : #accessing }
 AFSubstitution >> at: aMetanotion [
 	^ metanotionSubstitutions 
-			detect: [ :each | each key = aMetanotion named ] 
+			detect: [ :each | each key = aMetanotion ] 
 			ifFound: [ :each | each value ] 
 			ifNone: [ aMetanotion ]
 ]

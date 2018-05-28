@@ -20,6 +20,6 @@ ESTree >> metanotionSubstitutionsOf: aHypernotion [
 											node model isTerminal
 												ifTrue: [ s nextPut: node model reason ] ];
 										visit: child ]).
-					substitutions addLast: metanotion named -> substitute ] ].
+					substitutions addLast: metanotion -> substitute ] ].
 	^ substitutions
 ]
