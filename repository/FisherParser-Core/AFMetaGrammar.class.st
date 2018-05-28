@@ -78,18 +78,20 @@ AFMetaGrammar >> startAt: aHypernotion [
 	" 	builds a grammar with an hypernotion and the metagramar 
 		and starts at the given hypernotion "
 
-	| startNotion startRule |
-	startNotion := aHypernotion asNonterminal.
-	startRule := NCProductionRule head: startNotion body: (self buildBodyOf: aHypernotion).
+	| startRule |
+	startRule := 
+		NCProductionRule 
+			headNamed: aHypernotion asString 
+			body: (self buildBodyOf: aHypernotion).
 	^ JEGrammar
 		productionRules:
 			((SinglyLinkedList with: startRule)
 				addAll: metaProductionRules;
 				yourself)
 		nonterminals:
-			((SinglyLinkedList with: startNotion)
+			((SinglyLinkedList with: startRule head)
 				addAll: nonterminals;
 				yourself)
 		terminals: terminals
-		startNonterminal: startNotion
+		startNonterminal: startRule head
 ]
