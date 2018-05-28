@@ -45,7 +45,7 @@ AFRecognizer >> complete: item at: column [
 			| substitution |
 			substitution := grammar unify: previous symbolAtDot with: item head.
 			substitution isSolution
-				ifTrue: [ column add: (previous moveDotForwardAfterSubstitutingMetanotionsBy: substitution) ] ]
+				ifTrue: [ column add: (previous moveDotForwardAfterApplying: substitution) ] ]
 ]
 
 { #category : #private }
@@ -87,7 +87,7 @@ AFRecognizer >> gapScan: item at: column [
 	| substitution |
 	substitution := grammar unify: item symbolAtDot with: AWHypernotion empty.
 	substitution isSolution
-		ifTrue: [ column add: (item moveDotForwardAfterSubstitutingMetanotionsBy: substitution) ]
+		ifTrue: [ column add: (item moveDotForwardAfterApplying: substitution) ]
 ]
 
 { #category : #initialization }

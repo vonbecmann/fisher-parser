@@ -102,9 +102,9 @@ AFDottedItem >> moveDotForward [
 ]
 
 { #category : #accessing }
-AFDottedItem >> moveDotForwardAfterSubstitutingMetanotionsBy: anAssocCollection [
+AFDottedItem >> moveDotForwardAfterApplying: aSubstitution [
 	^ self class
-		of: (dottedHyperRule moveDotForwardAfterSubstitutingMetanotionsBy: anAssocCollection)
+		of: (dottedHyperRule moveDotForwardAfterApplying: aSubstitution)
 		startAt: start
 ]
 

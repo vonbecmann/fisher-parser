@@ -75,10 +75,8 @@ AFDottedHyperRule >> moveDotForward [
 ]
 
 { #category : #accessing }
-AFDottedHyperRule >> moveDotForwardAfterSubstitutingMetanotionsBy: anAssocCollection [
-	^ self class
-		of: (hyperRule apply: anAssocCollection)
-		withDotAt: dotIndex + 1
+AFDottedHyperRule >> moveDotForwardAfterApplying: aSubstitution [
+	^ self class of: (hyperRule apply: aSubstitution) withDotAt: dotIndex + 1
 ]
 
 { #category : #printing }
