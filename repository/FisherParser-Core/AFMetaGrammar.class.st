@@ -27,6 +27,20 @@ AFMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: termi
 		yourself
 ]
 
+{ #category : #private }
+AFMetaGrammar >> buildBodyOf: aHypernotion [
+	^ Array
+		streamContents: [ :s | 
+			aHypernotion
+				do: [ :notion | 
+					notion isMetanotion
+						ifTrue: [ 
+							s nextPut: (nonterminals detect: [ :each | each named = notion named ]) ].
+					notion isProtonotion
+						ifTrue: [ 
+							notion do: [ :char | s nextPut: (nonterminals detect: [ :each | each named = char asSymbol ]) ] ] ] ]
+]
+
 { #category : #initialization }
 AFMetaGrammar >> initialize [
 	super initialize.
@@ -49,7 +63,7 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representatio
 				collect: [ :each | 
 					NCProductionRule
 						head: (nonterminals like: each head asNonterminal)
-						body: (each body asArrayOfSymbols collect: [ :notion | nonterminals like: notion ]) ]).
+						body: (self buildBodyOf: each body) ]).
 	metaProductionRules
 		addAll:
 			(terminalNotionToRepresentationList
@@ -66,10 +80,7 @@ AFMetaGrammar >> startAt: aHypernotion [
 
 	| startNotion startRule |
 	startNotion := aHypernotion asNonterminal.
-	startRule := 
-		NCProductionRule 
-			head: startNotion 
-			body: (aHypernotion asArrayOfSymbols collect: [ :each | nonterminals like: each ]).
+	startRule := NCProductionRule head: startNotion body: (self buildBodyOf: aHypernotion).
 	^ JEGrammar
 		productionRules:
 			((SinglyLinkedList with: startRule)
