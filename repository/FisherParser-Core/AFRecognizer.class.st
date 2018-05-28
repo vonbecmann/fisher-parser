@@ -46,13 +46,10 @@ AFRecognizer >> complete: item at: column [
 			symbolAtDot := previous symbolAtDot.
 			head := item head.
 			symbolAtDot isHypernotion
-				ifTrue: [ 
-					(grammar startAt: symbolAtDot accepts: head)
-						ifTrue: [ 
-							column
-								add:
-									(previous moveDotForwardAfterSubstitutingMetanotionsBy: 
-											(grammar substitutionsOf: symbolAtDot thatAccepts: head)) ] ]
+				ifTrue: [ | substitution |
+					substitution := grammar startAt: symbolAtDot accepts: head.
+					substitution isSolution
+						ifTrue: [ column add: (previous moveDotForwardAfterSubstitutingMetanotionsBy: substitution) ] ]
 				ifFalse: [ 
 					symbolAtDot isProtonotion
 						ifTrue: [ 
@@ -96,16 +93,11 @@ AFRecognizer >> evaluate: words [
 AFRecognizer >> gapScan: item at: column [
 	" gap scanner "
 
-	| empty |
+	| empty substitution |
 	empty := AWHypernotion new.
-	(grammar startAt: item symbolAtDot accepts: empty)
-		ifTrue: [ 
-			column
-				add: (item 
-							moveDotForwardAfterSubstitutingMetanotionsBy: 
-									(grammar 
-											substitutionsOf: item symbolAtDot 
-											thatAccepts: empty)) ]
+	substitution := grammar startAt: item symbolAtDot accepts: empty.
+	substitution isSolution
+		ifTrue: [ column add: (item moveDotForwardAfterSubstitutingMetanotionsBy: substitution) ]
 ]
 
 { #category : #initialization }

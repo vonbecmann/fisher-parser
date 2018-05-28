@@ -33,7 +33,7 @@ AWHypernotion >> substituteMetanotionsBy: anAssocCollection [
 		withAll:
 			(notions
 				collect: [ :notion | 
-					(notion isMetanotion and: [ anAssocCollection includesKey: notion named ])
-						ifTrue: [ anAssocCollection at: notion named ]
+					(notion isMetanotion and: [ anAssocCollection includesMetanotion: notion ])
+						ifTrue: [ anAssocCollection at: notion ]
 						ifFalse: [ notion ] ])
 ]

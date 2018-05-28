@@ -48,13 +48,11 @@ AFVWGrammar >> alternativesThatFirstNotionAccepts: aProtonotion [
 			| first |
 			first := hrule body first.
 			first isHypernotion
-				ifTrue: [ 
-					(self startAt: first accepts: aProtonotion)
-						ifTrue: [ 
-							alternativesOfProtonotion
-								addLast: (hrule substituteMetanotionsBy: (self substitutionsOf: first thatAccepts: aProtonotion)) ] ]
-				ifFalse: [ 
-					first isProtonotion
+				ifTrue: [ | substitution |
+					substitution := self startAt: first accepts: aProtonotion.
+					substitution isSolution
+						ifTrue: [ alternativesOfProtonotion addLast: (hrule substituteMetanotionsBy: substitution) ] ]
+				ifFalse: [ first isProtonotion
 						ifTrue: [ first asStrictString = aProtonotion asStrictString
 								ifTrue: [ alternativesOfProtonotion add: hrule ] ] ] ].
 	^ alternativesOfProtonotion
@@ -69,16 +67,11 @@ AFVWGrammar >> alternativesThatHeadAccepts: aProtonotion [
 			| head |
 			head := hrule head.
 			head isHypernotion
-				ifTrue: [ 
-					(self startAt: head accepts: aProtonotion)
-						ifTrue: [ 
-							alternativesOfProtonotion
-								addLast:
-									(hrule
-										substituteMetanotionsBy:
-											(self substitutionsOf: head thatAccepts: aProtonotion)) ] ]
-				ifFalse: [ 
-					head isProtonotion
+				ifTrue: [ | substitution |
+					substitution := self startAt: head accepts: aProtonotion.
+					substitution isSolution
+						ifTrue: [ alternativesOfProtonotion addLast: (hrule substituteMetanotionsBy: substitution) ] ]
+				ifFalse: [ head isProtonotion
 						ifTrue: [ head asStrictString = aProtonotion asStrictString
 								ifTrue: [ alternativesOfProtonotion addLast: hrule ] ] ] ].
 	^ alternativesOfProtonotion
@@ -171,7 +164,13 @@ AFVWGrammar >> representationRules [
 
 { #category : #private }
 AFVWGrammar >> startAt: aHypernotion accepts: aProtonotion [
-	^ (metaGrammar startAt: aHypernotion) accepts: aProtonotion asStrictString
+	| hnGrammar |
+	hnGrammar := metaGrammar startAt: aHypernotion.
+	^ (hnGrammar accepts: aProtonotion asStrictString)
+		ifTrue: [ | parse |
+			parse := hnGrammar parseTree: aProtonotion asStrictString.
+			AFSubstitution solution: (parse metanotionSubstitutionsOf: aHypernotion) ]
+		ifFalse: [ AFSubstitution failed ]
 ]
 
 { #category : #private }
