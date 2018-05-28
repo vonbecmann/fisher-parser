@@ -11,6 +11,10 @@ Class {
 		'solution',
 		'metanotionSubstitutions'
 	],
+	#classInstVars : [
+		'emptySolution',
+		'noSolution'
+	],
 	#category : #'FisherParser-Core-MetaUnification'
 }
 
@@ -18,18 +22,26 @@ Class {
 AFSubstitution class >> emptySolution [
 	" an empty solution "
 
-	^ self basicNew
-		initializeSolution: true substitutions: #();
-		yourself
+	^ emptySolution ifNil: [ emptySolution := self solution: true substitutions: #() ]
+]
+
+{ #category : #initialization }
+AFSubstitution class >> initialize [
+	emptySolution := noSolution := nil
 ]
 
 { #category : #'instance creation' }
 AFSubstitution class >> noSolution [
 	" no solution is possible "
 
-	^ self basicNew
-		initializeSolution: false substitutions: #();
-		yourself
+	^ noSolution ifNil: [ noSolution := self solution: false substitutions: #() ]
+]
+
+{ #category : #accessing }
+AFSubstitution class >> reset [
+	" reset the usual solutions "
+
+	emptySolution := noSolution := nil
 ]
 
 { #category : #'instance creation' }
@@ -37,8 +49,13 @@ AFSubstitution class >> solution: anAssocCollection [
 	" a solution is possible with the given substitutions.
 		{('a metanotion's name' -> substitute). etc.} "
 
+	^ self solution: true substitutions: anAssocCollection
+]
+
+{ #category : #private }
+AFSubstitution class >> solution: aBoolean substitutions: anAssocCollection [
 	^ self basicNew
-		initializeSolution: true substitutions: anAssocCollection;
+		initializeSolution: aBoolean substitutions: anAssocCollection;
 		yourself
 ]
 
