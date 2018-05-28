@@ -72,6 +72,12 @@ AFHyperRuleTest >> testEqual03 [
 ]
 
 { #category : #tests }
+AFHyperRuleTest >> testIsEpsilon [
+	hyperRule := AFHyperRule head: (AWHypernotion with: 'letter' asNotion) body: {}.
+	self assert: hyperRule isEpsilon
+]
+
+{ #category : #tests }
 AFHyperRuleTest >> testIsRepresentation [
 	hyperRule := 
 		AFHyperRule 
