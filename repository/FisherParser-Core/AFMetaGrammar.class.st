@@ -66,15 +66,19 @@ AFMetaGrammar >> startAt: aHypernotion [
 
 	| startNotion startRule |
 	startNotion := aHypernotion asNonterminal.
-	startRule := NCProductionRule
-		head: startNotion
-		body: 	(aHypernotion asArrayOfSymbols collect: [ :each | nonterminals like: each ]).
+	startRule := 
+		NCProductionRule 
+			head: startNotion 
+			body: (aHypernotion asArrayOfSymbols collect: [ :each | nonterminals like: each ]).
 	^ JEGrammar
 		productionRules:
 			((SinglyLinkedList with: startRule)
 				addAll: metaProductionRules;
 				yourself)
-		nonterminals: (nonterminals copyWith: startNotion)
+		nonterminals:
+			((SinglyLinkedList with: startNotion)
+				addAll: nonterminals;
+				yourself)
 		terminals: terminals
 		startNonterminal: startNotion
 ]
