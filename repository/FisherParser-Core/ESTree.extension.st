@@ -3,7 +3,6 @@ Extension { #name : #ESTree }
 { #category : #'*FisherParser-Core' }
 ESTree >> metanotionSubstitutionsOf: aHypernotion [
 	| substitutions metanotions |
-	self assert: root model symbol named = aHypernotion asString asSymbol.
 	substitutions := SinglyLinkedList new.
 	metanotions := aHypernotion metanotions.
 	root children
