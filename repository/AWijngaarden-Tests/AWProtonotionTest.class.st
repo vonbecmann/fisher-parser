@@ -34,6 +34,14 @@ AWProtonotionTest >> testIsTerminal [
 ]
 
 { #category : #tests }
+AWProtonotionTest >> testNew [
+	self 
+		should: [ AWProtonotion new ]
+		raise: Error 
+
+]
+
+{ #category : #tests }
 AWProtonotionTest >> testStringAsNotion [
 	self 
 		assert: 'long' asNotion 

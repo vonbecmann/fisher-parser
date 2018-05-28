@@ -13,6 +13,11 @@ Class {
 }
 
 { #category : #'instance creation' }
+AWProtonotion class >> new [
+	self error: 'use with: instead'
+]
+
+{ #category : #'instance creation' }
 AWProtonotion class >> with: aString [
 	^ self basicNew initializeContents: aString
 ]

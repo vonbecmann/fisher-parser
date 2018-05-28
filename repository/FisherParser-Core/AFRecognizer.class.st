@@ -86,8 +86,26 @@ AFRecognizer >> evaluate: words [
 									(i < n and: [ item symbolAtDot matches: (words at: i) ])
 										ifTrue: [ (chart at: i + 1) add: item moveDotForward ] ].
 							item symbolAtDot isProtonotion
-								ifTrue: [ self topDownPredict: item symbolAtDot at: column ] ] ] ].
+								ifTrue: [ self topDownPredict: item symbolAtDot at: column ].
+							item symbolAtDot isHypernotion 
+								ifTrue: [ self gapScan: item at: column ] ] ] ].
 	^ chart
+]
+
+{ #category : #private }
+AFRecognizer >> gapScan: item at: column [
+	" gap scanner "
+
+	| empty |
+	empty := AWHypernotion new.
+	(grammar startAt: item symbolAtDot accepts: empty)
+		ifTrue: [ 
+			column
+				add: (item 
+							moveDotForwardAfterSubstitutingMetanotionsBy: 
+									(grammar 
+											substitutionsOf: item symbolAtDot 
+											thatAccepts: empty)) ]
 ]
 
 { #category : #initialization }

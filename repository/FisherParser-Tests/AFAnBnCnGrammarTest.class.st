@@ -23,6 +23,28 @@ AFAnBnCnGrammarTest >> testAcceptsABC [
 ]
 
 { #category : #tests }
+AFAnBnCnGrammarTest >> testAnalizeAcceptsA2B2C2 [
+	| analysis chart columnsSize |
+	analysis := grammar analizeAccepts: 'aabbcc'.
+	self assert: (analysis at: 'accepts').
+	chart := analysis at: 'chart'.
+	self assert: chart size equals: 7.
+	columnsSize := chart collect: [ :each | each size ].
+	self assert: columnsSize equals: #(7 10 10 10 9 7 6)
+]
+
+{ #category : #tests }
+AFAnBnCnGrammarTest >> testAnalizeAcceptsABC [
+	| analysis chart columnsSize |
+	analysis := grammar analizeAccepts: 'abc'.
+	self assert: (analysis at: 'accepts').
+	chart := analysis at: 'chart'.
+	self assert: chart size equals: 4.
+	columnsSize := chart collect: [ :each | each size ].
+	self assert: columnsSize equals: #(6 7 7 5)
+]
+
+{ #category : #tests }
 AFAnBnCnGrammarTest >> testInstanceCreation [
 
 	self assert: grammar startNotion equals: #('((start))') asNotion.
