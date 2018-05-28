@@ -49,7 +49,7 @@ AFVWGrammar >> alternativesThatFirstNotionAccepts: aProtonotion [
 			first := hrule body first.
 			first isHypernotion
 				ifTrue: [ | substitution |
-					substitution := self startAt: first accepts: aProtonotion.
+					substitution := self unify: first with: aProtonotion.
 					substitution isSolution
 						ifTrue: [ alternativesOfProtonotion addLast: (hrule substituteMetanotionsBy: substitution) ] ]
 				ifFalse: [ first isProtonotion
@@ -68,7 +68,7 @@ AFVWGrammar >> alternativesThatHeadAccepts: aProtonotion [
 			head := hrule head.
 			head isHypernotion
 				ifTrue: [ | substitution |
-					substitution := self startAt: head accepts: aProtonotion.
+					substitution := self unify: head with: aProtonotion.
 					substitution isSolution
 						ifTrue: [ alternativesOfProtonotion addLast: (hrule substituteMetanotionsBy: substitution) ] ]
 				ifFalse: [ head isProtonotion
@@ -163,18 +163,6 @@ AFVWGrammar >> representationRules [
 ]
 
 { #category : #private }
-AFVWGrammar >> startAt: aHypernotion accepts: aProtonotion [
-	| hnGrammar strictProtonotion |
-	hnGrammar := metaGrammar startAt: aHypernotion.
-	strictProtonotion := aProtonotion asStrictString.
-	^ (hnGrammar accepts: strictProtonotion)
-		ifTrue: [ | parse |
-			parse := hnGrammar parseTree: strictProtonotion.
-			AFSubstitution solution: (parse metanotionSubstitutionsOf: aHypernotion) ]
-		ifFalse: [ AFSubstitution failed ]
-]
-
-{ #category : #private }
 AFVWGrammar >> startHyperRule [
 	^ startHyperRule
 ]
@@ -187,4 +175,16 @@ AFVWGrammar >> startNotion [
 { #category : #accessing }
 AFVWGrammar >> terminals [
 	^ vwGrammar terminals
+]
+
+{ #category : #private }
+AFVWGrammar >> unify: aHypernotion with: aProtonotion [
+	| hnGrammar strictProtonotion |
+	hnGrammar := metaGrammar startAt: aHypernotion.
+	strictProtonotion := aProtonotion asStrictString.
+	^ (hnGrammar accepts: strictProtonotion)
+		ifTrue: [ | parse |
+			parse := hnGrammar parseTree: strictProtonotion.
+			AFSubstitution solution: (parse metanotionSubstitutionsOf: aHypernotion) ]
+		ifFalse: [ AFSubstitution failed ]
 ]
