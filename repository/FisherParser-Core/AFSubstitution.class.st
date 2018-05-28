@@ -47,7 +47,7 @@ AFSubstitution class >> reset [
 { #category : #'instance creation' }
 AFSubstitution class >> solution: anAssocCollection [
 	" a solution is possible with the given substitutions.
-		{('a metanotion's name' -> substitute). etc.} "
+		{(aMetanotion -> substitute). etc.} "
 
 	^ self solution: true substitutions: anAssocCollection
 ]
