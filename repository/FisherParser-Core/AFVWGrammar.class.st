@@ -48,7 +48,7 @@ AFVWGrammar >> alternativesThatFirstNotionAccepts: aProtonotion [
 			| substitution |
 			substitution := self unify: hrule body first with: aProtonotion.
 			substitution isSolution
-				ifTrue: [ alternativesOfProtonotion addLast: (hrule substituteMetanotionsBy: substitution) ] ].
+				ifTrue: [ alternativesOfProtonotion addLast: (hrule apply: substitution) ] ].
 	^ alternativesOfProtonotion
 ]
 
@@ -61,7 +61,7 @@ AFVWGrammar >> alternativesThatHeadAccepts: aProtonotion [
 			| substitution |
 			substitution := self unify: hrule head with: aProtonotion.
 			substitution isSolution
-				ifTrue: [ alternativesOfProtonotion addLast: (hrule substituteMetanotionsBy: substitution) ] ].
+				ifTrue: [ alternativesOfProtonotion addLast: (hrule apply: substitution) ] ].
 	^ alternativesOfProtonotion
 ]
 

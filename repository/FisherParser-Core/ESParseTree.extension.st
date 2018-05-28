@@ -2,8 +2,8 @@ Extension { #name : #ESParseTree }
 
 { #category : #'*FisherParser-Core' }
 ESParseTree >> metanotionSubstitutionsOf: aHypernotion [ 
-	| startNode substitutions metanotions |
-	substitutions := IdentityDictionary new.
+	| substitutions startNode metanotions |
+	substitutions := SinglyLinkedList new.
 	startNode := tree nodeOf: aHypernotion.
 	metanotions := aHypernotion metanotions.
 	startNode children 
@@ -14,7 +14,7 @@ ESParseTree >> metanotionSubstitutionsOf: aHypernotion [
 						ifNone: [ false ] ]
 		thenDo: [ :metanotionNode |
 					substitutions
-						add:
+						addLast:
 							metanotionNode model symbol named
 								-> (AWProtonotion
 										with:

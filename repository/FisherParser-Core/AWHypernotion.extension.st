@@ -1,6 +1,17 @@
 Extension { #name : #AWHypernotion }
 
 { #category : #'*FisherParser-Core' }
+AWHypernotion >> apply: aSubstitution [
+	^ AWHypernotion
+		withAll:
+			(notions
+				collect: [ :notion | 
+					notion isMetanotion
+						ifTrue: [ aSubstitution at: notion ]
+						ifFalse: [ notion ] ])
+]
+
+{ #category : #'*FisherParser-Core' }
 AWHypernotion >> asArrayOfSymbols [
 	^ Array
 		streamContents: [ :s | 
@@ -25,15 +36,4 @@ AWHypernotion >> asStrictString [
 { #category : #'*FisherParser-Core' }
 AWHypernotion >> matches: aCharacter [ 
 	^ notions first matches: aCharacter 
-]
-
-{ #category : #'*FisherParser-Core' }
-AWHypernotion >> substituteMetanotionsBy: anAssocCollection [
-	^ AWHypernotion
-		withAll:
-			(notions
-				collect: [ :notion | 
-					(notion isMetanotion and: [ anAssocCollection includesMetanotion: notion ])
-						ifTrue: [ anAssocCollection at: notion ]
-						ifFalse: [ notion ] ])
 ]

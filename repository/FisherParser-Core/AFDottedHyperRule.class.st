@@ -77,7 +77,7 @@ AFDottedHyperRule >> moveDotForward [
 { #category : #accessing }
 AFDottedHyperRule >> moveDotForwardAfterSubstitutingMetanotionsBy: anAssocCollection [
 	^ self class
-		of: (hyperRule substituteMetanotionsBy: anAssocCollection)
+		of: (hyperRule apply: anAssocCollection)
 		withDotAt: dotIndex + 1
 ]
 

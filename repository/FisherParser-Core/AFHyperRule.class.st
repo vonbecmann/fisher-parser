@@ -49,6 +49,13 @@ AFHyperRule >> = anObject [
 ]
 
 { #category : #accessing }
+AFHyperRule >> apply: aSubstitution [
+	^ AFHyperRule
+		head: (head apply: aSubstitution)
+		body: (body collect: [ :each | each apply: aSubstitution ])
+]
+
+{ #category : #accessing }
 AFHyperRule >> body [
 	^ body
 ]
@@ -107,14 +114,4 @@ AFHyperRule >> printOn: aStream [
 { #category : #printing }
 AFHyperRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
-]
-
-{ #category : #accessing }
-AFHyperRule >> substituteMetanotionsBy: anAssocCollection [
-	^ AFHyperRule
-		head: (head substituteMetanotionsBy: anAssocCollection)
-		body:
-			(body
-				collect: [ :each | 
-					each substituteMetanotionsBy: anAssocCollection ])
 ]

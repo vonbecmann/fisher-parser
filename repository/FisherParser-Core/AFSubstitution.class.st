@@ -30,12 +30,10 @@ AFSubstitution class >> solution: anAssocCollection [
 
 { #category : #accessing }
 AFSubstitution >> at: aMetanotion [
-	^ metanotionSubstitutions at: aMetanotion named
-]
-
-{ #category : #testing }
-AFSubstitution >> includesMetanotion: aMetanotion [
-	^ metanotionSubstitutions includesKey: aMetanotion named
+	^ metanotionSubstitutions 
+			detect: [ :each | each key = aMetanotion named ] 
+			ifFound: [ :each | each value ] 
+			ifNone: [ aMetanotion ]
 ]
 
 { #category : #initialization }
@@ -60,7 +58,7 @@ AFSubstitution >> printOn: aStream [
 	solution
 		ifTrue: [ 
 			aStream nextPut: ${.
-			metanotionSubstitutions associations
+			metanotionSubstitutions 
 				do: [ :assoc | 
 					aStream
 						print: assoc key;
@@ -70,4 +68,9 @@ AFSubstitution >> printOn: aStream [
 			aStream nextPut: $} ]
 		ifFalse: [ aStream nextPutAll: 'no solution' ].
 	aStream nextPut: $)
+]
+
+{ #category : #printing }
+AFSubstitution >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
 ]
