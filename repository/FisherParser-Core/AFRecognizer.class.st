@@ -33,9 +33,13 @@ AFRecognizer >> addPreterminalsWith: word at: column [
 ]
 
 { #category : #private }
-AFRecognizer >> bottomUpPredict: aProtonotion at: aColumn [ 
-	(grammar alternativesThatFirstNotionAccepts: aProtonotion)
-		do: [ :hrule | aColumn add: (hrule dotAtBeginning startAt: aColumn) ]
+AFRecognizer >> bottomUpPredict: aProtonotion at: aColumn [
+	grammar bottomUpAlternatives
+		do: [ :hrule | 
+			| substitution |
+			substitution := grammar unify: hrule body first with: aProtonotion.
+			substitution isSolution
+				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
 ]
 
 { #category : #private }
@@ -98,6 +102,10 @@ AFRecognizer >> initializeGrammar: aVWGrammar [
 
 { #category : #private }
 AFRecognizer >> topDownPredict: aProtonotion at: aColumn [
-	(grammar alternativesThatHeadAccepts: aProtonotion)
-		do: [ :hrule | aColumn add: (hrule dotAtBeginning startAt: aColumn) ]
+	grammar alternatives
+		do: [ :hrule | 
+			| substitution |
+			substitution := grammar unify: hrule head with: aProtonotion.
+			substitution isSolution
+				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
 ]

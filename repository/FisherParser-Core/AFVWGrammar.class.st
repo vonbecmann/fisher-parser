@@ -40,34 +40,18 @@ AFVWGrammar >> accepts: aString [
 ]
 
 { #category : #private }
-AFVWGrammar >> alternativesThatFirstNotionAccepts: aProtonotion [
-	| alternativesOfProtonotion |
-	alternativesOfProtonotion := SinglyLinkedList new.
-	bottomUpAlternatives
-		do: [ :hrule | 
-			| substitution |
-			substitution := self unify: hrule body first with: aProtonotion.
-			substitution isSolution
-				ifTrue: [ alternativesOfProtonotion addLast: (hrule apply: substitution) ] ].
-	^ alternativesOfProtonotion
-]
-
-{ #category : #private }
-AFVWGrammar >> alternativesThatHeadAccepts: aProtonotion [
-	| alternativesOfProtonotion |
-	alternativesOfProtonotion := SinglyLinkedList new.
-	alternatives
-		do: [ :hrule | 
-			| substitution |
-			substitution := self unify: hrule head with: aProtonotion.
-			substitution isSolution
-				ifTrue: [ alternativesOfProtonotion addLast: (hrule apply: substitution) ] ].
-	^ alternativesOfProtonotion
+AFVWGrammar >> alternatives [
+	^ alternatives
 ]
 
 { #category : #testing }
 AFVWGrammar >> analizeAccepts: aString [
 	^ (AFAnalyticalRecognizer of: self) accepts: aString
+]
+
+{ #category : #private }
+AFVWGrammar >> bottomUpAlternatives [
+	^ bottomUpAlternatives
 ]
 
 { #category : #'inspector extensions' }
