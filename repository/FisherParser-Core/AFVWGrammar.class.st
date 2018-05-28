@@ -164,11 +164,12 @@ AFVWGrammar >> representationRules [
 
 { #category : #private }
 AFVWGrammar >> startAt: aHypernotion accepts: aProtonotion [
-	| hnGrammar |
+	| hnGrammar strictProtonotion |
 	hnGrammar := metaGrammar startAt: aHypernotion.
-	^ (hnGrammar accepts: aProtonotion asStrictString)
+	strictProtonotion := aProtonotion asStrictString.
+	^ (hnGrammar accepts: strictProtonotion)
 		ifTrue: [ | parse |
-			parse := hnGrammar parseTree: aProtonotion asStrictString.
+			parse := hnGrammar parseTree: strictProtonotion.
 			AFSubstitution solution: (parse metanotionSubstitutionsOf: aHypernotion) ]
 		ifFalse: [ AFSubstitution failed ]
 ]
