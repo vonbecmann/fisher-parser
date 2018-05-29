@@ -1,6 +1,6 @@
 Extension { #name : #ESParseTree }
 
 { #category : #'*FisherParser-Core' }
-ESParseTree >> metanotionSubstitutionsOf: aHypernotion [
-	^ tree metanotionSubstitutionsOf: aHypernotion
+ESParseTree >> substitutionsOf: aMetanotionCollection [
+	^ tree substitutionsOf: aMetanotionCollection 
 ]

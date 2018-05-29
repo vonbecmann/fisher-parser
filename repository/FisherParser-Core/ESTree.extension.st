@@ -1,10 +1,9 @@
 Extension { #name : #ESTree }
 
 { #category : #'*FisherParser-Core' }
-ESTree >> metanotionSubstitutionsOf: aHypernotion [
-	| substitutions metanotions |
+ESTree >> substitutionsOf: metanotions [
+	| substitutions |
 	substitutions := SinglyLinkedList new.
-	metanotions := aHypernotion metanotions.
 	root children
 		do: [ :child | 
 			metanotions

@@ -37,8 +37,9 @@ AFEarleyUnification >> unify: aHypernotion with: aProtonotion [
 			aHypernotion isHypernotion
 				ifTrue: [ "a hypernotion equals a protonotion, you need the relative substitution"
 					AFSubstitution 
-						solution: ((hnGrammar parseTree: sentence) metanotionSubstitutionsOf: aHypernotion) ]
-				ifFalse: [ "a protonotion equals a protonotion"
+						solution: ((hnGrammar parseTree: sentence) 
+												substitutionsOf: aHypernotion metanotions) ]
+				ifFalse: [ "a protonotion equals a protonotion, therefore the substitution is empty"
 					AFSubstitution emptySolution ] ]
 		ifFalse: [ "a hypernotion is not equal a protonotion"
 			 AFSubstitution noSolution ]
