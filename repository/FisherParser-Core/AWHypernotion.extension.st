@@ -2,7 +2,7 @@ Extension { #name : #AWHypernotion }
 
 { #category : #'*FisherParser-Core' }
 AWHypernotion >> apply: aSubstitution [
-	^ AWHypernotion
+	^ self class
 		withAll:
 			(notions
 				collect: [ :notion | 
