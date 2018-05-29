@@ -89,13 +89,11 @@ AFSubstitution >> isSolution [
 
 { #category : #printing }
 AFSubstitution >> printOn: aStream [
-	aStream
-		nextPutAll: self className;
-		nextPut: $(.
+	aStream nextPutAll: 'substitution('.
 	solution
 		ifTrue: [ 
 			aStream nextPut: ${.
-			metanotionSubstitutions 
+			metanotionSubstitutions
 				do: [ :assoc | 
 					aStream
 						print: assoc key;
