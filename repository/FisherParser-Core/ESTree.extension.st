@@ -7,7 +7,7 @@ ESTree >> substitutionsOf: metanotions [
 	root children
 		do: [ :child | 
 			metanotions
-				detect: [ :metanotion | metanotion named = child model symbol named ]
+				detect: [ :metanotion | metanotion = child model symbol ]
 				ifFound: [ :metanotion | 
 					| substitute |
 					substitute := AWProtonotion

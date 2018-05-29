@@ -38,7 +38,7 @@ AFJEMetaGrammar >> buildBodyOf: aHypernotion [
 				do: [ :notion | 
 					notion isMetanotion
 						ifTrue: [ 
-							s nextPut: (nonterminals detect: [ :each | each named = notion named ]) ].
+							s nextPut: (nonterminals like: notion) ].
 					notion isProtonotion
 						ifTrue: [ 
 							notion do: [ :char | s nextPut: (nonterminals detect: [ :each | each named = char asSymbol ]) ] ] ] ]
@@ -57,7 +57,7 @@ AFJEMetaGrammar >> initialize [
 AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList [
 	self initialize.
 	metaRuleCollection 
-		do: [ :each | nonterminals add: (NCNonterminal named: each head named) ].
+		do: [ :each | nonterminals add: each head ].
 	terminalNotionToRepresentationList
 		do: [ :assoc | 
 			nonterminals add: (NCNonterminal named: assoc key).
@@ -67,7 +67,7 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representat
 			(metaRuleCollection
 				collect: [ :each | 
 					NCProductionRule
-						head: (nonterminals detect: [ :nonterminal | nonterminal named = each head named ])
+						head: (nonterminals like: each head)
 						body: (self buildBodyOf: each body) ]).
 	metaProductionRules
 		addAll:
