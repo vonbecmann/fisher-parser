@@ -17,13 +17,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFHyperRule class >> head: aHypernotion [
-	^ self basicNew
-		initializeHead: aHypernotion body: {};
-		yourself
-]
-
-{ #category : #'instance creation' }
 AFHyperRule class >> head: aHypernotion body: aHypernotionCollection [
 	^ self basicNew
 		initializeHead: aHypernotion body: aHypernotionCollection;
