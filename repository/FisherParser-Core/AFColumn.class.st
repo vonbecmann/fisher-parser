@@ -137,6 +137,12 @@ AFColumn >> processItems: aBlock [
 	[ items isEmpty ] whileFalse: [ aBlock value: items next ]
 ]
 
+{ #category : #'initialize-release' }
+AFColumn >> release [
+	number := items := itemSet := orderedItems := predictionItems := nil.
+	super release
+]
+
 { #category : #printing }
 AFColumn >> shortPrintOn: aStream [
 	"number"

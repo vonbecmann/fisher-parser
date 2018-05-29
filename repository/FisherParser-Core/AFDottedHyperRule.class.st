@@ -104,6 +104,12 @@ AFDottedHyperRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
+{ #category : #'initialize-release' }
+AFDottedHyperRule >> release [
+	hyperRule := dotIndex := nil.
+	super release
+]
+
 { #category : #accessing }
 AFDottedHyperRule >> startAt: aColumn [
 	^ AFDottedItem of: self startAt: aColumn

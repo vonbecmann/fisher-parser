@@ -143,6 +143,12 @@ AFDottedItem >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
+{ #category : #'initialize-release' }
+AFDottedItem >> release [
+	dottedHyperRule := start := end := nil.
+	super release
+]
+
 { #category : #accessing }
 AFDottedItem >> start [
 	^ start

@@ -108,3 +108,9 @@ AFHyperRule >> printOn: aStream [
 AFHyperRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
+
+{ #category : #'initialize-release' }
+AFHyperRule >> release [
+	head := body := nil.
+	super release
+]

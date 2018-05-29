@@ -111,3 +111,9 @@ AFSubstitution >> printOn: aStream [
 AFSubstitution >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
+
+{ #category : #'initialize-release' }
+AFSubstitution >> release [
+	solution := metanotionSubstitutions := nil.
+	super release
+]
