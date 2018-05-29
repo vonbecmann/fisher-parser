@@ -25,7 +25,7 @@ AFSubstitution class >> emptySolution [
 	^ emptySolution ifNil: [ emptySolution := self solution: true substitutions: #() ]
 ]
 
-{ #category : #initialization }
+{ #category : #'class initialization' }
 AFSubstitution class >> initialize [
 	emptySolution := noSolution := nil
 ]

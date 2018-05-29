@@ -23,7 +23,7 @@ AFEarleyUnification class >> metaRules: metaRuleCollection orthoRepresentations:
 
 { #category : #initialization }
 AFEarleyUnification >> initializeMetaGrammar: aMetaGrammar [
-	super initialize.
+	self initialize.
 	metaGrammar := aMetaGrammar
 ]
 

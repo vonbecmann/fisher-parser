@@ -50,9 +50,9 @@ AFHyperRule >> = anObject [
 
 { #category : #accessing }
 AFHyperRule >> apply: aSubstitution [
-	^ AFHyperRule
-		head: (head apply: aSubstitution)
-		body: (body collect: [ :each | each apply: aSubstitution ])
+	^ self class 
+			head: (head apply: aSubstitution)
+			body: (body collect: [ :each | each apply: aSubstitution ])
 ]
 
 { #category : #accessing }
