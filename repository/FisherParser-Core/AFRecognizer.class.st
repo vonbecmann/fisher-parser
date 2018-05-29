@@ -56,7 +56,7 @@ AFRecognizer >> complete: item at: column [
 AFRecognizer >> evaluate: words [
 	| chart n |
 	n := words size + 1.
-	chart := (1 to: n) collect: [ :index | AFColumn number: index ].
+	chart := AFChart new: n.
 	self topDownPredict: grammar startNotion at: chart first.
 	chart
 		withIndexDo: [ :column :i | 
