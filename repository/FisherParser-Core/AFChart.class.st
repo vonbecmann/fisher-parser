@@ -33,6 +33,17 @@ AFChart >> first [
 	^ columns first
 ]
 
+{ #category : #'inspector extensions' }
+AFChart >> gtInspectorColumnsIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite table
+		title: [ columns size asString , ' columns' ];
+		display: [ columns ];
+		column: 'Column' evaluated: [ :each | each ];
+		showOnly: 50;
+		yourself
+]
+
 { #category : #initialization }
 AFChart >> initializeSize: sizeRequested [
 	self initialize.
@@ -43,6 +54,20 @@ AFChart >> initializeSize: sizeRequested [
 { #category : #accessing }
 AFChart >> last [
 	^ columns last
+]
+
+{ #category : #printing }
+AFChart >> printOn: aStream [
+	aStream
+		nextPutAll: self class name;
+		nextPut: $(;
+		print: columns size;
+		nextPutAll: ' columns)'
+]
+
+{ #category : #printing }
+AFChart >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
 { #category : #'initialize-release' }
