@@ -45,3 +45,55 @@ i LETTER s:	  LETTER symbol.'
 			(#('b' 'symbol') -> (NCTerminal character: $b)).
 			(#('c' 'symbol') -> (NCTerminal character: $c))}
 ]
+
+{ #category : #'instance creation' }
+AFExemplar class >> starSequence [
+	"
+EMPTY:: .
+program: star seq, star symbol.
+star seq: star symbol, star seq; EMPTY.
+star symbol:   '*'.
+	"
+
+	^ AFVWGrammar
+		evw:
+'EMPTY:: .
+program: 		star seq, star symbol.
+star seq: 	star symbol, star seq; EMPTY.'
+		representations: {(#('star' 'symbol') -> (NCTerminal character: $*))}
+]
+
+{ #category : #'instance creation' }
+AFExemplar class >> wegner [
+	"
+BETY::	 b BETY; EMPTY.
+EMPTY::	 .
+
+program:	  growing.
+
+growing BETY: 	a symbol, growing b BETY, c symbol;
+					terminal BETY.
+
+terminal b BETY: 	b symbol, terminal BETY.
+terminal b: 			b symbol.
+
+a symbol:   a.
+b symbol:   b.
+c symbol:   c. "
+	^ AFVWGrammar
+		evw:
+'BETY::	 b BETY; EMPTY.
+EMPTY::	 .
+
+program:	  growing.
+
+growing BETY: 	a symbol, growing b BETY, c symbol;
+					terminal BETY.
+
+terminal b BETY: 	b symbol, terminal BETY.
+terminal b: 			b symbol.'
+		representations: 
+			{(#('a' 'symbol') -> (NCTerminal character: $a)).
+			(#('b' 'symbol') -> (NCTerminal character: $b)).
+			(#('c' 'symbol') -> (NCTerminal character: $c))}
+]
