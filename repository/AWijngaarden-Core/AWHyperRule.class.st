@@ -11,6 +11,9 @@ rules.
 
 - A ""hyperalternative"" is a nonempty sequence of hypernotions separated by commas.
 
+- head is a hypernotion.
+- body is an array of hypernotions.
+
 "
 Class {
 	#name : #AWHyperRule,

@@ -9,6 +9,10 @@ metaproduction defines a metanotion with the following format:
 
 Commas are not used in this modified grammar because it is easy to distinguish
 between metanotions, the non-terminals; and protonotions, the terminals.
+
+head is a metanotion.
+body is a hypernotion.
+
 "
 Class {
 	#name : #AWMetaProductionRule,
