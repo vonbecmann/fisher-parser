@@ -28,12 +28,9 @@ AWHypernotion class >> with: aNotion [
 ]
 
 { #category : #'instance creation' }
-AWHypernotion class >> withAll: aCollection [
+AWHypernotion class >> withAll: aNotionCollection [
 	^ self basicNew
-		initializeNotions:
-			(Array
-				new: aCollection size
-				streamContents: [ :s | s nextPutAll: aCollection ]);
+		initializeNotions: aNotionCollection;
 		yourself
 ]
 
