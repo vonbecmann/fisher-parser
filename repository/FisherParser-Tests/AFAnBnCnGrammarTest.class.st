@@ -1,3 +1,7 @@
+"
+an bn cn grammar.
+
+"
 Class {
 	#name : #AFAnBnCnGrammarTest,
 	#superclass : #TestCase,

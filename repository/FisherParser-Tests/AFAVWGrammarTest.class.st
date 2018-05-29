@@ -1,3 +1,7 @@
+"
+vw-grammar tests.
+
+"
 Class {
 	#name : #AFAVWGrammarTest,
 	#superclass : #TestCase,
