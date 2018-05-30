@@ -11,7 +11,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'head',
-		'body'
+		'body',
+		'vwGrammar'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -43,9 +44,16 @@ AFHyperRule >> = anObject [
 
 { #category : #accessing }
 AFHyperRule >> apply: aSubstitution [
-	^ self class 
+	^ (AFHyperRule
 			head: (head apply: aSubstitution)
-			body: (body collect: [ :each | each apply: aSubstitution ])
+			body: (body collect: [ :each | each apply: aSubstitution ]))
+		belongsTo: vwGrammar;
+		yourself
+]
+
+{ #category : #accessing }
+AFHyperRule >> belongsTo: anAFVWGrammar [ 
+	vwGrammar := anAFVWGrammar 
 ]
 
 { #category : #accessing }

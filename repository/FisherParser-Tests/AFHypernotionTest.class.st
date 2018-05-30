@@ -14,7 +14,7 @@ AFHypernotionTest >> setUp [
 
 { #category : #tests }
 AFHypernotionTest >> testAsStrictString [
-	hypernotion := AWHypernotion withAll: {'start' asNotion. 'notion' asNotion}.
+	hypernotion := AFHypernotion withAll: {'start' asNotion. 'notion' asNotion}.
 	
 	self 
 		assert: hypernotion asStrictString 
@@ -23,7 +23,7 @@ AFHypernotionTest >> testAsStrictString [
 
 { #category : #tests }
 AFHypernotionTest >> testAsStrictString02 [
-	hypernotion := AWHypernotion withAll: {#THREE asNotion. 'cs' asNotion}.
+	hypernotion := AFHypernotion withAll: {#THREE asNotion. 'cs' asNotion}.
 
 	self 
 		assert: hypernotion asStrictString 

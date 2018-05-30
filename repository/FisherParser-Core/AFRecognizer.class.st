@@ -37,7 +37,7 @@ AFRecognizer >> bottomUpPredict: aProtonotion at: aColumn [
 	grammar bottomUpAlternatives
 		do: [ :hrule | 
 			| substitution |
-			substitution := grammar unify: hrule body first with: aProtonotion.
+			substitution := hrule body first unifyWith: aProtonotion.
 			substitution isSolution
 				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
 ]
@@ -47,7 +47,7 @@ AFRecognizer >> complete: item at: column [
 	item predictionItems
 		do: [ :previous | 
 			| substitution |
-			substitution := grammar unify: previous symbolAtDot with: item head.
+			substitution := previous symbolAtDot unifyWith: item head.
 			substitution isSolution
 				ifTrue: [ column add: (previous moveDotForwardAfterApplying: substitution) ] ]
 ]
@@ -89,7 +89,7 @@ AFRecognizer >> gapScan: item at: column [
 	" gap scanner "
 
 	| substitution |
-	substitution := grammar unify: item symbolAtDot with: AWHypernotion empty.
+	substitution := item symbolAtDot unifyWith: AFHypernotion empty.
 	substitution isSolution
 		ifTrue: [ column add: (item moveDotForwardAfterApplying: substitution) ]
 ]
@@ -105,7 +105,7 @@ AFRecognizer >> topDownPredict: aProtonotion at: aColumn [
 	grammar alternatives 
 		do: [ :hrule | 
 			| substitution |
-			substitution := grammar unify: hrule head with: aProtonotion.
+			substitution := hrule head unifyWith: aProtonotion.
 			substitution isSolution
 				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
 ]

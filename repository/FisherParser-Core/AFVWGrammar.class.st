@@ -54,6 +54,27 @@ AFVWGrammar >> bottomUpAlternatives [
 	^ bottomUpAlternatives
 ]
 
+{ #category : #private }
+AFVWGrammar >> buildHyperRuleWithHead: aHypernotion andBody: notionCollection [
+	^ (AFHyperRule
+		head: ((AFHypernotion withAll: aHypernotion notions)
+					belongsTo: self;
+					yourself)
+		body:
+			(notionCollection
+				collect: [ :notion | 
+					(AFHypernotion withAll: notion notions)
+						belongsTo: self;
+						yourself ]))
+		belongsTo: self;
+		yourself
+]
+
+{ #category : #private }
+AFVWGrammar >> buildUnificationWith: aHypernotion [ 
+	^ unification buildWith: aHypernotion 
+]
+
 { #category : #'inspector extensions' }
 AFVWGrammar >> gtInspectorDefinitionIn: composite [
 	<gtInspectorPresentationOrder: 0>
@@ -73,7 +94,7 @@ AFVWGrammar >> hypernotions [
 { #category : #initialization }
 AFVWGrammar >> initialize [
 	super initialize.
-	startNotion := AWHypernotion with: (AWProtonotion with: '((start))').
+	startNotion := AFHypernotion with: (AWProtonotion with: '((start))').
 	ortholetters := Set new.
 	startNotion do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ]
 ]
@@ -84,13 +105,13 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	vwGrammar := aVWGrammar.
 	ortholetters addAll: vwGrammar ortholetters.
 	unification := 
-		AFEarleyUnification 
+		AFUnificationBuilder 
 			metaRules: vwGrammar metaRules
 			orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
-	startHyperRule := AFHyperRule head: startNotion body: {vwGrammar startNotion}.
+	startHyperRule := self buildHyperRuleWithHead: startNotion andBody: {vwGrammar startNotion}.
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules 
-		collect: [ :each | each asAFHyperRule ] 
+		collect: [ :each | self buildHyperRuleWithHead: each head andBody: each body ] 
 		thenDo: [ :newRule | alternatives addLast: newRule ].
 	bottomUpAlternatives := alternatives reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
 	representationRules := alternatives
@@ -148,9 +169,4 @@ AFVWGrammar >> startNotion [
 { #category : #accessing }
 AFVWGrammar >> terminals [
 	^ vwGrammar terminals
-]
-
-{ #category : #private }
-AFVWGrammar >> unify: aHypernotion with: aProtonotion [
-	^ unification unify: aHypernotion with: aProtonotion
 ]
