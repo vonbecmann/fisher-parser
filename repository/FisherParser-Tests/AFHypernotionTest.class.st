@@ -29,3 +29,106 @@ AFHypernotionTest >> testAsStrictString02 [
 		assert: hypernotion asStrictString 
 		equals: 'THREEcs'
 ]
+
+{ #category : #tests }
+AFHypernotionTest >> testAsString [
+	self
+		assert:
+			(AFHypernotion
+				withAll: {(AWProtonotion with: 'letter'). (AWMetanotion named: 'ALPHA')}) asString
+		equals: 'letter ALPHA'
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testAsString02 [
+	self assert: (AFHypernotion withAll: {}) asString equals: ''.
+	self assert: AFHypernotion new asString equals: ''.
+	self assert: AFHypernotion empty asString equals: ''
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testIsEmpty [
+	self assert: AFHypernotion new isEmpty
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testIsHypernotion [
+	| hn |
+	hn := AFHypernotion new.
+	self assert: hn isHypernotion.
+	self deny: hn isTerminal.
+	self deny: hn isProtonotion
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testIsHypernotion02 [
+	| hn |
+	hn := AFHypernotion with: (AWProtonotion with: 'a').
+	self deny: hn isHypernotion.
+	self assert: hn isProtonotion.
+	self deny: hn isTerminal
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testIsProtonotion [
+	| hn |
+	hn := AFHypernotion with: (AWProtonotion with: 'a').
+	self assert: hn isProtonotion.
+	self deny: hn isTerminal.
+	self deny: hn isHypernotion
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testIsProtonotion02 [
+	| hn |
+	hn := AFHypernotion with: (AWMetanotion named: 'ALPHA').
+	self deny: hn isProtonotion.
+	self deny: hn isTerminal.
+	self assert: hn isHypernotion
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testIsProtonotion03 [
+	| hn |
+	hn := AFHypernotion with: (NCTerminal character: $a).
+
+	self deny: hn isProtonotion.
+	self assert: hn isTerminal.
+	self deny: hn isHypernotion.
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testIsTerminal [
+	| hn |
+	hn := AFHypernotion new.
+	self deny: hn isTerminal.
+	self deny: hn isProtonotion.
+	self assert: hn isHypernotion
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testIsTerminal02 [
+	| hn |
+	hn := AFHypernotion with: (NCTerminal character: $a).
+	self assert: hn isTerminal.
+	self deny: hn isProtonotion.
+	self deny: hn isHypernotion
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testIsTerminal03 [
+	| hn |
+	hn := AFHypernotion with: (AWProtonotion with: 'a').
+	self deny: hn isTerminal.
+	self assert: hn isProtonotion.
+	self deny: hn isHypernotion
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testIsTerminal04 [
+	| hn |
+	hn := AFHypernotion with: (AWMetanotion named: 'NOTION').
+	self deny: hn isTerminal.
+	self deny: hn isProtonotion.
+	self assert: hn isHypernotion
+]
