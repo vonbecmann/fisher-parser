@@ -56,18 +56,17 @@ AFVWGrammar >> bottomUpAlternatives [
 
 { #category : #private }
 AFVWGrammar >> buildHyperRuleWithHead: aHypernotion andBody: notionCollection [
-	^ (AFHyperRule
-		head: ((AFHypernotion withAll: aHypernotion notions)
-					belongsTo: self;
-					yourself)
+	^ AFHyperRule
+		head:
+			((AFHypernotion withAll: aHypernotion notions)
+				belongsTo: self;
+				yourself)
 		body:
 			(notionCollection
 				collect: [ :notion | 
 					(AFHypernotion withAll: notion notions)
 						belongsTo: self;
-						yourself ]))
-		belongsTo: self;
-		yourself
+						yourself ])
 ]
 
 { #category : #private }

@@ -1,3 +1,6 @@
+"
+no solution sustitution
+"
 Class {
 	#name : #AFNoSolutionUnification,
 	#superclass : #Object,

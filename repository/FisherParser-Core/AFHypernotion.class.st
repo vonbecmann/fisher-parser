@@ -105,6 +105,12 @@ AFHypernotion >> hash [
 ]
 
 { #category : #initialization }
+AFHypernotion >> initialize [
+	super initialize.
+	vwGrammar := nil
+]
+
+{ #category : #initialization }
 AFHypernotion >> initializeNotions: aCollection [
 	self initialize.
 	notions := aCollection
