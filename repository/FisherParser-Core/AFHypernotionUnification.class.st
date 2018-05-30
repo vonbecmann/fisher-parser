@@ -29,6 +29,20 @@ AFHypernotionUnification >> initializeHypernotion: aHypernotion grammar: aJEGram
 	grammar := aJEGrammar
 ]
 
+{ #category : #printing }
+AFHypernotionUnification >> printOn: aStream [
+	aStream
+		nextPutAll: self class name;
+		nextPut: $(;
+		print: hypernotion;
+		nextPut: $)
+]
+
+{ #category : #printing }
+AFHypernotionUnification >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
 { #category : #public }
 AFHypernotionUnification >> unifyWith: aProtonotion [
 	"a hypernotion equals a protonotion, you need the relative substitution"

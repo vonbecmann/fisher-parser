@@ -25,6 +25,20 @@ AFProtonotionUnification >> initializeStrictProtonotion: aProtonotion [
 	strictProtonotion := aProtonotion asStrictString
 ]
 
+{ #category : #printing }
+AFProtonotionUnification >> printOn: aStream [
+	aStream
+		nextPutAll: self class name;
+		nextPut: $(;
+		nextPutAll: strictProtonotion;
+		nextPut: $)
+]
+
+{ #category : #printing }
+AFProtonotionUnification >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
 { #category : #public }
 AFProtonotionUnification >> unifyWith: aHypernotion [
 	"a protonotion equals a protonotion, therefore the substitution is empty"
