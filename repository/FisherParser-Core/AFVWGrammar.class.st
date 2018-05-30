@@ -93,7 +93,10 @@ AFVWGrammar >> hypernotions [
 { #category : #initialization }
 AFVWGrammar >> initialize [
 	super initialize.
-	startNotion := AFHypernotion with: (AWProtonotion with: '((start))').
+	startNotion := 
+		(AFHypernotion with: (AWProtonotion with: '((start))'))
+			belongsTo: self;
+			yourself.
 	ortholetters := Set new.
 	startNotion do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ]
 ]
@@ -107,7 +110,12 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		AFUnificationBuilder 
 			metaRules: vwGrammar metaRules
 			orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
-	startHyperRule := self buildHyperRuleWithHead: startNotion andBody: {vwGrammar startNotion}.
+	startHyperRule := 
+		AFHyperRule 
+			head: startNotion 
+			body: { ((AFHypernotion withAll: vwGrammar startNotion notions)
+							belongsTo: self;
+							yourself) }.
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules 
 		collect: [ :each | self buildHyperRuleWithHead: each head andBody: each body ] 
