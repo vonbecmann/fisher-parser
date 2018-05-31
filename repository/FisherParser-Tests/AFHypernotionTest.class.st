@@ -13,6 +13,18 @@ AFHypernotionTest >> setUp [
 ]
 
 { #category : #tests }
+AFHypernotionTest >> testApply [
+	| hn substitution |
+	hn := AFHypernotion with: (AWMetanotion named: 'X').
+	substitution := AFSubstitution
+		solution: {((AWMetanotion named: 'X') -> (AWProtonotion with: 'substitute'))}.
+
+	self 
+		assert: (hn apply: substitution) 
+		equals: (AFHypernotion with: (AWProtonotion with: 'substitute'))
+]
+
+{ #category : #tests }
 AFHypernotionTest >> testAsStrictString [
 	hypernotion := AFHypernotion withAll: {'start' asNotion. 'notion' asNotion}.
 	
