@@ -19,7 +19,7 @@ Class {
 		'alternatives',
 		'bottomUpAlternatives',
 		'representationRules',
-		'unification'
+		'matcherBuilder'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -70,8 +70,8 @@ AFVWGrammar >> buildHyperRuleWithHead: aHypernotion andBody: notionCollection [
 ]
 
 { #category : #private }
-AFVWGrammar >> createUnificationFor: aHypernotion [ 
-	^ aHypernotion createUsing: unification
+AFVWGrammar >> createMatcherFor: aHypernotion [ 
+	^ aHypernotion createUsing: matcherBuilder
 ]
 
 { #category : #'inspector extensions' }
@@ -106,8 +106,8 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
 	ortholetters addAll: vwGrammar ortholetters.
-	unification := 
-		AFUnificationBuilder 
+	matcherBuilder := 
+		AFMatcherBuilder 
 			metaRules: vwGrammar metaRules
 			orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
 	startHyperRule := 
@@ -170,7 +170,7 @@ AFVWGrammar >> startHyperRule [
 
 { #category : #accessing }
 AFVWGrammar >> startNotion [
-	^ startNotion
+	^ vwGrammar startNotion
 ]
 
 { #category : #accessing }

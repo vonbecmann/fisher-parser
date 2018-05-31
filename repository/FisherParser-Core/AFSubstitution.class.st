@@ -15,7 +15,7 @@ Class {
 		'emptySolution',
 		'noSolution'
 	],
-	#category : #'FisherParser-Core-MetaUnification'
+	#category : #'FisherParser-Core-MetaMatching'
 }
 
 { #category : #'instance creation' }

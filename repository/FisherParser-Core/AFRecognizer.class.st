@@ -37,7 +37,7 @@ AFRecognizer >> bottomUpPredict: aProtonotion at: aColumn [
 	grammar bottomUpAlternatives
 		do: [ :hrule | 
 			| substitution |
-			substitution := hrule body first unifyWith: aProtonotion.
+			substitution := hrule body first match: aProtonotion.
 			substitution isSolution
 				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
 ]
@@ -47,7 +47,7 @@ AFRecognizer >> complete: item at: column [
 	item predictionItems
 		do: [ :previous | 
 			| substitution |
-			substitution := previous symbolAtDot unifyWith: item head.
+			substitution := previous symbolAtDot match: item head.
 			substitution isSolution
 				ifTrue: [ column add: (previous moveDotForwardAfterApplying: substitution) ] ]
 ]
@@ -57,7 +57,7 @@ AFRecognizer >> evaluate: words [
 	| chart n |
 	n := words size + 1.
 	chart := AFChart new: n.
-	self topDownPredict: grammar startNotion at: chart first.
+	chart first add: (grammar startHyperRule dotAtBeginning startAt: chart first).
 	chart
 		withIndexDo: [ :column :i | 
 			column isEmpty
@@ -89,7 +89,7 @@ AFRecognizer >> gapScan: item at: column [
 	" gap scanner "
 
 	| substitution |
-	substitution := item symbolAtDot unifyWith: AFHypernotion empty.
+	substitution := item symbolAtDot match: AFHypernotion empty.
 	substitution isSolution
 		ifTrue: [ column add: (item moveDotForwardAfterApplying: substitution) ]
 ]
@@ -105,7 +105,7 @@ AFRecognizer >> topDownPredict: aProtonotion at: aColumn [
 	grammar alternatives 
 		do: [ :hrule | 
 			| substitution |
-			substitution := hrule head unifyWith: aProtonotion.
+			substitution := hrule head match: aProtonotion.
 			substitution isSolution
 				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
 ]

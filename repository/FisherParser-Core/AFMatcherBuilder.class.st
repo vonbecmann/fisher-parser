@@ -3,16 +3,16 @@ use jay earley parser as a syntactic unification algorithm.
 
 "
 Class {
-	#name : #AFUnificationBuilder,
+	#name : #AFMatcherBuilder,
 	#superclass : #Object,
 	#instVars : [
 		'metaGrammar'
 	],
-	#category : #'FisherParser-Core-MetaUnification'
+	#category : #'FisherParser-Core-MetaMatching'
 }
 
 { #category : #'instance creation' }
-AFUnificationBuilder class >> metaRules: metaRuleCollection orthoRepresentations: terminalNotionToRepresentationList [
+AFMatcherBuilder class >> metaRules: metaRuleCollection orthoRepresentations: terminalNotionToRepresentationList [
 	^ self basicNew
 		initializeMetaGrammar:
 			(AFJEMetaGrammar
@@ -22,19 +22,19 @@ AFUnificationBuilder class >> metaRules: metaRuleCollection orthoRepresentations
 ]
 
 { #category : #public }
-AFUnificationBuilder >> createHypernotionUnificationFor: aHypernotion [
-	^ AFHypernotionUnification 
+AFMatcherBuilder >> createHypernotionMatcherFor: aHypernotion [
+	^ AFHypernotionMatcher 
 			hypernotion: aHypernotion 
 			grammar: (metaGrammar startAt: aHypernotion)
 ]
 
 { #category : #public }
-AFUnificationBuilder >> createProtonotionUnificationFor: aProtonotion [
-	^ AFProtonotionUnification protonotion: aProtonotion
+AFMatcherBuilder >> createProtonotionMatcherFor: aProtonotion [
+	^ AFProtonotionMatcher protonotion: aProtonotion
 ]
 
 { #category : #initialization }
-AFUnificationBuilder >> initializeMetaGrammar: aMetaGrammar [
+AFMatcherBuilder >> initializeMetaGrammar: aMetaGrammar [
 	self initialize.
 	metaGrammar := aMetaGrammar
 ]

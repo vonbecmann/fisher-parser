@@ -49,7 +49,7 @@ AFAnBnCnGrammarTest >> testAnalizeAcceptsABC [
 { #category : #tests }
 AFAnBnCnGrammarTest >> testInstanceCreation [
 
-	"self assert: grammar startNotion equals: #('((start))') asNotion."
+	self assert: grammar startNotion equals: #('an' 'bn' 'cn') asNotion.
 	self
 		assertCollection: grammar metanotions
 		hasSameElements: (#(TALLY TALLETY EMPTY LETTER) collect: [ :each | each asNotion ]).

@@ -7,9 +7,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'notions',
+		'metanotions',
 		'vwGrammar',
-		'unification',
-		'metanotions'
+		'matcher'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -77,12 +77,12 @@ AFHypernotion >> belongsTo: aVWGrammar [
 ]
 
 { #category : #building }
-AFHypernotion >> createUsing: anUnificationBuilder [
+AFHypernotion >> createUsing: aMatcherBuilder [
 	^ self isHypernotion
-		ifTrue: [ anUnificationBuilder createHypernotionUnificationFor: self ]
+		ifTrue: [ aMatcherBuilder createHypernotionMatcherFor: self ]
 		ifFalse: [ 
 			self isProtonotion
-				ifTrue: [ anUnificationBuilder createProtonotionUnificationFor: self ]
+				ifTrue: [ aMatcherBuilder createProtonotionMatcherFor: self ]
 				ifFalse: [ self error ] ]
 ]
 
@@ -154,6 +154,12 @@ AFHypernotion >> isTerminal [
 	^ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isTerminal ] ]
 ]
 
+{ #category : #accessing }
+AFHypernotion >> match: aHypernotion [
+	matcher ifNil: [ matcher := vwGrammar createMatcherFor: self ].
+	^ matcher matches: aHypernotion
+]
+
 { #category : #testing }
 AFHypernotion >> matches: aCharacter [ 
 	^ notions first matches: aCharacter 
@@ -184,10 +190,4 @@ AFHypernotion >> printString [
 { #category : #accessing }
 AFHypernotion >> protonotions [
 	^ notions select: [ :each | each isProtonotion ]
-]
-
-{ #category : #accessing }
-AFHypernotion >> unifyWith: aHypernotion [
-	unification ifNil: [ unification := vwGrammar createUnificationFor: self ].
-	^ unification unifyWith: aHypernotion
 ]

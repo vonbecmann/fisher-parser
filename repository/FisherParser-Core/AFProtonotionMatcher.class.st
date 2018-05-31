@@ -4,43 +4,29 @@ unify a protonotion with a protonotion.
 protonotion to be used
 "
 Class {
-	#name : #AFProtonotionUnification,
+	#name : #AFProtonotionMatcher,
 	#superclass : #Object,
 	#instVars : [
 		'strictProtonotion'
 	],
-	#category : #'FisherParser-Core-MetaUnification'
+	#category : #'FisherParser-Core-MetaMatching'
 }
 
 { #category : #'instance creation' }
-AFProtonotionUnification class >> protonotion: aProtonotion [
+AFProtonotionMatcher class >> protonotion: aProtonotion [
 	^ self basicNew
 		initializeStrictProtonotion: aProtonotion;
 		yourself
 ]
 
 { #category : #initialization }
-AFProtonotionUnification >> initializeStrictProtonotion: aProtonotion [
+AFProtonotionMatcher >> initializeStrictProtonotion: aProtonotion [
 	self initialize.
 	strictProtonotion := aProtonotion asStrictString
 ]
 
-{ #category : #printing }
-AFProtonotionUnification >> printOn: aStream [
-	aStream
-		nextPutAll: self class name;
-		nextPut: $(;
-		nextPutAll: strictProtonotion;
-		nextPut: $)
-]
-
-{ #category : #printing }
-AFProtonotionUnification >> printString [
-	^ String streamContents: [ :stream | self printOn: stream ]
-]
-
 { #category : #public }
-AFProtonotionUnification >> unifyWith: aProtonotion [
+AFProtonotionMatcher >> matches: aProtonotion [
 	"a protonotion equals a protonotion, therefore the substitution is empty"
 
 	| sentence |
@@ -53,4 +39,18 @@ AFProtonotionUnification >> unifyWith: aProtonotion [
 			first = second
 				ifFalse: [ ^ AFSubstitution noSolution ] ].
 	^ AFSubstitution emptySolution
+]
+
+{ #category : #printing }
+AFProtonotionMatcher >> printOn: aStream [
+	aStream
+		nextPutAll: self class name;
+		nextPut: $(;
+		nextPutAll: strictProtonotion;
+		nextPut: $)
+]
+
+{ #category : #printing }
+AFProtonotionMatcher >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
 ]
