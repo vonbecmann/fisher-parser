@@ -25,6 +25,18 @@ AFHypernotionTest >> testApply [
 ]
 
 { #category : #tests }
+AFHypernotionTest >> testApply02 [
+	| hn substitution |
+	hn := AFHypernotion with: (AWMetanotion named: 'Y').
+	substitution := AFSubstitution
+		solution: {((AWMetanotion named: 'X') -> (AWProtonotion with: 'substitute'))}.
+
+	self 
+		assert: (hn apply: substitution) 
+		equals: hn
+]
+
+{ #category : #tests }
 AFHypernotionTest >> testAsStrictString [
 	hypernotion := AFHypernotion withAll: {'start' asNotion. 'notion' asNotion}.
 	
