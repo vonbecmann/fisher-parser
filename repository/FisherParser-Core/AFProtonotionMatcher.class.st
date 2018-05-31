@@ -26,7 +26,7 @@ AFProtonotionMatcher >> initializeStrictProtonotion: aProtonotion [
 ]
 
 { #category : #public }
-AFProtonotionMatcher >> matches: aProtonotion [
+AFProtonotionMatcher >> match: aProtonotion [
 	"a protonotion equals a protonotion, therefore the substitution is empty"
 
 	| sentence |

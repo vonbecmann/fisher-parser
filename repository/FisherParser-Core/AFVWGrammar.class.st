@@ -55,21 +55,6 @@ AFVWGrammar >> bottomUpAlternatives [
 ]
 
 { #category : #private }
-AFVWGrammar >> buildHyperRuleWithHead: aHypernotion andBody: notionCollection [
-	^ AFHyperRule
-		head:
-			((AFHypernotion withAll: aHypernotion notions)
-				belongsTo: self;
-				yourself)
-		body:
-			(notionCollection
-				collect: [ :notion | 
-					(AFHypernotion withAll: notion notions)
-						belongsTo: self;
-						yourself ])
-]
-
-{ #category : #private }
 AFVWGrammar >> createMatcherFor: aHypernotion [ 
 	^ aHypernotion createUsing: matcherBuilder
 ]
@@ -106,21 +91,26 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
 	ortholetters addAll: vwGrammar ortholetters.
-	matcherBuilder := 
-		AFMatcherBuilder 
-			metaRules: vwGrammar metaRules
-			orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
-	startHyperRule := 
-		AFHyperRule 
-			head: startNotion 
-			body: { ((AFHypernotion withAll: vwGrammar startNotion notions)
-							belongsTo: self;
-							yourself) }.
+	matcherBuilder := AFMatcherBuilder
+		metaRules: vwGrammar metaRules
+		orthoRepresentations:
+			(ortholetters
+				collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
+	startHyperRule := AFHyperRule
+		head: startNotion
+		body: {(AFHypernotion belongsTo: self withAllNotionsFrom: vwGrammar startNotion)}.
 	alternatives := SinglyLinkedList with: startHyperRule.
-	vwGrammar hyperRules 
-		collect: [ :each | self buildHyperRuleWithHead: each head andBody: each body ] 
+	vwGrammar hyperRules
+		collect: [ :each | 
+			AFHyperRule
+				head: (AFHypernotion belongsTo: self withAllNotionsFrom: each head)
+				body:
+					(each body
+						collect: [ :hypernotion | 
+							AFHypernotion belongsTo: self withAllNotionsFrom: hypernotion ]) ]
 		thenDo: [ :newRule | alternatives addLast: newRule ].
-	bottomUpAlternatives := alternatives reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
+	bottomUpAlternatives := alternatives
+		reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ]

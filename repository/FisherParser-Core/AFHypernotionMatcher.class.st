@@ -30,7 +30,7 @@ AFHypernotionMatcher >> initializeHypernotion: aHypernotion grammar: aJEGrammar 
 ]
 
 { #category : #public }
-AFHypernotionMatcher >> matches: aProtonotion [
+AFHypernotionMatcher >> match: aProtonotion [
 	"a hypernotion equals a protonotion, you need the relative substitution"
 
 	| sentence |

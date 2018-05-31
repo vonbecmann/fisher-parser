@@ -15,6 +15,13 @@ Class {
 }
 
 { #category : #'instance creation' }
+AFHypernotion class >> belongsTo: aVWGrammar withAllNotionsFrom: anotherHypernotion [
+	^ (self withAll: anotherHypernotion notions)
+			belongsTo: aVWGrammar;
+			yourself
+]
+
+{ #category : #'instance creation' }
 AFHypernotion class >> empty [
 	^ self new
 ]
@@ -76,7 +83,7 @@ AFHypernotion >> belongsTo: aVWGrammar [
 	
 ]
 
-{ #category : #building }
+{ #category : #initialization }
 AFHypernotion >> createUsing: aMatcherBuilder [
 	^ self isHypernotion
 		ifTrue: [ aMatcherBuilder createHypernotionMatcherFor: self ]
@@ -119,17 +126,15 @@ AFHypernotion >> hash [
 AFHypernotion >> initialize [
 	super initialize.
 	metanotions := Set new.
-	vwGrammar := nil
+	vwGrammar := nil.
+	matcher := nil
 ]
 
 { #category : #initialization }
-AFHypernotion >> initializeNotions: aCollection [
+AFHypernotion >> initializeNotions: aNotionCollection [
 	self initialize.
-	notions := aCollection.
-	notions
-		do: [ :notion | 
-			notion isMetanotion
-				ifTrue: [ metanotions add: notion ] ]
+	notions := aNotionCollection.
+	notions do: [ :notion | notion isMetanotion ifTrue: [ metanotions add: notion ] ]
 ]
 
 { #category : #testing }
@@ -157,7 +162,7 @@ AFHypernotion >> isTerminal [
 { #category : #accessing }
 AFHypernotion >> match: aHypernotion [
 	matcher ifNil: [ matcher := vwGrammar createMatcherFor: self ].
-	^ matcher matches: aHypernotion
+	^ matcher match: aHypernotion
 ]
 
 { #category : #testing }
@@ -190,4 +195,10 @@ AFHypernotion >> printString [
 { #category : #accessing }
 AFHypernotion >> protonotions [
 	^ notions select: [ :each | each isProtonotion ]
+]
+
+{ #category : #'initialize-release' }
+AFHypernotion >> release [
+	notions := metanotions := vwGrammar := matcher := nil.
+	super release
 ]
