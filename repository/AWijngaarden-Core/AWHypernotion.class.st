@@ -91,11 +91,6 @@ AWHypernotion >> isEmpty [
 ]
 
 { #category : #testing }
-AWHypernotion >> isHypernotion [
-	^ notions isEmpty or: [ notions anySatisfy: [ :notion | notion isMetanotion ] ]
-]
-
-{ #category : #testing }
 AWHypernotion >> isProtonotion [
 	"its metanotion free"
 
