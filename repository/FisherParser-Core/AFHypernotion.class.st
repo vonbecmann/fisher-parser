@@ -8,7 +8,8 @@ Class {
 	#instVars : [
 		'notions',
 		'vwGrammar',
-		'unification'
+		'unification',
+		'metanotions'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -117,13 +118,18 @@ AFHypernotion >> hash [
 { #category : #initialization }
 AFHypernotion >> initialize [
 	super initialize.
+	metanotions := Set new.
 	vwGrammar := nil
 ]
 
 { #category : #initialization }
 AFHypernotion >> initializeNotions: aCollection [
 	self initialize.
-	notions := aCollection
+	notions := aCollection.
+	notions
+		do: [ :notion | 
+			notion isMetanotion
+				ifTrue: [ metanotions add: notion ] ]
 ]
 
 { #category : #testing }
@@ -133,7 +139,7 @@ AFHypernotion >> isEmpty [
 
 { #category : #testing }
 AFHypernotion >> isHypernotion [
-	^ notions isEmpty or: [ notions anySatisfy: [ :notion | notion isMetanotion ] ]
+	^ notions isEmpty or: [ metanotions isNotEmpty ]
 ]
 
 { #category : #testing }
@@ -155,7 +161,7 @@ AFHypernotion >> matches: aCharacter [
 
 { #category : #accessing }
 AFHypernotion >> metanotions [
-	^ notions select: [ :each | each isMetanotion ]
+	^ metanotions
 ]
 
 { #category : #accessing }

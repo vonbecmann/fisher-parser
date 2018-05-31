@@ -132,3 +132,34 @@ AFHypernotionTest >> testIsTerminal04 [
 	self deny: hn isProtonotion.
 	self assert: hn isHypernotion
 ]
+
+{ #category : #tests }
+AFHypernotionTest >> testMetanotions [
+	| hn |
+	hn := AFHypernotion
+		withAll:
+			{(AWMetanotion named: 'TALLY').
+			(AWMetanotion named: 'LETTER').
+			(AWProtonotion with: 's')}.
+	self
+		assertCollection: hn metanotions
+		hasSameElements:
+			{(AWMetanotion named: 'TALLY').
+			(AWMetanotion named: 'LETTER')}
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testMetanotions02 [
+	| hn |
+	hn := AFHypernotion
+		withAll:
+			{(AWMetanotion named: 'TALLY').
+			(AWMetanotion named: 'LETTER').
+			(AWMetanotion named: 'LETTER').
+			(AWProtonotion with: 's')}.
+	self
+		assertCollection: hn metanotions
+		hasSameElements:
+			{(AWMetanotion named: 'TALLY').
+			(AWMetanotion named: 'LETTER')}
+]
