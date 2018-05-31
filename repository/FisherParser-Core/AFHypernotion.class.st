@@ -151,12 +151,14 @@ AFHypernotion >> isHypernotion [
 AFHypernotion >> isProtonotion [
 	"its metanotion free"
 
-	^ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isProtonotion ] ]
+	^ metanotions isEmpty 
+			and: [ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isProtonotion ] ] ]
 ]
 
 { #category : #testing }
 AFHypernotion >> isTerminal [
-	^ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isTerminal ] ]
+	^ metanotions isEmpty 
+			and: [ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isTerminal ] ] ]
 ]
 
 { #category : #accessing }
