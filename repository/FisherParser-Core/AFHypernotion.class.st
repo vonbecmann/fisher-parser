@@ -84,7 +84,7 @@ AFHypernotion >> belongsTo: aVWGrammar [
 ]
 
 { #category : #initialization }
-AFHypernotion >> createUsing: aMatcherCreator [
+AFHypernotion >> createMatcherUsing: aMatcherCreator [
 	^ self isHypernotion
 		ifTrue: [ aMatcherCreator createHypernotionMatcherFor: self ]
 		ifFalse: [ 

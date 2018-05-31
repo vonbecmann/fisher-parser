@@ -56,7 +56,7 @@ AFVWGrammar >> bottomUpAlternatives [
 
 { #category : #private }
 AFVWGrammar >> createMatcherFor: aHypernotion [ 
-	^ aHypernotion createUsing: matcherCreator
+	^ aHypernotion createMatcherUsing: matcherCreator
 ]
 
 { #category : #'inspector extensions' }
