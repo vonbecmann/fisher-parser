@@ -40,11 +40,11 @@ AFProtonotionUnification >> printString [
 ]
 
 { #category : #public }
-AFProtonotionUnification >> unifyWith: aHypernotion [
+AFProtonotionUnification >> unifyWith: aProtonotion [
 	"a protonotion equals a protonotion, therefore the substitution is empty"
 
 	| sentence |
-	sentence := aHypernotion asStrictString.
+	sentence := aProtonotion asStrictString.
 	strictProtonotion size == sentence size
 		ifFalse: [ ^ AFSubstitution noSolution ].
 	strictProtonotion

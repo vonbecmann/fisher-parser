@@ -22,16 +22,15 @@ AFUnificationBuilder class >> metaRules: metaRuleCollection orthoRepresentations
 ]
 
 { #category : #public }
-AFUnificationBuilder >> buildWith: aHypernotion [
-	^ aHypernotion isHypernotion
-		ifTrue: [ 
-			AFHypernotionUnification 
-				hypernotion: aHypernotion 
-				grammar: (metaGrammar startAt: aHypernotion) ]
-		ifFalse: [ 
-			aHypernotion isProtonotion
-				ifTrue: [ AFProtonotionUnification protonotion: aHypernotion ]
-				ifFalse: [ AFNoSolutionUnification new ] ]
+AFUnificationBuilder >> createHypernotionUnificationFor: aHypernotion [
+	^ AFHypernotionUnification 
+			hypernotion: aHypernotion 
+			grammar: (metaGrammar startAt: aHypernotion)
+]
+
+{ #category : #public }
+AFUnificationBuilder >> createProtonotionUnificationFor: aProtonotion [
+	^ AFProtonotionUnification protonotion: aProtonotion
 ]
 
 { #category : #initialization }

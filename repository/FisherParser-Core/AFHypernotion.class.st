@@ -75,6 +75,16 @@ AFHypernotion >> belongsTo: aVWGrammar [
 	
 ]
 
+{ #category : #building }
+AFHypernotion >> createUsing: anUnificationBuilder [
+	^ self isHypernotion
+		ifTrue: [ anUnificationBuilder createHypernotionUnificationFor: self ]
+		ifFalse: [ 
+			self isProtonotion
+				ifTrue: [ anUnificationBuilder createProtonotionUnificationFor: self ]
+				ifFalse: [ self error ] ]
+]
+
 { #category : #enumerating }
 AFHypernotion >> do: aBlock [ 
 	notions do: aBlock 
@@ -172,6 +182,6 @@ AFHypernotion >> protonotions [
 
 { #category : #accessing }
 AFHypernotion >> unifyWith: aHypernotion [
-	unification ifNil: [ unification := vwGrammar buildUnificationWith: self ].
+	unification ifNil: [ unification := vwGrammar createUnificationFor: self ].
 	^ unification unifyWith: aHypernotion
 ]

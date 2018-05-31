@@ -70,8 +70,8 @@ AFVWGrammar >> buildHyperRuleWithHead: aHypernotion andBody: notionCollection [
 ]
 
 { #category : #private }
-AFVWGrammar >> buildUnificationWith: aHypernotion [ 
-	^ unification buildWith: aHypernotion 
+AFVWGrammar >> createUnificationFor: aHypernotion [ 
+	^ aHypernotion createUsing: unification
 ]
 
 { #category : #'inspector extensions' }
