@@ -19,7 +19,7 @@ Class {
 		'alternatives',
 		'bottomUpAlternatives',
 		'representationRules',
-		'matcherBuilder'
+		'matcherCreator'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -56,7 +56,7 @@ AFVWGrammar >> bottomUpAlternatives [
 
 { #category : #private }
 AFVWGrammar >> createMatcherFor: aHypernotion [ 
-	^ aHypernotion createUsing: matcherBuilder
+	^ aHypernotion createUsing: matcherCreator
 ]
 
 { #category : #'inspector extensions' }
@@ -91,11 +91,10 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	self initialize.
 	vwGrammar := aVWGrammar.
 	ortholetters addAll: vwGrammar ortholetters.
-	matcherBuilder := AFMatcherBuilder
+	matcherCreator := AFMatcherCreator
 		metaRules: vwGrammar metaRules
 		orthoRepresentations:
-			(ortholetters
-				collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
+			(ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
 	startHyperRule := AFHyperRule
 		head: startNotion
 		body: {(AFHypernotion belongsTo: self withAllNotionsFrom: vwGrammar startNotion)}.

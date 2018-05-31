@@ -84,12 +84,12 @@ AFHypernotion >> belongsTo: aVWGrammar [
 ]
 
 { #category : #initialization }
-AFHypernotion >> createUsing: aMatcherBuilder [
+AFHypernotion >> createUsing: aMatcherCreator [
 	^ self isHypernotion
-		ifTrue: [ aMatcherBuilder createHypernotionMatcherFor: self ]
+		ifTrue: [ aMatcherCreator createHypernotionMatcherFor: self ]
 		ifFalse: [ 
 			self isProtonotion
-				ifTrue: [ aMatcherBuilder createProtonotionMatcherFor: self ]
+				ifTrue: [ aMatcherCreator createProtonotionMatcherFor: self ]
 				ifFalse: [ self error ] ]
 ]
 

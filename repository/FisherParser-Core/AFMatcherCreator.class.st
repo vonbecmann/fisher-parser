@@ -3,7 +3,7 @@ create a matcher for a given hypernotion
 
 "
 Class {
-	#name : #AFMatcherBuilder,
+	#name : #AFMatcherCreator,
 	#superclass : #Object,
 	#instVars : [
 		'metaGrammar'
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFMatcherBuilder class >> metaRules: metaRuleCollection orthoRepresentations: terminalNotionToRepresentationList [
+AFMatcherCreator class >> metaRules: metaRuleCollection orthoRepresentations: terminalNotionToRepresentationList [
 	^ self basicNew
 		initializeMetaGrammar:
 			(AFJEMetaGrammar
@@ -22,19 +22,19 @@ AFMatcherBuilder class >> metaRules: metaRuleCollection orthoRepresentations: te
 ]
 
 { #category : #public }
-AFMatcherBuilder >> createHypernotionMatcherFor: aHypernotion [
+AFMatcherCreator >> createHypernotionMatcherFor: aHypernotion [
 	^ AFHypernotionMatcher 
 			hypernotion: aHypernotion 
 			grammar: (metaGrammar startAt: aHypernotion)
 ]
 
 { #category : #public }
-AFMatcherBuilder >> createProtonotionMatcherFor: aProtonotion [
+AFMatcherCreator >> createProtonotionMatcherFor: aProtonotion [
 	^ AFProtonotionMatcher protonotion: aProtonotion
 ]
 
 { #category : #initialization }
-AFMatcherBuilder >> initializeMetaGrammar: aMetaGrammar [
+AFMatcherCreator >> initializeMetaGrammar: aMetaGrammar [
 	self initialize.
 	metaGrammar := aMetaGrammar
 ]
