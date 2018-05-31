@@ -1,5 +1,5 @@
 "
-use jay earley parser as a syntactic unification algorithm.
+create a matcher for a given hypernotion
 
 "
 Class {

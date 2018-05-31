@@ -1,5 +1,6 @@
 "
-a solution substitution to the ""syntactic unification problem"".
+a solution substitution to the matching algorithm.
+
 
 
 

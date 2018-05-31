@@ -1,5 +1,5 @@
 "
-unify a protonotion with a protonotion.
+match a protonotion to a protonotion.
 
 protonotion to be used
 "
@@ -27,11 +27,11 @@ AFProtonotionMatcher >> initializeStrictProtonotion: aProtonotion [
 
 { #category : #public }
 AFProtonotionMatcher >> match: aProtonotion [
-	"a protonotion equals a protonotion, therefore the substitution is empty"
+	"a protonotion match a protonotion, therefore the substitution is empty"
 
 	| sentence |
 	sentence := aProtonotion asStrictString.
-	strictProtonotion size == sentence size
+	strictProtonotion size = sentence size
 		ifFalse: [ ^ AFSubstitution noSolution ].
 	strictProtonotion
 		with: sentence

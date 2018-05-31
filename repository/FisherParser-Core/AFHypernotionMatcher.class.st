@@ -1,8 +1,10 @@
 "
-unify a hypernotion with a protonotion.
+match a hypernotion to a protonotion.
 
 hypernotion - to be used
 grammar - the hypernotion's grammar.
+
+use jay earley parser as a pattern matching algorithm.
 
 "
 Class {
@@ -31,15 +33,14 @@ AFHypernotionMatcher >> initializeHypernotion: aHypernotion grammar: aJEGrammar 
 
 { #category : #public }
 AFHypernotionMatcher >> match: aProtonotion [
-	"a hypernotion equals a protonotion, you need the relative substitution"
 
 	| sentence |
 	sentence := aProtonotion asStrictString.
 	^ (grammar accepts: sentence)
-		ifTrue: [ 
+		ifTrue: [ "a hypernotion match a protonotion, you need the relative substitution"
 			AFSubstitution
 				solution: ((grammar parseTree: sentence) substitutionsOf: hypernotion metanotions) ]
-		ifFalse: [ "a hypernotion is not equal a protonotion" 
+		ifFalse: [ "a hypernotion does not match a protonotion" 
 			AFSubstitution noSolution ]
 ]
 
