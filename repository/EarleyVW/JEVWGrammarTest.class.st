@@ -114,6 +114,11 @@ JEVWGrammarTest >> testAcceptsHyperRule06 [
 	self assertGrammarAt: hyperRule accepts: 'nNa: letter a symbol, Na.'
 ]
 
+{ #category : #'tests - hyper rule' }
+JEVWGrammarTest >> testAcceptsHyperRule07 [
+	self assertGrammarAt: hyperRule accepts: 'where <NOTION> is <NOTION>: EMPTY.'
+]
+
 { #category : #'tests - hyper rules' }
 JEVWGrammarTest >> testAcceptsHyperRules [
 	self 
@@ -179,6 +184,11 @@ JEVWGrammarTest >> testAcceptsHypernotion08 [
 { #category : #'tests - hypernotion' }
 JEVWGrammarTest >> testAcceptsHypernotion09 [
 	self assertGrammarAt: hypernotion accepts: 'where (NOTION) contains (ALPHA1 NOTETY ALPHA2)'
+]
+
+{ #category : #'tests - hypernotion' }
+JEVWGrammarTest >> testAcceptsHypernotion10 [
+	self assertGrammarAt: hypernotion accepts: 'where <NOTION> is <NOTION>'
 ]
 
 { #category : #'tests - metanotion' }

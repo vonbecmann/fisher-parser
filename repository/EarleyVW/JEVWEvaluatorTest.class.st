@@ -111,6 +111,27 @@ JEVWEvaluatorTest >> testEvaluatesHyperRule03 [
 						withAll: {(AWMetanotion named: 'NOTION'). (AWProtonotion with: 'sequence')})})}
 ]
 
+{ #category : #'tests - hyper rule' }
+JEVWEvaluatorTest >> testEvaluatesHyperRule04 [
+	self
+		assertThatEvaluates: 'where <NOTION> is <NOTION>: EMPTY.'
+		startingAt: 'hyper rule'
+		equals:
+			{(AWHyperRule
+				head:
+					(AWHypernotion
+						withAll: 
+							{(AWProtonotion with: 'where').
+							(AWProtonotion with: '<').
+							(AWMetanotion named: 'NOTION').
+							(AWProtonotion with: '>').
+							(AWProtonotion with: 'is').
+							(AWProtonotion with: '<').
+							(AWMetanotion named: 'NOTION').
+							(AWProtonotion with:'>')})
+				body: {(AWHypernotion with: (AWMetanotion named: 'EMPTY'))})}
+]
+
 { #category : #'tests - hyper rules' }
 JEVWEvaluatorTest >> testEvaluatesHyperRules [
 	self
@@ -183,6 +204,24 @@ JEVWEvaluatorTest >> testEvaluatesHypernotion04 [
 					(AWProtonotion with: '(').
 					(AWMetanotion named: 'NOTETY2').
 					(AWProtonotion with: ')')})
+]
+
+{ #category : #'tests - hypernotion' }
+JEVWEvaluatorTest >> testEvaluatesHypernotion05 [
+	self
+		assertThatEvaluates: 'where <NOTION> is <NOTION>'
+		startingAt: 'hypernotion'
+		equals:
+			(AWHypernotion
+				withAll:
+					{(AWProtonotion with: 'where').
+					(AWProtonotion with: '<').
+					(AWMetanotion named: 'NOTION').
+					(AWProtonotion with: '>').
+					(AWProtonotion with: 'is').
+					(AWProtonotion with: '<').
+					(AWMetanotion named: 'NOTION').
+					(AWProtonotion with: '>')})
 ]
 
 { #category : #'tests - metaproduction rule' }

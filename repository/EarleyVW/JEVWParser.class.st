@@ -142,7 +142,7 @@ separator plus:
 	separator symbol;
 	separator plus, separator symbol.'
 		representations: {
-			('small syntactic mark symbol' -> (NCTerminal charSet: ($a to: $z) , '()')).
+			('small syntactic mark symbol' -> (NCTerminal charSet: ($a to: $z) , '()<>')).
 			('large syntactic mark symbol' -> (NCTerminal charSet: ($A to: $Z) , ($0 to: $9))).
 			('space symbol' -> (NCTerminal character: Character space)).
 			('colon symbol' -> (NCTerminal character: $:)).
