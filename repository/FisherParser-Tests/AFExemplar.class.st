@@ -64,6 +64,63 @@ star seq: 	star symbol, star seq; EMPTY.'
 ]
 
 { #category : #'instance creation' }
+AFExemplar class >> test15 [
+	"
+ALPHA::	  i.
+BETA::	  i.
+
+program:  ALPHA.
+BETA:	  x symbol.
+x symbol: 'x'. "
+
+	^ AFVWGrammar
+		evw:
+'ALPHA::	  i.
+BETA::	  i.
+
+program:  ALPHA.
+BETA:	  x symbol.'
+		representations: 
+			{(#('x' 'symbol') -> (NCTerminal character: $x))}
+]
+
+{ #category : #'instance creation' }
+AFExemplar class >> test3 [
+	"
+LETTER::  h; i; j.
+NOTION::  LETTER NOTETY.
+NOTETY::  NOTION; EMPTY.
+EMPTY::   .
+
+program:  LETTER1 symbol, LETTER2 symbol, LETTER3 symbol,
+          where <LETTER1> is <LETTER2>,
+          where <LETTER2> is <LETTER3>.
+
+where <NOTION> is <NOTION>: EMPTY.
+
+h symbol:         'h'.
+i symbol:         'i'.
+j symbol:         'j'."
+
+	^ AFVWGrammar
+		evw:
+'LETTER::  h; i; j.
+NOTION::  LETTER NOTETY.
+NOTETY::  NOTION; EMPTY.
+EMPTY::   .
+
+program:  LETTER1 symbol, LETTER2 symbol, LETTER3 symbol,
+          where <LETTER1> is <LETTER2>,
+          where <LETTER2> is <LETTER3>.
+
+where <NOTION> is <NOTION>: EMPTY.'
+		representations: 
+			{(#('h' 'symbol') -> (NCTerminal character: $h)).
+			(#('i' 'symbol') -> (NCTerminal character: $i)).
+			(#('j' 'symbol') -> (NCTerminal character: $j))}
+]
+
+{ #category : #'instance creation' }
 AFExemplar class >> wegner [
 	"
 BETY::	 b BETY; EMPTY.
