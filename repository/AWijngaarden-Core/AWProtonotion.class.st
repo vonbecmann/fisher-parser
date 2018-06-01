@@ -1,13 +1,13 @@
 "
 - A ""protonotion"" is a possible empty sequence of small syntactic marks. (e.g. *long*  and *short*)
-- ""small syntactic marks"" as $a-$z, $(, $).
+- ""small syntactic marks"" as $a-$z, $(, $), $<, $>
 
 "
 Class {
 	#name : #AWProtonotion,
 	#superclass : #Object,
 	#instVars : [
-		'contents'
+		'smallSyntacticMarks'
 	],
 	#category : #'AWijngaarden-Core'
 }
@@ -18,36 +18,33 @@ AWProtonotion class >> new [
 ]
 
 { #category : #'instance creation' }
-AWProtonotion class >> with: aString [
-	^ self basicNew initializeContents: aString
+AWProtonotion class >> with: aSmallSyntacticMarkString [
+	^ self basicNew
+		initializeSmallSyntacticMarks: aSmallSyntacticMarkString;
+		yourself
 ]
 
 { #category : #comparing }
 AWProtonotion >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
-	^ self class == anObject class and: [ contents = anObject contents ]
-]
-
-{ #category : #accessing }
-AWProtonotion >> contents [
-	^ contents
+	^ self class == anObject class and: [ smallSyntacticMarks = anObject smallSyntacticMarks ]
 ]
 
 { #category : #enumerating }
 AWProtonotion >> do: aBlock [
-	contents do: aBlock
+	smallSyntacticMarks do: aBlock
 ]
 
 { #category : #comparing }
 AWProtonotion >> hash [
-	^ (self class hash + contents hash) hashMultiply
+	^ (self class hash + smallSyntacticMarks hash) hashMultiply
 ]
 
 { #category : #initialization }
-AWProtonotion >> initializeContents: aString [
+AWProtonotion >> initializeSmallSyntacticMarks: aSmallSyntacticMarkString [
 	self initialize.
-	contents := aString
+	smallSyntacticMarks := aSmallSyntacticMarkString
 ]
 
 { #category : #testing }
@@ -67,10 +64,15 @@ AWProtonotion >> isTerminal [
 
 { #category : #printing }
 AWProtonotion >> printOn: aStream [
-	aStream nextPutAll: contents
+	aStream nextPutAll: smallSyntacticMarks
 ]
 
 { #category : #printing }
 AWProtonotion >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
+{ #category : #accessing }
+AWProtonotion >> smallSyntacticMarks [
+	^ smallSyntacticMarks
 ]
