@@ -1,7 +1,7 @@
 Class {
 	#name : #AFSubstitutionTest,
 	#superclass : #TestCase,
-	#category : #'FisherParser-Tests-MetaUnification'
+	#category : #'FisherParser-Tests-MetaMatching'
 }
 
 { #category : #tests }
