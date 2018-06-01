@@ -28,6 +28,30 @@ i LETTER s:       					LETTER symbol.'
 ]
 
 { #category : #'instance creation' }
+AFExemplar class >> anbn [
+	" P grammar : page 62
+N:: n;	 Nn.
+
+s: 		Na, Nb.
+nNa: 	letter a symbol, Na.
+nNb: 	letter b symbol, Nb.
+na: 	letter a symbol.
+nb: 	letter b symbol.	"
+	^ AFVWGrammar 
+		evw: 
+'N:: n;	 Nn.
+
+s: 		Na, Nb.
+nNa: 	letter a symbol, Na.
+nNb: 	letter b symbol, Nb.
+na: 	letter a symbol.
+nb: 	letter b symbol.' 
+		representations: 
+			{(#('letter' 'a' 'symbol') -> (NCTerminal character: $a)).
+			(#('letter' 'b' 'symbol') -> (NCTerminal character: $b))}
+]
+
+{ #category : #'instance creation' }
 AFExemplar class >> anbncn [
 	^ AFVWGrammar
 		evw:
