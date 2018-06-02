@@ -1,3 +1,6 @@
+"
+protonotion tests
+"
 Class {
 	#name : #AWProtonotionTest,
 	#superclass : #TestCase,
@@ -19,6 +22,12 @@ AWProtonotionTest >> testAsString01 [
 ]
 
 { #category : #tests }
+AWProtonotionTest >> testIsEmpty [
+	self assert: AWProtonotion new isEmpty.
+	self deny: (AWProtonotion with: 'long') isEmpty
+]
+
+{ #category : #tests }
 AWProtonotionTest >> testIsMetanotion [
 	self deny: (AWProtonotion with: 'long') isMetanotion
 ]
@@ -31,14 +40,6 @@ AWProtonotionTest >> testIsProtonotion [
 { #category : #tests }
 AWProtonotionTest >> testIsTerminal [
 	self deny: (AWProtonotion with: 'long') isTerminal
-]
-
-{ #category : #tests }
-AWProtonotionTest >> testNew [
-	self 
-		should: [ AWProtonotion new ]
-		raise: Error 
-
 ]
 
 { #category : #tests }

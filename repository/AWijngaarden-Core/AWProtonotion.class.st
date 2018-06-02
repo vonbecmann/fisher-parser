@@ -14,7 +14,7 @@ Class {
 
 { #category : #'instance creation' }
 AWProtonotion class >> new [
-	self error: 'use with: instead'
+	^ self with: String new
 ]
 
 { #category : #'instance creation' }
@@ -45,6 +45,11 @@ AWProtonotion >> hash [
 AWProtonotion >> initializeSmallSyntacticMarks: aSmallSyntacticMarkString [
 	self initialize.
 	smallSyntacticMarks := aSmallSyntacticMarkString
+]
+
+{ #category : #'as yet unclassified' }
+AWProtonotion >> isEmpty [
+	^ smallSyntacticMarks isEmpty
 ]
 
 { #category : #testing }
