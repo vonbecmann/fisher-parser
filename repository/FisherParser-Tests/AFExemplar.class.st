@@ -132,6 +132,9 @@ j symbol:         'j'."
 NOTION::  LETTER NOTETY.
 NOTETY::  NOTION; EMPTY.
 EMPTY::   .
+LETTER1:: LETTER.
+LETTER2:: LETTER.
+LETTER3:: LETTER.
 
 program:  LETTER1 symbol, LETTER2 symbol, LETTER3 symbol,
           where <LETTER1> is <LETTER2>,

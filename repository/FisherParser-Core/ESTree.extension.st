@@ -3,7 +3,7 @@ Extension { #name : #ESTree }
 { #category : #'*FisherParser-Core' }
 ESTree >> substitutionsOf: metanotions [
 	| substitutions |
-	substitutions := SinglyLinkedList new.
+	substitutions := Set new.
 	root children
 		do: [ :child | 
 			metanotions
@@ -19,6 +19,6 @@ ESTree >> substitutionsOf: metanotions [
 											node model isTerminal
 												ifTrue: [ s nextPut: node model reason ] ];
 										visit: child ]).
-					substitutions addLast: metanotion -> substitute ] ].
-	^ substitutions
+					substitutions add: (metanotion -> substitute) ] ].
+	^ substitutions 
 ]
