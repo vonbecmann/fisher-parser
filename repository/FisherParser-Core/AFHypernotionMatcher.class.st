@@ -39,7 +39,7 @@ AFHypernotionMatcher >> match: aProtonotion [
 		ifTrue: [ "a hypernotion match a protonotion, you need the relative substitution"
 			| metanotionSubstitutions |
 			metanotionSubstitutions := (grammar parseTree: sentence) substitutionsOf: hypernotion metanotions.
-			hypernotion metanotions size = metanotionSubstitutions size
+			(hypernotion metanotions = (metanotionSubstitutions collect: [ :each | each key ]))
 				ifTrue: [ AFSubstitution solution: metanotionSubstitutions ]
 				ifFalse: [ AFSubstitution noSolution ] ]
 		ifFalse: [ "a hypernotion does not match a protonotion" 
