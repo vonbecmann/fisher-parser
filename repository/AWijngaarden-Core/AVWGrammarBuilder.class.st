@@ -43,7 +43,7 @@ AVWGrammarBuilder >> build [
 	metaRuleSet
 		collect: [ :mrule | mrule -> (lineup findFirst: [ :each | mrule = each ]) ]
 		thenDo: [ :assoc | index add: assoc ].
-	hyperRuleSet := Set withAll: hyperRules.
+	hyperRuleSet := self buildHyperRulesWith: hyperRules and: metanotions.
 	hyperRuleSet
 		do: [ :hyperRule | 
 			protonotions addAll: hyperRule head protonotions.
@@ -72,6 +72,42 @@ AVWGrammarBuilder >> build [
 		metaRules: (metaRuleSet sorted: [ :a :b | (index at: a) < (index at: b) ])
 		hyperRules: (hyperRuleSet sorted: [ :a :b | (index at: a) < (index at: b) ])
 		startAt: hyperRules first head
+]
+
+{ #category : #private }
+AVWGrammarBuilder >> buildHyperRulesWith: hypeRuleCollection and: metanotionSet [
+	| hyperRuleSet |
+	hyperRuleSet := Set new.
+	hypeRuleCollection
+		collect: [ :each | 
+			AWHyperRule
+				head: (self buildHypernotionWith: each head and: metanotionSet)
+				body: (each body collect: [ :hn | self buildHypernotionWith: hn and: metanotionSet ]) ]
+		thenDo: [ :hrule | hyperRuleSet add: hrule ].
+	^ hyperRuleSet
+]
+
+{ #category : #private }
+AVWGrammarBuilder >> buildHypernotionWith: hn and: metanotionSet [
+	^ AWHypernotion
+		withAll:
+			(hn notions
+				collect: [ :notion | 
+					notion isMetanotion
+						ifTrue: [ 
+							metanotionSet
+								detect: [ :metanotion | metanotion = notion ]
+								ifNone: [ 
+									Error
+										signal:
+											(String
+												streamContents: [ :s | 
+													s
+														nextPutAll: 'Unknown Metanotion ';
+														print: notion;
+														nextPutAll: ' in ';
+														print: hn ]) ] ]
+						ifFalse: [ notion ] ])
 ]
 
 { #category : #accessing }
