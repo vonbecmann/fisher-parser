@@ -40,9 +40,7 @@ AVWGrammarBuilder >> build [
 			metanotions addAll: metaRule body metanotions.
 			protonotions addAll: metaRule body protonotions.
 			hypernotions add: metaRule body ].
-	metaRuleSet
-		collect: [ :mrule | mrule -> (lineup findFirst: [ :each | mrule = each ]) ]
-		thenDo: [ :assoc | index add: assoc ].
+	metaRuleSet do: [ :mrule | index at: mrule put: (lineup indexOf: mrule) ].
 	hyperRuleSet := self buildHyperRulesWith: hyperRules and: metanotions.
 	hyperRuleSet
 		do: [ :hyperRule | 
@@ -61,9 +59,7 @@ AVWGrammarBuilder >> build [
 				addAll: hyperRule body.
 			terminals add: hyperRule body first first ].
 	hyperRuleSet addAll: representationSet.
-	hyperRuleSet
-		collect: [ :hrule | hrule -> (lineup findFirst: [ :each | hrule = each ]) ]
-		thenDo: [ :assoc | index add: assoc ].
+	hyperRuleSet do: [ :hrule | index at: hrule put: (lineup indexOf: hrule) ].
 	^ AVWGrammar
 		metanotions: metanotions
 		protonotions: protonotions
