@@ -6,10 +6,10 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'number',
-		'items',
 		'itemSet',
 		'orderedItems',
-		'predictionItems'
+		'predictionItems',
+		'itemsToProcess'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -39,7 +39,7 @@ AFColumn >> add: anItem [
 		detect: 	[ :item | item equals: anItem ]
 		ifFound: 	[ :item | item ]
 		ifNone: 
-			[	items nextPut: anItem.
+			[	itemsToProcess nextPut: anItem.
 				itemSet addLast: anItem.
 				orderedItems addLast: anItem.
 				anItem isFinal 
@@ -91,7 +91,7 @@ AFColumn >> includes: anItem [
 { #category : #initialization }
 AFColumn >> initialize [
 	super initialize.
-	items := SinglyLinkedQueue new.
+	itemsToProcess := SinglyLinkedQueue new.
 	itemSet := SinglyLinkedList new.
 	orderedItems := SinglyLinkedList new.
 	predictionItems := SinglyLinkedList new
@@ -139,12 +139,12 @@ AFColumn >> printString [
 AFColumn >> processItems: aBlock [
 	"process each item in order"
 
-	[ items isEmpty ] whileFalse: [ aBlock value: items next ]
+	[ itemsToProcess isEmpty ] whileFalse: [ aBlock value: itemsToProcess next ]
 ]
 
 { #category : #'initialize-release' }
 AFColumn >> release [
-	number := items := itemSet := orderedItems := predictionItems := nil.
+	number := itemsToProcess := itemSet := orderedItems := predictionItems := nil.
 	super release
 ]
 
