@@ -12,7 +12,6 @@ Class {
 	#name : #AFVWGrammar,
 	#superclass : #Object,
 	#instVars : [
-		'startNotion',
 		'ortholetters',
 		'vwGrammar',
 		'startHyperRule',
@@ -78,22 +77,23 @@ AFVWGrammar >> hypernotions [
 { #category : #initialization }
 AFVWGrammar >> initialize [
 	super initialize.
-	startNotion := (AFHypernotion with: (AWProtonotion with: '((start))'))
-		belongsTo: self;
-		yourself.
 	ortholetters := Set new.
-	startNotion protonotions do: [ :protonotion | ortholetters addAll: protonotion letters ]
+
 ]
 
 { #category : #initialization }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
+	| startNotion |
 	self initialize.
 	vwGrammar := aVWGrammar.
+	startNotion := (AFHypernotion with: (AWProtonotion with: '((start))'))
+		belongsTo: self;
+		yourself.
+	startNotion protonotions do: [ :protonotion | ortholetters addAll: protonotion letters ].
 	ortholetters addAll: vwGrammar ortholetters.
 	matcherCreator := AFMatcherCreator
 		metaRules: vwGrammar metaRules
-		orthoRepresentations:
-			(ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
+		orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
 	startHyperRule := AFHyperRule
 		head: startNotion
 		body: {(AFHypernotion belongsTo: self withAllNotionsFrom: vwGrammar startNotion)}.
