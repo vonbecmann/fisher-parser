@@ -22,6 +22,11 @@ AFColumn class >> number: anInteger [
 ]
 
 { #category : #comparing }
+AFColumn >> <= column [
+	^ number <= column number
+]
+
+{ #category : #comparing }
 AFColumn >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
@@ -51,7 +56,7 @@ AFColumn >> gtInspectorItemsIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ composite table
 		title: [ orderedItems size asString , ' items' ];
-		display: [ orderedItems asArray ];
+		display: [ self sortedItems ];
 		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
 		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
 		showOnly: 50;
@@ -153,4 +158,13 @@ AFColumn >> shortPrintOn: aStream [
 { #category : #accessing }
 AFColumn >> size [
 	^ itemSet size
+]
+
+{ #category : #'inspector extensions' }
+AFColumn >> sortedItems [
+	| sortedItems |
+	sortedItems := SortedCollection new.
+	sortedItems sortBlock: [ :a :b | a start <= b start ].
+	sortedItems addAll: orderedItems.
+	^ sortedItems
 ]
