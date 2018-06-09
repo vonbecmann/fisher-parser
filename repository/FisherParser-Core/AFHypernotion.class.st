@@ -74,6 +74,8 @@ AFHypernotion >> apply: aSubstitution [
 
 { #category : #converting }
 AFHypernotion >> asStrictString [
+	" conforming to the strict syntax "
+
 	^ String streamContents: [ :s | notions do: [ :each | each printOn: s ] ]
 ]
 
