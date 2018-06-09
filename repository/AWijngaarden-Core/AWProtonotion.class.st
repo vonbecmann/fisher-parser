@@ -47,7 +47,7 @@ AWProtonotion >> initializeSmallSyntacticMarks: aSmallSyntacticMarkString [
 	smallSyntacticMarks := aSmallSyntacticMarkString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 AWProtonotion >> isEmpty [
 	^ smallSyntacticMarks isEmpty
 ]
@@ -65,6 +65,13 @@ AWProtonotion >> isProtonotion [
 { #category : #testing }
 AWProtonotion >> isTerminal [
 	^ false
+]
+
+{ #category : #accessing }
+AWProtonotion >> letters [
+	^ Set new
+		addAll: smallSyntacticMarks;
+		yourself
 ]
 
 { #category : #printing }

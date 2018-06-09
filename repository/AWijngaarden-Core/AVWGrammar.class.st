@@ -94,7 +94,7 @@ AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet 
 	self initialize.
 	metanotions := metanotionSet.
 	protonotions := protonotionSet.
-	protonotions do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ].
+	protonotions do: [ :protonotion | ortholetters addAll: protonotion letters ].
 	hypernotions := hypernotionSet.
 	terminals := terminalSet.
 	metaRules := metaRuleCollection.

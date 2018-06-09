@@ -78,12 +78,11 @@ AFVWGrammar >> hypernotions [
 { #category : #initialization }
 AFVWGrammar >> initialize [
 	super initialize.
-	startNotion := 
-		(AFHypernotion with: (AWProtonotion with: '((start))'))
-			belongsTo: self;
-			yourself.
+	startNotion := (AFHypernotion with: (AWProtonotion with: '((start))'))
+		belongsTo: self;
+		yourself.
 	ortholetters := Set new.
-	startNotion do: [ :protonotion | protonotion do: [ :char | ortholetters add: char ] ]
+	startNotion protonotions do: [ :protonotion | ortholetters addAll: protonotion letters ]
 ]
 
 { #category : #initialization }
