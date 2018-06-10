@@ -8,6 +8,7 @@ Class {
 	#instVars : [
 		'notions',
 		'metanotions',
+		'strictSyntax',
 		'vwGrammar',
 		'matcher'
 	],
@@ -72,13 +73,6 @@ AFHypernotion >> apply: aSubstitution [
 		yourself
 ]
 
-{ #category : #converting }
-AFHypernotion >> asStrictString [
-	" conforming to the strict syntax "
-
-	^ String streamContents: [ :s | notions do: [ :each | each printOn: s ] ]
-]
-
 { #category : #accessing }
 AFHypernotion >> belongsTo: aVWGrammar [ 
 	vwGrammar := aVWGrammar
@@ -136,7 +130,8 @@ AFHypernotion >> initialize [
 AFHypernotion >> initializeNotions: aNotionCollection [
 	self initialize.
 	notions := aNotionCollection.
-	notions do: [ :notion | notion isMetanotion ifTrue: [ metanotions add: notion ] ]
+	notions do: [ :each | each isMetanotion ifTrue: [ metanotions add: each ] ].
+	strictSyntax := String streamContents: [ :s | notions do: [ :each | each printOn: s ] ]
 ]
 
 { #category : #testing }
@@ -205,4 +200,9 @@ AFHypernotion >> protonotions [
 AFHypernotion >> release [
 	notions := metanotions := vwGrammar := matcher := nil.
 	super release
+]
+
+{ #category : #accessing }
+AFHypernotion >> strictSyntax [
+	^ strictSyntax
 ]

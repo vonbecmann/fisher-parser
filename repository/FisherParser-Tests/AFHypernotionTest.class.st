@@ -37,24 +37,6 @@ AFHypernotionTest >> testApply02 [
 ]
 
 { #category : #tests }
-AFHypernotionTest >> testAsStrictString [
-	hypernotion := AFHypernotion withAll: {'start' asNotion. 'notion' asNotion}.
-	
-	self 
-		assert: hypernotion asStrictString 
-		equals: 'startnotion'
-]
-
-{ #category : #tests }
-AFHypernotionTest >> testAsStrictString02 [
-	hypernotion := AFHypernotion withAll: {#THREE asNotion. 'cs' asNotion}.
-
-	self 
-		assert: hypernotion asStrictString 
-		equals: 'THREEcs'
-]
-
-{ #category : #tests }
 AFHypernotionTest >> testAsString [
 	self
 		assert:
@@ -186,4 +168,22 @@ AFHypernotionTest >> testMetanotions02 [
 		hasSameElements:
 			{(AWMetanotion named: 'TALLY').
 			(AWMetanotion named: 'LETTER')}
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testStrictSyntax [
+	hypernotion := AFHypernotion withAll: {'start' asNotion. 'notion' asNotion}.
+	
+	self 
+		assert: hypernotion strictSyntax
+		equals: 'startnotion'
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testStrictSyntax02 [
+	hypernotion := AFHypernotion withAll: {#THREE asNotion. 'cs' asNotion}.
+
+	self 
+		assert: hypernotion strictSyntax 
+		equals: 'THREEcs'
 ]

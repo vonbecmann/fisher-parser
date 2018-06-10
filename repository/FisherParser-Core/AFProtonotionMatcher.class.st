@@ -7,7 +7,7 @@ Class {
 	#name : #AFProtonotionMatcher,
 	#superclass : #Object,
 	#instVars : [
-		'strictProtonotion'
+		'protonotion'
 	],
 	#category : #'FisherParser-Core-MetaMatching'
 }
@@ -15,26 +15,24 @@ Class {
 { #category : #'instance creation' }
 AFProtonotionMatcher class >> protonotion: aProtonotion [
 	^ self basicNew
-		initializeStrictProtonotion: aProtonotion;
+		initializeProtonotion: aProtonotion;
 		yourself
 ]
 
 { #category : #initialization }
-AFProtonotionMatcher >> initializeStrictProtonotion: aProtonotion [
+AFProtonotionMatcher >> initializeProtonotion: aProtonotion [
 	self initialize.
-	strictProtonotion := aProtonotion asStrictString
+	protonotion := aProtonotion
 ]
 
 { #category : #public }
 AFProtonotionMatcher >> match: aProtonotion [
 	"a protonotion match a protonotion, therefore the substitution is empty"
 
-	| sentence |
-	sentence := aProtonotion asStrictString.
-	strictProtonotion size = sentence size
+	protonotion strictSyntax size = aProtonotion strictSyntax size
 		ifFalse: [ ^ AFSubstitution noSolution ].
-	strictProtonotion
-		with: sentence
+	protonotion strictSyntax
+		with: aProtonotion strictSyntax
 		do: [ :first :second | 
 			first = second
 				ifFalse: [ ^ AFSubstitution noSolution ] ].
@@ -46,7 +44,7 @@ AFProtonotionMatcher >> printOn: aStream [
 	aStream
 		nextPutAll: self class name;
 		nextPut: $(;
-		nextPutAll: strictProtonotion;
+		nextPutAll: protonotion strictSyntax;
 		nextPut: $)
 ]
 
