@@ -16,6 +16,14 @@ Class {
 }
 
 { #category : #'instance creation' }
+AFHypernotion class >> belongsTo: aVWGrammar withAll: aNotionCollection [
+	^ self basicNew
+		initializeNotions: aNotionCollection;
+		belongsTo: aVWGrammar;
+		yourself
+]
+
+{ #category : #'instance creation' }
 AFHypernotion class >> belongsTo: aVWGrammar withAllNotionsFrom: anotherHypernotion [
 	^ (self withAll: anotherHypernotion notions)
 			belongsTo: aVWGrammar;

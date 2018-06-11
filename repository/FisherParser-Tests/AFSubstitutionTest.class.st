@@ -21,7 +21,10 @@ AFSubstitutionTest >> testNoSolutionAsString [
 { #category : #tests }
 AFSubstitutionTest >> testSolutionAsString [
 	self
-		assert: (AFSubstitution solution: {((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a'))}) asString
+		assert:
+			(AFSubstitution 
+				solutionWith: 
+					(AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a')) asString
 		equals: 'substitution({LETTER->a})'
 ]
 
@@ -30,7 +33,7 @@ AFSubstitutionTest >> testSolutionAsString02 [
 	self
 		assert:
 			(AFSubstitution
-				solution:
+				solutionWithAll:
 					{((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a')).
 					((AWMetanotion named: 'ALPHA') -> (AWProtonotion with: 'b'))}) asString
 		equals: 'substitution({LETTER->a, ALPHA->b})'

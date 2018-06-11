@@ -3,7 +3,7 @@ Extension { #name : #ESTree }
 { #category : #'*FisherParser-Core' }
 ESTree >> substitutionsOf: metanotions [
 	| substitutions |
-	substitutions := Set new.
+	substitutions := AFMetanotionSubstitutions new.
 	root children
 		do: [ :child | 
 			metanotions

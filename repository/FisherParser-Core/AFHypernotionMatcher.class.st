@@ -39,14 +39,16 @@ AFHypernotionMatcher >> match: aProtonotion [
 
 	^ (grammar accepts: aProtonotion strictSyntax)
 		ifTrue: [ | metanotionSubstitutions |
-			metanotionSubstitutions := 	
-					(grammar parseTree: aProtonotion strictSyntax)
-						substitutionsOf: hypernotion metanotions.
+			metanotionSubstitutions := 
+				(grammar parseTree: aProtonotion strictSyntax)
+					substitutionsOf: hypernotion metanotions.
 			hypernotion metanotions size = metanotionSubstitutions size
 				ifFalse: [ ^ AFSubstitution noSolution ].
-			hypernotion metanotions = (metanotionSubstitutions collect: [ :each | each key ])
-				ifTrue: [ AFSubstitution solution: metanotionSubstitutions ]
-				ifFalse: [ AFSubstitution noSolution ] ]
+			hypernotion metanotions
+				do: [ :metanotion | 
+					(metanotionSubstitutions includesMetanotion: metanotion)
+							ifFalse: [ ^ AFSubstitution noSolution ] ].
+			^ AFSubstitution solution: metanotionSubstitutions ]
 		ifFalse: [ AFSubstitution noSolution ]
 ]
 

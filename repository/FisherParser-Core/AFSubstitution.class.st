@@ -23,7 +23,12 @@ Class {
 AFSubstitution class >> emptySolution [
 	" an empty solution "
 
-	^ emptySolution ifNil: [ emptySolution := self solution: true substitutions: #() ]
+	^ emptySolution
+		ifNil: [ 
+			emptySolution := 
+				self 
+					solution: true 
+					substitutions: AFMetanotionSubstitutions empty ]
 ]
 
 { #category : #'class initialization' }
@@ -35,7 +40,12 @@ AFSubstitution class >> initialize [
 AFSubstitution class >> noSolution [
 	" no solution is possible "
 
-	^ noSolution ifNil: [ noSolution := self solution: false substitutions: #() ]
+	^ noSolution
+		ifNil: [ 
+			noSolution := 
+				self 
+					solution: false 
+					substitutions: AFMetanotionSubstitutions empty ]
 ]
 
 { #category : #accessing }
@@ -46,39 +56,45 @@ AFSubstitution class >> reset [
 ]
 
 { #category : #'instance creation' }
-AFSubstitution class >> solution: anAssocCollection [
+AFSubstitution class >> solution: aMetanotionSubstitutions [
 	" a solution is possible with the given substitutions.
 		{(aMetanotion -> substitute). etc.} "
 
-	^ self solution: true substitutions: anAssocCollection
+	^ self solution: true substitutions: aMetanotionSubstitutions
 ]
 
 { #category : #private }
-AFSubstitution class >> solution: aBoolean substitutions: anAssocCollection [
+AFSubstitution class >> solution: aBoolean substitutions: aMetanotionSubstitutions [
 	^ self basicNew
-		initializeSolution: aBoolean substitutions: anAssocCollection;
+		initializeSolution: aBoolean substitutions: aMetanotionSubstitutions;
 		yourself
+]
+
+{ #category : #'instance creation' }
+AFSubstitution class >> solutionWith: anAssociation [
+	^ self solution: (AFMetanotionSubstitutions with: anAssociation)
+]
+
+{ #category : #'instance creation' }
+AFSubstitution class >> solutionWithAll: anAssocCollection [ 
+	^ self solution: (AFMetanotionSubstitutions withAll: anAssocCollection) 
 ]
 
 { #category : #accessing }
 AFSubstitution >> at: aMetanotion [
-	metanotionSubstitutions
-		do: [ :assoc | 
-			assoc key = aMetanotion
-				ifTrue: [ ^ assoc value ] ].
-	^ aMetanotion
+	^ metanotionSubstitutions at: aMetanotion
 ]
 
 { #category : #initialization }
-AFSubstitution >> initializeSolution: aBoolean substitutions: anAssocCollection [
+AFSubstitution >> initializeSolution: aBoolean substitutions: aMetanotionSubstitutions [
 	self initialize.
 	solution := aBoolean.
-	metanotionSubstitutions := anAssocCollection
+	metanotionSubstitutions := aMetanotionSubstitutions
 ]
 
 { #category : #testing }
 AFSubstitution >> isSolution [
-	"if this substitution is a solution to the syntactic unification problem"
+	"if this substitution is a solution to the syntactic matching problem"
 
 	^ solution
 ]
@@ -87,16 +103,7 @@ AFSubstitution >> isSolution [
 AFSubstitution >> printOn: aStream [
 	aStream nextPutAll: 'substitution('.
 	solution
-		ifTrue: [ 
-			aStream nextPut: ${.
-			metanotionSubstitutions
-				do: [ :assoc | 
-					aStream
-						print: assoc key;
-						nextPutAll: '->';
-						print: assoc value ]
-				separatedBy: [ aStream nextPutAll: ', ' ].
-			aStream nextPut: $} ]
+		ifTrue: [ aStream print: metanotionSubstitutions ]
 		ifFalse: [ aStream nextPutAll: 'no solution' ].
 	aStream nextPut: $)
 ]
