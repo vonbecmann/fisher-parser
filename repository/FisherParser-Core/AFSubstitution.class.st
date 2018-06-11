@@ -85,6 +85,17 @@ AFSubstitution >> at: aMetanotion [
 	^ metanotionSubstitutions at: aMetanotion
 ]
 
+{ #category : #'inspector extensions' }
+AFSubstitution >> gtInspectorSubstitutionIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ (metanotionSubstitutions gtInspectorSubstitutionsIn: composite)
+		title: [ 
+			solution
+				ifTrue: [ 'Solution' ]
+				ifFalse: [ 'No Solution' ] ];
+		yourself
+]
+
 { #category : #initialization }
 AFSubstitution >> initializeSolution: aBoolean substitutions: aMetanotionSubstitutions [
 	self initialize.

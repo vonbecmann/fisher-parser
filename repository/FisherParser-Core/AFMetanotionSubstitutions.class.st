@@ -52,6 +52,17 @@ AFMetanotionSubstitutions >> at: aMetanotion [
 	^ aMetanotion
 ]
 
+{ #category : #'inspector extensions' }
+AFMetanotionSubstitutions >> gtInspectorSubstitutionsIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite table
+		title: [ 'Substitutions' ];
+		display: [ associations asArray ];
+		column: 'Metanotion -> Substitute' evaluated: [ :each | each ];
+		showOnly: 50;
+		yourself
+]
+
 { #category : #testing }
 AFMetanotionSubstitutions >> includesMetanotion: aMetanotion [
 	^ associations anySatisfy: [ :assoc | assoc key = aMetanotion ]
