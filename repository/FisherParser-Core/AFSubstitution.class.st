@@ -1,5 +1,5 @@
 "
-a solution substitution to the matching algorithm.
+a substitution to the matching algorithm.
 
 
 
@@ -8,10 +8,6 @@ a solution substitution to the matching algorithm.
 Class {
 	#name : #AFSubstitution,
 	#superclass : #Object,
-	#instVars : [
-		'solution',
-		'metanotionSubstitutions'
-	],
 	#classInstVars : [
 		'emptySolution',
 		'noSolution'
@@ -23,12 +19,7 @@ Class {
 AFSubstitution class >> emptySolution [
 	" an empty solution "
 
-	^ emptySolution
-		ifNil: [ 
-			emptySolution := 
-				self 
-					solution: true 
-					substitutions: AFMetanotionSubstitutions empty ]
+	^ emptySolution ifNil: [ emptySolution := AFSolution empty ]
 ]
 
 { #category : #'class initialization' }
@@ -40,12 +31,7 @@ AFSubstitution class >> initialize [
 AFSubstitution class >> noSolution [
 	" no solution is possible "
 
-	^ noSolution
-		ifNil: [ 
-			noSolution := 
-				self 
-					solution: false 
-					substitutions: AFMetanotionSubstitutions empty ]
+	^ noSolution ifNil: [ noSolution := AFNoSolution new ]
 ]
 
 { #category : #accessing }
@@ -60,72 +46,27 @@ AFSubstitution class >> solution: aMetanotionSubstitutions [
 	" a solution is possible with the given substitutions.
 		{(aMetanotion -> substitute). etc.} "
 
-	^ self solution: true substitutions: aMetanotionSubstitutions
-]
-
-{ #category : #private }
-AFSubstitution class >> solution: aBoolean substitutions: aMetanotionSubstitutions [
-	^ self basicNew
-		initializeSolution: aBoolean substitutions: aMetanotionSubstitutions;
-		yourself
+	^ AFSolution substitutions: aMetanotionSubstitutions
 ]
 
 { #category : #'instance creation' }
 AFSubstitution class >> solutionWith: anAssociation [
-	^ self solution: (AFMetanotionSubstitutions with: anAssociation)
+	^ AFSolution with: anAssociation
 ]
 
 { #category : #'instance creation' }
-AFSubstitution class >> solutionWithAll: anAssocCollection [ 
-	^ self solution: (AFMetanotionSubstitutions withAll: anAssocCollection) 
-]
-
-{ #category : #accessing }
-AFSubstitution >> at: aMetanotion [
-	^ metanotionSubstitutions at: aMetanotion
-]
-
-{ #category : #'inspector extensions' }
-AFSubstitution >> gtInspectorSubstitutionIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ (metanotionSubstitutions gtInspectorSubstitutionsIn: composite)
-		title: [ 
-			solution
-				ifTrue: [ 'Solution' ]
-				ifFalse: [ 'No Solution' ] ];
-		yourself
-]
-
-{ #category : #initialization }
-AFSubstitution >> initializeSolution: aBoolean substitutions: aMetanotionSubstitutions [
-	self initialize.
-	solution := aBoolean.
-	metanotionSubstitutions := aMetanotionSubstitutions
+AFSubstitution class >> solutionWithAll: anAssocCollection [
+	^ AFSolution withAll: anAssocCollection
 ]
 
 { #category : #testing }
 AFSubstitution >> isSolution [
 	"if this substitution is a solution to the syntactic matching problem"
 
-	^ solution
-]
-
-{ #category : #printing }
-AFSubstitution >> printOn: aStream [
-	aStream nextPutAll: 'substitution('.
-	solution
-		ifTrue: [ aStream print: metanotionSubstitutions ]
-		ifFalse: [ aStream nextPutAll: 'no solution' ].
-	aStream nextPut: $)
+	self subclassResponsibility
 ]
 
 { #category : #printing }
 AFSubstitution >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
-]
-
-{ #category : #'initialize-release' }
-AFSubstitution >> release [
-	solution := metanotionSubstitutions := nil.
-	super release
 ]

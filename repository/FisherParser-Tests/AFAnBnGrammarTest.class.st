@@ -29,3 +29,8 @@ AFAnBnGrammarTest >> testAcceptsA3B3 [
 AFAnBnGrammarTest >> testAcceptsAB [
 	self assert: (grammar accepts: 'ab')
 ]
+
+{ #category : #initialization }
+AFAnBnGrammarTest >> testAcceptsEpsilon [
+	self deny: (grammar accepts: '')
+]

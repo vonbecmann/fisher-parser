@@ -1,0 +1,75 @@
+"
+a solution substitution to the matching algorithm.
+
+
+
+
+"
+Class {
+	#name : #AFSolution,
+	#superclass : #AFSubstitution,
+	#instVars : [
+		'metanotionSubstitutions'
+	],
+	#category : #'FisherParser-Core-MetaMatching'
+}
+
+{ #category : #'instance creation' }
+AFSolution class >> empty [
+	^ self substitutions: AFMetanotionSubstitutions empty
+]
+
+{ #category : #'instance creation' }
+AFSolution class >> substitutions: aMetanotionSubstitutions [
+	^ self basicNew
+		initializeSubstitutions: aMetanotionSubstitutions;
+		yourself
+]
+
+{ #category : #'instance creation' }
+AFSolution class >> with: anAssociation [
+	^ self substitutions: (AFMetanotionSubstitutions with: anAssociation)
+]
+
+{ #category : #'instance creation' }
+AFSolution class >> withAll: anAssocCollection [
+	^ self substitutions: (AFMetanotionSubstitutions withAll: anAssocCollection)
+]
+
+{ #category : #accessing }
+AFSolution >> at: aMetanotion [
+	^ metanotionSubstitutions at: aMetanotion
+]
+
+{ #category : #'inspector extensions' }
+AFSolution >> gtInspectorSubstitutionIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ (metanotionSubstitutions gtInspectorSubstitutionsIn: composite)
+			title: [ 'Solution' ];
+			yourself
+]
+
+{ #category : #initialization }
+AFSolution >> initializeSubstitutions: aMetanotionSubstitutions [
+	super initialize.
+	metanotionSubstitutions := aMetanotionSubstitutions
+]
+
+{ #category : #testing }
+AFSolution >> isSolution [
+	^ true
+]
+
+{ #category : #printing }
+AFSolution >> printOn: aStream [
+	aStream
+		nextPutAll: 'solution(';
+		print: metanotionSubstitutions;
+		nextPut: $)
+]
+
+{ #category : #'initialize-release' }
+AFSolution >> release [
+	metanotionSubstitutions := nil.
+	super release
+]
