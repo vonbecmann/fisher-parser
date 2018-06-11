@@ -40,7 +40,7 @@ AFMetanotionSubstitutions >> add: anAssociation [
 
 { #category : #adding }
 AFMetanotionSubstitutions >> addAll: anAssocCollection [
-	associations addAll: anAssocCollection
+	anAssocCollection do: [ :assoc | self add: assoc ]
 ]
 
 { #category : #accessing }
