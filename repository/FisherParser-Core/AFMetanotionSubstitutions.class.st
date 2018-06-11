@@ -58,7 +58,11 @@ AFMetanotionSubstitutions >> gtInspectorSubstitutionsIn: composite [
 	^ composite table
 		title: [ 'Substitutions' ];
 		display: [ associations asArray ];
-		column: 'Metanotion -> Substitute' evaluated: [ :each | each ];
+		column: 'Metanotion'
+			evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each key ];
+		column: 'Substitute'
+			evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each value ];
+		send: [ :each | each value ];
 		showOnly: 50;
 		yourself
 ]
