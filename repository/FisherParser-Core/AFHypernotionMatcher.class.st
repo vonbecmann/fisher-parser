@@ -34,13 +34,16 @@ AFHypernotionMatcher >> initializeHypernotion: aHypernotion grammar: aJEGrammar 
 { #category : #public }
 AFHypernotionMatcher >> match: aProtonotion [
 	"	a hypernotion match a protonotion, you need the relative substitution.
-		a hypernotion does not match a protonotion"
+		a hypernotion does not match a protonotion.
+		each metanotion should have a unique substitute"
 
 	^ (grammar accepts: aProtonotion strictSyntax)
 		ifTrue: [ | metanotionSubstitutions |
 			metanotionSubstitutions := 	
 					(grammar parseTree: aProtonotion strictSyntax)
 						substitutionsOf: hypernotion metanotions.
+			hypernotion metanotions size = metanotionSubstitutions size
+				ifFalse: [ ^ AFSubstitution noSolution ].
 			hypernotion metanotions = (metanotionSubstitutions collect: [ :each | each key ])
 				ifTrue: [ AFSubstitution solution: metanotionSubstitutions ]
 				ifFalse: [ AFSubstitution noSolution ] ]
