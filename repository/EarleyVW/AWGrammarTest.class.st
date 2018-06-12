@@ -88,8 +88,7 @@ where <NOTION> is <NOTION>: EMPTY.'
 	self assert: test3 startNotion equals: (AWHypernotion with: 'program' asNotion).
 	self 
 		assertCollection: test3 metanotions
-		hasSameElements: (#(LETTER LETTER1 LETTER2 LETTER3 NOTION NOTETY EMPTY) 
-									collect: [ :each | each asNotion ]).
+		hasSameElements: #(LETTER LETTER1 LETTER2 LETTER3 NOTION NOTETY EMPTY) asNotions.
 ]
 
 { #category : #tests }
@@ -200,25 +199,23 @@ i LETTER s:	  LETTER symbol.'
 	self assert: anbncn startNotion equals: (AWHypernotion with: 'anbncn' asNotion).
 	self 
 		assertCollection: anbncn metanotions
-		hasSameElements: (#(TALLY TALLETY EMPTY LETTER) collect: [ :each | each asNotion ]).
+		hasSameElements: #(TALLY TALLETY EMPTY LETTER) asNotions.
 	self 
 		assertCollection: anbncn protonotions
-		hasSameElements: 
-			(#('i' 'a' 'b' 'c' 'anbncn' 'as' 'bs' 'cs' 's' 'symbol')
-				collect: [ :each | each asNotion ]).
+		hasSameElements: #('i' 'a' 'b' 'c' 'anbncn' 'as' 'bs' 'cs' 's' 'symbol') asNotions.
 	self 
 		assertCollection: anbncn hypernotions 
 		hasSameElements: {
-			#('i' TALLETY) asNotion.	#(TALLY) asNotion. #(EMPTY) asNotion.
-			#() asNotion. #('a') asNotion. #('b') asNotion. #('c') asNotion.
-			#('anbncn') asNotion. 
-			#(TALLY 'as') asNotion. #(TALLY 'bs') asNotion. #(TALLY 'cs') asNotion. 
-			#('i' TALLY LETTER 's') asNotion.
-			#('i' LETTER 's') asNotion. #(TALLY LETTER 's') asNotion. 
-			#(LETTER 'symbol') asNotion.
-			#('a' 'symbol') asNotion.  (NCTerminal character: $a) asNotion.
-			#('b' 'symbol') asNotion. (NCTerminal character: $b) asNotion.
-			#('c' 'symbol') asNotion. (NCTerminal character: $c) asNotion}.
+			#('i' TALLETY).	#(TALLY). #(EMPTY).
+			#(). #('a'). #('b'). #('c').
+			#('anbncn'). 
+			#(TALLY 'as'). #(TALLY 'bs'). #(TALLY 'cs'). 
+			#('i' TALLY LETTER 's').
+			#('i' LETTER 's'). #(TALLY LETTER 's'). 
+			#(LETTER 'symbol').
+			#('a' 'symbol').  (NCTerminal character: $a).
+			#('b' 'symbol'). (NCTerminal character: $b).
+			#('c' 'symbol'). (NCTerminal character: $c)} asNotions.
 	self 
 		assertCollection: anbncn terminals 
 		hasSameElements: {(NCTerminal character: $a). 
