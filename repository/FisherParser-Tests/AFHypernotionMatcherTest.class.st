@@ -27,7 +27,7 @@ AFHypernotionMatcherTest >> testMatch02 [
 
 	self assert: substitution isSolution.
 	self
-		assert: (substitution at: #NOTION asNotion)
+		assert: (#NOTION asNotion apply: substitution) 
 		equals: 'hij' asNotion
 ]
 
@@ -54,6 +54,6 @@ AFHypernotionMatcherTest >> testMatch04 [
 		
 	self assert: substitution isSolution.
 	self 
-		assert: (substitution at: #NOTION asNotion)
+		assert: (#NOTION asNotion apply: substitution)
 		equals: 'j' asNotion
 ]

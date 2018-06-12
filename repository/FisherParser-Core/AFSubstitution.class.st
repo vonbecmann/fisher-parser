@@ -59,6 +59,11 @@ AFSubstitution class >> solutionWithAll: anAssocCollection [
 	^ AFSolution withAll: anAssocCollection
 ]
 
+{ #category : #accessing }
+AFSubstitution >> applyTo: aMetanotion [
+	self subclassResponsibility
+]
+
 { #category : #testing }
 AFSubstitution >> isSolution [
 	"if this substitution is a solution to the syntactic matching problem"

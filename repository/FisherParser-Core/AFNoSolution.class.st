@@ -9,6 +9,11 @@ Class {
 	#category : #'FisherParser-Core-MetaMatching'
 }
 
+{ #category : #accessing }
+AFNoSolution >> applyTo: aMetanotion [
+	self error: self asString
+]
+
 { #category : #testing }
 AFNoSolution >> isSolution [
 	^ false

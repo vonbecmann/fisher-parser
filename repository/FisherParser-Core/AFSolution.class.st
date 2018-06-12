@@ -37,7 +37,7 @@ AFSolution class >> withAll: anAssocCollection [
 ]
 
 { #category : #accessing }
-AFSolution >> at: aMetanotion [
+AFSolution >> applyTo: aMetanotion [
 	^ metanotionSubstitutions at: aMetanotion
 ]
 

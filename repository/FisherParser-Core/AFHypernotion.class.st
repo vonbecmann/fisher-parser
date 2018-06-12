@@ -70,13 +70,7 @@ AFHypernotion >> = anObject [
 
 { #category : #accessing }
 AFHypernotion >> apply: aSubstitution [
-	^ (self class
-			withAll:
-				(notions
-					collect: [ :notion | 
-							notion isMetanotion
-								ifTrue: [ aSubstitution at: notion ]
-								ifFalse: [ notion ] ]))
+	^ (self class withAll: (notions collect: [ :notion | notion apply: aSubstitution ]))
 		belongsTo: vwGrammar;
 		yourself
 ]
