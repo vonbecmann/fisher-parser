@@ -33,11 +33,10 @@ AVWGrammarBuilder >> build [
 	protonotions := Set new.
 	hypernotions := Set new.
 	terminals := Set new.
-	metaRuleSet := Set withAll: metaRules.
+	metaRules do: [ :metaRule | metanotions add: metaRule head ].
+	metaRuleSet := self buildMetaRulesWithAll: metaRules and: metanotions.
 	metaRuleSet
 		do: [ :metaRule | 
-			metanotions add: metaRule head.
-			metanotions addAll: metaRule body metanotions.
 			protonotions addAll: metaRule body protonotions.
 			hypernotions add: metaRule body.
 			index at: metaRule put: (lineup indexOf: metaRule) ].
@@ -45,10 +44,11 @@ AVWGrammarBuilder >> build [
 	hyperRuleSet
 		do: [ :hyperRule | 
 			protonotions addAll: hyperRule head protonotions.
-			hypernotions
-				add: hyperRule head;
-				addAll: hyperRule body.
-			hyperRule body do: [ :each | protonotions addAll: each protonotions ].
+			hypernotions add: hyperRule head.
+			hyperRule body 
+				do: [ :each | 
+					protonotions addAll: each protonotions.
+					hypernotions add: each ].
 			index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	representationSet := Set withAll: representations.
 	representationSet
@@ -92,20 +92,28 @@ AVWGrammarBuilder >> buildHypernotionWith: hn and: metanotionSet [
 			(hn notions
 				collect: [ :notion | 
 					notion isMetanotion
-						ifTrue: [ 
-							metanotionSet
-								detect: [ :metanotion | metanotion = notion ]
-								ifNone: [ 
-									Error
-										signal:
-											(String
-												streamContents: [ :s | 
-													s
-														nextPutAll: 'Unknown Metanotion ';
-														print: notion;
-														nextPutAll: ' in ';
-														print: hn ]) ] ]
+						ifTrue: [ metanotionSet like: notion ifAbsent: [ self unknown: notion in: hn ] ]
 						ifFalse: [ notion ] ])
+]
+
+{ #category : #private }
+AVWGrammarBuilder >> buildMetaRulesWithAll: metaRuleCollection and: metanotionSet [
+	| metaRuleSet |
+	metaRuleSet := Set new.
+	metaRuleCollection
+		collect: [ :each | 
+			AWMetaProductionRule
+				head: (metanotionSet like: each head)
+				body:
+					(AWHypernotion
+						withAll:
+							(each body notions
+								collect: [ :notion | 
+									notion isMetanotion
+										ifTrue: [ metanotionSet like: notion ifAbsent: [ self unknown: notion in: each ] ]
+										ifFalse: [ notion ] ])) ]
+		thenDo: [ :metaRule | metaRuleSet add: metaRule ].
+	^ metaRuleSet
 ]
 
 { #category : #accessing }
@@ -135,4 +143,17 @@ AVWGrammarBuilder >> representations: terminalNotionToRepresentationList [
 			AWHyperRule
 				head: (AWHypernotion withAll: (assoc key collect: [ :n | n asNotion ]))
 				body: {(AWHypernotion with: assoc value)} ]
+]
+
+{ #category : #private }
+AVWGrammarBuilder >> unknown: metanotion in: rule [
+	^ Error
+		signal:
+			(String
+				streamContents: [ :s | 
+					s
+						nextPutAll: 'Unknown Metanotion ';
+						print: metanotion;
+						nextPutAll: ' in ';
+						print: rule ])
 ]

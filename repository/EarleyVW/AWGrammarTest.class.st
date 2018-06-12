@@ -179,6 +179,37 @@ where <NOTION> is <NOTION>: EMPTY.'
 ]
 
 { #category : #tests }
+AWGrammarTest >> testUnknownMetanotion04 [
+	self
+		should: [ 
+			AVWGrammar
+				evw:
+'LETTER::  h; i; j.
+NOTION::  LETTER NOTETY.
+NOTETY::  NOTION; EMPTY.
+
+LETTER1:: LETTER.
+LETTER2:: LETTER.
+LETTER3:: LETTER.
+
+program:  LETTER1 symbol, LETTER2 symbol, LETTER3 symbol,
+          where <LETTER1> is <LETTER2>,
+          where <LETTER2> is <LETTER3>.
+
+where <NOTION> is <NOTION>: EMPTY.'
+				representations:
+					{(#('h' 'symbol') -> (NCTerminal character: $h)).
+					(#('i' 'symbol') -> (NCTerminal character: $i)).
+					(#('j' 'symbol') -> (NCTerminal character: $j))} ]
+		raise: Error
+		withExceptionDo: [ :ex |
+			self 
+				assert: ex messageText  
+				equals: 'Unknown Metanotion EMPTY in NOTETY:: EMPTY.'
+			 ].
+]
+
+{ #category : #tests }
 AWGrammarTest >> testanbncn [
 	| anbncn |
 	anbncn := AVWGrammar
