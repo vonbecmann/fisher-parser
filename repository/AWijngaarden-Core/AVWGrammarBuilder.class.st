@@ -39,8 +39,8 @@ AVWGrammarBuilder >> build [
 			metanotions add: metaRule head.
 			metanotions addAll: metaRule body metanotions.
 			protonotions addAll: metaRule body protonotions.
-			hypernotions add: metaRule body ].
-	metaRuleSet do: [ :mrule | index at: mrule put: (lineup indexOf: mrule) ].
+			hypernotions add: metaRule body.
+			index at: metaRule put: (lineup indexOf: metaRule) ].
 	hyperRuleSet := self buildHyperRulesWith: hyperRules and: metanotions.
 	hyperRuleSet
 		do: [ :hyperRule | 
@@ -48,7 +48,8 @@ AVWGrammarBuilder >> build [
 			hypernotions
 				add: hyperRule head;
 				addAll: hyperRule body.
-			hyperRule body do: [ :each | protonotions addAll: each protonotions ] ].
+			hyperRule body do: [ :each | protonotions addAll: each protonotions ].
+			index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	representationSet := Set withAll: representations.
 	representationSet
 		do: [ :hyperRule | 
@@ -57,16 +58,17 @@ AVWGrammarBuilder >> build [
 			hypernotions
 				add: hyperRule head;
 				addAll: hyperRule body.
-			terminals add: hyperRule body first first ].
-	hyperRuleSet addAll: representationSet.
-	hyperRuleSet do: [ :hrule | index at: hrule put: (lineup indexOf: hrule) ].
+			terminals add: hyperRule body first first.
+			index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	^ AVWGrammar
 		metanotions: metanotions
 		protonotions: protonotions
 		hypernotions: hypernotions
 		terminals: terminals
 		metaRules: (metaRuleSet sorted: [ :a :b | (index at: a) < (index at: b) ])
-		hyperRules: (hyperRuleSet sorted: [ :a :b | (index at: a) < (index at: b) ])
+		hyperRules: 
+			((hyperRuleSet sorted: [ :a :b | (index at: a) < (index at: b) ]),
+			(representationSet sorted: [ :a :b | (index at: a) < (index at: b) ]))
 		startAt: hyperRules first head
 ]
 
