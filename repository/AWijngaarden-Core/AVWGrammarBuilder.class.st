@@ -80,8 +80,8 @@ AVWGrammarBuilder >> buildHyperRulesWith: hypeRuleCollection and: metanotionSet 
 		collect: [ :each | 
 			AWHyperRule
 				head: (self buildHypernotionWith: each head and: metanotionSet)
-				body: (each body collect: [ :hn | self buildHypernotionWith: hn and: metanotionSet ]) ]
-		thenDo: [ :hrule | hyperRuleSet add: hrule ].
+				body: (each body collect: [ :hypernotion | self buildHypernotionWith: hypernotion and: metanotionSet ]) ]
+		thenDo: [ :hyperRule | hyperRuleSet add: hyperRule ].
 	^ hyperRuleSet
 ]
 
