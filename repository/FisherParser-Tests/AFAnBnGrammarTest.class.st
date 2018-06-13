@@ -31,6 +31,16 @@ AFAnBnGrammarTest >> testAcceptsAB [
 ]
 
 { #category : #initialization }
+AFAnBnGrammarTest >> testAcceptsAC [
+	self deny: (grammar accepts: 'ac')
+]
+
+{ #category : #initialization }
+AFAnBnGrammarTest >> testAcceptsBC [
+	self deny: (grammar accepts: 'bc')
+]
+
+{ #category : #initialization }
 AFAnBnGrammarTest >> testAcceptsEpsilon [
 	self deny: (grammar accepts: '')
 ]
