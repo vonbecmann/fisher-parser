@@ -9,7 +9,8 @@ Class {
 	#name : #AFYoYoAlgorithm,
 	#superclass : #Object,
 	#instVars : [
-		'grammar'
+		'grammar',
+		'emptyHypernotion'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -86,9 +87,15 @@ AFYoYoAlgorithm >> gapScan: item at: column [
 	" gap scanner "
 
 	| substitution |
-	substitution := item symbolAtDot match: AFHypernotion empty.
+	substitution := item symbolAtDot match: emptyHypernotion.
 	substitution isSolution
 		ifTrue: [ column add: (item moveDotForwardAfterApplying: substitution) ]
+]
+
+{ #category : #initialization }
+AFYoYoAlgorithm >> initialize [
+	super initialize.
+	emptyHypernotion := AFHypernotion empty
 ]
 
 { #category : #initialization }
