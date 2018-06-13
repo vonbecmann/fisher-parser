@@ -32,9 +32,9 @@ AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
 
 { #category : #private }
 AFYoYoAlgorithm >> bottomUpPredict: aProtonotion at: aColumn [
+	| substitution |
 	grammar bottomUpAlternatives
 		do: [ :hrule | 
-			| substitution |
 			substitution := hrule body first match: aProtonotion.
 			substitution isSolution
 				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
@@ -42,9 +42,9 @@ AFYoYoAlgorithm >> bottomUpPredict: aProtonotion at: aColumn [
 
 { #category : #private }
 AFYoYoAlgorithm >> complete: item at: column [
+	| substitution |
 	item predictionItems
 		do: [ :previous | 
-			| substitution |
 			substitution := previous symbolAtDot match: item head.
 			substitution isSolution
 				ifTrue: [ column add: (previous moveDotForwardAfterApplying: substitution) ] ]
@@ -106,9 +106,9 @@ AFYoYoAlgorithm >> initializeGrammar: aVWGrammar [
 
 { #category : #private }
 AFYoYoAlgorithm >> topDownPredict: aProtonotion at: aColumn [
-	grammar alternatives 
+	| substitution |
+	grammar alternatives
 		do: [ :hrule | 
-			| substitution |
 			substitution := hrule head match: aProtonotion.
 			substitution isSolution
 				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
