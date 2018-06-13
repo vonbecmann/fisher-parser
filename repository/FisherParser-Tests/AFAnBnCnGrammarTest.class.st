@@ -52,26 +52,24 @@ AFAnBnCnGrammarTest >> testInstanceCreation [
 	self assert: grammar startNotion equals: #('an' 'bn' 'cn') asNotion.
 	self
 		assertCollection: grammar metanotions
-		hasSameElements: (#(TALLY TALLETY EMPTY LETTER) collect: [ :each | each asNotion ]).
+		hasSameElements: #(TALLY TALLETY EMPTY LETTER) asNotions.
 	self
 		assertCollection: grammar protonotions
-		hasSameElements:
-			(#('i' 'a' 'b' 'c' 'as' 'bs' 'cs' 's' 'symbol' 'an' 'bn' 'cn')
-				collect: [ :each | each asNotion ]).
+		hasSameElements: #('i' 'a' 'b' 'c' 'as' 'bs' 'cs' 's' 'symbol' 'an' 'bn' 'cn') asNotions.
 	self
 		assertCollection: grammar hypernotions
 		hasSameElements:
-			{#('i' TALLETY) asNotion. #(TALLY) asNotion. #(EMPTY) asNotion.
-			#() asNotion. #('a') asNotion. #('b') asNotion. #('c') asNotion.
-			#('an' 'bn' 'cn') asNotion.
-			#(TALLY 'as') asNotion. #(TALLY 'bs') asNotion. #(TALLY 'cs') asNotion.
-			#('i' TALLY LETTER 's') asNotion.
-			#('i' LETTER 's') asNotion.
-			#(TALLY LETTER 's') asNotion.
-			#(LETTER 'symbol') asNotion.
-			#('a' 'symbol') asNotion. (NCTerminal character: $a) asNotion.
-			#('b' 'symbol') asNotion. (NCTerminal character: $b) asNotion.
-			#('c' 'symbol') asNotion. (NCTerminal character: $c) asNotion}.
+			{#('i' TALLETY). #(TALLY). #(EMPTY).
+			#(). #('a'). #('b'). #('c').
+			#('an' 'bn' 'cn').
+			#(TALLY 'as'). #(TALLY 'bs'). #(TALLY 'cs').
+			#('i' TALLY LETTER 's').
+			#('i' LETTER 's').
+			#(TALLY LETTER 's').
+			#(LETTER 'symbol').
+			#('a' 'symbol'). (NCTerminal character: $a).
+			#('b' 'symbol'). (NCTerminal character: $b).
+			#('c' 'symbol'). (NCTerminal character: $c)} asNotions.
 	self
 		assertCollection: grammar terminals
 		hasSameElements:
