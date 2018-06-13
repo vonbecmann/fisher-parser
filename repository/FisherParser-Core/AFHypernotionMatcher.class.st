@@ -37,19 +37,19 @@ AFHypernotionMatcher >> match: aProtonotion [
 		a hypernotion does not match a protonotion.
 		each metanotion should have a unique substitute"
 
-	^ (grammar accepts: aProtonotion strictSyntax)
-		ifTrue: [ | metanotionSubstitutions |
-			metanotionSubstitutions := 
-				(grammar parseTree: aProtonotion strictSyntax)
-					substitutionsOf: hypernotion metanotions.
-			hypernotion metanotions size = metanotionSubstitutions size
-				ifFalse: [ ^ AFSubstitution noSolution ].
-			hypernotion metanotions
-				do: [ :metanotion | 
-					(metanotionSubstitutions includesMetanotion: metanotion)
-							ifFalse: [ ^ AFSubstitution noSolution ] ].
-			^ AFSubstitution solution: metanotionSubstitutions ]
-		ifFalse: [ AFSubstitution noSolution ]
+	| parseTree metanotionSubstitutions |
+	^ [ 
+	parseTree := grammar parseTree: aProtonotion strictSyntax.
+	metanotionSubstitutions := parseTree substitutionsOf: hypernotion metanotions.
+	hypernotion metanotions size = metanotionSubstitutions size
+		ifFalse: [ ^ AFSubstitution noSolution ].
+	hypernotion metanotions
+		do: [ :metanotion | 
+			(metanotionSubstitutions includesMetanotion: metanotion)
+				ifFalse: [ ^ AFSubstitution noSolution ] ].
+	AFSubstitution solution: metanotionSubstitutions ]
+		on: JEFailure
+		do: [ AFSubstitution noSolution ]
 ]
 
 { #category : #printing }
