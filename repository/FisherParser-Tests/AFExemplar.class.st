@@ -148,6 +148,31 @@ where <NOTION> is <NOTION>: EMPTY.'
 ]
 
 { #category : #'instance creation' }
+AFExemplar class >> test4 [
+	"
+LETTER::  h; i; j.
+
+program:  LETTER thing.
+
+LETTER thing: LETTER symbol, LETTER symbol, LETTER symbol.
+
+h symbol:         'Percy'.
+i symbol:         'Jim'.
+j symbol:         'Terry'."
+
+	^ AFVWGrammar
+		evw:
+'LETTER::  h; i; j.
+
+program:  LETTER thing.
+LETTER thing: LETTER symbol, LETTER symbol, LETTER symbol.'
+		representations: 
+			{(#('h' 'symbol') -> (NCTerminal character: $h)).
+			(#('i' 'symbol') -> (NCTerminal character: $i)).
+			(#('j' 'symbol') -> (NCTerminal character: $j))}
+]
+
+{ #category : #'instance creation' }
 AFExemplar class >> wegner [
 	"
 BETY::	 b BETY; EMPTY.
