@@ -1,3 +1,7 @@
+"
+build fisher's tools in world.
+
+"
 Class {
 	#name : #AFisherUI,
 	#superclass : #Object,
@@ -19,8 +23,8 @@ AFisherUI class >> fisherEnvironment [
 AFisherUI class >> fisherToolsOn: aBuilder [
 	<worldMenu>
 	(aBuilder group: #FisherTools)
+		order: 0.99;
 		withSeparatorAfter;
-		order: 1;
 		with: 
 			[ (aBuilder item: #'Fisher Tools')
 				with: 
