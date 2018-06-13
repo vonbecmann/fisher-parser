@@ -27,15 +27,14 @@ AFProtonotionMatcher >> initializeProtonotion: aProtonotion [
 
 { #category : #public }
 AFProtonotionMatcher >> match: aProtonotion [
-	"a protonotion match a protonotion, therefore the substitution is empty"
+	" a protonotion match a protonotion, therefore the substitution is empty.
+	 optimize for efficiency. "
 
 	protonotion strictSyntax size = aProtonotion strictSyntax size
 		ifFalse: [ ^ AFSubstitution noSolution ].
-	protonotion strictSyntax
-		with: aProtonotion strictSyntax
-		do: [ :first :second | 
-			first = second
-				ifFalse: [ ^ AFSubstitution noSolution ] ].
+	1 to: protonotion strictSyntax size do: [ :index | 
+		(protonotion strictSyntax at: index) = (aProtonotion strictSyntax at: index)
+			ifFalse: [ ^ AFSubstitution noSolution ] ].
 	^ AFSubstitution emptySolution
 ]
 
