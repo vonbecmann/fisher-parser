@@ -15,6 +15,11 @@ AFNoSolution >> applyTo: aMetanotion [
 ]
 
 { #category : #testing }
+AFNoSolution >> isEmpty [
+	self error: self asString
+]
+
+{ #category : #testing }
 AFNoSolution >> isSolution [
 	^ false
 ]

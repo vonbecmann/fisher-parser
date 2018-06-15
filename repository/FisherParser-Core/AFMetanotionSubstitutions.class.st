@@ -78,6 +78,11 @@ AFMetanotionSubstitutions >> initialize [
 	associations := SinglyLinkedList new.
 ]
 
+{ #category : #testing }
+AFMetanotionSubstitutions >> isEmpty [
+	^ associations isEmpty 
+]
+
 { #category : #printing }
 AFMetanotionSubstitutions >> printOn: aStream [
 	aStream nextPut: ${.

@@ -2,7 +2,7 @@
 match a protonotion to a protonotion.
 matching using the strict syntax.
 
-protonotion to be used
+protonotion to be used. a hypernotion that it is a protonotion.
 "
 Class {
 	#name : #AFProtonotionMatcher,

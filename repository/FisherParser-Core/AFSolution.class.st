@@ -55,6 +55,11 @@ AFSolution >> initializeSubstitutions: aMetanotionSubstitutions [
 ]
 
 { #category : #testing }
+AFSolution >> isEmpty [
+	^ metanotionSubstitutions isEmpty
+]
+
+{ #category : #testing }
 AFSolution >> isSolution [
 	^ true
 ]
