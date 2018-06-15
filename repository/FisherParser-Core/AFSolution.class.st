@@ -51,7 +51,6 @@ AFSolution >> gtInspectorSubstitutionIn: composite [
 
 { #category : #initialization }
 AFSolution >> initializeSubstitutions: aMetanotionSubstitutions [
-	super initialize.
 	metanotionSubstitutions := aMetanotionSubstitutions
 ]
 
