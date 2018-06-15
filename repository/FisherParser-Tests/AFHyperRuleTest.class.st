@@ -14,10 +14,8 @@ AFHyperRuleTest >> setUp [
 
 { #category : #tests }
 AFHyperRuleTest >> testAsString [
-	hyperRule := 
-		AFHyperRule
-			head: (AFHypernotion with: #'EMPTY' asNotion)
-			body: {}.
+	hyperRule := AFHyperRule headWith: #'EMPTY' asNotion body: {}.
+
 	self assert: hyperRule asString equals: 'EMPTY: .'
 ]
 
@@ -25,7 +23,7 @@ AFHyperRuleTest >> testAsString [
 AFHyperRuleTest >> testAsString02 [
 	hyperRule := 
 		AFHyperRule
-			head: (AFHypernotion withAll: #(#'NOTION' 'option') asNotions)
+			headWithAll: #(#'NOTION' 'option') asNotions
 			body: {(AFHypernotion with: #'NOTION' asNotion)}.
 	self 
 		assert: hyperRule asString 
@@ -35,8 +33,8 @@ AFHyperRuleTest >> testAsString02 [
 { #category : #tests }
 AFHyperRuleTest >> testEqual [
 	| one another |
-	one := AFHyperRule head: (AFHypernotion with: (#'EMPTY' asNotion)) body: {}.
-	another := AFHyperRule head: (AFHypernotion with: (#'EMPTY' asNotion)) body: {}.
+	one := AFHyperRule headWith: (#'EMPTY' asNotion) body: {}.
+	another := AFHyperRule headWith: (#'EMPTY' asNotion) body: {}.
 
 	self deny: one == another.
 	self assert: one equals: another.
@@ -46,7 +44,7 @@ AFHyperRuleTest >> testEqual [
 { #category : #tests }
 AFHyperRuleTest >> testEqual02 [
 	| one another |
-	one := AFHyperRule head: (AFHypernotion with: (#'EMPTY' asNotion)) body: {}.
+	one := AFHyperRule headWith: (#'EMPTY' asNotion) body: {}.
 	another := one.
 
 	self assert: one == another.
@@ -59,12 +57,13 @@ AFHyperRuleTest >> testEqual03 [
 	| one another |
 	one := 
 	AFHyperRule
-		head: 	(AFHypernotion withAll: {(#'NOTION' asNotion). ('option' asNotion)})
+		headWithAll: #(#'NOTION' 'option') asNotions
 		body: {(AFHypernotion with: (#'NOTION' asNotion))}.
 	another := 
 	AFHyperRule
-		head: 	(AFHypernotion withAll: {(#'NOTION' asNotion). ('option' asNotion)})
+		headWithAll: #(#'NOTION' 'option') asNotions
 		body: {(AFHypernotion with: (#'NOTION' asNotion))}.
+
 	self deny: one == another.
 	self assert: one equals: another.
 	self assert: one hash equals: another hash.
@@ -73,16 +72,17 @@ AFHyperRuleTest >> testEqual03 [
 
 { #category : #tests }
 AFHyperRuleTest >> testIsEpsilon [
-	hyperRule := AFHyperRule head: (AFHypernotion with: 'letter' asNotion) body: {}.
+	hyperRule := AFHyperRule headWith: 'letter' asNotion body: {}.
+	
 	self assert: hyperRule isEpsilon
 ]
 
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation [
 	hyperRule := 
-		AFHyperRule 
-			head: (AFHypernotion with: 'letter' asNotion) 
-			body: {(NCTerminal character: $a) asNotion}.
+		AFHyperRule 	
+			headWith: 'letter' asNotion 
+			body: {AFHypernotion with: (NCTerminal character: $a)}.
 			
 	self assert: hyperRule isRepresentation
 ]
@@ -91,7 +91,7 @@ AFHyperRuleTest >> testIsRepresentation [
 AFHyperRuleTest >> testIsRepresentation02 [
 	hyperRule := 
 		AFHyperRule 
-			head: (AFHypernotion with: 'letter' asNotion) 
+			headWith: 'letter' asNotion 
 			body: {(AFHypernotion with: 'a' asNotion)}.
 	self deny: hyperRule isRepresentation
 ]
@@ -99,7 +99,7 @@ AFHyperRuleTest >> testIsRepresentation02 [
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation03 [
 	hyperRule := AFHyperRule
-		head: 	(AFHypernotion withAll: {#'NOTION' asNotion. 'option' asNotion})
+		headWithAll: #(#'NOTION' 'option') asNotions
 		body: {(AFHypernotion with: #'NOTION' asNotion)}.
 	self deny: hyperRule isRepresentation
 ]
@@ -107,7 +107,7 @@ AFHyperRuleTest >> testIsRepresentation03 [
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation04 [
 	hyperRule := AFHyperRule
-		head: 	(AFHypernotion withAll: {#'NOTION' asNotion. 'option' asNotion})
+		headWithAll: #(#'NOTION' 'option') asNotions
 		body: {}.
 	self deny: hyperRule isRepresentation
 ]
@@ -115,7 +115,8 @@ AFHyperRuleTest >> testIsRepresentation04 [
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation05 [
 	hyperRule := AFHyperRule
-		head: (AFHypernotion with: #LETTER asNotion)
-		body: {(NCTerminal character: $a) asNotion}.
+		headWith: #LETTER asNotion
+		body: {(AFHypernotion with: (NCTerminal character: $a))}.
+		
 	self deny: hyperRule isRepresentation
 ]
