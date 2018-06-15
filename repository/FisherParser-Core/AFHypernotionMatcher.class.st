@@ -18,36 +18,23 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFHypernotionMatcher class >> hypernotion: aHypernotion grammar: aJEGrammar [
+AFHypernotionMatcher class >> hypernotion: anAFHypernotion grammar: aJEGrammar [
 	^ self basicNew
-		initializeHypernotion: aHypernotion grammar: aJEGrammar;
+		initializeHypernotion: anAFHypernotion grammar: aJEGrammar;
 		yourself
 ]
 
 { #category : #initialization }
-AFHypernotionMatcher >> initializeHypernotion: aHypernotion grammar: aJEGrammar [
-	self initialize.
-	hypernotion := aHypernotion.
+AFHypernotionMatcher >> initializeHypernotion: anAFHypernotion grammar: aJEGrammar [
+	hypernotion := anAFHypernotion.
 	grammar := aJEGrammar
 ]
 
 { #category : #public }
 AFHypernotionMatcher >> match: aProtonotion [
-	"	a hypernotion match a protonotion, you need the relative substitution.
-		a hypernotion does not match a protonotion.
-		each metanotion should have a unique substitute"
+	"	a hypernotion match a protonotion, you need the relative substitution. "
 
-	| parseTree metanotionSubstitutions |
-	^ [ 
-	parseTree := grammar parseTree: aProtonotion strictSyntax.
-	metanotionSubstitutions := parseTree substitutionsOf: hypernotion metanotions.
-	hypernotion metanotions size = metanotionSubstitutions size
-		ifFalse: [ ^ AFSubstitution noSolution ].
-	hypernotion metanotions
-		do: [ :metanotion | 
-			(metanotionSubstitutions includesMetanotion: metanotion)
-				ifFalse: [ ^ AFSubstitution noSolution ] ].
-	AFSubstitution solution: metanotionSubstitutions ]
+	^ [ (grammar parseTree: aProtonotion strictSyntax) substitutionsOf: hypernotion ]
 		on: JEFailure
 		do: [ AFSubstitution noSolution ]
 ]

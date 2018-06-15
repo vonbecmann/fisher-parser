@@ -2,6 +2,9 @@ Extension { #name : #ESTree }
 
 { #category : #'*FisherParser-Core' }
 ESTree >> substitutionsOf: metanotions [
+	"	a hypernotion match a protonotion, you need the relative substitution.
+		each metanotion should have a unique substitute. "
+
 	| substitutions |
 	substitutions := AFMetanotionSubstitutions new.
 	root children
@@ -18,5 +21,11 @@ ESTree >> substitutionsOf: metanotions [
 										ifTrue: [ s nextPut: node model reason ] ];
 								visit: child ]).
 			substitutions add: child model symbol -> substitute ].
-	^ substitutions
+	metanotions size = substitutions size
+		ifFalse: [ ^ AFSubstitution noSolution ].
+	metanotions
+		do: [ :metanotion | 
+			(substitutions includesMetanotion: metanotion)
+				ifFalse: [ ^ AFSubstitution noSolution ] ].
+	^ AFSubstitution solution: substitutions
 ]
