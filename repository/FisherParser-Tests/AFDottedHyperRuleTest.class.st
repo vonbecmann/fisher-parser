@@ -48,13 +48,13 @@ AFDottedHyperRuleTest >> testEqual [
 		AFDottedHyperRule
 			atTheBeginningOf: 
 				(AFHyperRule 
-					head: (AFHypernotion with: 'start' asNotion) 
+					headWith: 'start' asNotion 
 					body: {(AFHypernotion with: 'program' asNotion)}).
 	another := 
 		AFDottedHyperRule
 			atTheBeginningOf: 
 				(AFHyperRule 
-					head: (AFHypernotion with: 'start' asNotion) 
+					headWith: 'start' asNotion
 					body: {(AFHypernotion with: 'program' asNotion)}).
 
 	self deny: one == another.
@@ -73,13 +73,13 @@ AFDottedHyperRuleTest >> testEqual02 [
 		AFDottedHyperRule
 			atTheEndOf:
 				(AFHyperRule
-					head: (AFHypernotion with: 'start' asNotion)
+					headWith: 'start' asNotion
 					body: {(AFHypernotion with: 'program' asNotion)}).
 	another := 
 		AFDottedHyperRule
 			atTheEndOf:
 				(AFHyperRule
-					head: (AFHypernotion with: 'start' asNotion)
+					headWith: 'start' asNotion
 					body: {(AFHypernotion with: 'program' asNotion)}).
 
 	self deny: one == another.
@@ -97,7 +97,7 @@ AFDottedHyperRuleTest >> testSymbolAtDot [
 		AFDottedHyperRule
 			atTheBeginningOf: 
 				(AFHyperRule 
-					head: (AFHypernotion with: 'start' asNotion) 
+					headWith: 'start' asNotion
 					body: {(AFHypernotion with: 'program' asNotion)}).
 
 	self 

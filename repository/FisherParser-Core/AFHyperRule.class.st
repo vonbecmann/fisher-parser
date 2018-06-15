@@ -17,23 +17,23 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFHyperRule class >> head: aHypernotion body: aHypernotionCollection [
+AFHyperRule class >> head: anAFHypernotion body: anAFHypernotionCollection [
 	^ self basicNew
-		initializeHead: aHypernotion body: aHypernotionCollection;
+		initializeHead: anAFHypernotion body: anAFHypernotionCollection;
 		yourself
 ]
 
 { #category : #'instance creation' }
-AFHyperRule class >> headWith: aNotion body: aHypernotionCollection [
+AFHyperRule class >> headWith: aNotion body: anAFHypernotionCollection [
 	^ self basicNew
-		initializeHead: (AFHypernotion with: aNotion) body: aHypernotionCollection;
+		initializeHead: (AFHypernotion with: aNotion) body: anAFHypernotionCollection;
 		yourself
 ]
 
 { #category : #'instance creation' }
-AFHyperRule class >> headWithAll: aNotionCollection body: aHypernotionCollection [
+AFHyperRule class >> headWithAll: aNotionCollection body: anAFHypernotionCollection [
 	^ self basicNew
-		initializeHead: (AFHypernotion withAll: aNotionCollection) body: aHypernotionCollection;
+		initializeHead: (AFHypernotion withAll: aNotionCollection) body: anAFHypernotionCollection;
 		yourself
 ]
 
