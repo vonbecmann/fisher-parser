@@ -160,13 +160,13 @@ AFHypernotion >> isTerminal [
 			and: [ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isTerminal ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 AFHypernotion >> match: aHypernotion [
 	matcher ifNil: [ matcher := vwGrammar createMatcherFor: self ].
 	^ matcher match: aHypernotion
 ]
 
-{ #category : #testing }
+{ #category : #matching }
 AFHypernotion >> matches: aCharacter [ 
 	^ notions first matches: aCharacter 
 ]
@@ -200,11 +200,11 @@ AFHypernotion >> protonotions [
 
 { #category : #'initialize-release' }
 AFHypernotion >> release [
-	notions := metanotions := vwGrammar := matcher := nil.
+	notions := metanotions := strictSyntax := vwGrammar := matcher := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 AFHypernotion >> strictMatch: aProtonotionHypernotion [
 	" a protonotion match a protonotion, therefore the substitution is empty.
 	 optimize for efficiency. "
