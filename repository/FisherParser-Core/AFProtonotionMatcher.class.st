@@ -1,5 +1,6 @@
 "
 match a protonotion to a protonotion.
+matching using the strict syntax.
 
 protonotion to be used
 "
@@ -13,16 +14,15 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFProtonotionMatcher class >> protonotion: aProtonotion [
+AFProtonotionMatcher class >> protonotion: aProtonotionAFHypernotion [
 	^ self basicNew
-		initializeProtonotion: aProtonotion;
+		initializeProtonotion: aProtonotionAFHypernotion;
 		yourself
 ]
 
 { #category : #initialization }
-AFProtonotionMatcher >> initializeProtonotion: aProtonotion [
-	self initialize.
-	protonotion := aProtonotion
+AFProtonotionMatcher >> initializeProtonotion: aProtonotionAFHypernotion [
+	protonotion := aProtonotionAFHypernotion
 ]
 
 { #category : #public }
@@ -30,12 +30,7 @@ AFProtonotionMatcher >> match: aProtonotion [
 	" a protonotion match a protonotion, therefore the substitution is empty.
 	 optimize for efficiency. "
 
-	protonotion strictSyntax size = aProtonotion strictSyntax size
-		ifFalse: [ ^ AFSubstitution noSolution ].
-	1 to: protonotion strictSyntax size do: [ :index | 
-		(protonotion strictSyntax at: index) = (aProtonotion strictSyntax at: index)
-			ifFalse: [ ^ AFSubstitution noSolution ] ].
-	^ AFSubstitution emptySolution
+	^ protonotion strictMatch: aProtonotion
 ]
 
 { #category : #printing }

@@ -205,6 +205,19 @@ AFHypernotion >> release [
 ]
 
 { #category : #accessing }
+AFHypernotion >> strictMatch: aProtonotionHypernotion [
+	" a protonotion match a protonotion, therefore the substitution is empty.
+	 optimize for efficiency. "
+
+	strictSyntax size = aProtonotionHypernotion strictSyntax size
+		ifFalse: [ ^ AFSubstitution noSolution ].
+	1 to: strictSyntax size do: [ :index | 
+		(strictSyntax at: index) = (aProtonotionHypernotion strictSyntax at: index)
+			ifFalse: [ ^ AFSubstitution noSolution ] ].
+	^ AFSubstitution emptySolution
+]
+
+{ #category : #accessing }
 AFHypernotion >> strictSyntax [
 	^ strictSyntax
 ]
