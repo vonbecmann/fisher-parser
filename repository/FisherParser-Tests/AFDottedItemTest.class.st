@@ -18,7 +18,7 @@ AFDottedItemTest >> testAsString [
 	first := AFColumn number: 1.
 	item := 
 		(AFHyperRule 
-			head: #('empty') asNotion 
+			headWith: 'empty' asNotion
 			body: {}) dotAtBeginning startAt: first.
 
 	self 
@@ -33,7 +33,7 @@ AFDottedItemTest >> testAsString02 [
 	third := AFColumn number: 3.
 	item := 
 		(AFHyperRule 
-			head: #('empty') asNotion 
+			headWith: 'empty' asNotion 
 			body: {}) dotAtBeginning startAt: first endAt: third.
 	
 	self 
@@ -48,8 +48,9 @@ AFDottedItemTest >> testAsString03 [
 	third := AFColumn number: 3.
 	item := 
 	(AFHyperRule 
-		head: #(#NOTION 'option') asNotion 
-		body: {#(#NOTION) asNotion}) dotAtBeginning startAt: first endAt: third.
+		headWithAll: #(#NOTION 'option') asNotions
+		body: {AFHypernotion with: #NOTION asNotion}) 
+					dotAtBeginning startAt: first endAt: third.
 	
 	self 
 		assert: item asString 
@@ -63,8 +64,9 @@ AFDottedItemTest >> testAsString04 [
 	third := AFColumn number: 3.
 	item := 
 	(AFHyperRule 
-		head: #(#NOTION 'option') asNotion 
-		body: {#(#NOTION) asNotion}) dotAtEnd startAt: first endAt: third.
+		headWithAll: #(#NOTION 'option') asNotions
+		body: {AFHypernotion with: #NOTION asNotion}) 
+					dotAtEnd startAt: first endAt: third.
 	
 	self 
 		assert: item asString 
@@ -78,16 +80,20 @@ AFDottedItemTest >> testEqual [
 	third := AFColumn number: 3.
 	one := 
 	(AFHyperRule 
-		head: #(#NOTION 'option') asNotion 
-		body: {#(#NOTION) asNotion}) dotAtEnd startAt: first endAt: third.
+		headWithAll: #(#NOTION 'option') asNotions
+		body: {AFHypernotion with: #NOTION asNotion}) 
+					dotAtEnd startAt: first endAt: third.
 	another := 
 		(AFHyperRule 
-		head: #(#NOTION 'option') asNotion 
-		body: {#(#NOTION) asNotion}) dotAtEnd startAt: first endAt: third.
+			head: (AFHypernotion withAll: #(#NOTION 'option') asNotions) 
+			body: {AFHypernotion with: #NOTION asNotion}) 
+						dotAtEnd startAt: first endAt: third.
 		
 	self deny: one == another.
 	self assert: one equals: another.
 	self assert: one hash equals: another hash.
+	self assert: another equals: one.
+	self assert: another hash equals: one hash
 ]
 
 { #category : #tests }
@@ -97,11 +103,13 @@ AFDottedItemTest >> testEqual02 [
 	third := AFColumn number: 3.
 	one := 
 	(AFHyperRule 
-		head: #(#NOTION 'option') asNotion 
-		body: {#(#NOTION) asNotion}) dotAtEnd startAt: first endAt: third.
+		headWithAll: #(#NOTION 'option') asNotions 
+		body: {AFHypernotion with: #NOTION asNotion}) dotAtEnd startAt: first endAt: third.
 	another := one.
 		
 	self assert: one == another.
 	self assert: one equals: another.
 	self assert: one hash equals: another hash.
+	self assert: another equals: one.
+	self assert: another hash equals: one hash
 ]

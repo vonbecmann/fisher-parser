@@ -23,6 +23,20 @@ AFHyperRule class >> head: aHypernotion body: aHypernotionCollection [
 		yourself
 ]
 
+{ #category : #'instance creation' }
+AFHyperRule class >> headWith: aNotion body: aHypernotionCollection [
+	^ self basicNew
+		initializeHead: (AFHypernotion with: aNotion) body: aHypernotionCollection;
+		yourself
+]
+
+{ #category : #'instance creation' }
+AFHyperRule class >> headWithAll: aNotionCollection body: aHypernotionCollection [
+	^ self basicNew
+		initializeHead: (AFHypernotion withAll: aNotionCollection) body: aHypernotionCollection;
+		yourself
+]
+
 { #category : #comparing }
 AFHyperRule >> = anObject [
 	self == anObject
