@@ -7,11 +7,12 @@ Class {
 { #category : #tests }
 AFHypernotionMatcherTest >> testMatch [
 	| hypernotion substitution |
-	hypernotion := AFHypernotion
-		belongsTo: AFExemplar test3
-		withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
+	hypernotion := 
+		AFHypernotion
+			belongsTo: AFExemplar test3
+			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 
-	substitution := hypernotion match: (AFHypernotion with: 'where<h>is<i>' asNotion).
+	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<h>is<i>')).
 
 	self deny: substitution isSolution
 ]
@@ -19,11 +20,12 @@ AFHypernotionMatcherTest >> testMatch [
 { #category : #tests }
 AFHypernotionMatcherTest >> testMatch02 [
 	| hypernotion substitution |
-	hypernotion := AFHypernotion
-		belongsTo: AFExemplar test3
-		withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
+	hypernotion := 
+		AFHypernotion
+			belongsTo: AFExemplar test3
+			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 
-	substitution := hypernotion match: (AFHypernotion with: 'where<hij>is<hij>' asNotion).
+	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<hij>is<hij>')).
 
 	self assert: substitution isSolution.
 	self
@@ -34,11 +36,12 @@ AFHypernotionMatcherTest >> testMatch02 [
 { #category : #tests }
 AFHypernotionMatcherTest >> testMatch03 [
 	| hypernotion substitution |
-	hypernotion := AFHypernotion
-		belongsTo: AFExemplar test3
-		withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
+	hypernotion := 
+		AFHypernotion
+			belongsTo: AFExemplar test3
+			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 	
-	substitution := hypernotion match: (AFHypernotion with: 'where<j>is<h>' asNotion).
+	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<j>is<h>')).
 	
 	self deny: substitution isSolution
 ]
@@ -46,11 +49,12 @@ AFHypernotionMatcherTest >> testMatch03 [
 { #category : #tests }
 AFHypernotionMatcherTest >> testMatch04 [
 	| hypernotion substitution |
-	hypernotion := AFHypernotion
-		belongsTo: AFExemplar test3
-		withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
+	hypernotion := 
+		AFHypernotion
+			belongsTo: AFExemplar test3
+			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 
-	substitution := hypernotion match: (AFHypernotion with: 'where<j>is<j>' asNotion).
+	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<j>is<j>')).
 		
 	self assert: substitution isSolution.
 	self 
