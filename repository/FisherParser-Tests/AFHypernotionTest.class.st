@@ -172,7 +172,7 @@ AFHypernotionTest >> testMetanotions02 [
 
 { #category : #tests }
 AFHypernotionTest >> testStrictSyntax [
-	hypernotion := AFHypernotion withAll: {'start' asNotion. 'notion' asNotion}.
+	hypernotion := AFHypernotion withAll: #('start' 'notion') asNotions.
 	
 	self 
 		assert: hypernotion strictSyntax
@@ -181,7 +181,7 @@ AFHypernotionTest >> testStrictSyntax [
 
 { #category : #tests }
 AFHypernotionTest >> testStrictSyntax02 [
-	hypernotion := AFHypernotion withAll: {#THREE asNotion. 'cs' asNotion}.
+	hypernotion := AFHypernotion withAll: #(#THREE 'cs') asNotions.
 
 	self 
 		assert: hypernotion strictSyntax 
