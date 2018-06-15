@@ -18,10 +18,10 @@ AFDottedHyperRuleTest >> setUp [
 AFDottedHyperRuleTest >> testAsString [
 	dottedHyperRule := 
 		AFDottedHyperRule
-			atTheBeginningOf: 
-				(AFHyperRule 
-					head: (AFHypernotion with: 'start' asNotion) 
-					body: {(AFHypernotion with: 'program' asNotion)}).
+			atTheBeginningOf:
+				(AFHyperRule
+					headWith: (AWProtonotion with: 'start')
+					body: {(AFHypernotion with: (AWProtonotion with: 'program'))}).
 
 	self 
 		assert: dottedHyperRule asString 
@@ -34,8 +34,8 @@ AFDottedHyperRuleTest >> testAsString02 [
 		AFDottedHyperRule
 			atTheEndOf:
 				(AFHyperRule
-					head: (AFHypernotion with: 'start' asNotion)
-					body: {(AFHypernotion with: 'program' asNotion)}).
+					headWith: (AWProtonotion with: 'start')
+					body: {(AFHypernotion with: (AWProtonotion with: 'program'))}).
 	self 
 		assert: dottedHyperRule asString 
 		equals: 'start: program' , middleDot , '.'
