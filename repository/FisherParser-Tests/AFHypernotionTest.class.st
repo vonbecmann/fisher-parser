@@ -210,6 +210,21 @@ AFHypernotionTest >> testProtonotions02 [
 ]
 
 { #category : #tests }
+AFHypernotionTest >> testProtonotions03 [
+	| hn |
+	hn := AFHypernotion
+		withAll:
+			{(AWMetanotion named: 'LETTER').
+			(AWProtonotion with: 'symbol')}.
+	self 
+		assert: hn protonotions size 
+		equals: 1.
+	self
+		assertCollection: hn protonotions 
+		hasSameElements: {(AWProtonotion with: 'symbol')}
+]
+
+{ #category : #tests }
 AFHypernotionTest >> testStrictSyntax [
 	hypernotion := AFHypernotion withAll: #('start' 'notion') asNotions.
 	
