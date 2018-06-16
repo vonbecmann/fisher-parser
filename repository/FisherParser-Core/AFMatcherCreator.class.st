@@ -29,8 +29,13 @@ AFMatcherCreator >> createHypernotionMatcherFor: aHypernotion [
 ]
 
 { #category : #public }
-AFMatcherCreator >> createProtonotionMatcherFor: aProtonotion [
-	^ AFProtonotionMatcher protonotion: aProtonotion
+AFMatcherCreator >> createProtonotionMatcherFor: aProtonotionHypernotion [
+	^ AFProtonotionMatcher protonotion: aProtonotionHypernotion
+]
+
+{ #category : #public }
+AFMatcherCreator >> createTerminalMatcherFor: aTerminalHypernotion [
+	^ AFTerminalMatcher terminal: aTerminalHypernotion
 ]
 
 { #category : #initialization }

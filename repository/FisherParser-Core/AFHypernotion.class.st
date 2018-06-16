@@ -89,7 +89,10 @@ AFHypernotion >> createMatcherUsing: aMatcherCreator [
 		ifFalse: [ 
 			self isProtonotion
 				ifTrue: [ aMatcherCreator createProtonotionMatcherFor: self ]
-				ifFalse: [ self error ] ]
+				ifFalse: [ 
+					self isTerminal
+						ifTrue: [ aMatcherCreator createTerminalMatcherFor: self ]
+						ifFalse: [ self error ] ] ]
 ]
 
 { #category : #enumerating }

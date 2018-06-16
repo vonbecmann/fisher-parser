@@ -14,15 +14,15 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFProtonotionMatcher class >> protonotion: aProtonotionAFHypernotion [
+AFProtonotionMatcher class >> protonotion: aProtonotionHypernotion [
 	^ self basicNew
-		initializeProtonotion: aProtonotionAFHypernotion;
+		initializeProtonotion: aProtonotionHypernotion;
 		yourself
 ]
 
 { #category : #initialization }
-AFProtonotionMatcher >> initializeProtonotion: aProtonotionAFHypernotion [
-	protonotion := aProtonotionAFHypernotion
+AFProtonotionMatcher >> initializeProtonotion: aProtonotionHypernotion [
+	protonotion := aProtonotionHypernotion
 ]
 
 { #category : #public }
