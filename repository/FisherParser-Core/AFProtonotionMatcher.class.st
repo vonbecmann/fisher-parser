@@ -38,7 +38,7 @@ AFProtonotionMatcher >> printOn: aStream [
 	aStream
 		nextPutAll: self class name;
 		nextPut: $(;
-		nextPutAll: protonotion strictSyntax;
+		print: protonotion;
 		nextPut: $)
 ]
 
