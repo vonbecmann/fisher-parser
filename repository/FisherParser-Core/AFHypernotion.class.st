@@ -8,6 +8,7 @@ Class {
 	#instVars : [
 		'notions',
 		'metanotions',
+		'protonotions',
 		'strictSyntax',
 		'vwGrammar',
 		'matcher'
@@ -122,8 +123,8 @@ AFHypernotion >> hash [
 
 { #category : #initialization }
 AFHypernotion >> initialize [
-	super initialize.
 	metanotions := Set new.
+	protonotions := Set new.
 	vwGrammar := nil.
 	matcher := nil
 ]
@@ -132,7 +133,10 @@ AFHypernotion >> initialize [
 AFHypernotion >> initializeNotions: aNotionCollection [
 	self initialize.
 	notions := aNotionCollection.
-	notions do: [ :each | each isMetanotion ifTrue: [ metanotions add: each ] ].
+	notions 
+		do: [ :each | 
+				each isMetanotion ifTrue: [ metanotions add: each ].
+				each isProtonotion ifTrue: [ protonotions add: each ] ].
 	strictSyntax := String streamContents: [ :s | notions do: [ :each | each printOn: s ] ]
 ]
 
@@ -195,7 +199,7 @@ AFHypernotion >> printString [
 
 { #category : #accessing }
 AFHypernotion >> protonotions [
-	^ notions select: [ :each | each isProtonotion ]
+	^ protonotions
 ]
 
 { #category : #'initialize-release' }

@@ -163,11 +163,50 @@ AFHypernotionTest >> testMetanotions02 [
 			(AWMetanotion named: 'LETTER').
 			(AWMetanotion named: 'LETTER').
 			(AWProtonotion with: 's')}.
+	self 
+		assert: hn metanotions size 
+		equals: 2.
 	self
 		assertCollection: hn metanotions
 		hasSameElements:
 			{(AWMetanotion named: 'TALLY').
 			(AWMetanotion named: 'LETTER')}
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testProtonotions [
+	| hn |
+	hn := AFHypernotion
+		withAll:
+			{(AWProtonotion with: 'letter').
+			(AWProtonotion with: 'a').
+			(AWProtonotion with: 'symbol')}.
+	self
+		assertCollection: hn protonotions 
+		hasSameElements:
+			{(AWProtonotion with: 'letter').
+			(AWProtonotion with: 'a').
+			(AWProtonotion with: 'symbol')}
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testProtonotions02 [
+	| hn |
+	hn := AFHypernotion
+		withAll:
+			{(AWProtonotion with: 'letter').
+			(AWProtonotion with: 'letter').
+			(AWProtonotion with: 'a').
+			(AWProtonotion with: 'symbol')}.
+	self 
+		assert: hn protonotions size 
+		equals: 3.
+	self
+		assertCollection: hn protonotions 
+		hasSameElements:
+			{(AWProtonotion with: 'letter').
+			(AWProtonotion with: 'a').
+			(AWProtonotion with: 'symbol')}
 ]
 
 { #category : #tests }
