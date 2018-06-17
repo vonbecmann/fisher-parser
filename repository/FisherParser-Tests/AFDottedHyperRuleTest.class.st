@@ -21,7 +21,7 @@ AFDottedHyperRuleTest >> testAsString [
 			atTheBeginningOf:
 				(AFHyperRule
 					headWith: (AWProtonotion with: 'start')
-					body: {(AFHypernotion with: (AWProtonotion with: 'program'))}).
+					bodyWith: (AFHypernotion with: (AWProtonotion with: 'program'))).
 
 	self 
 		assert: dottedHyperRule asString 
@@ -35,7 +35,7 @@ AFDottedHyperRuleTest >> testAsString02 [
 			atTheEndOf:
 				(AFHyperRule
 					headWith: (AWProtonotion with: 'start')
-					body: {(AFHypernotion with: (AWProtonotion with: 'program'))}).
+					bodyWith: (AFHypernotion with: (AWProtonotion with: 'program'))).
 	self 
 		assert: dottedHyperRule asString 
 		equals: 'start: program' , middleDot , '.'
@@ -49,13 +49,13 @@ AFDottedHyperRuleTest >> testEqual [
 			atTheBeginningOf: 
 				(AFHyperRule 
 					headWith: 'start' asNotion 
-					body: {(AFHypernotion with: 'program' asNotion)}).
+					bodyWith: (AFHypernotion with: 'program' asNotion)).
 	another := 
 		AFDottedHyperRule
 			atTheBeginningOf: 
 				(AFHyperRule 
 					headWith: 'start' asNotion
-					body: {(AFHypernotion with: 'program' asNotion)}).
+					bodyWith: (AFHypernotion with: 'program' asNotion)).
 
 	self deny: one == another.
 	self assert: one equals: another.
@@ -74,13 +74,13 @@ AFDottedHyperRuleTest >> testEqual02 [
 			atTheEndOf:
 				(AFHyperRule
 					headWith: 'start' asNotion
-					body: {(AFHypernotion with: 'program' asNotion)}).
+					bodyWith: (AFHypernotion with: 'program' asNotion)).
 	another := 
 		AFDottedHyperRule
 			atTheEndOf:
 				(AFHyperRule
 					headWith: 'start' asNotion
-					body: {(AFHypernotion with: 'program' asNotion)}).
+					bodyWith: (AFHypernotion with: 'program' asNotion)).
 
 	self deny: one == another.
 	self assert: one equals: another.
@@ -98,8 +98,20 @@ AFDottedHyperRuleTest >> testSymbolAtDot [
 			atTheBeginningOf: 
 				(AFHyperRule 
 					headWith: 'start' asNotion
-					body: {(AFHypernotion with: 'program' asNotion)}).
+					bodyWith: (AFHypernotion with: 'program' asNotion)).
 
+	self 
+		assert: dottedHyperRule symbolAtDot 
+		equals: (AFHypernotion with: 'program' asNotion)
+]
+
+{ #category : #tests }
+AFDottedHyperRuleTest >> testSymbolAtDot02 [
+	dottedHyperRule := 
+		(AFHyperRule
+			headWith: 'start' asNotion
+			bodyWith: (AFHypernotion with: 'program' asNotion)) dotAtBeginning.
+			
 	self 
 		assert: dottedHyperRule symbolAtDot 
 		equals: (AFHypernotion with: 'program' asNotion)
