@@ -14,6 +14,11 @@ Class {
 	#category : #'EarleyVW-Tests'
 }
 
+{ #category : #accessing }
+JEVWGrammarTest class >> resources [
+	^ Array with: JEVWParserResource
+]
+
 { #category : #asserting }
 JEVWGrammarTest >> assertGrammarAccepts: words [
 	self assertGrammarAt: grammar accepts: words
@@ -32,16 +37,24 @@ JEVWGrammarTest >> assertGrammarAt: aGrammar accepts: words [
 						nextPutAll: words ])
 ]
 
-{ #category : #initialization }
+{ #category : #running }
 JEVWGrammarTest >> setUp [
-	grammar := JEVWParser vwGrammar.
-	protonotion := grammar startAt: 'protonotion'.
-	metanotion := grammar startAt: 'metanotion'.
-	hypernotion := grammar startAt: 'hypernotion'.
-	metaproductionRule := grammar startAt: 'metaproduction rule'.
-	hyperRule := grammar startAt: 'hyper rule'.
-	metaproductions := grammar startAt: 'metaproductions'.
-	hyperRules := grammar startAt: 'hyper rules'
+	super setUp.
+	grammar := JEVWParserResource current grammar.
+	protonotion := JEVWParserResource current protonotion.
+	metanotion := JEVWParserResource current metanotion.
+	hypernotion := JEVWParserResource current hypernotion.
+	metaproductionRule := JEVWParserResource current metaproductionRule.
+	hyperRule := JEVWParserResource current hyperRule.
+	metaproductions := JEVWParserResource current metaproductions.
+	hyperRules := JEVWParserResource current hyperRules
+]
+
+{ #category : #running }
+JEVWGrammarTest >> tearDown [
+	grammar := protonotion := metanotion := hypernotion := nil.
+	metaproductionRule := hyperRule := metaproductions := hyperRules := nil.
+	super tearDown
 ]
 
 { #category : #tests }

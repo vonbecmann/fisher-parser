@@ -7,6 +7,11 @@ Class {
 	#category : #'EarleyVW-Tests'
 }
 
+{ #category : #accessing }
+JEVWEvaluatorTest class >> resources [
+	^ Array with: JEVWParserResource
+]
+
 { #category : #asserting }
 JEVWEvaluatorTest >> assertThatEvaluates: aString equals: expected [
 	self 
@@ -21,10 +26,16 @@ JEVWEvaluatorTest >> assertThatEvaluates: aString startingAt: aNonterminalNamed 
 		equals: expected
 ]
 
-{ #category : #initialization }
+{ #category : #running }
 JEVWEvaluatorTest >> setUp [
-	evaluator := JEVWParser vwEvaluator.
-	
+	super setUp.
+	evaluator := JEVWParserResource current evaluator
+]
+
+{ #category : #running }
+JEVWEvaluatorTest >> tearDown [
+	evaluator := nil.
+	super tearDown
 ]
 
 { #category : #tests }
