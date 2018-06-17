@@ -223,7 +223,7 @@ AFHypernotion >> protonotions [
 
 { #category : #'initialize-release' }
 AFHypernotion >> release [
-	notions := metanotions := strictSyntax := vwGrammar := matcher := nil.
+	notions := metanotions := protonotions := strictSyntax := vwGrammar := matcher := nil.
 	super release
 ]
 
