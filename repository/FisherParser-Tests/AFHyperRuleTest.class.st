@@ -24,7 +24,7 @@ AFHyperRuleTest >> testAsString02 [
 	hyperRule := 
 		AFHyperRule
 			headWithAll: #(#'NOTION' 'option') asNotions
-			body: {(AFHypernotion with: #'NOTION' asNotion)}.
+			bodyWith: (AFHypernotion with: #'NOTION' asNotion).
 	self 
 		assert: hyperRule asString 
 		equals: 'NOTION option: NOTION.'
@@ -58,11 +58,11 @@ AFHyperRuleTest >> testEqual03 [
 	one := 
 	AFHyperRule
 		headWithAll: #(#'NOTION' 'option') asNotions
-		body: {(AFHypernotion with: (#'NOTION' asNotion))}.
+		bodyWith: (AFHypernotion with: (#'NOTION' asNotion)).
 	another := 
 	AFHyperRule
 		headWithAll: #(#'NOTION' 'option') asNotions
-		body: {(AFHypernotion with: (#'NOTION' asNotion))}.
+		bodyWith: (AFHypernotion with: (#'NOTION' asNotion)).
 
 	self deny: one == another.
 	self assert: one equals: another.
@@ -77,22 +77,22 @@ AFHyperRuleTest >> testIsEpsilon [
 	self assert: hyperRule isEpsilon
 ]
 
-{ #category : #'tests - boundness' }
+{ #category : #tests }
 AFHyperRuleTest >> testIsLeftBound [
 	hyperRule := 
 		AFHyperRule
 			headWithAll: #('i' #LETTER 's') asNotions
-			body: {(AFHypernotion withAll: #('i' #LETTER 's') asNotions)}.
+			bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
 			
 	self assert: hyperRule isLeftBound
 ]
 
-{ #category : #'tests - boundness' }
+{ #category : #tests }
 AFHyperRuleTest >> testIsLeftBound02 [
 	hyperRule := 
 		AFHyperRule
 			headWithAll: #(#TALLY #LETTER 's') asNotions
-			body: {(AFHypernotion withAll: #('i' #LETTER 's') asNotions)}.
+			bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
 			
 	self deny: hyperRule isLeftBound
 ]
@@ -102,7 +102,7 @@ AFHyperRuleTest >> testIsRepresentation [
 	hyperRule := 
 		AFHyperRule 	
 			headWith: 'letter' asNotion 
-			body: {AFHypernotion with: (NCTerminal character: $a)}.
+			bodyWith: (AFHypernotion with: (NCTerminal character: $a)).
 			
 	self assert: hyperRule isRepresentation
 ]
@@ -112,7 +112,7 @@ AFHyperRuleTest >> testIsRepresentation02 [
 	hyperRule := 
 		AFHyperRule 
 			headWith: 'letter' asNotion 
-			body: {(AFHypernotion with: 'a' asNotion)}.
+			bodyWith: (AFHypernotion with: 'a' asNotion).
 	self deny: hyperRule isRepresentation
 ]
 
@@ -120,7 +120,7 @@ AFHyperRuleTest >> testIsRepresentation02 [
 AFHyperRuleTest >> testIsRepresentation03 [
 	hyperRule := AFHyperRule
 		headWithAll: #(#'NOTION' 'option') asNotions
-		body: {(AFHypernotion with: #'NOTION' asNotion)}.
+		bodyWith: (AFHypernotion with: #'NOTION' asNotion).
 	self deny: hyperRule isRepresentation
 ]
 
@@ -136,17 +136,17 @@ AFHyperRuleTest >> testIsRepresentation04 [
 AFHyperRuleTest >> testIsRepresentation05 [
 	hyperRule := AFHyperRule
 		headWith: #LETTER asNotion
-		body: {(AFHypernotion with: (NCTerminal character: $a))}.
+		bodyWith: (AFHypernotion with: (NCTerminal character: $a)).
 		
 	self deny: hyperRule isRepresentation
 ]
 
-{ #category : #'tests - boundness' }
+{ #category : #tests }
 AFHyperRuleTest >> testIsRightBound [
 	hyperRule := 
 		AFHyperRule
 			headWithAll: #('i' #LETTER 's') asNotions
-			body: {(AFHypernotion withAll: #('i' #LETTER 's') asNotions)}.
+			bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
 
 	self assert: hyperRule isRightBound
 ]

@@ -31,9 +31,23 @@ AFHyperRule class >> headWith: aNotion body: anAFHypernotionCollection [
 ]
 
 { #category : #'instance creation' }
+AFHyperRule class >> headWith: aNotion bodyWith: anAFHypernotion [
+	^ self basicNew
+		initializeHead: (AFHypernotion with: aNotion) body: {anAFHypernotion};
+		yourself
+]
+
+{ #category : #'instance creation' }
 AFHyperRule class >> headWithAll: aNotionCollection body: anAFHypernotionCollection [
 	^ self basicNew
 		initializeHead: (AFHypernotion withAll: aNotionCollection) body: anAFHypernotionCollection;
+		yourself
+]
+
+{ #category : #'instance creation' }
+AFHyperRule class >> headWithAll: aNotionCollection bodyWith: anAFHypernotion [
+	^ self basicNew
+		initializeHead: (AFHypernotion withAll: aNotionCollection) body: {anAFHypernotion};
 		yourself
 ]
 
