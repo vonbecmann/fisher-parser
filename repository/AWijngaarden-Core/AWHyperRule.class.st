@@ -75,6 +75,14 @@ AWHyperRule >> head [
 	^ head
 ]
 
+{ #category : #accessing }
+AWHyperRule >> hypernotions [
+	^ Set new
+		add: head;
+		addAll: body;
+		yourself
+]
+
 { #category : #initialization }
 AWHyperRule >> initializeHead: aHypernotion body: aHypernotionCollection [
 	self initialize.

@@ -44,18 +44,14 @@ AVWGrammarBuilder >> build [
 	hyperRuleSet
 		do: [ :hyperRule | 
 			protonotions addAll: hyperRule protonotions.
-			hypernotions 
-				add: hyperRule head;
-				addAll: hyperRule body.
+			hypernotions addAll: hyperRule hypernotions.
 			index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	representationSet := Set withAll: representations.
 	representationSet
 		do: [ :hyperRule | 
 			self assert: hyperRule isRepresentation.
 			protonotions addAll: hyperRule protonotions.
-			hypernotions
-				add: hyperRule head;
-				addAll: hyperRule body.
+			hypernotions addAll: hyperRule hypernotions.
 			terminals addAll: hyperRule terminals.
 			index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	^ AVWGrammar
