@@ -60,11 +60,6 @@ AWHypernotion >> do: aBlock [
 	notions do: aBlock 
 ]
 
-{ #category : #accessing }
-AWHypernotion >> first [
-	^ notions first
-]
-
 { #category : #'inspector extensions' }
 AWHypernotion >> gtInspectorNotionsIn: composite [
 	<gtInspectorPresentationOrder: 0>
@@ -142,4 +137,14 @@ AWHypernotion >> protonotions [
 		select: [ :each | each isProtonotion ] 
 		thenDo: [ :each | protonotions add: each ].
 	^ protonotions
+]
+
+{ #category : #accessing }
+AWHypernotion >> terminals [
+	| terminals |
+	terminals := Set new.
+	notions 
+		select: [ :notion | notion isTerminal ] 
+		thenDo: [ :notion | terminals add: notion ].
+	^ terminals
 ]

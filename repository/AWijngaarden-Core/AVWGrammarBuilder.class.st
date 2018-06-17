@@ -56,7 +56,7 @@ AVWGrammarBuilder >> build [
 			hypernotions
 				add: hyperRule head;
 				addAll: hyperRule body.
-			terminals add: hyperRule body first first.
+			terminals addAll: hyperRule terminals.
 			index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	^ AVWGrammar
 		metanotions: metanotions

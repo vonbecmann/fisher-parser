@@ -111,3 +111,13 @@ AWHyperRule >> protonotions [
 	body do: [ :each | protonotions addAll: each protonotions ].
 	^ protonotions
 ]
+
+{ #category : #accessing }
+AWHyperRule >> terminals [
+	" head cannot contain terminals "
+
+	| terminals |
+	terminals := Set new.
+	body do: [ :each | terminals addAll: each terminals ].
+	^ terminals
+]
