@@ -96,7 +96,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
 	startHyperRule := AFHyperRule
 		head: startNotion
-		body: {(AFHypernotion belongsTo: self withAllNotionsFrom: vwGrammar startNotion)}.
+		bodyWith: (AFHypernotion belongsTo: self withAllNotionsFrom: vwGrammar startNotion).
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
 		collect: [ :each | 
