@@ -51,6 +51,11 @@ AWHypernotion >> = anObject [
 ]
 
 { #category : #enumerating }
+AWHypernotion >> collect: aBlock [
+	^ self class withAll: (notions collect: aBlock)
+]
+
+{ #category : #enumerating }
 AWHypernotion >> do: aBlock [ 
 	notions do: aBlock 
 ]

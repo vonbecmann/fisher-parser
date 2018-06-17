@@ -77,21 +77,28 @@ AVWGrammarBuilder >> buildHyperRulesWith: hypeRuleCollection and: metanotionSet 
 	hypeRuleCollection
 		collect: [ :each | 
 			AWHyperRule
-				head: (self buildHypernotionWith: each head and: metanotionSet)
-				body: (each body collect: [ :hypernotion | self buildHypernotionWith: hypernotion and: metanotionSet ]) ]
+				head:
+					(each head
+						collect: [ :notion | 
+							notion isMetanotion
+								ifTrue: [ 
+									metanotionSet
+										like: notion
+										ifAbsent: [ self unknown: notion in: each head ] ]
+								ifFalse: [ notion ] ])
+				body:
+					(each body
+						collect: [ :hypernotion | 
+							hypernotion
+								collect: [ :notion | 
+									notion isMetanotion
+										ifTrue: [ 
+											metanotionSet
+												like: notion
+												ifAbsent: [ self unknown: notion in: hypernotion ] ]
+										ifFalse: [ notion ] ] ]) ]
 		thenDo: [ :hyperRule | hyperRuleSet add: hyperRule ].
 	^ hyperRuleSet
-]
-
-{ #category : #private }
-AVWGrammarBuilder >> buildHypernotionWith: hn and: metanotionSet [
-	^ AWHypernotion
-		withAll:
-			(hn notions
-				collect: [ :notion | 
-					notion isMetanotion
-						ifTrue: [ metanotionSet like: notion ifAbsent: [ self unknown: notion in: hn ] ]
-						ifFalse: [ notion ] ])
 ]
 
 { #category : #private }
@@ -103,13 +110,11 @@ AVWGrammarBuilder >> buildMetaRulesWithAll: metaRuleCollection and: metanotionSe
 			AWMetaProductionRule
 				head: (metanotionSet like: each head)
 				body:
-					(AWHypernotion
-						withAll:
-							(each body notions
-								collect: [ :notion | 
-									notion isMetanotion
-										ifTrue: [ metanotionSet like: notion ifAbsent: [ self unknown: notion in: each ] ]
-										ifFalse: [ notion ] ])) ]
+					(each body
+						collect: [ :notion | 
+							notion isMetanotion
+								ifTrue: [ metanotionSet like: notion ifAbsent: [ self unknown: notion in: each ] ]
+								ifFalse: [ notion ] ]) ]
 		thenDo: [ :metaRule | metaRuleSet add: metaRule ].
 	^ metaRuleSet
 ]
