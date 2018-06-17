@@ -188,6 +188,11 @@ AFHypernotion >> notions [
 	^ notions
 ]
 
+{ #category : #testing }
+AFHypernotion >> occurrencesOf: aNotion [ 
+	^ notions occurrencesOf: aNotion 
+]
+
 { #category : #printing }
 AFHypernotion >> printOn: aStream [
 	notions 

@@ -77,6 +77,26 @@ AFHyperRuleTest >> testIsEpsilon [
 	self assert: hyperRule isEpsilon
 ]
 
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsLeftBound [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('i' #LETTER 's') asNotions
+			body: {(AFHypernotion withAll: #('i' #LETTER 's') asNotions)}.
+			
+	self assert: hyperRule isLeftBound
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsLeftBound02 [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #(#TALLY #LETTER 's') asNotions
+			body: {(AFHypernotion withAll: #('i' #LETTER 's') asNotions)}.
+			
+	self deny: hyperRule isLeftBound
+]
+
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation [
 	hyperRule := 
@@ -119,4 +139,26 @@ AFHyperRuleTest >> testIsRepresentation05 [
 		body: {(AFHypernotion with: (NCTerminal character: $a))}.
 		
 	self deny: hyperRule isRepresentation
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsRightBound [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('i' #LETTER 's') asNotions
+			body: {(AFHypernotion withAll: #('i' #LETTER 's') asNotions)}.
+
+	self assert: hyperRule isRightBound
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsRightBound02 [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('i' #LETTER 's') asNotions
+			body:
+				{(AFHypernotion withAll: #('i' #LETTER 's') asNotions).
+				(AFHypernotion with: (AWMetanotion named: 'TALLY'))}.
+
+	self deny: hyperRule isRightBound
 ]

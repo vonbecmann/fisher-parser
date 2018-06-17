@@ -67,6 +67,14 @@ AFHyperRule >> body [
 	^ body
 ]
 
+{ #category : #private }
+AFHyperRule >> bodyOccurrencesOf: aNotion [
+	| tally |
+	tally := 0.
+	body do: [ :hn | tally := tally + (hn occurrencesOf: aNotion) ].
+	^ tally
+]
+
 { #category : #accessing }
 AFHyperRule >> dotAtBeginning [
 	^ AFDottedHyperRule atTheBeginningOf: self
@@ -103,10 +111,46 @@ AFHyperRule >> isEpsilon [
 ]
 
 { #category : #testing }
+AFHyperRule >> isLeftBound [
+	" left-bound if for all M in metanotions:
+		((head occurrencesOf: M) ~= 0) implies that ((body occurrencesOf: M) ~= 0) "
+
+	| metanotions |
+	metanotions := Set new.
+	metanotions addAll: head metanotions.
+	body do: [ :hn | metanotions addAll: hn metanotions ].
+	metanotions
+		do: [ :m | 
+			(head occurrencesOf: m) ~= 0
+				ifTrue: [ 
+					(self bodyOccurrencesOf: m) ~= 0
+						ifFalse: [ ^ false ] ] ].
+	^ true
+]
+
+{ #category : #testing }
 AFHyperRule >> isRepresentation [
 	"head is metanotion free and the body is a terminal"
 
 	^ head isProtonotion and: [ body size = 1 and: [ body first isTerminal ] ]
+]
+
+{ #category : #testing }
+AFHyperRule >> isRightBound [
+	" right-bound if for all M in metanotions:
+		((body occurrencesOf: M) ~= 0) implies that ((head occurrencesOf: M) ~= 0) "
+
+	| metanotions |
+	metanotions := Set new.
+	metanotions addAll: head metanotions.
+	body do: [ :hn | metanotions addAll: hn metanotions ].
+	metanotions
+		do: [ :m | 
+			(self bodyOccurrencesOf: m) ~= 0
+				ifTrue: [ 
+					(head occurrencesOf: m) ~= 0
+						ifFalse: [ ^ false ] ] ].
+	^ true
 ]
 
 { #category : #printing }
