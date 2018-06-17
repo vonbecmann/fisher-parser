@@ -104,7 +104,12 @@ AWHypernotion >> isTerminal [
 
 { #category : #accessing }
 AWHypernotion >> metanotions [
-	^ notions select: [ :each | each isMetanotion ]
+	| metanotions |
+	metanotions := Set new.
+	notions 
+		select: [ :each | each isMetanotion ] 
+		thenDo: [ :each | metanotions add: each ].
+	^ metanotions
 ]
 
 { #category : #accessing }
@@ -126,5 +131,10 @@ AWHypernotion >> printString [
 
 { #category : #accessing }
 AWHypernotion >> protonotions [
-	^ notions select: [ :each | each isProtonotion ]
+	| protonotions |
+	protonotions := Set new.
+	notions 
+		select: [ :each | each isProtonotion ] 
+		thenDo: [ :each | protonotions add: each ].
+	^ protonotions
 ]
