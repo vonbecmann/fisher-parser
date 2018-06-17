@@ -49,7 +49,7 @@ AFDottedItemTest >> testAsString03 [
 	item := 
 	(AFHyperRule 
 		headWithAll: #(#NOTION 'option') asNotions
-		body: {AFHypernotion with: #NOTION asNotion}) 
+		bodyWith: (AFHypernotion with: #NOTION asNotion)) 
 					dotAtBeginning startAt: first endAt: third.
 	
 	self 
@@ -65,7 +65,7 @@ AFDottedItemTest >> testAsString04 [
 	item := 
 	(AFHyperRule 
 		headWithAll: #(#NOTION 'option') asNotions
-		body: {AFHypernotion with: #NOTION asNotion}) 
+		bodyWith: (AFHypernotion with: #NOTION asNotion)) 
 					dotAtEnd startAt: first endAt: third.
 	
 	self 
@@ -81,12 +81,12 @@ AFDottedItemTest >> testEqual [
 	one := 
 	(AFHyperRule 
 		headWithAll: #(#NOTION 'option') asNotions
-		body: {AFHypernotion with: #NOTION asNotion}) 
+		bodyWith: (AFHypernotion with: #NOTION asNotion)) 
 					dotAtEnd startAt: first endAt: third.
 	another := 
 		(AFHyperRule 
-			head: (AFHypernotion withAll: #(#NOTION 'option') asNotions) 
-			body: {AFHypernotion with: #NOTION asNotion}) 
+			headWithAll: #(#NOTION 'option') asNotions
+			bodyWith: (AFHypernotion with: #NOTION asNotion)) 
 						dotAtEnd startAt: first endAt: third.
 		
 	self deny: one == another.
@@ -104,7 +104,8 @@ AFDottedItemTest >> testEqual02 [
 	one := 
 	(AFHyperRule 
 		headWithAll: #(#NOTION 'option') asNotions 
-		body: {AFHypernotion with: #NOTION asNotion}) dotAtEnd startAt: first endAt: third.
+		bodyWith: (AFHypernotion with: #NOTION asNotion)) 
+			dotAtEnd startAt: first endAt: third.
 	another := one.
 		
 	self assert: one == another.
