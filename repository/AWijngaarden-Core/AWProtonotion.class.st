@@ -69,6 +69,8 @@ AWProtonotion >> isTerminal [
 
 { #category : #accessing }
 AWProtonotion >> letters [
+	"ortholetters (alphabet): letters used"
+
 	^ Set new
 		addAll: smallSyntacticMarks;
 		yourself

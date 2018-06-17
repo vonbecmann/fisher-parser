@@ -76,9 +76,7 @@ AFVWGrammar >> hypernotions [
 
 { #category : #initialization }
 AFVWGrammar >> initialize [
-	super initialize.
-	ortholetters := Set new.
-
+	ortholetters := Set new
 ]
 
 { #category : #initialization }
@@ -89,7 +87,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	startNotion := (AFHypernotion with: (AWProtonotion with: '((start))'))
 		belongsTo: self;
 		yourself.
-	startNotion protonotions do: [ :protonotion | ortholetters addAll: protonotion letters ].
+	ortholetters addAll: startNotion ortholetters.
 	ortholetters addAll: vwGrammar ortholetters.
 	matcherCreator := AFMatcherCreator
 		metaRules: vwGrammar metaRules
