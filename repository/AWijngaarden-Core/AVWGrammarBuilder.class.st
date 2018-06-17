@@ -37,24 +37,22 @@ AVWGrammarBuilder >> build [
 	metaRuleSet := self buildMetaRulesWithAll: metaRules and: metanotions.
 	metaRuleSet
 		do: [ :metaRule | 
-			protonotions addAll: metaRule body protonotions.
+			protonotions addAll: metaRule protonotions.
 			hypernotions add: metaRule body.
 			index at: metaRule put: (lineup indexOf: metaRule) ].
 	hyperRuleSet := self buildHyperRulesWith: hyperRules and: metanotions.
 	hyperRuleSet
 		do: [ :hyperRule | 
-			protonotions addAll: hyperRule head protonotions.
-			hypernotions add: hyperRule head.
-			hyperRule body 
-				do: [ :each | 
-					protonotions addAll: each protonotions.
-					hypernotions add: each ].
+			protonotions addAll: hyperRule protonotions.
+			hypernotions 
+				add: hyperRule head;
+				addAll: hyperRule body.
 			index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	representationSet := Set withAll: representations.
 	representationSet
 		do: [ :hyperRule | 
 			self assert: hyperRule isRepresentation.
-			protonotions addAll: hyperRule head protonotions.
+			protonotions addAll: hyperRule protonotions.
 			hypernotions
 				add: hyperRule head;
 				addAll: hyperRule body.

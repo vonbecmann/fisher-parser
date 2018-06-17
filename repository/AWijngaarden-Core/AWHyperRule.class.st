@@ -102,3 +102,12 @@ AWHyperRule >> printOn: aStream [
 AWHyperRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
+
+{ #category : #accessing }
+AWHyperRule >> protonotions [
+	| protonotions |
+	protonotions := Set new.
+	protonotions addAll: head protonotions.
+	body do: [ :each | protonotions addAll: each protonotions ].
+	^ protonotions
+]

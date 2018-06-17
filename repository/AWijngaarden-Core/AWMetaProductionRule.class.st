@@ -86,3 +86,8 @@ AWMetaProductionRule >> printOn: aStream [
 AWMetaProductionRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
+
+{ #category : #accessing }
+AWMetaProductionRule >> protonotions [
+	^ body protonotions
+]
