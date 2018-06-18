@@ -3,7 +3,7 @@ test3 grammar
 "
 Class {
 	#name : #AFTest3GrammarTest,
-	#superclass : #TestCase,
+	#superclass : #AFGrammarTest,
 	#instVars : [
 		'grammar'
 	],
@@ -13,7 +13,7 @@ Class {
 { #category : #running }
 AFTest3GrammarTest >> setUp [
 	super setUp.
-	grammar := AFExemplar test3
+	grammar := self examples test3
 ]
 
 { #category : #tests }
