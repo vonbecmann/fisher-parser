@@ -10,37 +10,38 @@ Class {
 	#category : #'FisherParser-Tests-Grammar'
 }
 
-{ #category : #initialization }
+{ #category : #running }
 AFAnBnGrammarTest >> setUp [
+	super setUp.
 	grammar := AFExemplar anbn
 ]
 
-{ #category : #initialization }
+{ #category : #tests }
 AFAnBnGrammarTest >> testAcceptsA2B2 [
 	self assert: (grammar accepts: 'aabb')
 ]
 
-{ #category : #initialization }
+{ #category : #tests }
 AFAnBnGrammarTest >> testAcceptsA3B3 [
 	self assert: (grammar accepts: 'aaabbb')
 ]
 
-{ #category : #initialization }
+{ #category : #tests }
 AFAnBnGrammarTest >> testAcceptsAB [
 	self assert: (grammar accepts: 'ab')
 ]
 
-{ #category : #initialization }
+{ #category : #tests }
 AFAnBnGrammarTest >> testAcceptsAC [
 	self deny: (grammar accepts: 'ac')
 ]
 
-{ #category : #initialization }
+{ #category : #tests }
 AFAnBnGrammarTest >> testAcceptsBC [
 	self deny: (grammar accepts: 'bc')
 ]
 
-{ #category : #initialization }
+{ #category : #tests }
 AFAnBnGrammarTest >> testAcceptsEpsilon [
 	self deny: (grammar accepts: '')
 ]

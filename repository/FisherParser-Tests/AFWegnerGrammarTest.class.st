@@ -10,8 +10,9 @@ Class {
 	#category : #'FisherParser-Tests-Grammar'
 }
 
-{ #category : #initialization }
+{ #category : #running }
 AFWegnerGrammarTest >> setUp [
+	super setUp.
 	grammar := AFExemplar wegner
 ]
 

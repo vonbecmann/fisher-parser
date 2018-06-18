@@ -10,8 +10,9 @@ Class {
 	#category : #'FisherParser-Tests-Grammar'
 }
 
-{ #category : #initialization }
+{ #category : #running }
 AFTest3GrammarTest >> setUp [
+	super setUp.
 	grammar := AFExemplar test3
 ]
 

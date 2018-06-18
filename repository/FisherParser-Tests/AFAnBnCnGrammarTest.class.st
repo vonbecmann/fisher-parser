@@ -11,8 +11,9 @@ Class {
 	#category : #'FisherParser-Tests-Grammar'
 }
 
-{ #category : #initialization }
+{ #category : #running }
 AFAnBnCnGrammarTest >> setUp [
+	super setUp.
 	grammar := AFExemplar anbncn
 ]
 

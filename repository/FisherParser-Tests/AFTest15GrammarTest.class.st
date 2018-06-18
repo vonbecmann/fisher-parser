@@ -10,12 +10,13 @@ Class {
 	#category : #'FisherParser-Tests-Grammar'
 }
 
-{ #category : #initialization }
+{ #category : #running }
 AFTest15GrammarTest >> setUp [
+	super setUp.
 	grammar := AFExemplar test15
 ]
 
-{ #category : #initialization }
+{ #category : #tests }
 AFTest15GrammarTest >> testAcceptsX [
 	self deny: (grammar accepts: 'x')
 ]

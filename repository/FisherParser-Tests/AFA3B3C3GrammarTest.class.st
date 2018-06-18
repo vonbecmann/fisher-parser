@@ -13,6 +13,7 @@ Class {
 
 { #category : #running }
 AFA3B3C3GrammarTest >> setUp [
+	super setUp.
 	grammar := AFExemplar a3b3c3
 ]
 
