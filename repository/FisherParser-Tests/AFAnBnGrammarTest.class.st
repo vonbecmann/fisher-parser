@@ -3,7 +3,7 @@ an bn grammar
 "
 Class {
 	#name : #AFAnBnGrammarTest,
-	#superclass : #TestCase,
+	#superclass : #AFGrammarTest,
 	#instVars : [
 		'grammar'
 	],
@@ -13,7 +13,7 @@ Class {
 { #category : #running }
 AFAnBnGrammarTest >> setUp [
 	super setUp.
-	grammar := AFExemplar anbn
+	grammar := self examples anbn
 ]
 
 { #category : #tests }
