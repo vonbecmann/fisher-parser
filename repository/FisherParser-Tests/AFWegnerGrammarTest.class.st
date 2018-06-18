@@ -4,9 +4,6 @@ wegner grammar.
 Class {
 	#name : #AFWegnerGrammarTest,
 	#superclass : #AFGrammarTest,
-	#instVars : [
-		'grammar'
-	],
 	#category : #'FisherParser-Tests-Grammar'
 }
 

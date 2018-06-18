@@ -4,9 +4,6 @@ star sequence grammar
 Class {
 	#name : #AFStarSequenceGrammarTest,
 	#superclass : #AFGrammarTest,
-	#instVars : [
-		'grammar'
-	],
 	#category : #'FisherParser-Tests-Grammar'
 }
 

@@ -5,9 +5,6 @@ an bn cn grammar.
 Class {
 	#name : #AFAnBnCnGrammarTest,
 	#superclass : #AFGrammarTest,
-	#instVars : [
-		'grammar'
-	],
 	#category : #'FisherParser-Tests-Grammar'
 }
 

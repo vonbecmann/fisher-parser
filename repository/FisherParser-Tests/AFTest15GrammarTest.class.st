@@ -4,9 +4,6 @@ test15 grammar
 Class {
 	#name : #AFTest15GrammarTest,
 	#superclass : #AFGrammarTest,
-	#instVars : [
-		'grammar'
-	],
 	#category : #'FisherParser-Tests-Grammar'
 }
 

@@ -5,6 +5,9 @@ base class for grammar testing.
 Class {
 	#name : #AFGrammarTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'grammar'
+	],
 	#category : #'FisherParser-Tests-Grammar'
 }
 
@@ -24,4 +27,10 @@ AFGrammarTest class >> resources [
 { #category : #accessing }
 AFGrammarTest >> examples [
 	^ AFExemplarResource current
+]
+
+{ #category : #running }
+AFGrammarTest >> tearDown [
+	grammar := nil.
+	super tearDown
 ]
