@@ -4,7 +4,7 @@ an bn cn grammar.
 "
 Class {
 	#name : #AFAnBnCnGrammarTest,
-	#superclass : #TestCase,
+	#superclass : #AFGrammarTest,
 	#instVars : [
 		'grammar'
 	],
@@ -14,7 +14,7 @@ Class {
 { #category : #running }
 AFAnBnCnGrammarTest >> setUp [
 	super setUp.
-	grammar := AFExemplar anbncn
+	grammar := self examples anbncn
 ]
 
 { #category : #tests }
