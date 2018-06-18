@@ -4,7 +4,7 @@ test4 grammar tests.
 "
 Class {
 	#name : #AFTest4GrammarTest,
-	#superclass : #TestCase,
+	#superclass : #AFGrammarTest,
 	#instVars : [
 		'grammar'
 	],
@@ -14,7 +14,7 @@ Class {
 { #category : #running }
 AFTest4GrammarTest >> setUp [
 	super setUp.
-	grammar := AFExemplar test4
+	grammar := self examples test4
 ]
 
 { #category : #tests }
