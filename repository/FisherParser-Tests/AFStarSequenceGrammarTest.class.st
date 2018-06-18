@@ -3,7 +3,7 @@ star sequence grammar
 "
 Class {
 	#name : #AFStarSequenceGrammarTest,
-	#superclass : #TestCase,
+	#superclass : #AFGrammarTest,
 	#instVars : [
 		'grammar'
 	],
@@ -13,7 +13,7 @@ Class {
 { #category : #running }
 AFStarSequenceGrammarTest >> setUp [
 	super setUp.
-	grammar := AFExemplar starSequence
+	grammar := self examples starSequence
 ]
 
 { #category : #tests }

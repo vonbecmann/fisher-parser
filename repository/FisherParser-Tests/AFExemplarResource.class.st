@@ -5,7 +5,8 @@ Class {
 	#name : #AFExemplarResource,
 	#superclass : #TestResource,
 	#instVars : [
-		'a3b3c3'
+		'a3b3c3',
+		'starSequence'
 	],
 	#category : #'FisherParser-Tests-Grammar'
 }
@@ -18,13 +19,19 @@ AFExemplarResource >> a3b3c3 [
 { #category : #running }
 AFExemplarResource >> setUp [
 	super setUp.
-	a3b3c3 := AFExemplar a3b3c3
+	a3b3c3 := AFExemplar a3b3c3.
+	starSequence := AFExemplar starSequence
+]
+
+{ #category : #accessing }
+AFExemplarResource >> starSequence [
+	^ starSequence
 ]
 
 { #category : #running }
 AFExemplarResource >> tearDown [
 	"Does nothing. Subclasses should override this to tear down their resource"
 
-	a3b3c3 := nil.
+	a3b3c3 := starSequence := nil.
 	super tearDown
 ]
