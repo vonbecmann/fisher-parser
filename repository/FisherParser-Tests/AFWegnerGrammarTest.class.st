@@ -3,7 +3,7 @@ wegner grammar.
 "
 Class {
 	#name : #AFWegnerGrammarTest,
-	#superclass : #TestCase,
+	#superclass : #AFGrammarTest,
 	#instVars : [
 		'grammar'
 	],
@@ -13,7 +13,7 @@ Class {
 { #category : #running }
 AFWegnerGrammarTest >> setUp [
 	super setUp.
-	grammar := AFExemplar wegner
+	grammar := self examples wegner
 ]
 
 { #category : #tests }
