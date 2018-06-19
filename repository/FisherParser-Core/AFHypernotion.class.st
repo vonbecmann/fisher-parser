@@ -100,11 +100,6 @@ AFHypernotion >> do: aBlock [
 	notions do: aBlock 
 ]
 
-{ #category : #accessing }
-AFHypernotion >> first [
-	^ notions first
-]
-
 { #category : #'inspector extensions' }
 AFHypernotion >> gtInspectorNotionsIn: composite [
 	<gtInspectorPresentationOrder: 0>
