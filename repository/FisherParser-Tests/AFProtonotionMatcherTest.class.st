@@ -4,7 +4,7 @@ a protonotion matcher.
 "
 Class {
 	#name : #AFProtonotionMatcherTest,
-	#superclass : #TestCase,
+	#superclass : #AFMatcherTest,
 	#category : #'FisherParser-Tests-MetaMatching'
 }
 
@@ -13,7 +13,7 @@ AFProtonotionMatcherTest >> testMatch [
 	| protonotion substitution |
 	protonotion := 
 		AFHypernotion
-			belongsTo: AFExemplar test3
+			belongsTo: self examples test3
 			withAll: #('h' 'symbol') asNotions.
 
 	substitution := protonotion match: (AFHypernotion with: (AWProtonotion with: 'hsymbol')).
@@ -27,7 +27,7 @@ AFProtonotionMatcherTest >> testMatch02 [
 	| protonotion substitution |
 	protonotion := 
 		AFHypernotion
-			belongsTo: AFExemplar test3
+			belongsTo: self examples test3
 			withAll: #('h' 'symbol') asNotions.
 
 	substitution := protonotion match: (AFHypernotion with: (AWProtonotion with: 'program')).
@@ -41,7 +41,7 @@ AFProtonotionMatcherTest >> testMatch03 [
 	| protonotion substitution |
 	protonotion := 
 		AFHypernotion
-			belongsTo: AFExemplar test3
+			belongsTo: self examples test3
 			withAll: #('h' 'symbol') asNotions.
 
 	substitution := 

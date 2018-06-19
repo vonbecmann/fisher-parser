@@ -1,6 +1,6 @@
 Class {
 	#name : #AFHypernotionMatcherTest,
-	#superclass : #TestCase,
+	#superclass : #AFMatcherTest,
 	#category : #'FisherParser-Tests-MetaMatching'
 }
 
@@ -9,7 +9,7 @@ AFHypernotionMatcherTest >> testMatch [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
-			belongsTo: AFExemplar test3
+			belongsTo: self examples test3
 			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 
 	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<h>is<i>')).
@@ -22,7 +22,7 @@ AFHypernotionMatcherTest >> testMatch02 [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
-			belongsTo: AFExemplar test3
+			belongsTo: self examples test3
 			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 
 	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<hij>is<hij>')).
@@ -38,7 +38,7 @@ AFHypernotionMatcherTest >> testMatch03 [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
-			belongsTo: AFExemplar test3
+			belongsTo: self examples test3
 			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 	
 	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<j>is<h>')).
@@ -51,7 +51,7 @@ AFHypernotionMatcherTest >> testMatch04 [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
-			belongsTo: AFExemplar test3
+			belongsTo: self examples test3
 			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 
 	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<j>is<j>')).
