@@ -9,7 +9,9 @@ and builds a grammar with
 	- and the metagramar (nonterminals, terminals, meta rules)	
 and starts at the hypernotion
 
-using jay earley parser
+using jay earley parser.
+Definition 12. Let M, V, Rm be defined as for two-level grammars(Definition 1). A hypernotion system HS is a 4-tuple (M, V, Rm, H), where H in (M u V)+, the hypernotion (axiom).
+
 "
 Class {
 	#name : #AFJEMetaGrammar,
@@ -46,8 +48,7 @@ AFJEMetaGrammar >> buildBodyOf: aHypernotion [
 
 { #category : #initialization }
 AFJEMetaGrammar >> initialize [
-	super initialize.
-	startSymbol := NCNonterminal named: 'start-hypernotion'.
+	startSymbol := NCNonterminal named: 'hypernotion-axiom'.
 	nonterminals := Set new.
 	terminals := Set new.
 	metaProductionRules := SinglyLinkedList new
