@@ -5,6 +5,8 @@ hypernotion - to be used
 grammar - the hypernotion's grammar.
 
 use jay earley parser as a pattern matching algorithm.
+the hypernotion system is uniquely assignable (u.a.) [wegner]
+
 
 "
 Class {
