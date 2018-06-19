@@ -174,6 +174,34 @@ AFHypernotionTest >> testMetanotions02 [
 ]
 
 { #category : #tests }
+AFHypernotionTest >> testOccurrencesOfMetanotion [
+	| hn |
+	hn := AFHypernotion
+		withAll:
+			{(AWMetanotion named: 'TALLY').
+			(AWMetanotion named: 'LETTER').
+			(AWMetanotion named: 'LETTER').
+			(AWProtonotion with: 's')}.
+	self 
+		assert: (hn occurrencesOf: (AWMetanotion named: 'LETTER')) 
+		equals: 2
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testOccurrencesOfProtonotion [
+	| hn |
+	hn := AFHypernotion
+		withAll:
+			{(AWProtonotion with: 'letter').
+			(AWProtonotion with: 'letter').
+			(AWProtonotion with: 'a').
+			(AWProtonotion with: 'symbol')}.
+	self 
+		assert: (hn occurrencesOf: (AWProtonotion with: 'letter')) 
+		equals: 2
+]
+
+{ #category : #tests }
 AFHypernotionTest >> testProtonotions [
 	| hn |
 	hn := AFHypernotion
