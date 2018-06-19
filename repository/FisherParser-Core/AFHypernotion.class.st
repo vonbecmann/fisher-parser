@@ -168,9 +168,9 @@ AFHypernotion >> isTerminal [
 ]
 
 { #category : #matching }
-AFHypernotion >> match: aHypernotion [
+AFHypernotion >> match: aProtonotionHypernotion [
 	matcher ifNil: [ matcher := vwGrammar createMatcherFor: self ].
-	^ matcher match: aHypernotion
+	^ matcher match: aProtonotionHypernotion
 ]
 
 { #category : #matching }
