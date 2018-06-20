@@ -77,7 +77,7 @@ AFHyperRuleTest >> testIsEpsilon [
 	self assert: hyperRule isEpsilon
 ]
 
-{ #category : #tests }
+{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsLeftBound [
 	hyperRule := 
 		AFHyperRule
@@ -87,13 +87,33 @@ AFHyperRuleTest >> testIsLeftBound [
 	self assert: hyperRule isLeftBound
 ]
 
-{ #category : #tests }
+{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsLeftBound02 [
 	hyperRule := 
 		AFHyperRule
 			headWithAll: #(#TALLY #LETTER 's') asNotions
 			bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
 			
+	self deny: hyperRule isLeftBound
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsLeftBound03 [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('a' 's') asNotions
+			bodyWith: (AFHypernotion withAll: #('letter' 'a' 'symbol') asNotions).
+			
+	self deny: hyperRule isLeftBound
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsLeftBound04 [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('letter' 'a' 'symbol') asNotions
+			bodyWith: (AFHypernotion with: (NCTerminal character: $a)).
+		
 	self deny: hyperRule isLeftBound
 ]
 
@@ -141,7 +161,7 @@ AFHyperRuleTest >> testIsRepresentation05 [
 	self deny: hyperRule isRepresentation
 ]
 
-{ #category : #tests }
+{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsRightBound [
 	hyperRule := 
 		AFHyperRule
@@ -160,5 +180,25 @@ AFHyperRuleTest >> testIsRightBound02 [
 				{(AFHypernotion withAll: #('i' #LETTER 's') asNotions).
 				(AFHypernotion with: (AWMetanotion named: 'TALLY'))}.
 
+	self deny: hyperRule isRightBound
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsRightBound03 [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('a' 's') asNotions
+			bodyWith: (AFHypernotion withAll: #('letter' 'a' 'symbol') asNotions).
+			
+	self deny: hyperRule isRightBound
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsRightBound04 [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('letter' 'a' 'symbol') asNotions
+			bodyWith: (AFHypernotion with: (NCTerminal character: $a)).
+			
 	self deny: hyperRule isRightBound
 ]

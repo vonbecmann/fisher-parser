@@ -140,13 +140,15 @@ AFHyperRule >> isLeftBound [
 	metanotions := Set new.
 	metanotions addAll: head metanotions.
 	body do: [ :hn | metanotions addAll: hn metanotions ].
-	metanotions
-		do: [ :m | 
-			(head occurrencesOf: m) ~= 0
-				ifTrue: [ 
-					(self bodyOccurrencesOf: m) ~= 0
-						ifFalse: [ ^ false ] ] ].
-	^ true
+	^ metanotions isEmpty
+		ifTrue: [ false ]
+		ifFalse: [ 
+			metanotions
+				do: [ :m | 
+					(head occurrencesOf: m) ~= 0
+						ifTrue: [ (self bodyOccurrencesOf: m) ~= 0
+								ifFalse: [ ^ false ] ] ].
+			true ]
 ]
 
 { #category : #testing }
@@ -165,13 +167,15 @@ AFHyperRule >> isRightBound [
 	metanotions := Set new.
 	metanotions addAll: head metanotions.
 	body do: [ :hn | metanotions addAll: hn metanotions ].
-	metanotions
-		do: [ :m | 
-			(self bodyOccurrencesOf: m) ~= 0
-				ifTrue: [ 
-					(head occurrencesOf: m) ~= 0
-						ifFalse: [ ^ false ] ] ].
-	^ true
+	^ metanotions isEmpty
+		ifTrue: [ false ]
+		ifFalse: [ 
+			metanotions
+				do: [ :m | 
+					(self bodyOccurrencesOf: m) ~= 0
+						ifTrue: [ (head occurrencesOf: m) ~= 0
+								ifFalse: [ ^ false ] ] ].
+			true ]
 ]
 
 { #category : #printing }
