@@ -60,16 +60,18 @@ AFVWGrammar >> checkBoundness [
 	alternatives
 		do: [ :hrule | 
 			hrule isXBound
-				ifTrue: [ self
-						error:
+				ifTrue: [ 
+					Warning signal:
 							(String
 								streamContents: [ :s | 
 									s
 										nextPutAll: 'R2. The hypersyntax must not contain any type X rules.';
 										nextPutAll: ' A hyper rule is of type X ';
 										nextPutAll: 'iif it is neither left-bound nor right-bound.';
-										nextPutAll: ' This hyper rule ';
+										nextPutAll: ' This hyper rule'; 
+										crlf;
 										print: hrule;
+										crlf;
 										nextPutAll: ' is of type X.' ]) ] ]
 ]
 
