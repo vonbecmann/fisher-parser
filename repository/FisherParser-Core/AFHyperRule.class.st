@@ -131,7 +131,7 @@ AFHyperRule >> isEpsilon [
 	^ body isEmpty
 ]
 
-{ #category : #testing }
+{ #category : #'testing - boundness' }
 AFHyperRule >> isLeftBound [
 	" left-bound if for all M in metanotions:
 		((head occurrencesOf: M) ~= 0) implies that ((body occurrencesOf: M) ~= 0) "
@@ -158,7 +158,7 @@ AFHyperRule >> isRepresentation [
 	^ head isProtonotion and: [ body size = 1 and: [ body first isTerminal ] ]
 ]
 
-{ #category : #testing }
+{ #category : #'testing - boundness' }
 AFHyperRule >> isRightBound [
 	" right-bound if for all M in metanotions:
 		((body occurrencesOf: M) ~= 0) implies that ((head occurrencesOf: M) ~= 0) "
@@ -195,11 +195,11 @@ AFHyperRule >> isStrict [
 	^ metanotions isEmpty
 ]
 
-{ #category : #testing }
+{ #category : #'testing - boundness' }
 AFHyperRule >> isXBound [
 	" A hyper rule is of type X iif it is neither left-bound nor right-bound. "
 
-	^ self isStrict not and: [ self isLeftBound not and: [ self isRightBound not ] ]
+	^ self isLeftBound not and: [ self isRightBound not ]
 ]
 
 { #category : #printing }

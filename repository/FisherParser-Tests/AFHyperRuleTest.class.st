@@ -222,3 +222,13 @@ AFHyperRuleTest >> testIsStrict02 [
 			
 	self assert: hyperRule isStrict
 ]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsXBound [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('where' '<' NOTION '>' 'is' '<' NOTION '>') asNotions
+			bodyWith: (AFHypernotion with: #EMPTY asNotion).
+			
+	self assert: hyperRule isXBound
+]
