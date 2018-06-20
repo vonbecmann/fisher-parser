@@ -132,6 +132,20 @@ AFHyperRule >> isEpsilon [
 ]
 
 { #category : #'testing - boundness' }
+AFHyperRule >> isLRType [
+	" A hyper rule is of the type LR iif it is both left-bound and right-bound. "
+
+	^ self isLeftBound and: [ self isRightBound ]
+]
+
+{ #category : #'testing - boundness' }
+AFHyperRule >> isLType [
+	" A hyper rule is of the type L iif it is left-bound but not right-bound. "
+
+	^ self isLeftBound and: [ self isRightBound not ]
+]
+
+{ #category : #'testing - boundness' }
 AFHyperRule >> isLeftBound [
 	" left-bound if for all M in metanotions:
 		((head occurrencesOf: M) ~= 0) implies that ((body occurrencesOf: M) ~= 0) "
@@ -149,6 +163,13 @@ AFHyperRule >> isLeftBound [
 						ifTrue: [ (self bodyOccurrencesOf: m) ~= 0
 								ifFalse: [ ^ false ] ] ].
 			true ]
+]
+
+{ #category : #'testing - boundness' }
+AFHyperRule >> isRType [
+	" A hyper rule is of the type R iif it is right-bound but not left-bound. "
+
+	^ self isRightBound and: [ self isLeftBound not ]
 ]
 
 { #category : #testing }
@@ -196,8 +217,8 @@ AFHyperRule >> isStrict [
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isXBound [
-	" A hyper rule is of type X iif it is neither left-bound nor right-bound. "
+AFHyperRule >> isXType [
+	" A hyper rule is of the type X iif it is neither left-bound nor right-bound. "
 
 	^ self isLeftBound not and: [ self isRightBound not ]
 ]

@@ -59,7 +59,7 @@ AFVWGrammar >> checkBoundness [
 
 	alternatives
 		do: [ :hrule | 
-			(hrule isStrict not and: [ hrule isXBound ])
+			(hrule isStrict not and: [ hrule isXType ])
 				ifTrue: [ 
 					Warning signal:
 							(String
