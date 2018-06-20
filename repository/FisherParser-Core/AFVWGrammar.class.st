@@ -52,6 +52,27 @@ AFVWGrammar >> bottomUpAlternatives [
 	^ bottomUpAlternatives
 ]
 
+{ #category : #initialization }
+AFVWGrammar >> checkBoundness [
+	" R2. The hypersyntax must not contain any type X rules. 
+	A hyper rule is of type X iif it is neither left-bound nor right-bound. "
+
+	alternatives
+		do: [ :hrule | 
+			hrule isXBound
+				ifTrue: [ self
+						error:
+							(String
+								streamContents: [ :s | 
+									s
+										nextPutAll: 'R2. The hypersyntax must not contain any type X rules.';
+										nextPutAll: ' A hyper rule is of type X ';
+										nextPutAll: 'iif it is neither left-bound nor right-bound.';
+										nextPutAll: ' This hyper rule ';
+										print: hrule;
+										nextPutAll: ' is of type X.' ]) ] ]
+]
+
 { #category : #private }
 AFVWGrammar >> createMatcherFor: aHypernotion [ 
 	^ aHypernotion createMatcherUsing: matcherCreator
@@ -105,7 +126,8 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
-		thenCollect: [ :each | each dotAtBeginning ]
+		thenCollect: [ :each | each dotAtBeginning ].
+	self checkBoundness.
 ]
 
 { #category : #accessing }

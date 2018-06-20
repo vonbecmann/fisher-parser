@@ -178,6 +178,30 @@ AFHyperRule >> isRightBound [
 			true ]
 ]
 
+{ #category : #testing }
+AFHyperRule >> isStrict [
+	" if this hyper rule is a production rule that belongs to the strict language.
+	it has 
+	- notions (nonterminals, for which a production rule can be derived)
+	- a symbol (a terminal symbol)
+	- empty, or
+	- some other protonotion (for which no production rule can be derived),
+		which is then said to be a 'blind alley'. "
+
+	| metanotions |
+	metanotions := Set new.
+	metanotions addAll: head metanotions.
+	body do: [ :hn | metanotions addAll: hn metanotions ].
+	^ metanotions isEmpty
+]
+
+{ #category : #testing }
+AFHyperRule >> isXBound [
+	" A hyper rule is of type X iif it is neither left-bound nor right-bound. "
+
+	^ self isStrict not and: [ self isLeftBound not and: [ self isRightBound not ] ]
+]
+
 { #category : #printing }
 AFHyperRule >> printOn: aStream [
 	aStream

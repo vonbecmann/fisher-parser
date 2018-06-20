@@ -202,3 +202,23 @@ AFHyperRuleTest >> testIsRightBound04 [
 			
 	self deny: hyperRule isRightBound
 ]
+
+{ #category : #'tests - strict language' }
+AFHyperRuleTest >> testIsStrict [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('letter' 'a' 'symbol') asNotions
+			bodyWith: (AFHypernotion with: (NCTerminal character: $a)).
+			
+	self assert: hyperRule isStrict
+]
+
+{ #category : #'tests - strict language' }
+AFHyperRuleTest >> testIsStrict02 [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('letter' 'a') asNotions
+			bodyWith: (AFHypernotion withAll: #('letter' 'a' 'symbol') asNotions).
+			
+	self assert: hyperRule isStrict
+]
