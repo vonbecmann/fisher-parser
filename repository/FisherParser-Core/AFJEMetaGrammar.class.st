@@ -47,7 +47,7 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representat
 		do: [ :each | nonterminals add: each head ].
 	terminalNotionToRepresentationList
 		do: [ :assoc | 
-			nonterminals add: (NCNonterminal named: assoc key).
+			nonterminals add: assoc key.
 			terminals add: assoc value ].
 	metaProductionRules
 		addAll:
@@ -61,7 +61,7 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representat
 			(terminalNotionToRepresentationList
 				collect: [ :assoc | 
 					NCProductionRule
-						head: (nonterminals detect: [ :nonterminal | nonterminal named = assoc key ])
+						head: (nonterminals like: assoc key)
 						body: {(terminals like: assoc value)} ]).
 	nonterminals add: startSymbol 
 ]

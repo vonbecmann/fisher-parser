@@ -140,7 +140,8 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	metaGrammar := 
 		(AFJEMetaGrammar
 			metaRules: metaRules 
-			orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ])).
+			orthoRepresentations: 
+				(ortholetters collect: [ :char | ((NCNonterminal named: char) -> (NCTerminal character: char)) ])).
 	startHyperRule := AFHyperRule
 		head: startNotion
 		bodyWith: (AFHypernotion belongsTo: self withAllNotionsFrom: vwGrammar startNotion).
