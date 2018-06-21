@@ -55,11 +55,6 @@ AWHypernotion >> collect: aBlock [
 	^ self class withAll: (notions collect: aBlock)
 ]
 
-{ #category : #enumerating }
-AWHypernotion >> do: aBlock [ 
-	notions do: aBlock 
-]
-
 { #category : #'inspector extensions' }
 AWHypernotion >> gtInspectorNotionsIn: composite [
 	<gtInspectorPresentationOrder: 0>
