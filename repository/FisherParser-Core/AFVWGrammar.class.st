@@ -98,6 +98,11 @@ AFVWGrammar >> hypernotions [
 ]
 
 { #category : #initialization }
+AFVWGrammar >> initialize [
+	metaRules := SinglyLinkedList new
+]
+
+{ #category : #initialization }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	| startNotion ortholetters |
 	self initialize.
@@ -109,7 +114,6 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	ortholetters 
 		addAll: startNotion ortholetters;
 		addAll: vwGrammar ortholetters.
-	metaRules := SinglyLinkedList new.
 	vwGrammar metaRules 
 		collect: [ :each |
 			AWMetaProductionRule 
