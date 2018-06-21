@@ -124,9 +124,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	| startNotion ortholetters |
 	self initialize.
 	vwGrammar := aVWGrammar.
-	startNotion := (AFHypernotion with: (AWProtonotion with: '((start))'))
-		belongsTo: self;
-		yourself.
+	startNotion := AFHypernotion belongsTo: self with: (AWProtonotion with: '((start))').
 	ortholetters := Set new.
 	ortholetters 
 		addAll: startNotion ortholetters;

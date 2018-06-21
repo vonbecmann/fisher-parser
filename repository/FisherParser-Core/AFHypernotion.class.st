@@ -17,11 +17,17 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFHypernotion class >> belongsTo: aVWGrammar withAll: aNotionCollection [
-	^ self basicNew
-		initializeNotions: aNotionCollection;
+AFHypernotion class >> belongsTo: aVWGrammar with: aNotion [
+	^ (self with: aNotion)
 		belongsTo: aVWGrammar;
 		yourself
+]
+
+{ #category : #'instance creation' }
+AFHypernotion class >> belongsTo: aVWGrammar withAll: aNotionCollection [
+	^ (self withAll: aNotionCollection)
+			belongsTo: aVWGrammar;
+			yourself
 ]
 
 { #category : #'instance creation' }
