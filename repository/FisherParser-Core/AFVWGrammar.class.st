@@ -18,7 +18,7 @@ Class {
 		'alternatives',
 		'bottomUpAlternatives',
 		'representationRules',
-		'matcherCreator'
+		'metaGrammar'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -77,8 +77,25 @@ AFVWGrammar >> checkBoundness [
 ]
 
 { #category : #private }
+AFVWGrammar >> createHypernotionMatcherFor: aHypernotion [
+	^ AFHypernotionMatcher 
+			hypernotion: aHypernotion 
+			grammar: (metaGrammar startAt: aHypernotion)
+]
+
+{ #category : #private }
 AFVWGrammar >> createMatcherFor: aHypernotion [ 
-	^ aHypernotion createMatcherUsing: matcherCreator
+	^ aHypernotion createMatcherUsing: self
+]
+
+{ #category : #private }
+AFVWGrammar >> createProtonotionMatcherFor: aProtonotionHypernotion [
+	^ AFProtonotionMatcher protonotion: aProtonotionHypernotion
+]
+
+{ #category : #private }
+AFVWGrammar >> createTerminalMatcherFor: aTerminalHypernotion [
+	^ AFTerminalMatcher terminal: aTerminalHypernotion
 ]
 
 { #category : #'inspector extensions' }
@@ -120,9 +137,10 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 				head: each head
 				body: 	(AFHypernotion belongsTo: self withAllNotionsFrom: each body) ] 
 		thenDo: [ :newRule | metaRules add: newRule ].
-	matcherCreator := AFMatcherCreator
-		metaRules: metaRules
-		orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
+	metaGrammar := 
+		(AFJEMetaGrammar
+			metaRules: metaRules 
+			orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ])).
 	startHyperRule := AFHyperRule
 		head: startNotion
 		bodyWith: (AFHypernotion belongsTo: self withAllNotionsFrom: vwGrammar startNotion).
@@ -131,10 +149,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		collect: [ :each | 
 			AFHyperRule
 				head: (AFHypernotion belongsTo: self withAllNotionsFrom: each head)
-				body:
-					(each body
-						collect: [ :hypernotion | 
-							AFHypernotion belongsTo: self withAllNotionsFrom: hypernotion ]) ]
+				body: 	(each body collect: [ :hypernotion | AFHypernotion belongsTo: self withAllNotionsFrom: hypernotion ]) ]
 		thenDo: [ :newRule | alternatives addLast: newRule ].
 	bottomUpAlternatives := alternatives
 		reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
