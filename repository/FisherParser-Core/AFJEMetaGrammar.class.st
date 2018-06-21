@@ -32,6 +32,18 @@ AFJEMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: ter
 		yourself
 ]
 
+{ #category : #'inspector extensions' }
+AFJEMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite table
+		title: [ 'meta rules' ];
+		display: [ metaProductionRules asArray ];
+		column: 'Production Rule' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		send: [ :each | each value ];
+		showOnly: 50;
+		yourself
+]
+
 { #category : #initialization }
 AFJEMetaGrammar >> initialize [
 	startSymbol := NCNonterminal named: 'hypernotion-axiom'.
