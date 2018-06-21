@@ -34,10 +34,7 @@ AFJEMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: ter
 
 { #category : #private }
 AFJEMetaGrammar >> buildBodyOf: aHypernotion [
-	^ Array
-		streamContents: [ :s | 
-			aHypernotion strictSyntax 
-				do: [ :notion | s nextPut: (nonterminals like: notion) ] ]
+	^ aHypernotion strictSyntax collect: [ :notion | nonterminals like: notion ]
 ]
 
 { #category : #initialization }
