@@ -32,11 +32,6 @@ AFJEMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: ter
 		yourself
 ]
 
-{ #category : #private }
-AFJEMetaGrammar >> buildBodyOf: aHypernotion [
-	^ aHypernotion strictSyntax collect: [ :notion | nonterminals like: notion ]
-]
-
 { #category : #initialization }
 AFJEMetaGrammar >> initialize [
 	startSymbol := NCNonterminal named: 'hypernotion-axiom'.
@@ -60,7 +55,7 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representat
 				collect: [ :each | 
 					NCProductionRule
 						head: (nonterminals like: each head)
-						body: (self buildBodyOf: each body) ]).
+						body: (each body buildBodyOf: nonterminals) ]).
 	metaProductionRules
 		addAll:
 			(terminalNotionToRepresentationList
@@ -77,7 +72,7 @@ AFJEMetaGrammar >> startAt: aHypernotion [
 		and starts at the given hypernotion "
 
 	| startRule |
-	startRule := NCProductionRule head: startSymbol body: (self buildBodyOf: aHypernotion).
+	startRule := NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: nonterminals).
 	^ JEGrammar
 		productionRules:
 			((SinglyLinkedList with: startRule)

@@ -82,6 +82,13 @@ AFHypernotion >> belongsTo: aVWGrammar [
 	
 ]
 
+{ #category : #accessing }
+AFHypernotion >> buildBodyOf: nonterminals [
+	"build body of nonterminals using those given as paramater"
+
+	^ strictSyntax collect: [ :notion | nonterminals like: notion ]
+]
+
 { #category : #initialization }
 AFHypernotion >> createMatcherUsing: aMatcherCreator [
 	^ self isHypernotion
