@@ -258,14 +258,14 @@ AFHypernotionTest >> testStrictSyntax [
 	
 	self 
 		assert: hypernotion strictSyntax
-		equals: 'startnotion'
+		equals: 'startnotion' asArray
 ]
 
 { #category : #tests }
 AFHypernotionTest >> testStrictSyntax02 [
-	hypernotion := AFHypernotion withAll: #(#THREE 'cs') asNotions.
+	hypernotion := AFHypernotion withAll: #(THREE 'cs') asNotions.
 
 	self 
 		assert: hypernotion strictSyntax 
-		equals: 'THREEcs'
+		equals: {(AWMetanotion named: #THREE)}, ('cs' asArray)
 ]

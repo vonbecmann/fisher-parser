@@ -131,11 +131,22 @@ AFHypernotion >> initialize [
 AFHypernotion >> initializeNotions: aNotionCollection [
 	self initialize.
 	notions := aNotionCollection.
-	notions 
+	notions
 		do: [ :each | 
-				each isMetanotion ifTrue: [ metanotions add: each ].
-				each isProtonotion ifTrue: [ protonotions add: each ] ].
-	strictSyntax := String streamContents: [ :s | notions do: [ :each | each printOn: s ] ]
+			each isMetanotion
+				ifTrue: [ metanotions add: each ].
+			each isProtonotion
+				ifTrue: [ protonotions add: each ] ].
+	strictSyntax := Array
+		streamContents: [ :s | 
+			notions
+				do: [ :each | 
+					each isMetanotion
+						ifTrue: [ s nextPut: each ].
+					each isProtonotion
+						ifTrue: [ s nextPutAll: each ].
+					each isTerminal
+						ifTrue: [ s nextPut: each ] ] ]
 ]
 
 { #category : #testing }
