@@ -36,14 +36,8 @@ AFJEMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: ter
 AFJEMetaGrammar >> buildBodyOf: aHypernotion [
 	^ Array
 		streamContents: [ :s | 
-			aHypernotion
-				do: [ :notion | 
-					notion isMetanotion
-						ifTrue: [ 
-							s nextPut: (nonterminals like: notion) ].
-					notion isProtonotion
-						ifTrue: [ 
-							notion do: [ :char | s nextPut: (nonterminals detect: [ :each | each named = char asSymbol ]) ] ] ] ]
+			aHypernotion strictSyntax 
+				do: [ :notion | s nextPut: (nonterminals like: notion) ] ]
 ]
 
 { #category : #initialization }

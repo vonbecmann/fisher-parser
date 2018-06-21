@@ -255,17 +255,41 @@ AFHypernotionTest >> testProtonotions03 [
 { #category : #tests }
 AFHypernotionTest >> testStrictSyntax [
 	hypernotion := AFHypernotion withAll: #('start' 'notion') asNotions.
-	
-	self 
+
+	self
 		assert: hypernotion strictSyntax
-		equals: 'startnotion' asArray
+		equals:
+			(Array
+				streamContents: [ :s | 
+					'startnotion' do: [ :char | s nextPut: (NCNonterminal named: char) ] ])
 ]
 
 { #category : #tests }
 AFHypernotionTest >> testStrictSyntax02 [
 	hypernotion := AFHypernotion withAll: #(THREE 'cs') asNotions.
 
+	self
+		assert: hypernotion strictSyntax
+		equals:
+			{(AWMetanotion named: 'THREE')},
+					(Array streamContents: [ :s | 
+						'cs' do: [ :char | s nextPut: (NCNonterminal named: char) ] ])
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testStrictSyntaxString [
+	hypernotion := AFHypernotion withAll: #('start' 'notion') asNotions.
+
 	self 
-		assert: hypernotion strictSyntax 
-		equals: {(AWMetanotion named: #THREE)}, ('cs' asArray)
+		assert: hypernotion strictSyntaxString 
+		equals: 'startnotion'
+]
+
+{ #category : #tests }
+AFHypernotionTest >> testStrictSyntaxString02 [
+	hypernotion := AFHypernotion withAll: #(THREE 'cs') asNotions.
+
+	self 
+		assert: hypernotion strictSyntaxString 
+		equals: 'THREEcs'
 ]

@@ -36,7 +36,7 @@ AFHypernotionMatcher >> initializeHypernotion: anAFHypernotion grammar: aJEGramm
 AFHypernotionMatcher >> match: aProtonotion [
 	"	a hypernotion match a protonotion, you need the relative substitution. "
 
-	^ [ (grammar parseTree: aProtonotion strictSyntax) substitutionsOf: hypernotion ]
+	^ [ (grammar parseTree: aProtonotion strictSyntaxString) substitutionsOf: hypernotion ]
 		on: JEFailure
 		do: [ AFSubstitution noSolution ]
 ]

@@ -14,6 +14,7 @@ Class {
 	#instVars : [
 		'vwGrammar',
 		'startHyperRule',
+		'metaRules',
 		'alternatives',
 		'bottomUpAlternatives',
 		'representationRules',
@@ -108,8 +109,15 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	ortholetters 
 		addAll: startNotion ortholetters;
 		addAll: vwGrammar ortholetters.
+	metaRules := SinglyLinkedList new.
+	vwGrammar metaRules 
+		collect: [ :each |
+			AWMetaProductionRule 
+				head: each head
+				body: 	(AFHypernotion belongsTo: self withAllNotionsFrom: each body) ] 
+		thenDo: [ :newRule | metaRules add: newRule ].
 	matcherCreator := AFMatcherCreator
-		metaRules: vwGrammar metaRules
+		metaRules: metaRules
 		orthoRepresentations: (ortholetters collect: [ :char | char asSymbol -> (NCTerminal character: char) ]).
 	startHyperRule := AFHyperRule
 		head: startNotion
