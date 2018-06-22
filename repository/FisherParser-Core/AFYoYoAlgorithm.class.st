@@ -31,11 +31,11 @@ AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
 ]
 
 { #category : #private }
-AFYoYoAlgorithm >> bottomUpPredict: aProtonotion at: aColumn [
+AFYoYoAlgorithm >> bottomUpPredict: item at: aColumn [
 	| substitution |
 	grammar bottomUpAlternatives
 		do: [ :hrule | 
-			substitution := hrule body first match: aProtonotion.
+			substitution := hrule body first match: item head.
 			substitution isSolution
 				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
 ]
@@ -68,7 +68,7 @@ AFYoYoAlgorithm >> evaluate: words [
 						ifTrue: [ 
 							item head isProtonotion 
 								ifTrue: 
-									 [ self bottomUpPredict: item head at: item start.
+									 [ self bottomUpPredict: item at: item start.
 									 	self complete: item at: column  ] ]
 						ifFalse: [ 
 							item symbolAtDot isTerminal
