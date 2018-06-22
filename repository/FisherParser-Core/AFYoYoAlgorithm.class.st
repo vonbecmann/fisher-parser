@@ -76,7 +76,7 @@ AFYoYoAlgorithm >> evaluate: words [
 									(i < n and: [ item symbolAtDot match: (words at: i) ])
 										ifTrue: [ (chart at: i + 1) add: item moveDotForward ] ].
 							item symbolAtDot isProtonotion
-								ifTrue: [ self topDownPredict: item symbolAtDot at: column ].
+								ifTrue: [ self topDownPredict: item at: column ].
 							item symbolAtDot isHypernotion 
 								ifTrue: [ self gapScan: item at: column ] ] ] ].
 	^ chart
@@ -105,11 +105,11 @@ AFYoYoAlgorithm >> initializeGrammar: aVWGrammar [
 ]
 
 { #category : #private }
-AFYoYoAlgorithm >> topDownPredict: aProtonotion at: aColumn [
+AFYoYoAlgorithm >> topDownPredict: item at: aColumn [
 	| substitution |
 	grammar alternatives
 		do: [ :hrule | 
-			substitution := hrule head match: aProtonotion.
+			substitution := hrule head match: item symbolAtDot.
 			substitution isSolution
 				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
 ]
