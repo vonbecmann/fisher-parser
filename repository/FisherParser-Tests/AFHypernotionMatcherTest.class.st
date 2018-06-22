@@ -1,7 +1,7 @@
 Class {
 	#name : #AFHypernotionMatcherTest,
 	#superclass : #AFMatcherTest,
-	#category : #'FisherParser-Tests-MetaMatching'
+	#category : #'FisherParser-Tests-Matching'
 }
 
 { #category : #tests }

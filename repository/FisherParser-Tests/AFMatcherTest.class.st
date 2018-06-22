@@ -5,7 +5,7 @@ base class for matcher testing.
 Class {
 	#name : #AFMatcherTest,
 	#superclass : #TestCase,
-	#category : #'FisherParser-Tests-MetaMatching'
+	#category : #'FisherParser-Tests-Matching'
 }
 
 { #category : #testing }

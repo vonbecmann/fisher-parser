@@ -5,7 +5,7 @@ a protonotion matcher.
 Class {
 	#name : #AFProtonotionMatcherTest,
 	#superclass : #AFMatcherTest,
-	#category : #'FisherParser-Tests-MetaMatching'
+	#category : #'FisherParser-Tests-Matching'
 }
 
 { #category : #tests }

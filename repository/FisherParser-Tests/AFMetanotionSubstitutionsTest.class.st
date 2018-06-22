@@ -1,7 +1,11 @@
+"
+metanotion substitutions test.
+
+"
 Class {
 	#name : #AFMetanotionSubstitutionsTest,
 	#superclass : #TestCase,
-	#category : #'FisherParser-Tests-MetaMatching'
+	#category : #'FisherParser-Tests-Matching'
 }
 
 { #category : #tests }
