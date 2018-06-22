@@ -76,24 +76,24 @@ AFVWGrammar >> checkBoundness [
 										nextPutAll: ' is of type X.' ]) ] ]
 ]
 
-{ #category : #private }
+{ #category : #'private - matching' }
 AFVWGrammar >> createHypernotionMatcherFor: aHypernotion [
 	^ AFHypernotionMatcher 
 			hypernotion: aHypernotion 
 			grammar: (metaGrammar startAt: aHypernotion)
 ]
 
-{ #category : #private }
+{ #category : #'private - matching' }
 AFVWGrammar >> createMatcherFor: aHypernotion [ 
 	^ aHypernotion createMatcherUsing: self
 ]
 
-{ #category : #private }
+{ #category : #'private - matching' }
 AFVWGrammar >> createProtonotionMatcherFor: aProtonotionHypernotion [
 	^ AFProtonotionMatcher protonotion: aProtonotionHypernotion
 ]
 
-{ #category : #private }
+{ #category : #'private - matching' }
 AFVWGrammar >> createTerminalMatcherFor: aTerminalHypernotion [
 	^ AFTerminalMatcher terminal: aTerminalHypernotion
 ]
