@@ -22,7 +22,7 @@ Class {
 		'metaProductionRules',
 		'startSymbol'
 	],
-	#category : #'FisherParser-Core-MetaMatching'
+	#category : #'FisherParser-Core-Implementation'
 }
 
 { #category : #'instance creation' }

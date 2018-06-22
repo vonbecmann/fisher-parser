@@ -6,7 +6,7 @@ failed.
 Class {
 	#name : #AFNoSolution,
 	#superclass : #AFSubstitution,
-	#category : #'FisherParser-Core-MetaMatching'
+	#category : #'FisherParser-Core-Matching'
 }
 
 { #category : #accessing }

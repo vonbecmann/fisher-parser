@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'metanotionSubstitutions'
 	],
-	#category : #'FisherParser-Core-MetaMatching'
+	#category : #'FisherParser-Core-Matching'
 }
 
 { #category : #'instance creation' }

@@ -8,7 +8,7 @@ Class {
 	#instVars : [
 		'associations'
 	],
-	#category : #'FisherParser-Core-MetaMatching'
+	#category : #'FisherParser-Core-Matching'
 }
 
 { #category : #'instance creation' }
