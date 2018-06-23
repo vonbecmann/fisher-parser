@@ -5,7 +5,8 @@ Class {
 	#name : #AFHyperAlternative,
 	#superclass : #Object,
 	#instVars : [
-		'hypernotions'
+		'hypernotions',
+		'metanotions'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -24,7 +25,7 @@ AFHyperAlternative class >> withAll: anAFHypernotionCollection [
 AFHyperAlternative >> = anObject [
 	self class == anObject class
 		ifFalse: [ ^ false ].
-	hypernotions size == anObject hypernotions size
+	hypernotions size == anObject size
 		ifFalse: [ ^ false ].
 	1 to: hypernotions size do: [ :index | 
 		(hypernotions at: index) = (anObject at: index)
@@ -66,15 +67,16 @@ AFHyperAlternative >> hash [
 	^ hash
 ]
 
-{ #category : #accessing }
-AFHyperAlternative >> hypernotions [
-	^ hypernotions
+{ #category : #initialization }
+AFHyperAlternative >> initialize [
+	metanotions := Set new
 ]
 
 { #category : #initialization }
 AFHyperAlternative >> initializeHypernotions: anAFHypernotionArray [
 	self initialize.
-	hypernotions := anAFHypernotionArray
+	hypernotions := anAFHypernotionArray.
+	hypernotions do: [ :hn | metanotions addAll: hn metanotions ]
 ]
 
 { #category : #testing }
@@ -84,9 +86,6 @@ AFHyperAlternative >> isEmpty [
 
 { #category : #accessing }
 AFHyperAlternative >> metanotions [
-	| metanotions |
-	metanotions := Set new.
-	hypernotions do: [ :hn | metanotions addAll: hn metanotions ].
 	^ metanotions
 ]
 
