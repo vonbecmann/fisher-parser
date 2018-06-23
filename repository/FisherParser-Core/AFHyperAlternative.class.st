@@ -122,6 +122,12 @@ AFHyperAlternative >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
+{ #category : #'initialize-release' }
+AFHyperAlternative >> release [
+	hypernotions := metanotions := nil.
+	super release
+]
+
 { #category : #accessing }
 AFHyperAlternative >> size [
 	^ hypernotions size
