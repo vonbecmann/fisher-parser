@@ -159,7 +159,7 @@ AFHyperRule >> isLeftBound [
 		ifFalse: [ 
 			metanotions
 				do: [ :m | 
-					(((head occurrencesOf: m) ~= 0) not or: [ (self bodyOccurrencesOf: m) ~= 0 ])
+					((head occurrencesOf: m) ~= 0) ==> [ (self bodyOccurrencesOf: m) ~= 0 ]
 						ifFalse: [ ^ false ] ].
 			true ]
 ]
@@ -192,7 +192,7 @@ AFHyperRule >> isRightBound [
 		ifFalse: [ 
 			metanotions
 				do: [ :m | 
-					(((self bodyOccurrencesOf: m) ~= 0) not or: [ (head occurrencesOf: m) ~= 0 ])
+					((self bodyOccurrencesOf: m) ~= 0) ==> [ (head occurrencesOf: m) ~= 0 ]
 						ifFalse: [ ^ false ] ].
 			true ]
 ]
