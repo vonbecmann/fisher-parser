@@ -26,10 +26,8 @@ Class {
 { #category : #'instance creation' }
 AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToRepresentationList [
 	^ self basicNew
-		initializeVWGrammar: 
-			(AVWGrammar 
-				evw: aVWRuleString 
-				representations: terminalNotionToRepresentationList);
+		initializeVWGrammar: (AVWGrammar evw: aVWRuleString representations: terminalNotionToRepresentationList);
+		checkBoundness;
 		yourself
 ]
 
@@ -154,8 +152,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
-		thenCollect: [ :each | each dotAtBeginning ].
-	self checkBoundness.
+		thenCollect: [ :each | each dotAtBeginning ]
 ]
 
 { #category : #accessing }
