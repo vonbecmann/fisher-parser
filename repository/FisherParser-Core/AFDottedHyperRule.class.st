@@ -88,14 +88,7 @@ AFDottedHyperRule >> printOn: aStream [
 	middleDot := Character value: 183.
 	hyperRule head printOn: aStream.
 	aStream nextPutAll: ': '.
-	hyperRule body
-		withIndexDo: [ :each :index | 
-			index == 1
-				ifFalse: [ aStream nextPutAll: ', ' ].
-			index == dotIndex
-				ifTrue: [ aStream nextPut: middleDot ].
-			each printOn: aStream ].
-	dotIndex > hyperRule body size ifTrue: [ aStream nextPut: middleDot ].
+	hyperRule body printOn: aStream withDotAt: dotIndex.
 	aStream nextPut: $.
 ]
 

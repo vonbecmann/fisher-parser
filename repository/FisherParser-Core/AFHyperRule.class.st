@@ -19,42 +19,42 @@ Class {
 { #category : #'instance creation' }
 AFHyperRule class >> head: anAFHypernotion body: anAFHypernotionCollection [
 	^ self basicNew
-		initializeHead: anAFHypernotion body: anAFHypernotionCollection;
+		initializeHead: anAFHypernotion body: (AFHyperAlternative withAll: anAFHypernotionCollection);
 		yourself
 ]
 
 { #category : #'instance creation' }
 AFHyperRule class >> head: firstAFHypernotion bodyWith: secondAFHypernotion [
 	^ self basicNew
-		initializeHead: firstAFHypernotion body: {secondAFHypernotion};
+		initializeHead: firstAFHypernotion body: (AFHyperAlternative with: secondAFHypernotion);
 		yourself
 ]
 
 { #category : #'instance creation' }
 AFHyperRule class >> headWith: aNotion body: anAFHypernotionCollection [
 	^ self basicNew
-		initializeHead: (AFHypernotion with: aNotion) body: anAFHypernotionCollection;
+		initializeHead: (AFHypernotion with: aNotion) body: (AFHyperAlternative withAll: anAFHypernotionCollection);
 		yourself
 ]
 
 { #category : #'instance creation' }
 AFHyperRule class >> headWith: aNotion bodyWith: anAFHypernotion [
 	^ self basicNew
-		initializeHead: (AFHypernotion with: aNotion) body: {anAFHypernotion};
+		initializeHead: (AFHypernotion with: aNotion) body: (AFHyperAlternative with: anAFHypernotion);
 		yourself
 ]
 
 { #category : #'instance creation' }
 AFHyperRule class >> headWithAll: aNotionCollection body: anAFHypernotionCollection [
 	^ self basicNew
-		initializeHead: (AFHypernotion withAll: aNotionCollection) body: anAFHypernotionCollection;
+		initializeHead: (AFHypernotion withAll: aNotionCollection) body: (AFHyperAlternative withAll: anAFHypernotionCollection);
 		yourself
 ]
 
 { #category : #'instance creation' }
 AFHyperRule class >> headWithAll: aNotionCollection bodyWith: anAFHypernotion [
 	^ self basicNew
-		initializeHead: (AFHypernotion withAll: aNotionCollection) body: {anAFHypernotion};
+		initializeHead: (AFHypernotion withAll: aNotionCollection) body: (AFHyperAlternative with: anAFHypernotion);
 		yourself
 ]
 
@@ -62,38 +62,23 @@ AFHyperRule class >> headWithAll: aNotionCollection bodyWith: anAFHypernotion [
 AFHyperRule >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
-	self class  == anObject class
+	self class == anObject class
 		ifFalse: [ ^ false ].
 	head = anObject head
 		ifFalse: [ ^ false ].
-	body size == anObject body size
+	body = anObject body
 		ifFalse: [ ^ false ].
-	body
-		with: anObject body
-		do: [ :first :second | 
-			first = second
-				ifFalse: [ ^ false ] ].
 	^ true
 ]
 
 { #category : #accessing }
 AFHyperRule >> apply: aSubstitution [
-	^ self class
-			head: (head apply: aSubstitution)
-			body: (body collect: [ :each | each apply: aSubstitution ])
+	^ self class head: (head apply: aSubstitution) body: (body apply: aSubstitution)
 ]
 
 { #category : #accessing }
 AFHyperRule >> body [
 	^ body
-]
-
-{ #category : #private }
-AFHyperRule >> bodyOccurrencesOf: aNotion [
-	| tally |
-	tally := 0.
-	body do: [ :hn | tally := tally + (hn occurrencesOf: aNotion) ].
-	^ tally
 ]
 
 { #category : #accessing }
@@ -108,10 +93,7 @@ AFHyperRule >> dotAtEnd [
 
 { #category : #comparing }
 AFHyperRule >> hash [
-	| hash |
-	hash := (self class hash + head hash) hashMultiply.
-	body do: [ :each | hash := (hash + each hash) hashMultiply ].
-	^ hash
+	^ ((head hash + body hash) hashMultiply + self class hash) hashMultiply
 ]
 
 { #category : #accessing }
@@ -120,10 +102,10 @@ AFHyperRule >> head [
 ]
 
 { #category : #initialization }
-AFHyperRule >> initializeHead: aHypernotion body: aHypernotionCollection [
+AFHyperRule >> initializeHead: aHypernotion body: aHyperalternative [
 	self initialize.
 	head := aHypernotion.
-	body := aHypernotionCollection
+	body := aHyperalternative
 ]
 
 { #category : #testing }
@@ -152,14 +134,15 @@ AFHyperRule >> isLeftBound [
 
 	| metanotions |
 	metanotions := Set new.
-	metanotions addAll: head metanotions.
-	body do: [ :hn | metanotions addAll: hn metanotions ].
+	metanotions
+		addAll: head metanotions;
+		addAll: body metanotions.
 	^ metanotions isEmpty
 		ifTrue: [ false ]
 		ifFalse: [ 
 			metanotions
 				do: [ :m | 
-					((head occurrencesOf: m) ~= 0) ==> [ (self bodyOccurrencesOf: m) ~= 0 ]
+					(head occurrencesOf: m) ~= 0 ==> [ (body occurrencesOf: m) ~= 0 ]
 						ifFalse: [ ^ false ] ].
 			true ]
 ]
@@ -185,14 +168,15 @@ AFHyperRule >> isRightBound [
 
 	| metanotions |
 	metanotions := Set new.
-	metanotions addAll: head metanotions.
-	body do: [ :hn | metanotions addAll: hn metanotions ].
+	metanotions 
+		addAll: head metanotions;
+		addAll: body metanotions.
 	^ metanotions isEmpty
 		ifTrue: [ false ]
 		ifFalse: [ 
 			metanotions
 				do: [ :m | 
-					((self bodyOccurrencesOf: m) ~= 0) ==> [ (head occurrencesOf: m) ~= 0 ]
+					((body occurrencesOf: m) ~= 0) ==> [ (head occurrencesOf: m) ~= 0 ]
 						ifFalse: [ ^ false ] ].
 			true ]
 ]
@@ -209,8 +193,9 @@ AFHyperRule >> isStrict [
 
 	| metanotions |
 	metanotions := Set new.
-	metanotions addAll: head metanotions.
-	body do: [ :hn | metanotions addAll: hn metanotions ].
+	metanotions
+		addAll: head metanotions;
+		addAll: body metanotions.
 	^ metanotions isEmpty
 ]
 
@@ -225,9 +210,9 @@ AFHyperRule >> isXType [
 AFHyperRule >> printOn: aStream [
 	aStream
 		print: head;
-		nextPutAll: ': '.
-	body do: [ :hn | aStream print: hn ] separatedBy: [ aStream nextPutAll: ', ' ].
-	aStream nextPut: $.
+		nextPutAll: ': ';
+		print: body;
+		nextPut: $.
 ]
 
 { #category : #printing }
