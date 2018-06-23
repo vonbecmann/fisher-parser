@@ -120,15 +120,19 @@ program:  LETTER1 symbol, LETTER2 symbol, LETTER3 symbol,
           where <LETTER1> is <LETTER2>,
           where <LETTER2> is <LETTER3>.
 
-where <NOTION> is <NOTION>: EMPTY.
+where <NOTION> is <NOTION>: EMPTY. 
 
 h symbol:         'h'.
 i symbol:         'i'.
 j symbol:         'j'."
 
+	" i replace 
+	this hyper rule:  where <NOTION> is <NOTION>: EMPTY.
+	with:             where <NOTION> is <NOTION>: .  "
+
 	^ AFVWGrammar
 		evw:
-'LETTER::  h; i; j.
+			'LETTER::  h; i; j.
 NOTION::  LETTER NOTETY.
 NOTETY::  NOTION; EMPTY.
 EMPTY::   .
@@ -140,8 +144,8 @@ program:  LETTER1 symbol, LETTER2 symbol, LETTER3 symbol,
           where <LETTER1> is <LETTER2>,
           where <LETTER2> is <LETTER3>.
 
-where <NOTION> is <NOTION>: EMPTY.'
-		representations: 
+where <NOTION> is <NOTION>: .'
+		representations:
 			{(#('h' 'symbol') -> (NCTerminal character: $h)).
 			(#('i' 'symbol') -> (NCTerminal character: $i)).
 			(#('j' 'symbol') -> (NCTerminal character: $j))}

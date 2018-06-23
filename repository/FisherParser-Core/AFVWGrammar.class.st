@@ -155,7 +155,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ].
-	"self checkBoundness."
+	self checkBoundness.
 ]
 
 { #category : #accessing }
