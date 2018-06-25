@@ -20,7 +20,6 @@ Class {
 		'nonterminals',
 		'terminals',
 		'metaProductionRules',
-		'startSymbol',
 		'firstSet'
 	],
 	#category : #'FisherParser-Core-Implementation'
@@ -95,7 +94,6 @@ AFJEMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
 
 { #category : #initialization }
 AFJEMetaGrammar >> initialize [
-	startSymbol := NCNonterminal named: 'hypernotion-axiom'.
 	nonterminals := Set new.
 	terminals := Set new.
 	metaProductionRules := SinglyLinkedList new.
@@ -125,8 +123,7 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representat
 				body: {(terminals like: assoc value)} ]
 		thenDo: [ :each | 
 			metaProductionRules add: each.
-			firstSet at: each head put: each body first ].
-	nonterminals add: startSymbol
+			firstSet at: each head put: each body first ]
 ]
 
 { #category : #'instance creation' }
@@ -134,14 +131,15 @@ AFJEMetaGrammar >> startAt: aHypernotion [
 	" 	builds a grammar with an hypernotion and the metagramar 
 		and starts at the given hypernotion "
 
-	| startRule |
+	| startSymbol startRule |
+	startSymbol := NCNonterminal named: 'hypernotion-axiom'.
 	startRule := NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: nonterminals).
 	^ JEGrammar
 		productionRules:
 			((SinglyLinkedList with: startRule)
 				addAll: metaProductionRules;
 				yourself)
-		nonterminals: nonterminals
+		nonterminals: (nonterminals copyWith: startSymbol) 
 		terminals: terminals
-		startNonterminal: startRule head
+		startNonterminal: startSymbol 
 ]
