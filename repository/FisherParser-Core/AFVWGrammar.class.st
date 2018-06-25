@@ -27,6 +27,7 @@ Class {
 AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToRepresentationList [
 	^ self basicNew
 		initializeVWGrammar: (AVWGrammar evw: aVWRuleString representations: terminalNotionToRepresentationList);
+		computeFirstAndFollowSets;
 		checkBoundness;
 		yourself
 ]
@@ -72,6 +73,12 @@ AFVWGrammar >> checkBoundness [
 										print: hrule;
 										crlf;
 										nextPutAll: ' is of type X.' ]) ] ]
+]
+
+{ #category : #initialization }
+AFVWGrammar >> computeFirstAndFollowSets [
+	metaGrammar computeFirstAndFollowSets.
+	
 ]
 
 { #category : #'private - matching' }

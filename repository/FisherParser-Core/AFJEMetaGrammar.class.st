@@ -20,7 +20,8 @@ Class {
 		'nonterminals',
 		'terminals',
 		'metaProductionRules',
-		'startSymbol'
+		'startSymbol',
+		'firstSet'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -32,6 +33,54 @@ AFJEMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: ter
 		yourself
 ]
 
+{ #category : #initialization }
+AFJEMetaGrammar >> computeFirstAndFollowSets [
+	" compute first and follow sets "
+
+	self computeFirstSet
+]
+
+{ #category : #initialization }
+AFJEMetaGrammar >> computeFirstSet [
+	| previousSize |
+	[ previousSize := firstSet size.
+	metaProductionRules
+		do: [ :rule | 
+			rule body isEmpty
+				ifTrue: [ firstSet at: rule head put: #epsilon ]
+				ifFalse: [ | index symbol |
+					index := 0.
+					[ symbol := rule body at: (index := index + 1).
+					symbol isTerminal
+						ifTrue: [ firstSet at: rule head put: symbol ]
+						ifFalse: [ 
+							firstSet
+								at: rule head
+								putAll: ((firstSet at: symbol) copyWithout: #epsilon) ] ]
+						doWhileTrue: [ 
+							index < rule body size
+								and: [ symbol isNonterminal
+										and: [ (firstSet at: symbol) includes: #epsilon ] ] ].
+					(rule body
+						allSatisfy: [ :eachSymbol | 
+							eachSymbol isNonterminal
+								and: [ (firstSet at: eachSymbol) includes: #epsilon ] ])
+						ifTrue: [ firstSet at: rule head put: #epsilon ] ] ].
+	previousSize = firstSet size ] whileFalse
+]
+
+{ #category : #'inspector extensions' }
+AFJEMetaGrammar >> gtInspectorFirstSetIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite table
+		title: [ 'first set' ];
+		display: [ nonterminals ];
+		column: 'Nonterminal' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		send: [ :each | firstSet at: each ];
+		showOnly: 50;
+		yourself
+]
+
 { #category : #'inspector extensions' }
 AFJEMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
 	<gtInspectorPresentationOrder: 1>
@@ -39,7 +88,7 @@ AFJEMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
 		title: [ 'meta rules' ];
 		display: [ metaProductionRules asArray ];
 		column: 'Production Rule' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		send: [ :each | each value ];
+		send: [ :each | each ];
 		showOnly: 50;
 		yourself
 ]
@@ -49,7 +98,8 @@ AFJEMetaGrammar >> initialize [
 	startSymbol := NCNonterminal named: 'hypernotion-axiom'.
 	nonterminals := Set new.
 	terminals := Set new.
-	metaProductionRules := SinglyLinkedList new
+	metaProductionRules := SinglyLinkedList new.
+	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set
 ]
 
 { #category : #initialization }
@@ -75,7 +125,13 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representat
 					NCProductionRule
 						head: (nonterminals like: assoc key)
 						body: {(terminals like: assoc value)} ]).
-	nonterminals add: startSymbol 
+	nonterminals add: startSymbol.
+	nonterminals do: [ :each | firstSet at: each putAll: #() ].
+	metaProductionRules 
+		select: [ :each | each isRepresentation ] 
+		thenDo: [ :each | firstSet at: each head put: each body first ].
+	
+	
 ]
 
 { #category : #'instance creation' }
