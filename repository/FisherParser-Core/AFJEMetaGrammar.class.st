@@ -74,7 +74,7 @@ AFJEMetaGrammar >> gtInspectorFirstSetIn: composite [
 	<gtInspectorPresentationOrder: 1>
 	^ composite table
 		title: [ 'first set' ];
-		display: [ nonterminals ];
+		display: [ firstSet keys ];
 		column: 'Nonterminal' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		send: [ :each | firstSet at: each ];
 		showOnly: 50;
@@ -111,27 +111,22 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representat
 		do: [ :assoc | 
 			nonterminals add: assoc key.
 			terminals add: assoc value ].
-	metaProductionRules
-		addAll:
-			(metaRuleCollection
-				collect: [ :each | 
-					NCProductionRule
-						head: (nonterminals like: each head)
-						body: (each body buildBodyOf: nonterminals) ]).
-	metaProductionRules
-		addAll:
-			(terminalNotionToRepresentationList
-				collect: [ :assoc | 
-					NCProductionRule
-						head: (nonterminals like: assoc key)
-						body: {(terminals like: assoc value)} ]).
-	nonterminals add: startSymbol.
 	nonterminals do: [ :each | firstSet at: each putAll: #() ].
-	metaProductionRules 
-		select: [ :each | each isRepresentation ] 
-		thenDo: [ :each | firstSet at: each head put: each body first ].
-	
-	
+	metaRuleCollection
+		collect: [ :each | 
+				NCProductionRule
+					head: (nonterminals like: each head)
+					body: (each body buildBodyOf: nonterminals) ]
+		thenDo: [ :each | metaProductionRules add: each ].
+	terminalNotionToRepresentationList
+		collect: [ :assoc | 
+			NCProductionRule
+				head: (nonterminals like: assoc key)
+				body: {(terminals like: assoc value)} ]
+		thenDo: [ :each | 
+			metaProductionRules add: each.
+			firstSet at: each head put: each body first ].
+	nonterminals add: startSymbol
 ]
 
 { #category : #'instance creation' }
