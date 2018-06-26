@@ -20,7 +20,8 @@ Class {
 		'nonterminals',
 		'terminals',
 		'metaProductionRules',
-		'firstSet'
+		'firstSet',
+		'firstTable'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -36,36 +37,28 @@ AFJEMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: ter
 AFJEMetaGrammar >> computeFirstAndFollowSets [
 	" compute first and follow sets "
 
-	self computeFirstSet
+	self computeFirstSet.
+	self computeFirstTable.
 ]
 
 { #category : #initialization }
 AFJEMetaGrammar >> computeFirstSet [
 	| previousSize |
-	[ previousSize := firstSet size.
+	[ 	previousSize := firstSet size.
+		metaProductionRules 
+			do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
+		previousSize = firstSet size ] whileFalse
+]
+
+{ #category : #initialization }
+AFJEMetaGrammar >> computeFirstTable [
 	metaProductionRules
 		do: [ :rule | 
-			rule body isEmpty
-				ifTrue: [ firstSet at: rule head put: #epsilon ]
-				ifFalse: [ | index symbol |
-					index := 0.
-					[ symbol := rule body at: (index := index + 1).
-					symbol isTerminal
-						ifTrue: [ firstSet at: rule head put: symbol ]
-						ifFalse: [ 
-							firstSet
-								at: rule head
-								putAll: ((firstSet at: symbol) copyWithout: #epsilon) ] ]
-						doWhileTrue: [ 
-							index < rule body size
-								and: [ symbol isNonterminal
-										and: [ (firstSet at: symbol) includes: #epsilon ] ] ].
-					(rule body
-						allSatisfy: [ :eachSymbol | 
-							eachSymbol isNonterminal
-								and: [ (firstSet at: eachSymbol) includes: #epsilon ] ])
-						ifTrue: [ firstSet at: rule head put: #epsilon ] ] ].
-	previousSize = firstSet size ] whileFalse
+			(firstSet firstOf: rule body)
+				do: [ :terminal | 
+					firstTable
+						at: (OrderedPair first: rule head second: terminal)
+						put: rule ] ]
 ]
 
 { #category : #'inspector extensions' }
@@ -97,7 +90,8 @@ AFJEMetaGrammar >> initialize [
 	nonterminals := Set new.
 	terminals := Set new.
 	metaProductionRules := SinglyLinkedList new.
-	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set
+	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	firstTable := MultiValuedDictionary dictionary: Dictionary collection: Set
 ]
 
 { #category : #initialization }
@@ -124,6 +118,15 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representat
 		thenDo: [ :each | 
 			metaProductionRules add: each.
 			firstSet at: each head put: each body first ]
+]
+
+{ #category : #testing }
+AFJEMetaGrammar >> isLLOne [
+	firstTable
+		keysDo: [ :key | 
+			(firstTable at: key) size > 1
+				ifTrue: [ ^ false ] ].
+	^ true
 ]
 
 { #category : #'instance creation' }

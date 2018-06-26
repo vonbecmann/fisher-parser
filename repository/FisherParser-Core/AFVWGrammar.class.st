@@ -76,6 +76,12 @@ AFVWGrammar >> checkBoundness [
 ]
 
 { #category : #initialization }
+AFVWGrammar >> checkMetaGrammarIsLLOne [
+	metaGrammar isLLOne
+		ifFalse: [ self error ]
+]
+
+{ #category : #initialization }
 AFVWGrammar >> computeFirstAndFollowSets [
 	metaGrammar computeFirstAndFollowSets.
 	
