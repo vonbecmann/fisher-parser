@@ -33,6 +33,22 @@ AFJEMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: ter
 		yourself
 ]
 
+{ #category : #testing }
+AFJEMetaGrammar >> checkIsLLOne [
+	firstTable
+		keysDo: [ :key | 
+			(firstTable at: key) size > 1
+				ifTrue: [ Error
+						signal:
+							(String
+								streamContents: [ :s | 
+									s
+										nextPutAll: 'Too many rules at ';
+										print: key;
+										nextPutAll: ' -> '.
+									(firstTable at: key) do: [ :rule | s print: rule ] separatedBy: [ s space ] ]) ] ]
+]
+
 { #category : #initialization }
 AFJEMetaGrammar >> computeFirstAndFollowSets [
 	" compute first and follow sets "
@@ -118,15 +134,6 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representat
 		thenDo: [ :each | 
 			metaProductionRules add: each.
 			firstSet at: each head put: each body first ]
-]
-
-{ #category : #testing }
-AFJEMetaGrammar >> isLLOne [
-	firstTable
-		keysDo: [ :key | 
-			(firstTable at: key) size > 1
-				ifTrue: [ ^ false ] ].
-	^ true
 ]
 
 { #category : #'instance creation' }

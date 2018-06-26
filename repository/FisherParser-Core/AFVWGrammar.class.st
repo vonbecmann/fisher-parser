@@ -77,8 +77,7 @@ AFVWGrammar >> checkBoundness [
 
 { #category : #initialization }
 AFVWGrammar >> checkMetaGrammarIsLLOne [
-	metaGrammar isLLOne
-		ifFalse: [ self error ]
+	metaGrammar checkIsLLOne
 ]
 
 { #category : #initialization }
