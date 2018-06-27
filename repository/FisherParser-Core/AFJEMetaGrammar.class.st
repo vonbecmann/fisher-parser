@@ -21,7 +21,7 @@ Class {
 		'terminals',
 		'metaProductionRules',
 		'firstSet',
-		'firstTable'
+		'parseTable'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -35,26 +35,19 @@ AFJEMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: ter
 
 { #category : #testing }
 AFJEMetaGrammar >> checkIsLLOne [
-	firstTable
+	parseTable
 		keysDo: [ :key | 
-			(firstTable at: key) size > 1
-				ifTrue: [ Error
+			(parseTable at: key) size > 1
+				ifTrue: [ 
+					Error
 						signal:
 							(String
 								streamContents: [ :s | 
 									s
-										nextPutAll: 'Too many rules at ';
+										nextPutAll: 'FIRST CONFLICT at ';
 										print: key;
 										nextPutAll: ' -> '.
-									(firstTable at: key) do: [ :rule | s print: rule ] separatedBy: [ s space ] ]) ] ]
-]
-
-{ #category : #initialization }
-AFJEMetaGrammar >> computeFirstAndFollowSets [
-	" compute first and follow sets "
-
-	self computeFirstSet.
-	self computeFirstTable.
+									(parseTable at: key) do: [ :rule | s print: rule ] separatedBy: [ s space ] ]) ] ]
 ]
 
 { #category : #initialization }
@@ -67,13 +60,15 @@ AFJEMetaGrammar >> computeFirstSet [
 ]
 
 { #category : #initialization }
-AFJEMetaGrammar >> computeFirstTable [
+AFJEMetaGrammar >> computeParseTable [
+	" compute parse table using first set. then you can test if there's a first conflict "
+
 	metaProductionRules
 		do: [ :rule | 
-			(firstSet firstOf: rule body)
+			(terminals intersection: (firstSet firstOf: rule body))
 				do: [ :terminal | 
-					firstTable
-						at: (OrderedPair first: rule head second: terminal)
+					parseTable 
+						at: (OrderedPair first: rule head second: terminal) 
 						put: rule ] ]
 ]
 
@@ -107,7 +102,7 @@ AFJEMetaGrammar >> initialize [
 	terminals := Set new.
 	metaProductionRules := SinglyLinkedList new.
 	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
-	firstTable := MultiValuedDictionary dictionary: Dictionary collection: Set
+	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set
 ]
 
 { #category : #initialization }

@@ -82,8 +82,9 @@ AFVWGrammar >> checkMetaGrammarIsLLOne [
 
 { #category : #initialization }
 AFVWGrammar >> computeFirstAndFollowSets [
-	metaGrammar computeFirstAndFollowSets.
-	
+	metaGrammar
+		computeFirstSet;
+		computeParseTable
 ]
 
 { #category : #'private - matching' }
