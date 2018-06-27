@@ -139,7 +139,7 @@ AFJEMetaGrammar >> startAt: aHypernotion [
 	| startSymbol startRule |
 	startSymbol := NCNonterminal named: 'hypernotion-axiom'.
 	startRule := NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: nonterminals).
-	^ JEGrammar
+	^ AFHypernotionGrammar 
 		productionRules:
 			((SinglyLinkedList with: startRule)
 				addAll: metaProductionRules;
