@@ -11,7 +11,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'head',
-		'body'
+		'body',
+		'metanotions'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -102,10 +103,18 @@ AFHyperRule >> head [
 ]
 
 { #category : #initialization }
+AFHyperRule >> initialize [
+	metanotions := Set new
+]
+
+{ #category : #initialization }
 AFHyperRule >> initializeHead: aHypernotion body: aHyperalternative [
 	self initialize.
 	head := aHypernotion.
-	body := aHyperalternative
+	body := aHyperalternative.
+	metanotions
+		addAll: head metanotions;
+		addAll: body metanotions
 ]
 
 { #category : #testing }
@@ -132,11 +141,6 @@ AFHyperRule >> isLeftBound [
 	" left-bound if for all M in metanotions:
 		((head occurrencesOf: M) ~= 0) implies that ((body occurrencesOf: M) ~= 0) "
 
-	| metanotions |
-	metanotions := Set new.
-	metanotions
-		addAll: head metanotions;
-		addAll: body metanotions.
 	^ metanotions isEmpty
 		ifTrue: [ false ]
 		ifFalse: [ 
@@ -166,11 +170,6 @@ AFHyperRule >> isRightBound [
 	" right-bound if for all M in metanotions:
 		((body occurrencesOf: M) ~= 0) implies that ((head occurrencesOf: M) ~= 0) "
 
-	| metanotions |
-	metanotions := Set new.
-	metanotions 
-		addAll: head metanotions;
-		addAll: body metanotions.
 	^ metanotions isEmpty
 		ifTrue: [ false ]
 		ifFalse: [ 
@@ -191,11 +190,6 @@ AFHyperRule >> isStrict [
 	- some other protonotion (for which no production rule can be derived),
 		which is then said to be a 'blind alley'. "
 
-	| metanotions |
-	metanotions := Set new.
-	metanotions
-		addAll: head metanotions;
-		addAll: body metanotions.
 	^ metanotions isEmpty
 ]
 
@@ -222,6 +216,6 @@ AFHyperRule >> printString [
 
 { #category : #'initialize-release' }
 AFHyperRule >> release [
-	head := body := nil.
+	head := body := metanotions := nil.
 	super release
 ]
