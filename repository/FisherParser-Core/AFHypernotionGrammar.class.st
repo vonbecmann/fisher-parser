@@ -11,33 +11,43 @@ Class {
 		'terminals',
 		'productionRules',
 		'startSymbol',
-		'associatedGrammar'
+		'associatedGrammar',
+		'hypernotion'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
 
 { #category : #'instance creation' }
-AFHypernotionGrammar class >> productionRules: productionRuleCollection nonterminals: nonterminalSet terminals: terminalSet startNonterminal: aNonterminal [
+AFHypernotionGrammar class >> hypernotion: anAFHypernotion productionRules: productionRuleCollection nonterminals: nonterminalSet terminals: terminalSet [
 	^ self basicNew
-		initializeProductionRules: productionRuleCollection
+		initializeHypernotion: anAFHypernotion
+			productionRules: productionRuleCollection
 			nonterminals: nonterminalSet
-			terminals: terminalSet
-			startNonterminal: aNonterminal;
+			terminals: terminalSet;
 		yourself
 ]
 
 { #category : #initialization }
-AFHypernotionGrammar >> initializeProductionRules: productionRuleCollection nonterminals: nonterminalSet terminals: terminalSet startNonterminal: aNonterminal [
+AFHypernotionGrammar >> initialize [
+	startSymbol := NCNonterminal named: 'hypernotion-axiom'
+]
+
+{ #category : #initialization }
+AFHypernotionGrammar >> initializeHypernotion: anAFHypernotion productionRules: productionRuleCollection nonterminals: nonterminalSet terminals: terminalSet [
+	| startRule |
 	self initialize.
-	nonterminals := nonterminalSet.
+	hypernotion := anAFHypernotion.
+	nonterminals := nonterminalSet copyWith: startSymbol.
 	terminals := terminalSet.
-	productionRules := productionRuleCollection.
-	startSymbol := aNonterminal.
+	startRule := NCProductionRule head: startSymbol body: (hypernotion buildBodyOf: nonterminals).
+	productionRules := (SinglyLinkedList with: startRule)
+		addAll: productionRuleCollection;
+		yourself.
 	associatedGrammar := JEGrammar
 		productionRules: productionRules
 		nonterminals: nonterminals
 		terminals: terminals
-		startNonterminal: aNonterminal
+		startNonterminal: startSymbol
 ]
 
 { #category : #parsing }

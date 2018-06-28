@@ -136,15 +136,9 @@ AFJEMetaGrammar >> startAt: aHypernotion [
 	" 	builds a grammar with an hypernotion and the metagramar 
 		and starts at the given hypernotion "
 
-	| startSymbol startRule |
-	startSymbol := NCNonterminal named: 'hypernotion-axiom'.
-	startRule := NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: nonterminals).
-	^ AFHypernotionGrammar 
-		productionRules:
-			((SinglyLinkedList with: startRule)
-				addAll: metaProductionRules;
-				yourself)
-		nonterminals: (nonterminals copyWith: startSymbol) 
+	^ AFHypernotionGrammar
+		hypernotion: aHypernotion
+		productionRules: metaProductionRules
+		nonterminals: nonterminals
 		terminals: terminals
-		startNonterminal: startSymbol 
 ]
