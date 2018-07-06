@@ -1,6 +1,8 @@
 "
 a hypernotion's grammar. (some called it hypernotion system).
 
+use jay earley parser as a pattern matching algorithm.
+the hypernotion system is uniquely assignable (u.a.) [wegner]
 
 "
 Class {
@@ -50,7 +52,25 @@ AFHypernotionGrammar >> initializeHypernotion: anAFHypernotion productionRules: 
 		startNonterminal: startSymbol
 ]
 
-{ #category : #parsing }
-AFHypernotionGrammar >> parseTree: aString [
-	^ associatedGrammar parseTree: aString
+{ #category : #public }
+AFHypernotionGrammar >> match: aProtonotion [
+	"	a hypernotion match a protonotion, you need the relative substitution. "
+
+	^ [ (associatedGrammar parseTree: aProtonotion strictSyntaxString) substitutionsOf: hypernotion ]
+		on: JEFailure
+		do: [ AFSubstitution noSolution ]
+]
+
+{ #category : #printing }
+AFHypernotionGrammar >> printOn: aStream [
+	aStream
+		nextPutAll: self class name;
+		nextPut: $(;
+		print: hypernotion;
+		nextPut: $)
+]
+
+{ #category : #printing }
+AFHypernotionGrammar >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
 ]

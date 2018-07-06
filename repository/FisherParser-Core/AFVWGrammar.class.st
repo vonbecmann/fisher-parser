@@ -89,9 +89,7 @@ AFVWGrammar >> computeFirstAndFollowSets [
 
 { #category : #'private - matching' }
 AFVWGrammar >> createHypernotionMatcherFor: aHypernotion [
-	^ AFHypernotionMatcher 
-			hypernotion: aHypernotion 
-			grammar: (metaGrammar startAt: aHypernotion)
+	^ metaGrammar startAt: aHypernotion
 ]
 
 { #category : #'private - matching' }
