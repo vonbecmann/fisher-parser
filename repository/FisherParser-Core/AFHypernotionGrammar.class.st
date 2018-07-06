@@ -9,12 +9,10 @@ Class {
 	#name : #AFHypernotionGrammar,
 	#superclass : #Object,
 	#instVars : [
-		'nonterminals',
-		'terminals',
-		'productionRules',
 		'startSymbol',
-		'associatedGrammar',
-		'hypernotion'
+		'hypernotion',
+		'productionRules',
+		'associatedGrammar'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -36,19 +34,17 @@ AFHypernotionGrammar >> initialize [
 
 { #category : #initialization }
 AFHypernotionGrammar >> initializeHypernotion: anAFHypernotion productionRules: productionRuleCollection nonterminals: nonterminalSet terminals: terminalSet [
-	| startRule |
 	self initialize.
 	hypernotion := anAFHypernotion.
-	nonterminals := nonterminalSet copyWith: startSymbol.
-	terminals := terminalSet.
-	startRule := NCProductionRule head: startSymbol body: (hypernotion buildBodyOf: nonterminals).
-	productionRules := (SinglyLinkedList with: startRule)
+	productionRules := 
+		(SinglyLinkedList 
+			with: (NCProductionRule head: startSymbol body: (hypernotion buildBodyOf: nonterminalSet)))
 		addAll: productionRuleCollection;
 		yourself.
 	associatedGrammar := JEGrammar
 		productionRules: productionRules
-		nonterminals: nonterminals
-		terminals: terminals
+		nonterminals: (nonterminalSet copyWith: startSymbol)
+		terminals: terminalSet
 		startNonterminal: startSymbol
 ]
 
