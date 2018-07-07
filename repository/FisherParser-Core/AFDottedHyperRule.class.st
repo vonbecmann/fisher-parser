@@ -84,8 +84,6 @@ AFDottedHyperRule >> printOn: aStream [
 	"head: body with dot.
 	 head: ·. "
 
-	| middleDot |
-	middleDot := Character value: 183.
 	hyperRule head printOn: aStream.
 	aStream nextPutAll: ': '.
 	hyperRule body printOn: aStream withDotAt: dotIndex.
