@@ -119,7 +119,10 @@ AVWGrammar >> metanotions [
 
 { #category : #accessing }
 AVWGrammar >> ortholetters [
-	^ ortholetters 
+	" alphabet used to define protonotions [languageless programming].
+	protonotions is a finite vocabulary whose letters are called ortholetters."
+
+	^ ortholetters
 ]
 
 { #category : #printing }

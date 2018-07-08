@@ -221,17 +221,6 @@ AFHypernotion >> occurrencesOf: aNotion [
 	^ notions occurrencesOf: aNotion 
 ]
 
-{ #category : #accessing }
-AFHypernotion >> ortholetters [
-	" alphabet used to define protonotions [languageless programming].
-	protonotions is a finite vocabulary whose letters are called ortholetters."
-
-	| ortholetters |
-	ortholetters := Set new.
-	protonotions do: [ :pn | ortholetters addAll: pn letters ].
-	^ ortholetters
-]
-
 { #category : #printing }
 AFHypernotion >> printOn: aStream [
 	notions do: [ :each | each printOn: aStream ]
@@ -240,11 +229,6 @@ AFHypernotion >> printOn: aStream [
 { #category : #printing }
 AFHypernotion >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
-]
-
-{ #category : #accessing }
-AFHypernotion >> protonotions [
-	^ protonotions
 ]
 
 { #category : #'initialize-release' }
