@@ -21,7 +21,8 @@ Class {
 		'terminals',
 		'metaProductionRules',
 		'firstSet',
-		'parseTable'
+		'parseTable',
+		'ortholetters'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -106,16 +107,15 @@ AFJEMetaGrammar >> initialize [
 ]
 
 { #category : #initialization }
-AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetters [
-	|terminalNotionToRepresentationList|
+AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetterSet [
 	self initialize.
+	ortholetters := ortholetterSet.
 	metaRuleCollection 
 		do: [ :each | nonterminals add: each head ].
-	terminalNotionToRepresentationList := (ortholetters collect: [ :char | ((NCNonterminal named: char) -> (NCTerminal character: char)) ]).
-	terminalNotionToRepresentationList
-		do: [ :assoc | 
-			nonterminals add: assoc key.
-			terminals add: assoc value ].
+	ortholetters 
+		do: [ :letter |
+			nonterminals add: (NCNonterminal named: letter).
+			terminals add: (NCTerminal character: letter) ].
 	nonterminals do: [ :each | firstSet at: each putAll: #() ].
 	metaRuleCollection
 		collect: [ :each | 
@@ -123,11 +123,11 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetter
 					head: (nonterminals like: each head)
 					body: (each body buildBodyOf: nonterminals) ]
 		thenDo: [ :each | metaProductionRules add: each ].
-	terminalNotionToRepresentationList
-		collect: [ :assoc | 
+	ortholetters 
+		collect: [ :letter | 
 			NCProductionRule
-				head: (nonterminals like: assoc key)
-				body: {(terminals like: assoc value)} ]
+				head: (nonterminals like: (NCNonterminal named: letter))
+				body: {(terminals like: (NCTerminal character: letter))} ]
 		thenDo: [ :each | 
 			metaProductionRules add: each.
 			firstSet at: each head put: each body first ]
