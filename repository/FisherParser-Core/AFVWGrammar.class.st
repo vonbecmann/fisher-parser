@@ -157,24 +157,24 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	| startNotion ortholetters |
 	self initialize.
 	vwGrammar := aVWGrammar.
-	startNotion := AFHypernotion belongsTo: self with: (AWProtonotion with: '((start))').
-	ortholetters := Set new.
-	ortholetters 
-		addAll: startNotion ortholetters;
-		addAll: vwGrammar ortholetters.
 	vwGrammar metaRules 
 		collect: [ :each |
 			AWMetaProductionRule 
 				head: each head
 				body: 	(AFHypernotion belongsTo: self withAllNotionsFrom: each body) ] 
-		thenDo: [ :newRule | metaRules add: newRule ].
+		thenDo: [ :newRule | metaRules add: newRule ].	
+	startNotion := AWProtonotion with: '((start))'.
+	ortholetters := Set new.
+	ortholetters 
+		addAll: startNotion letters;
+		addAll: vwGrammar ortholetters.
 	metaGrammar := 
 		(AFJEMetaGrammar
 			metaRules: metaRules 
 			orthoRepresentations: 
 				(ortholetters collect: [ :char | ((NCNonterminal named: char) -> (NCTerminal character: char)) ])).
 	startHyperRule := AFHyperRule
-		head: startNotion
+		head: (AFHypernotion belongsTo: self with: startNotion) 
 		bodyWith: (AFHypernotion belongsTo: self withAllNotionsFrom: vwGrammar startNotion).
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
