@@ -253,8 +253,3 @@ AFHypernotion >> release [
 	grammar := nil.
 	super release
 ]
-
-{ #category : #accessing }
-AFHypernotion >> strictSyntax [
-	^ strictSyntax
-]

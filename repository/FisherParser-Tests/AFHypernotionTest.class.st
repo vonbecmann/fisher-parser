@@ -251,27 +251,3 @@ AFHypernotionTest >> testProtonotions03 [
 		assertCollection: hn protonotions 
 		hasSameElements: {(AWProtonotion with: 'symbol')}
 ]
-
-{ #category : #tests }
-AFHypernotionTest >> testStrictSyntax [
-	hypernotion := AFHypernotion withAll: #('start' 'notion') asNotions.
-
-	self
-		assert: hypernotion strictSyntax
-		equals:
-			(Array
-				streamContents: [ :s | 
-					'startnotion' do: [ :char | s nextPut: (NCNonterminal named: char) ] ])
-]
-
-{ #category : #tests }
-AFHypernotionTest >> testStrictSyntax02 [
-	hypernotion := AFHypernotion withAll: #(THREE 'cs') asNotions.
-
-	self
-		assert: hypernotion strictSyntax
-		equals:
-			{(AWMetanotion named: 'THREE')},
-					(Array streamContents: [ :s | 
-						'cs' do: [ :char | s nextPut: (NCNonterminal named: char) ] ])
-]
