@@ -187,8 +187,7 @@ AFHypernotion >> isProtonotion [
 { #category : #testing }
 AFHypernotion >> isTerminal [
 	^ metanotions isEmpty
-		and: [ protonotions isEmpty
-					and: [ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isTerminal ] ] ] ]
+		and: [ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isTerminal ] ] ]
 ]
 
 { #category : #matching }
