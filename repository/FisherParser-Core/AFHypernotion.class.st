@@ -10,8 +10,8 @@ Class {
 		'metanotions',
 		'protonotions',
 		'strictSyntax',
-		'vwGrammar',
-		'grammar'
+		'grammar',
+		'metaGrammar'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -78,13 +78,13 @@ AFHypernotion >> = anObject [
 { #category : #accessing }
 AFHypernotion >> apply: aSubstitution [
 	^ (self class withAll: (notions collect: [ :notion | notion apply: aSubstitution ]))
-		belongsTo: vwGrammar;
+		belongsTo: metaGrammar;
 		yourself
 ]
 
 { #category : #accessing }
-AFHypernotion >> belongsTo: aVWGrammar [ 
-	vwGrammar := aVWGrammar
+AFHypernotion >> belongsTo: aMetaGrammar [ 
+	metaGrammar := aMetaGrammar
 	
 ]
 
@@ -106,7 +106,7 @@ AFHypernotion >> do: aBlock [
 
 { #category : #accessing }
 AFHypernotion >> grammar [
-	^ grammar ifNil: [ grammar := vwGrammar startAt: self ]
+	^ grammar ifNil: [ grammar := metaGrammar startAt: self ]
 ]
 
 { #category : #'inspector extensions' }
@@ -139,7 +139,7 @@ AFHypernotion >> hash [
 AFHypernotion >> initialize [
 	metanotions := Set new.
 	protonotions := Set new.
-	vwGrammar := nil.
+	metaGrammar := nil.
 	grammar := nil.
 ]
 
@@ -249,7 +249,7 @@ AFHypernotion >> protonotions [
 
 { #category : #'initialize-release' }
 AFHypernotion >> release [
-	notions := metanotions := protonotions := strictSyntax := vwGrammar := nil.
+	notions := metanotions := protonotions := strictSyntax := metaGrammar := nil.
 	grammar := nil.
 	super release
 ]
