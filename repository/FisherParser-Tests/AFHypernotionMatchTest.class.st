@@ -9,7 +9,7 @@ AFHypernotionMatchTest >> testMatch [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
-			belongsTo: self examples test3
+			belongsTo: self examples test3 metaGrammar
 			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 
 	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<h>is<i>')).
@@ -22,7 +22,7 @@ AFHypernotionMatchTest >> testMatch02 [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
-			belongsTo: self examples test3
+			belongsTo: self examples test3 metaGrammar
 			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 
 	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<hij>is<hij>')).
@@ -38,7 +38,7 @@ AFHypernotionMatchTest >> testMatch03 [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
-			belongsTo: self examples test3
+			belongsTo: self examples test3 metaGrammar
 			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 	
 	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<j>is<h>')).
@@ -51,7 +51,7 @@ AFHypernotionMatchTest >> testMatch04 [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
-			belongsTo: self examples test3
+			belongsTo: self examples test3 metaGrammar
 			withAll: #('where' '<' #NOTION '>' 'is' '<' #NOTION '>') asNotions.
 
 	substitution := hypernotion match: (AFHypernotion with: (AWProtonotion with: 'where<j>is<j>')).

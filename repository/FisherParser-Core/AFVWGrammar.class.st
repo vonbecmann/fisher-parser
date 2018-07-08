@@ -116,11 +116,6 @@ AFVWGrammar >> hyperRulesSize [
 	^ vwGrammar hyperRulesSize
 ]
 
-{ #category : #private }
-AFVWGrammar >> hypernotionGrammarAt: anAFHypernotion [ 
-	^ metaGrammar startAt: anAFHypernotion 
-]
-
 { #category : #accessing }
 AFVWGrammar >> hypernotions [
 	^ vwGrammar hypernotions
@@ -142,20 +137,25 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 			orthoRepresentations: 
 				(ortholetters collect: [ :char | ((NCNonterminal named: char) -> (NCTerminal character: char)) ])).
 	startHyperRule := AFHyperRule
-		head: (AFHypernotion belongsTo: self with: startNotion) 
-		bodyWith: (AFHypernotion belongsTo: self withAllNotionsFrom: vwGrammar startNotion).
+		head: (AFHypernotion belongsTo: metaGrammar with: startNotion) 
+		bodyWith: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: vwGrammar startNotion).
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
 		collect: [ :each | 
 			AFHyperRule
-				head: (AFHypernotion belongsTo: self withAllNotionsFrom: each head)
-				body: 	(each body collect: [ :hypernotion | AFHypernotion belongsTo: self withAllNotionsFrom: hypernotion ]) ]
+				head: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: each head)
+				body: 	(each body collect: [ :hypernotion | AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: hypernotion ]) ]
 		thenDo: [ :newRule | alternatives addLast: newRule ].
 	bottomUpAlternatives := alternatives
 		reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ]
+]
+
+{ #category : #private }
+AFVWGrammar >> metaGrammar [
+	^ metaGrammar
 ]
 
 { #category : #accessing }

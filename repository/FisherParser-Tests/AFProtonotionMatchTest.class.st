@@ -13,7 +13,7 @@ AFProtonotionMatchTest >> testMatch [
 	| protonotion substitution |
 	protonotion := 
 		AFHypernotion
-			belongsTo: self examples test3
+			belongsTo: self examples test3 metaGrammar
 			withAll: #('h' 'symbol') asNotions.
 
 	substitution := protonotion match: (AFHypernotion with: (AWProtonotion with: 'hsymbol')).
@@ -27,7 +27,7 @@ AFProtonotionMatchTest >> testMatch02 [
 	| protonotion substitution |
 	protonotion := 
 		AFHypernotion
-			belongsTo: self examples test3
+			belongsTo: self examples test3 metaGrammar
 			withAll: #('h' 'symbol') asNotions.
 
 	substitution := protonotion match: (AFHypernotion with: (AWProtonotion with: 'program')).
@@ -41,7 +41,7 @@ AFProtonotionMatchTest >> testMatch03 [
 	| protonotion substitution |
 	protonotion := 
 		AFHypernotion
-			belongsTo: self examples test3
+			belongsTo: self examples test3 metaGrammar
 			withAll: #('h' 'symbol') asNotions.
 
 	substitution := 

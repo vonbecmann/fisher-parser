@@ -106,7 +106,7 @@ AFHypernotion >> do: aBlock [
 
 { #category : #accessing }
 AFHypernotion >> grammar [
-	^ grammar ifNil: [ grammar := vwGrammar hypernotionGrammarAt: self ]
+	^ grammar ifNil: [ grammar := vwGrammar startAt: self ]
 ]
 
 { #category : #'inspector extensions' }
