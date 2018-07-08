@@ -90,10 +90,14 @@ AFHypernotion >> belongsTo: aVWGrammar [
 ]
 
 { #category : #accessing }
-AFHypernotion >> buildBodyOf: nonterminals [
-	"build body of nonterminals using those given as paramater"
+AFHypernotion >> buildBodyOf: symbols [
+	"build body of symbols using those given as paramater"
 
-	^ strictSyntax collect: [ :notion | nonterminals like: notion ]
+	^ strictSyntax 
+		collect: [ :notion | 
+			symbols 
+				like: notion 
+				ifAbsent: [ Error signal: notion asString ] ]
 ]
 
 { #category : #initialization }

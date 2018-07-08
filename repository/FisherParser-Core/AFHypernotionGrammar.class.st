@@ -49,7 +49,10 @@ AFHypernotionGrammar >> initializeHypernotion: anAFHypernotion productionRules: 
 	startSymbol := NCNonterminal named: hypernotion asString.
 	productionRules := 
 		(SinglyLinkedList 
-			with: (NCProductionRule head: startSymbol body: (hypernotion buildBodyOf: nonterminalSet)))
+			with: 
+				(NCProductionRule 
+					head: startSymbol 
+					body: (hypernotion buildBodyOf: (nonterminalSet, terminalSet))))
 		addAll: productionRuleCollection;
 		yourself.
 	associatedGrammar := JEGrammar
