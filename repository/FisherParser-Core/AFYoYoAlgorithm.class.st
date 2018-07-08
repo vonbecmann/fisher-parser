@@ -26,7 +26,7 @@ AFYoYoAlgorithm class >> of: aVWGrammar [
 AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
 	grammar representationRules
 		do: [ :dottedHyperRule | 
-			(dottedHyperRule symbolAtDot match: word)
+			(dottedHyperRule symbolAtDot matches: word)
 				ifTrue: [ column add: (dottedHyperRule startAt: column) ] ]
 ]
 
@@ -73,7 +73,7 @@ AFYoYoAlgorithm >> evaluate: words [
 						ifFalse: [ 
 							item symbolAtDot isTerminal
 								ifTrue: [ 
-									(i < n and: [ item symbolAtDot match: (words at: i) ])
+									(i < n and: [ item symbolAtDot matches: (words at: i) ])
 										ifTrue: [ (chart at: i + 1) add: item moveDotForward ] ].
 							item symbolAtDot isProtonotion
 								ifTrue: [ self topDownPredict: item at: column ].
