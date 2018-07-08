@@ -39,14 +39,14 @@ AFHypernotionGrammar >> computeFirstSet [
 
 { #category : #initialization }
 AFHypernotionGrammar >> initialize [
-	startSymbol := NCNonterminal named: 'hypernotion-axiom'.
-	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set
 ]
 
 { #category : #initialization }
 AFHypernotionGrammar >> initializeHypernotion: anAFHypernotion productionRules: productionRuleCollection nonterminals: nonterminalSet terminals: terminalSet [
 	self initialize.
 	hypernotion := anAFHypernotion.
+	startSymbol := NCNonterminal named: hypernotion asString.
 	productionRules := 
 		(SinglyLinkedList 
 			with: (NCProductionRule head: startSymbol body: (hypernotion buildBodyOf: nonterminalSet)))
