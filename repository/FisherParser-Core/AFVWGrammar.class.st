@@ -26,7 +26,7 @@ Class {
 AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToRepresentationList [
 	^ self basicNew
 		initializeVWGrammar: (AVWGrammar evw: aVWRuleString representations: terminalNotionToRepresentationList);
-		computeFirstAndFollowSets;
+		computeFirstSet;
 		checkBoundness;
 		checkHyperRulesLeftHandSides;
 		yourself
@@ -99,7 +99,7 @@ AFVWGrammar >> checkMetaGrammarIsLLOne [
 ]
 
 { #category : #initialization }
-AFVWGrammar >> computeFirstAndFollowSets [
+AFVWGrammar >> computeFirstSet [
 	metaGrammar
 		computeFirstSet;
 		computeParseTable
