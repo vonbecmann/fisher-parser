@@ -11,7 +11,8 @@ Class {
 		'protonotions',
 		'strictSyntax',
 		'vwGrammar',
-		'matcher'
+		'matcher',
+		'grammar'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -113,6 +114,11 @@ AFHypernotion >> do: aBlock [
 	notions do: aBlock 
 ]
 
+{ #category : #accessing }
+AFHypernotion >> grammar [
+	^ grammar ifNil: [ grammar := vwGrammar hypernotionGrammarAt: self ]
+]
+
 { #category : #'inspector extensions' }
 AFHypernotion >> gtInspectorNotionsIn: composite [
 	<gtInspectorPresentationOrder: 0>
@@ -137,7 +143,8 @@ AFHypernotion >> initialize [
 	metanotions := Set new.
 	protonotions := Set new.
 	vwGrammar := nil.
-	matcher := nil
+	matcher := nil.
+	grammar := nil.
 ]
 
 { #category : #initialization }
@@ -199,6 +206,11 @@ AFHypernotion >> matches: aCharacter [
 	^ notions first matches: aCharacter 
 ]
 
+{ #category : #testing }
+AFHypernotion >> matchesEmptyProtonotion [
+	^ self grammar matchesEmptyProtonotion
+]
+
 { #category : #accessing }
 AFHypernotion >> metanotions [
 	^ metanotions
@@ -245,6 +257,7 @@ AFHypernotion >> protonotions [
 { #category : #'initialize-release' }
 AFHypernotion >> release [
 	notions := metanotions := protonotions := strictSyntax := vwGrammar := matcher := nil.
+	grammar := nil.
 	super release
 ]
 

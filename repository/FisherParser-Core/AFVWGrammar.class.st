@@ -29,6 +29,7 @@ AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToReprese
 		initializeVWGrammar: (AVWGrammar evw: aVWRuleString representations: terminalNotionToRepresentationList);
 		computeFirstAndFollowSets;
 		checkBoundness;
+		checkHyperRulesLeftHandSides;
 		yourself
 ]
 
@@ -76,6 +77,24 @@ AFVWGrammar >> checkBoundness [
 ]
 
 { #category : #initialization }
+AFVWGrammar >> checkHyperRulesLeftHandSides [
+	alternatives
+		do: [ :hyperRule | 
+			hyperRule head matchesEmptyProtonotion
+				ifTrue: [ 
+					Error
+						signal:
+							(String
+								streamContents: [ :s | 
+									s
+										nextPutAll: 'left hand side of hyper rule ';
+										crlf;
+										print: hyperRule;
+										crlf;
+										nextPutAll: ' matches an empty protonotion' ]) ] ]
+]
+
+{ #category : #initialization }
 AFVWGrammar >> checkMetaGrammarIsLLOne [
 	metaGrammar checkIsLLOne
 ]
@@ -116,6 +135,11 @@ AFVWGrammar >> gtInspectorDefinitionIn: composite [
 { #category : #accessing }
 AFVWGrammar >> hyperRulesSize [
 	^ vwGrammar hyperRulesSize
+]
+
+{ #category : #private }
+AFVWGrammar >> hypernotionGrammarAt: anAFHypernotion [ 
+	^ metaGrammar startAt: anAFHypernotion 
 ]
 
 { #category : #accessing }

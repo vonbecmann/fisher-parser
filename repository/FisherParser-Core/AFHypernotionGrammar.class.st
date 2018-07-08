@@ -12,7 +12,8 @@ Class {
 		'startSymbol',
 		'hypernotion',
 		'productionRules',
-		'associatedGrammar'
+		'associatedGrammar',
+		'firstSet'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -24,12 +25,22 @@ AFHypernotionGrammar class >> hypernotion: anAFHypernotion productionRules: prod
 			productionRules: productionRuleCollection
 			nonterminals: nonterminalSet
 			terminals: terminalSet;
+		computeFirstSet;
 		yourself
 ]
 
 { #category : #initialization }
+AFHypernotionGrammar >> computeFirstSet [
+	| previousSize |
+	[ 	previousSize := firstSet size.
+		productionRules do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
+		previousSize = firstSet size ] whileFalse
+]
+
+{ #category : #initialization }
 AFHypernotionGrammar >> initialize [
-	startSymbol := NCNonterminal named: 'hypernotion-axiom'
+	startSymbol := NCNonterminal named: 'hypernotion-axiom'.
+	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
 ]
 
 { #category : #initialization }
@@ -45,7 +56,9 @@ AFHypernotionGrammar >> initializeHypernotion: anAFHypernotion productionRules: 
 		productionRules: productionRules
 		nonterminals: (nonterminalSet copyWith: startSymbol)
 		terminals: terminalSet
-		startNonterminal: startSymbol
+		startNonterminal: startSymbol.
+	associatedGrammar 
+		nonterminals do: [ :each | firstSet at: each putAll: #() ]
 ]
 
 { #category : #public }
@@ -55,6 +68,11 @@ AFHypernotionGrammar >> match: aProtonotion [
 	^ [ (associatedGrammar parseTree: aProtonotion strictSyntaxString) substitutionsOf: hypernotion ]
 		on: JEFailure
 		do: [ AFSubstitution noSolution ]
+]
+
+{ #category : #testing }
+AFHypernotionGrammar >> matchesEmptyProtonotion [
+	^ (firstSet at: startSymbol) includes: #epsilon
 ]
 
 { #category : #printing }
