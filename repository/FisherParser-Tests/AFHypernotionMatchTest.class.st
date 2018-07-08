@@ -1,11 +1,11 @@
 Class {
-	#name : #AFHypernotionMatcherTest,
-	#superclass : #AFMatcherTest,
+	#name : #AFHypernotionMatchTest,
+	#superclass : #AFMatchTest,
 	#category : #'FisherParser-Tests-Matching'
 }
 
 { #category : #tests }
-AFHypernotionMatcherTest >> testMatch [
+AFHypernotionMatchTest >> testMatch [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
@@ -18,7 +18,7 @@ AFHypernotionMatcherTest >> testMatch [
 ]
 
 { #category : #tests }
-AFHypernotionMatcherTest >> testMatch02 [
+AFHypernotionMatchTest >> testMatch02 [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
@@ -34,7 +34,7 @@ AFHypernotionMatcherTest >> testMatch02 [
 ]
 
 { #category : #tests }
-AFHypernotionMatcherTest >> testMatch03 [
+AFHypernotionMatchTest >> testMatch03 [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion
@@ -47,7 +47,7 @@ AFHypernotionMatcherTest >> testMatch03 [
 ]
 
 { #category : #tests }
-AFHypernotionMatcherTest >> testMatch04 [
+AFHypernotionMatchTest >> testMatch04 [
 	| hypernotion substitution |
 	hypernotion := 
 		AFHypernotion

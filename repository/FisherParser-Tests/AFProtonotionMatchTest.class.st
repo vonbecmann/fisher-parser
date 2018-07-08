@@ -3,13 +3,13 @@ a protonotion matcher.
 
 "
 Class {
-	#name : #AFProtonotionMatcherTest,
-	#superclass : #AFMatcherTest,
+	#name : #AFProtonotionMatchTest,
+	#superclass : #AFMatchTest,
 	#category : #'FisherParser-Tests-Matching'
 }
 
 { #category : #tests }
-AFProtonotionMatcherTest >> testMatch [
+AFProtonotionMatchTest >> testMatch [
 	| protonotion substitution |
 	protonotion := 
 		AFHypernotion
@@ -23,7 +23,7 @@ AFProtonotionMatcherTest >> testMatch [
 ]
 
 { #category : #tests }
-AFProtonotionMatcherTest >> testMatch02 [
+AFProtonotionMatchTest >> testMatch02 [
 	| protonotion substitution |
 	protonotion := 
 		AFHypernotion
@@ -37,7 +37,7 @@ AFProtonotionMatcherTest >> testMatch02 [
 ]
 
 { #category : #tests }
-AFProtonotionMatcherTest >> testMatch03 [
+AFProtonotionMatchTest >> testMatch03 [
 	| protonotion substitution |
 	protonotion := 
 		AFHypernotion

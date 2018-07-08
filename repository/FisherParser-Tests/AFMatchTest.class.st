@@ -3,25 +3,25 @@ base class for matcher testing.
 
 "
 Class {
-	#name : #AFMatcherTest,
+	#name : #AFMatchTest,
 	#superclass : #TestCase,
 	#category : #'FisherParser-Tests-Matching'
 }
 
 { #category : #testing }
-AFMatcherTest class >> isAbstract [
+AFMatchTest class >> isAbstract [
 	"Override to true if a TestCase subclass is Abstract and should not have
 	TestCase instances built from it"
 
-	^ self name = #AFMatcherTest
+	^ self name = #AFMatchTest
 ]
 
 { #category : #accessing }
-AFMatcherTest class >> resources [
+AFMatchTest class >> resources [
 	^ Array with: AFExemplarResource
 ]
 
 { #category : #accessing }
-AFMatcherTest >> examples [
+AFMatchTest >> examples [
 	^ AFExemplarResource current
 ]
