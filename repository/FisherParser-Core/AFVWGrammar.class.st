@@ -14,7 +14,6 @@ Class {
 	#instVars : [
 		'vwGrammar',
 		'startHyperRule',
-		'metaRules',
 		'alternatives',
 		'bottomUpAlternatives',
 		'representationRules',
@@ -128,21 +127,10 @@ AFVWGrammar >> hypernotions [
 ]
 
 { #category : #initialization }
-AFVWGrammar >> initialize [
-	metaRules := SinglyLinkedList new
-]
-
-{ #category : #initialization }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	| startNotion ortholetters |
 	self initialize.
 	vwGrammar := aVWGrammar.
-	vwGrammar metaRules 
-		collect: [ :each |
-			AWMetaProductionRule 
-				head: each head
-				body: 	(AFHypernotion belongsTo: self withAllNotionsFrom: each body) ] 
-		thenDo: [ :newRule | metaRules add: newRule ].	
 	startNotion := AWProtonotion with: '((start))'.
 	ortholetters := Set new.
 	ortholetters 
@@ -150,7 +138,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		addAll: vwGrammar ortholetters.
 	metaGrammar := 
 		(AFJEMetaGrammar
-			metaRules: metaRules 
+			metaRules: vwGrammar metaRules  
 			orthoRepresentations: 
 				(ortholetters collect: [ :char | ((NCNonterminal named: char) -> (NCTerminal character: char)) ])).
 	startHyperRule := AFHyperRule
