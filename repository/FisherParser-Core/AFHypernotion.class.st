@@ -11,7 +11,6 @@ Class {
 		'protonotions',
 		'strictSyntax',
 		'vwGrammar',
-		'matcher',
 		'grammar'
 	],
 	#category : #'FisherParser-Core-Implementation'
@@ -100,19 +99,6 @@ AFHypernotion >> buildBodyOf: symbols [
 				ifAbsent: [ Error signal: notion asString ] ]
 ]
 
-{ #category : #initialization }
-AFHypernotion >> createMatcherUsing: aMatcherCreator [
-	^ self isHypernotion
-		ifTrue: [ aMatcherCreator createHypernotionMatcherFor: self ]
-		ifFalse: [ 
-			self isProtonotion
-				ifTrue: [ aMatcherCreator createProtonotionMatcherFor: self ]
-				ifFalse: [ 
-					self isTerminal
-						ifTrue: [ aMatcherCreator createTerminalMatcherFor: self ]
-						ifFalse: [ self error ] ] ]
-]
-
 { #category : #enumerating }
 AFHypernotion >> do: aBlock [ 
 	notions do: aBlock 
@@ -147,7 +133,6 @@ AFHypernotion >> initialize [
 	metanotions := Set new.
 	protonotions := Set new.
 	vwGrammar := nil.
-	matcher := nil.
 	grammar := nil.
 ]
 
@@ -259,22 +244,9 @@ AFHypernotion >> protonotions [
 
 { #category : #'initialize-release' }
 AFHypernotion >> release [
-	notions := metanotions := protonotions := strictSyntax := vwGrammar := matcher := nil.
+	notions := metanotions := protonotions := strictSyntax := vwGrammar := nil.
 	grammar := nil.
 	super release
-]
-
-{ #category : #matching }
-AFHypernotion >> strictMatch: aProtonotionHypernotion [
-	" a protonotion match a protonotion, therefore the substitution is empty.
-	 optimize for efficiency. "
-
-	strictSyntax size = aProtonotionHypernotion strictSyntax size
-		ifFalse: [ ^ AFSubstitution noSolution ].
-	1 to: strictSyntax size do: [ :index | 
-		(strictSyntax at: index) = (aProtonotionHypernotion strictSyntax at: index)
-			ifFalse: [ ^ AFSubstitution noSolution ] ].
-	^ AFSubstitution emptySolution
 ]
 
 { #category : #accessing }

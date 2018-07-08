@@ -106,26 +106,6 @@ AFVWGrammar >> computeFirstAndFollowSets [
 		computeParseTable
 ]
 
-{ #category : #'private - matching' }
-AFVWGrammar >> createHypernotionMatcherFor: aHypernotion [
-	^ metaGrammar startAt: aHypernotion
-]
-
-{ #category : #'private - matching' }
-AFVWGrammar >> createMatcherFor: aHypernotion [ 
-	^ aHypernotion createMatcherUsing: self
-]
-
-{ #category : #'private - matching' }
-AFVWGrammar >> createProtonotionMatcherFor: aProtonotionHypernotion [
-	^ AFProtonotionMatcher protonotion: aProtonotionHypernotion
-]
-
-{ #category : #'private - matching' }
-AFVWGrammar >> createTerminalMatcherFor: aTerminalHypernotion [
-	^ AFTerminalMatcher terminal: aTerminalHypernotion
-]
-
 { #category : #'inspector extensions' }
 AFVWGrammar >> gtInspectorDefinitionIn: composite [
 	<gtInspectorPresentationOrder: 0>
