@@ -180,7 +180,7 @@ AFHypernotion >> isProtonotion [
 	"its metanotion free"
 
 	^ metanotions isEmpty
-		and: [ protonotions isNotEmpty 
+		and: [ notions isNotEmpty 
 					and: [ notions allSatisfy: [ :notion | notion isProtonotion ] ] ]
 ]
 
