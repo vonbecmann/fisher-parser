@@ -275,21 +275,3 @@ AFHypernotionTest >> testStrictSyntax02 [
 					(Array streamContents: [ :s | 
 						'cs' do: [ :char | s nextPut: (NCNonterminal named: char) ] ])
 ]
-
-{ #category : #tests }
-AFHypernotionTest >> testStrictSyntaxString [
-	hypernotion := AFHypernotion withAll: #('start' 'notion') asNotions.
-
-	self 
-		assert: hypernotion strictSyntaxString 
-		equals: 'startnotion'
-]
-
-{ #category : #tests }
-AFHypernotionTest >> testStrictSyntaxString02 [
-	hypernotion := AFHypernotion withAll: #(THREE 'cs') asNotions.
-
-	self 
-		assert: hypernotion strictSyntaxString 
-		equals: 'THREEcs'
-]

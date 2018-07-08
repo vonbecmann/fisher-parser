@@ -258,8 +258,3 @@ AFHypernotion >> release [
 AFHypernotion >> strictSyntax [
 	^ strictSyntax
 ]
-
-{ #category : #accessing }
-AFHypernotion >> strictSyntaxString [
-	^ String streamContents: [ :s | notions do: [ :each | each printOn: s ] ]
-]
