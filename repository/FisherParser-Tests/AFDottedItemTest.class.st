@@ -54,7 +54,7 @@ AFDottedItemTest >> testAsString03 [
 	
 	self 
 		assert: item asString 
-		equals: '[NOTION option: ' , middleDot, 'NOTION. @ [1, 3]]'
+		equals: '[NOTIONoption: ' , middleDot, 'NOTION. @ [1, 3]]'
 ]
 
 { #category : #tests }
@@ -70,7 +70,7 @@ AFDottedItemTest >> testAsString04 [
 	
 	self 
 		assert: item asString 
-		equals: '[NOTION option: NOTION', middleDot, '. @ [1, 3]]'
+		equals: '[NOTIONoption: NOTION', middleDot, '. @ [1, 3]]'
 ]
 
 { #category : #tests }

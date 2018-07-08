@@ -42,7 +42,7 @@ AFHypernotionTest >> testAsString [
 		assert:
 			(AFHypernotion
 				withAll: {(AWProtonotion with: 'letter'). (AWMetanotion named: 'ALPHA')}) asString
-		equals: 'letter ALPHA'
+		equals: 'letterALPHA'
 ]
 
 { #category : #tests }

@@ -27,7 +27,7 @@ AFHyperRuleTest >> testAsString02 [
 			bodyWith: (AFHypernotion with: #'NOTION' asNotion).
 	self 
 		assert: hyperRule asString 
-		equals: 'NOTION option: NOTION.'
+		equals: 'NOTIONoption: NOTION.'
 ]
 
 { #category : #tests }

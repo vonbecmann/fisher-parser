@@ -110,6 +110,13 @@ AFHypernotion >> grammar [
 ]
 
 { #category : #'inspector extensions' }
+AFHypernotion >> gtDisplayOn: aStream [
+	notions 
+		do: [ :each | each printOn: aStream ] 
+		separatedBy: [ aStream space ]
+]
+
+{ #category : #'inspector extensions' }
 AFHypernotion >> gtInspectorNotionsIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ composite list
@@ -227,9 +234,7 @@ AFHypernotion >> ortholetters [
 
 { #category : #printing }
 AFHypernotion >> printOn: aStream [
-	notions 
-		do: [ :each | aStream print: each ] 
-		separatedBy: [ aStream space ]
+	notions do: [ :each | each printOn: aStream ]
 ]
 
 { #category : #printing }
