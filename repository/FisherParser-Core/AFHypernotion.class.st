@@ -8,7 +8,6 @@ Class {
 	#instVars : [
 		'notions',
 		'metanotions',
-		'protonotions',
 		'strictSyntax',
 		'grammar',
 		'metaGrammar'
@@ -138,7 +137,6 @@ AFHypernotion >> hash [
 { #category : #initialization }
 AFHypernotion >> initialize [
 	metanotions := Set new.
-	protonotions := Set new.
 	metaGrammar := nil.
 	grammar := nil.
 ]
@@ -150,9 +148,7 @@ AFHypernotion >> initializeNotions: aNotionCollection [
 	notions
 		do: [ :each | 
 			each isMetanotion
-				ifTrue: [ metanotions add: each ].
-			each isProtonotion
-				ifTrue: [ protonotions add: each ] ].
+				ifTrue: [ metanotions add: each ] ].
 	strictSyntax := Array
 		streamContents: [ :s | 
 			notions
@@ -232,7 +228,7 @@ AFHypernotion >> printString [
 
 { #category : #'initialize-release' }
 AFHypernotion >> release [
-	notions := metanotions := protonotions := strictSyntax := metaGrammar := nil.
+	notions := metanotions := strictSyntax := metaGrammar := nil.
 	grammar := nil.
 	super release
 ]
