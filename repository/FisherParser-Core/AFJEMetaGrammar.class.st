@@ -27,9 +27,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFJEMetaGrammar class >> metaRules: metaRuleCollection orthoRepresentations: terminalNotionToRepresentationList [ 
-	^ self basicNew 
-		initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList;
+AFJEMetaGrammar class >> metaRules: metaRuleCollection ortholetters: ortholetters [
+	^ self basicNew
+		initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetters;
 		yourself
 ]
 
@@ -106,10 +106,12 @@ AFJEMetaGrammar >> initialize [
 ]
 
 { #category : #initialization }
-AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection representations: terminalNotionToRepresentationList [
+AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetters [
+	|terminalNotionToRepresentationList|
 	self initialize.
 	metaRuleCollection 
 		do: [ :each | nonterminals add: each head ].
+	terminalNotionToRepresentationList := (ortholetters collect: [ :char | ((NCNonterminal named: char) -> (NCTerminal character: char)) ]).
 	terminalNotionToRepresentationList
 		do: [ :assoc | 
 			nonterminals add: assoc key.

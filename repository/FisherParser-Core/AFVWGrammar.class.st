@@ -131,11 +131,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	ortholetters 
 		addAll: startNotion letters;
 		addAll: vwGrammar ortholetters.
-	metaGrammar := 
-		(AFJEMetaGrammar
-			metaRules: vwGrammar metaRules  
-			orthoRepresentations: 
-				(ortholetters collect: [ :char | ((NCNonterminal named: char) -> (NCTerminal character: char)) ])).
+	metaGrammar := AFJEMetaGrammar metaRules: vwGrammar metaRules ortholetters: ortholetters.
 	startHyperRule := AFHyperRule
 		head: (AFHypernotion belongsTo: metaGrammar with: startNotion) 
 		bodyWith: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: vwGrammar startNotion).
