@@ -92,6 +92,14 @@ AFHyperRule >> dotAtEnd [
 	^ AFDottedHyperRule atTheEndOf: self
 ]
 
+{ #category : #'inspector extensions' }
+AFHyperRule >> gtDisplayOn: aStream [
+	head gtDisplayOn: aStream.
+	aStream nextPutAll: ': '.
+	body gtDisplayOn: aStream.
+	aStream nextPut: $.
+]
+
 { #category : #comparing }
 AFHyperRule >> hash [
 	^ ((head hash + body hash) hashMultiply + self class hash) hashMultiply

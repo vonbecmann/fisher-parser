@@ -49,6 +49,28 @@ AFHyperAlternative >> first [
 ]
 
 { #category : #'inspector extensions' }
+AFHyperAlternative >> gtDisplayOn: aStream [
+	hypernotions 
+		do: [ :hn | hn gtDisplayOn: aStream ] 
+		separatedBy: [ aStream nextPutAll: ', ' ]
+]
+
+{ #category : #'inspector extensions' }
+AFHyperAlternative >> gtDisplayOn: aStream withDotAt: dotIndex [
+	| middleDot |
+	middleDot := Character value: 183.
+	hypernotions
+		withIndexDo: [ :each :index | 
+			index == 1
+				ifFalse: [ aStream nextPutAll: ', ' ].
+			index == dotIndex
+				ifTrue: [ aStream nextPut: middleDot ].
+			each gtDisplayOn: aStream ].
+	dotIndex > hypernotions size
+		ifTrue: [ aStream nextPut: middleDot ]
+]
+
+{ #category : #'inspector extensions' }
 AFHyperAlternative >> gtInspectorHypernotionsIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ composite list

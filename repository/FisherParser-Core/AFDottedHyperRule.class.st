@@ -42,6 +42,14 @@ AFDottedHyperRule >> dotIndex [
 	^ dotIndex
 ]
 
+{ #category : #'inspector extensions' }
+AFDottedHyperRule >> gtDisplayOn: aStream [
+	hyperRule head gtDisplayOn: aStream.
+	aStream nextPutAll: ': '.
+	hyperRule body gtDisplayOn: aStream withDotAt: dotIndex.
+	aStream nextPut: $.
+]
+
 { #category : #comparing }
 AFDottedHyperRule >> hash [
 	^ (hyperRule hash + dotIndex hash) hashMultiply
