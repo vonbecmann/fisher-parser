@@ -4,6 +4,8 @@ a hypernotion's grammar. (some called it hypernotion system).
 use jay earley parser as a pattern matching algorithm.
 the hypernotion system is uniquely assignable (u.a.) [wegner]
 
+Definition 12. Let M, V, Rm be defined as for two-level grammars(Definition 1). A hypernotion system HS is a 4-tuple (M, V, Rm, H), where H in (M u V)+, the hypernotion (axiom).
+
 "
 Class {
 	#name : #AFHypernotionGrammar,

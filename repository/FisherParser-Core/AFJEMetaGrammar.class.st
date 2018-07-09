@@ -1,6 +1,6 @@
 "
 helps to build an hypernotion's grammar.
-given  the production and representation rules of the metalevel of a vw-grammar.
+given  the meta production rules and ortholetters of the metalevel of a vw-grammar.
 
 holds the elements of the meta grammar. meta rules and ortho alphabet.
 
@@ -8,10 +8,6 @@ and builds a grammar with
 	- an hypernotion 
 	- and the metagramar (nonterminals, terminals, meta rules)	
 and starts at the hypernotion
-
-using jay earley parser.
-Definition 12. Let M, V, Rm be defined as for two-level grammars(Definition 1). A hypernotion system HS is a 4-tuple (M, V, Rm, H), where H in (M u V)+, the hypernotion (axiom).
-
 "
 Class {
 	#name : #AFJEMetaGrammar,
@@ -20,9 +16,9 @@ Class {
 		'nonterminals',
 		'terminals',
 		'metaProductionRules',
+		'ortholetters',
 		'firstSet',
-		'parseTable',
-		'ortholetters'
+		'parseTable'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
