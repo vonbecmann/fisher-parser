@@ -70,8 +70,17 @@ AFDottedItem >> gtDisplayIntervalString [
 ]
 
 { #category : #'inspector extensions' }
+AFDottedItem >> gtDisplayOn: aStream [
+	aStream nextPut: $[.
+	dottedHyperRule gtDisplayOn: aStream.
+	aStream nextPutAll: ' @ '.
+	self printIntervalOn: aStream.
+	aStream nextPut: $]
+]
+
+{ #category : #'inspector extensions' }
 AFDottedItem >> gtDisplayValueString [
-	^ String streamContents: [ :s | dottedHyperRule printOn: s ]
+	^ String streamContents: [ :s | dottedHyperRule gtDisplayOn: s ]
 ]
 
 { #category : #comparing }
