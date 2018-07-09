@@ -123,24 +123,25 @@ AFVWGrammar >> hypernotions [
 
 { #category : #initialization }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
-	| startNotion ortholetters |
+	| startNotion |
 	self initialize.
 	vwGrammar := aVWGrammar.
 	startNotion := AWProtonotion with: '((start))'.
-	ortholetters := Set new.
-	ortholetters 
-		addAll: startNotion letters;
-		addAll: vwGrammar ortholetters.
-	metaGrammar := AFJEMetaGrammar metaRules: vwGrammar metaRules ortholetters: ortholetters.
+	metaGrammar := 
+	AFJEMetaGrammar
+		metaRules: vwGrammar metaRules
+		ortholetters: (vwGrammar ortholetters, startNotion letters).
 	startHyperRule := AFHyperRule
-		head: (AFHypernotion belongsTo: metaGrammar with: startNotion) 
+		head: (AFHypernotion belongsTo: metaGrammar with: startNotion)
 		bodyWith: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: vwGrammar startNotion).
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
 		collect: [ :each | 
 			AFHyperRule
 				head: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: each head)
-				body: 	(each body collect: [ :hypernotion | AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: hypernotion ]) ]
+				body:
+					(each body
+						collect: [ :hypernotion | AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: hypernotion ]) ]
 		thenDo: [ :newRule | alternatives addLast: newRule ].
 	bottomUpAlternatives := alternatives
 		reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
