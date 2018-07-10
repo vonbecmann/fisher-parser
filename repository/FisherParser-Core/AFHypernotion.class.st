@@ -98,11 +98,6 @@ AFHypernotion >> buildBodyOf: symbols [
 				ifAbsent: [ Error signal: notion asString ] ]
 ]
 
-{ #category : #enumerating }
-AFHypernotion >> do: aBlock [ 
-	notions do: aBlock 
-]
-
 { #category : #accessing }
 AFHypernotion >> grammar [
 	^ grammar ifNil: [ grammar := metaGrammar startAt: self ]
