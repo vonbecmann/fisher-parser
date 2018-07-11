@@ -8,7 +8,6 @@ Class {
 	#instVars : [
 		'notions',
 		'metanotions',
-		'strictSyntax',
 		'grammar',
 		'metaGrammar',
 		'forwardCrossReferences'
@@ -95,13 +94,18 @@ AFHypernotion >> belongsTo: aMetaGrammar [
 
 { #category : #accessing }
 AFHypernotion >> buildBodyOf: symbols [
-	"build body of symbols using those given as paramater"
+	"build body of symbols using those given as parameters"
 
-	^ strictSyntax 
-		collect: [ :notion | 
-			symbols 
-				like: notion 
-				ifAbsent: [ Error signal: notion asString ] ]
+	^ Array
+		streamContents: [ :s | 
+			notions
+				do: [ :each | 
+					each isMetanotion
+						ifTrue: [ s nextPut: (symbols detect: [ :symbol | symbol = each ]) ].
+					each isProtonotion
+						ifTrue: [ s nextPutAll: (each buildBodyOf: symbols) ].
+					each isTerminal
+						ifTrue: [ s nextPut: (symbols detect: [ :symbol | symbol = each ]) ] ] ]
 ]
 
 { #category : #accessing }
@@ -166,17 +170,7 @@ AFHypernotion >> initializeNotions: aNotionCollection [
 	notions
 		do: [ :each | 
 			each isMetanotion
-				ifTrue: [ metanotions add: each ] ].
-	strictSyntax := Array
-		streamContents: [ :s | 
-			notions
-				do: [ :each | 
-					each isMetanotion
-						ifTrue: [ s nextPut: each ].
-					each isProtonotion
-						ifTrue: [ s nextPutAll: each strictSyntax ].
-					each isTerminal
-						ifTrue: [ s nextPut: each ] ] ]
+				ifTrue: [ metanotions add: each ] ]
 ]
 
 { #category : #testing }
@@ -246,7 +240,7 @@ AFHypernotion >> printString [
 
 { #category : #'initialize-release' }
 AFHypernotion >> release [
-	notions := metanotions := strictSyntax := metaGrammar := nil.
+	notions := metanotions := metaGrammar := nil.
 	grammar := forwardCrossReferences := nil.
 	super release
 ]
