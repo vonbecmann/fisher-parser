@@ -123,13 +123,3 @@ AWHypernotion >> printOn: aStream [
 AWHypernotion >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
-
-{ #category : #accessing }
-AWHypernotion >> terminals [
-	| terminals |
-	terminals := Set new.
-	notions 
-		select: [ :notion | notion isTerminal ] 
-		thenDo: [ :notion | terminals add: notion ].
-	^ terminals
-]
