@@ -51,7 +51,7 @@ AVWGrammarBuilder >> build [
 	representationSet := Set withAll: representations.
 	representationSet do: [ :hyperRule | index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	^ AVWGrammar
-		metanotions: (notions select: [ :each | each isMetanotion ])
+		metanotions: metanotions
 		protonotions: (notions select: [ :each | each isProtonotion ])
 		hypernotions: hypernotions
 		terminals: (notions select: [ :each | each isTerminal ])
