@@ -174,7 +174,7 @@ AFHypernotion >> initializeNotions: aNotionCollection [
 					each isMetanotion
 						ifTrue: [ s nextPut: each ].
 					each isProtonotion
-						ifTrue: [ each do: [ :char | s nextPut: (NCNonterminal named: char) ] ].
+						ifTrue: [ s nextPutAll: each strictSyntax ].
 					each isTerminal
 						ifTrue: [ s nextPut: each ] ] ]
 ]

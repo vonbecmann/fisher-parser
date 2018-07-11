@@ -31,11 +31,6 @@ AWProtonotion >> = anObject [
 	^ self class == anObject class and: [ smallSyntacticMarks = anObject smallSyntacticMarks ]
 ]
 
-{ #category : #enumerating }
-AWProtonotion >> do: aBlock [
-	smallSyntacticMarks do: aBlock
-]
-
 { #category : #comparing }
 AWProtonotion >> hash [
 	^ (self class hash + smallSyntacticMarks hash) hashMultiply
