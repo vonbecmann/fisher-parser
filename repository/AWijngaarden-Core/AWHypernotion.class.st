@@ -98,16 +98,6 @@ AWHypernotion >> isTerminal [
 ]
 
 { #category : #accessing }
-AWHypernotion >> metanotions [
-	| metanotions |
-	metanotions := Set new.
-	notions 
-		select: [ :each | each isMetanotion ] 
-		thenDo: [ :each | metanotions add: each ].
-	^ metanotions
-]
-
-{ #category : #accessing }
 AWHypernotion >> notions [
 	^ notions
 ]
