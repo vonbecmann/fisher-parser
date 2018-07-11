@@ -73,6 +73,13 @@ AWMetaProductionRule >> initializeHead: aMetanotion body: aHypernotion [
 	body := aHypernotion
 ]
 
+{ #category : #accessing }
+AWMetaProductionRule >> notions [
+	^ (Set with: head)
+		addAll: body notions;
+		yourself
+]
+
 { #category : #printing }
 AWMetaProductionRule >> printOn: aStream [
 	aStream

@@ -22,43 +22,39 @@ Class {
 
 { #category : #building }
 AVWGrammarBuilder >> build [
-	| lineup index metanotions protonotions hypernotions terminals metaRuleSet hyperRuleSet representationSet |
+	| lineup index notions metanotions hypernotions metaRuleSet hyperRuleSet representationSet |
 	lineup := OrderedCollection new
 		addAll: metaRules;
 		addAll: hyperRules;
 		addAll: representations;
 		yourself.
 	index := Dictionary new.
+	notions := Set new.
 	metanotions := Set new.
-	protonotions := Set new.
 	hypernotions := Set new.
-	terminals := Set new.
-	metaRules do: [ :metaRule | metanotions add: metaRule head ].
+	metaRules do: [ :metaRule | 
+		notions addAll: metaRule notions.		
+		metanotions add: metaRule head.
+		hypernotions add: metaRule body ].
+	hyperRules do: [ :hRule |
+		notions addAll: hRule notions.
+		hypernotions addAll: hRule hypernotions ].
+	representations do: [ :repRule |
+		self assert: repRule isRepresentation.
+		notions addAll: repRule notions.
+		hypernotions addAll: repRule hypernotions ].
+	
 	metaRuleSet := self buildMetaRulesWithAll: metaRules and: metanotions.
-	metaRuleSet
-		do: [ :metaRule | 
-			protonotions addAll: metaRule protonotions.
-			hypernotions add: metaRule body.
-			index at: metaRule put: (lineup indexOf: metaRule) ].
+	metaRuleSet do: [ :metaRule | index at: metaRule put: (lineup indexOf: metaRule) ].
 	hyperRuleSet := self buildHyperRulesWith: hyperRules and: metanotions.
-	hyperRuleSet
-		do: [ :hyperRule | 
-			protonotions addAll: hyperRule protonotions.
-			hypernotions addAll: hyperRule hypernotions.
-			index at: hyperRule put: (lineup indexOf: hyperRule) ].
+	hyperRuleSet do: [ :hyperRule | index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	representationSet := Set withAll: representations.
-	representationSet
-		do: [ :hyperRule | 
-			self assert: hyperRule isRepresentation.
-			protonotions addAll: hyperRule protonotions.
-			hypernotions addAll: hyperRule hypernotions.
-			terminals addAll: hyperRule terminals.
-			index at: hyperRule put: (lineup indexOf: hyperRule) ].
+	representationSet do: [ :hyperRule | index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	^ AVWGrammar
-		metanotions: metanotions
-		protonotions: protonotions
+		metanotions: (notions select: [ :each | each isMetanotion ])
+		protonotions: (notions select: [ :each | each isProtonotion ])
 		hypernotions: hypernotions
-		terminals: terminals
+		terminals: (notions select: [ :each | each isTerminal ])
 		metaRules: (metaRuleSet sorted: [ :a :b | (index at: a) < (index at: b) ])
 		hyperRules: 
 			((hyperRuleSet sorted: [ :a :b | (index at: a) < (index at: b) ]),

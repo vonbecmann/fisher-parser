@@ -97,6 +97,15 @@ AWHyperRule >> isRepresentation [
 	^ head isProtonotion and: [ body size = 1 and: [ body first isTerminal ] ]
 ]
 
+{ #category : #accessing }
+AWHyperRule >> notions [
+	| notions |
+	notions := Set new.
+	notions addAll: head notions.
+	body do: [ :eachHypernotion | notions addAll: eachHypernotion notions ].
+	^ notions
+]
+
 { #category : #printing }
 AWHyperRule >> printOn: aStream [
 	aStream
