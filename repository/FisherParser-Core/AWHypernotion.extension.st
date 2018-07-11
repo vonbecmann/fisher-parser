@@ -7,9 +7,13 @@ AWHypernotion >> buildBodyOf: symbols [
 			notions
 				do: [ :each | 
 					each isMetanotion
-						ifTrue: [ s nextPut: (symbols like: each ifAbsent: [ Error signal ]) ].
+						ifTrue: [ s nextPut: (symbols detect: [ :symbol | symbol = each ]) ].
 					each isProtonotion
-						ifTrue: [ each do: [ :char | s nextPut: (symbols like: (NCNonterminal named: char) ifAbsent: [ Error signal ]) ] ].
+						ifTrue: [ | nonterminal |
+							each
+								do: [ :letter | 
+									nonterminal := NCNonterminal named: letter.
+									s nextPut: (symbols detect: [ :symbol | symbol = nonterminal ]) ] ].
 					each isTerminal
-						ifTrue: [ s nextPut: (symbols like: each ifAbsent: [ Error signal ]) ] ] ]
+						ifTrue: [ s nextPut: (symbols detect: [ :symbol | symbol = each ]) ] ] ]
 ]
