@@ -15,6 +15,7 @@ Class {
 	#instVars : [
 		'nonterminals',
 		'terminals',
+		'symbols',
 		'metaProductionRules',
 		'ortholetters',
 		'firstSet',
@@ -126,7 +127,8 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetter
 				body: {(terminals like: (NCTerminal character: letter))} ]
 		thenDo: [ :each | 
 			metaProductionRules add: each.
-			firstSet at: each head put: each body first ]
+			firstSet at: each head put: each body first ].
+	symbols := nonterminals, terminals.
 ]
 
 { #category : #'instance creation' }
@@ -134,9 +136,17 @@ AFJEMetaGrammar >> startAt: aHypernotion [
 	" 	builds a grammar with an hypernotion and the metagramar 
 		and starts at the given hypernotion "
 
+	| startSymbol productionRules |
+	startSymbol := NCNonterminal named: aHypernotion asString.
+	productionRules := 
+		(SinglyLinkedList
+			with: (NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: symbols)))
+		addAll: metaProductionRules;
+		yourself.
 	^ AFHypernotionGrammar
 		hypernotion: aHypernotion
-		productionRules: metaProductionRules
-		nonterminals: nonterminals
+		productionRules: productionRules
+		nonterminals: (nonterminals copyWith: startSymbol)
 		terminals: terminals
+		startNonterminal: startSymbol
 ]
