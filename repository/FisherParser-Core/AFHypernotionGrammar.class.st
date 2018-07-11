@@ -93,3 +93,8 @@ AFHypernotionGrammar >> printOn: aStream [
 AFHypernotionGrammar >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
+
+{ #category : #public }
+AFHypernotionGrammar >> startSymbolFirstSet [
+	^ firstSet at: startSymbol
+]

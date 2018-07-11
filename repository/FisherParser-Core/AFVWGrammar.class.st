@@ -29,6 +29,7 @@ AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToReprese
 		computeFirstSet;
 		checkBoundness;
 		checkHyperRulesLeftHandSides;
+		computeCrossReferences;
 		yourself
 ]
 
@@ -96,6 +97,21 @@ AFVWGrammar >> checkHyperRulesLeftHandSides [
 { #category : #initialization }
 AFVWGrammar >> checkMetaGrammarIsLLOne [
 	metaGrammar checkIsLLOne
+]
+
+{ #category : #initialization }
+AFVWGrammar >> computeCrossReferences [
+	" compute cross-references "
+
+	alternatives
+		do: [ :hyperRule | 
+			hyperRule body
+				do: [ :rightHypernotion | 
+					rightHypernotion isTerminal
+						ifFalse: [ alternatives
+								do: [ :crossHyperRule | 
+									(crossHyperRule head superMatch: rightHypernotion)
+										ifTrue: [ rightHypernotion addForwardCrossReference: crossHyperRule ] ] ] ] ]
 ]
 
 { #category : #initialization }

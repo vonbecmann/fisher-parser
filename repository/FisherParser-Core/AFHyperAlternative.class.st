@@ -43,6 +43,11 @@ AFHyperAlternative >> at: index [
 	^ hypernotions at: index
 ]
 
+{ #category : #enumerating }
+AFHyperAlternative >> do: aBlock [
+	hypernotions do: aBlock
+]
+
 { #category : #accessing }
 AFHyperAlternative >> first [
 	^ hypernotions first

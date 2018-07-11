@@ -10,7 +10,8 @@ Class {
 		'metanotions',
 		'strictSyntax',
 		'grammar',
-		'metaGrammar'
+		'metaGrammar',
+		'forwardCrossReferences'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -75,6 +76,11 @@ AFHypernotion >> = anObject [
 ]
 
 { #category : #accessing }
+AFHypernotion >> addForwardCrossReference: anAFHyperRule [
+	forwardCrossReferences add: anAFHyperRule
+]
+
+{ #category : #accessing }
 AFHypernotion >> apply: aSubstitution [
 	^ (self class withAll: (notions collect: [ :notion | notion apply: aSubstitution ]))
 		belongsTo: metaGrammar;
@@ -99,6 +105,11 @@ AFHypernotion >> buildBodyOf: symbols [
 ]
 
 { #category : #accessing }
+AFHypernotion >> firstSet [
+	^ self grammar startSymbolFirstSet
+]
+
+{ #category : #accessing }
 AFHypernotion >> grammar [
 	^ grammar ifNil: [ grammar := metaGrammar startAt: self ]
 ]
@@ -108,6 +119,17 @@ AFHypernotion >> gtDisplayOn: aStream [
 	notions 
 		do: [ :each | each printOn: aStream ] 
 		separatedBy: [ aStream space ]
+]
+
+{ #category : #'inspector extensions' }
+AFHypernotion >> gtInspectorForwardCrossReferencesIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite list
+		title: [ 'Forward X-Ref' ];
+		display: [ forwardCrossReferences ];
+		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		showOnly: 50;
+		yourself
 ]
 
 { #category : #'inspector extensions' }
@@ -134,6 +156,7 @@ AFHypernotion >> initialize [
 	metanotions := Set new.
 	metaGrammar := nil.
 	grammar := nil.
+	forwardCrossReferences := Set new
 ]
 
 { #category : #initialization }
@@ -224,6 +247,15 @@ AFHypernotion >> printString [
 { #category : #'initialize-release' }
 AFHypernotion >> release [
 	notions := metanotions := strictSyntax := metaGrammar := nil.
-	grammar := nil.
+	grammar := forwardCrossReferences := nil.
 	super release
+]
+
+{ #category : #matching }
+AFHypernotion >> superMatch: anAFHypernotion [
+	self isProtonotion
+		ifTrue: [ ^ (anAFHypernotion match: self) isSolution ].
+	anAFHypernotion isProtonotion
+		ifTrue: [ ^ (self match: anAFHypernotion) isSolution ].
+	^ (self firstSet intersection: anAFHypernotion firstSet) isNotEmpty
 ]
