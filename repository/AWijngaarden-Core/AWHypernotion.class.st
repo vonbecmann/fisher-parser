@@ -50,6 +50,27 @@ AWHypernotion >> = anObject [
 	^ true
 ]
 
+{ #category : #accessing }
+AWHypernotion >> buildWith: metanotionSet and: notionSet [
+	^ self
+		collect: [ :notion | 
+			notion isMetanotion
+				ifTrue: [ 
+					metanotionSet
+						like: notion
+						ifAbsent: [ 
+							Error
+								signal:
+									(String
+										streamContents: [ :s | 
+											s
+												nextPutAll: 'Unknown Metanotion ';
+												print: notion;
+												nextPutAll: ' in ';
+												print: self ]) ] ]
+				ifFalse: [ notionSet like: notion ] ]
+]
+
 { #category : #enumerating }
 AWHypernotion >> collect: aBlock [
 	^ self class withAll: (notions collect: aBlock)
