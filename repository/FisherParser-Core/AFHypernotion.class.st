@@ -252,7 +252,7 @@ AFHypernotion >> release [
 ]
 
 { #category : #matching }
-AFHypernotion >> superMatch: anAFHypernotion [
+AFHypernotion >> superMatches: anAFHypernotion [
 	self isProtonotion
 		ifTrue: [ ^ (anAFHypernotion match: self) isSolution ].
 	anAFHypernotion isProtonotion

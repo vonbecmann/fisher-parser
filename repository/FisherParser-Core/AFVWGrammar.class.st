@@ -110,7 +110,7 @@ AFVWGrammar >> computeCrossReferences [
 					rightHypernotion isTerminal
 						ifFalse: [ alternatives
 								do: [ :crossHyperRule | 
-									(crossHyperRule head superMatch: rightHypernotion)
+									(crossHyperRule head superMatches: rightHypernotion)
 										ifTrue: [ rightHypernotion addForwardCrossReference: crossHyperRule ] ] ] ] ]
 ]
 
