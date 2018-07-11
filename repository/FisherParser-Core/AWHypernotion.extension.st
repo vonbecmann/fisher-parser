@@ -9,11 +9,7 @@ AWHypernotion >> buildBodyOf: symbols [
 					each isMetanotion
 						ifTrue: [ s nextPut: (symbols detect: [ :symbol | symbol = each ]) ].
 					each isProtonotion
-						ifTrue: [ | nonterminal |
-							each
-								do: [ :letter | 
-									nonterminal := NCNonterminal named: letter.
-									s nextPut: (symbols detect: [ :symbol | symbol = nonterminal ]) ] ].
+						ifTrue: [ s nextPutAll: (each buildBodyOf: symbols) ].
 					each isTerminal
 						ifTrue: [ s nextPut: (symbols detect: [ :symbol | symbol = each ]) ] ] ]
 ]
