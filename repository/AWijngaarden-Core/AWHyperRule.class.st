@@ -121,15 +121,6 @@ AWHyperRule >> printString [
 ]
 
 { #category : #accessing }
-AWHyperRule >> protonotions [
-	| protonotions |
-	protonotions := Set new.
-	protonotions addAll: head protonotions.
-	body do: [ :each | protonotions addAll: each protonotions ].
-	^ protonotions
-]
-
-{ #category : #accessing }
 AWHyperRule >> terminals [
 	" head cannot contain terminals "
 

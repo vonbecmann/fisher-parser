@@ -125,16 +125,6 @@ AWHypernotion >> printString [
 ]
 
 { #category : #accessing }
-AWHypernotion >> protonotions [
-	| protonotions |
-	protonotions := Set new.
-	notions 
-		select: [ :each | each isProtonotion ] 
-		thenDo: [ :each | protonotions add: each ].
-	^ protonotions
-]
-
-{ #category : #accessing }
 AWHypernotion >> terminals [
 	| terminals |
 	terminals := Set new.
