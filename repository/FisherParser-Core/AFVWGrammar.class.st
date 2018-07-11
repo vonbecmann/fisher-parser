@@ -139,7 +139,7 @@ AFVWGrammar >> hypernotions [
 
 { #category : #initialization }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
-	| startNotion |
+	| startNotion hypernotionDict |
 	self initialize.
 	vwGrammar := aVWGrammar.
 	startNotion := AWProtonotion with: '((start))'.
@@ -147,17 +147,21 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	AFJEMetaGrammar
 		metaRules: vwGrammar metaRules
 		ortholetters: (vwGrammar ortholetters, startNotion letters).
+	hypernotionDict := Dictionary new.
+	vwGrammar hypernotions 
+		do: [ :hypernotion | 
+			hypernotionDict 
+				at: hypernotion 
+				put: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: hypernotion) ].
 	startHyperRule := AFHyperRule
 		head: (AFHypernotion belongsTo: metaGrammar with: startNotion)
-		bodyWith: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: vwGrammar startNotion).
+		bodyWith: (hypernotionDict at: vwGrammar startNotion).
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
 		collect: [ :each | 
 			AFHyperRule
-				head: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: each head)
-				body:
-					(each body
-						collect: [ :hypernotion | AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: hypernotion ]) ]
+				head: (hypernotionDict at: each head)
+				body: 	(each body collect: [ :hypernotion | hypernotionDict at: hypernotion ]) ]
 		thenDo: [ :newRule | alternatives addLast: newRule ].
 	bottomUpAlternatives := alternatives
 		reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
