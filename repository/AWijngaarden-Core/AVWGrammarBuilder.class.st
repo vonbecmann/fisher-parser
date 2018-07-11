@@ -79,23 +79,11 @@ AVWGrammarBuilder >> build [
 			notions addAll: repRule notions ].
 	representations
 		do: [ :repRule | 
-			hypernotions
-				add:
-					(repRule head
-						collect: [ :notion | 
-							notion isMetanotion
-								ifTrue: [ metanotions like: notion ifAbsent: [ self unknown: notion in: repRule head ] ]
-								ifFalse: [ notions like: notion ] ]).
+			hypernotions add: (repRule head collect: [ :notion | notions like: notion ]).
 			hypernotions
 				addAll:
 					(repRule body
-						collect: [ :hypernotion | 
-							hypernotion
-								collect: [ :notion | 
-									notion isMetanotion
-										ifTrue: [ metanotions like: notion ifAbsent: [ self unknown: notion in: hypernotion ] ]
-										ifFalse: [ notions like: notion ] ] ]) ].
-
+						collect: [ :hypernotion | hypernotion collect: [ :notion | notions like: notion ]]) ].
 	hyperRuleSet := Set new.
 	hyperRules
 		collect: [ :each | 
