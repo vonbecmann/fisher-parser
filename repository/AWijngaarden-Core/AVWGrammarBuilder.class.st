@@ -51,11 +51,9 @@ AVWGrammarBuilder >> build [
 				head: (metanotions like: each head) 
 				body: (hypernotions like: each body) ]
 		thenDo: [ :metaRule | metaRuleSet add: metaRule ].
+	metaRuleSet do: [ :metaRule | index at: metaRule put: (lineup indexOf: metaRule) ].
+	
 	hyperRules do: [ :hRule | notions addAll: hRule notions ].
-	representations
-		do: [ :repRule | 
-			self assert: repRule isRepresentation.
-			notions addAll: repRule notions ].
 	hyperRules
 		do: [ :hRule | 
 			hypernotions
@@ -74,6 +72,11 @@ AVWGrammarBuilder >> build [
 									notion isMetanotion
 										ifTrue: [ metanotions like: notion ifAbsent: [ self unknown: notion in: hypernotion ] ]
 										ifFalse: [ notions like: notion ] ] ]) ].
+
+	representations
+		do: [ :repRule | 
+			self assert: repRule isRepresentation.
+			notions addAll: repRule notions ].
 	representations
 		do: [ :repRule | 
 			hypernotions
@@ -92,7 +95,7 @@ AVWGrammarBuilder >> build [
 									notion isMetanotion
 										ifTrue: [ metanotions like: notion ifAbsent: [ self unknown: notion in: hypernotion ] ]
 										ifFalse: [ notions like: notion ] ] ]) ].
-	metaRuleSet do: [ :metaRule | index at: metaRule put: (lineup indexOf: metaRule) ].
+
 	hyperRuleSet := Set new.
 	hyperRules
 		collect: [ :each | 
