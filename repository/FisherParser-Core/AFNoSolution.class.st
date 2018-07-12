@@ -15,6 +15,13 @@ AFNoSolution >> applyTo: aMetanotion [
 ]
 
 { #category : #testing }
+AFNoSolution >> ifSolution: aBlock [
+	"Return self because I'm not a solution"
+
+	^ self
+]
+
+{ #category : #testing }
 AFNoSolution >> isEmpty [
 	self error: self asString
 ]

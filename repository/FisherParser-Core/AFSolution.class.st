@@ -49,6 +49,13 @@ AFSolution >> gtInspectorSubstitutionIn: composite [
 			yourself
 ]
 
+{ #category : #testing }
+AFSolution >> ifSolution: aBlock [
+	"Evaluate a block because I'm a solution"
+
+	^ aBlock cull: self
+]
+
 { #category : #initialization }
 AFSolution >> initializeSubstitutions: aMetanotionSubstitutions [
 	metanotionSubstitutions := aMetanotionSubstitutions

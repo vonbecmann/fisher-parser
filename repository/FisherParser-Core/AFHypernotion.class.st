@@ -89,7 +89,19 @@ AFHypernotion >> addForwardCrossReference: anAFHyperRule [
 AFHypernotion >> apply: aSubstitution [
 	^ (self class withAll: (notions collect: [ :notion | notion apply: aSubstitution ]))
 		belongsTo: metaGrammar;
+		backwardCrossReferences: backwardCrossReferences;
+		forwardCrossReferences: forwardCrossReferences;
 		yourself
+]
+
+{ #category : #'cross references' }
+AFHypernotion >> backwardCrossReferences [
+	^ backwardCrossReferences
+]
+
+{ #category : #'cross references' }
+AFHypernotion >> backwardCrossReferences: aHyperRuleCollection [ 
+	backwardCrossReferences := aHyperRuleCollection
 ]
 
 { #category : #accessing }
@@ -117,6 +129,16 @@ AFHypernotion >> buildBodyOf: symbols [
 { #category : #accessing }
 AFHypernotion >> firstSet [
 	^ self grammar startSymbolFirstSet
+]
+
+{ #category : #'cross references' }
+AFHypernotion >> forwardCrossReferences [
+	^ forwardCrossReferences
+]
+
+{ #category : #'cross references' }
+AFHypernotion >> forwardCrossReferences: aHyperRuleCollection [ 
+	forwardCrossReferences := aHyperRuleCollection
 ]
 
 { #category : #accessing }

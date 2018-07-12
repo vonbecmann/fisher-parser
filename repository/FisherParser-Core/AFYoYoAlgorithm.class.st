@@ -32,22 +32,20 @@ AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
 
 { #category : #private }
 AFYoYoAlgorithm >> bottomUpPredict: item at: aColumn [
-	| substitution |
-	grammar bottomUpAlternatives
+	item head backwardCrossReferences
 		do: [ :hrule | 
-			substitution := hrule body first match: item head.
-			substitution isSolution
-				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
+			(hrule body first match: item head)
+				ifSolution: [ :substitution | 
+					aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
 ]
 
 { #category : #private }
 AFYoYoAlgorithm >> complete: item at: column [
-	| substitution |
 	item predictionItems
 		do: [ :previous | 
-			substitution := previous symbolAtDot match: item head.
-			substitution isSolution
-				ifTrue: [ column add: (previous moveDotForwardAfterApplying: substitution) ] ]
+			(previous symbolAtDot match: item head)
+				ifSolution: [ :substitution | 
+					column add: (previous moveDotForwardAfterApplying: substitution) ] ]
 ]
 
 { #category : #private }
@@ -86,10 +84,9 @@ AFYoYoAlgorithm >> evaluate: words [
 AFYoYoAlgorithm >> gapScan: item at: column [
 	" gap scanner "
 
-	| substitution |
-	substitution := item symbolAtDot match: emptyHypernotion.
-	substitution isSolution
-		ifTrue: [ column add: (item moveDotForwardAfterApplying: substitution) ]
+	(item symbolAtDot match: emptyHypernotion)
+		ifSolution: [ :substitution | 
+			column add: (item moveDotForwardAfterApplying: substitution) ]
 ]
 
 { #category : #initialization }
@@ -106,10 +103,9 @@ AFYoYoAlgorithm >> initializeGrammar: aVWGrammar [
 
 { #category : #private }
 AFYoYoAlgorithm >> topDownPredict: item at: aColumn [
-	| substitution |
-	grammar alternatives
+	item symbolAtDot forwardCrossReferences
 		do: [ :hrule | 
-			substitution := hrule head match: item symbolAtDot.
-			substitution isSolution
-				ifTrue: [ aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
+			(hrule head match: item symbolAtDot)
+				ifSolution: [ :substitution | 
+					aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
 ]

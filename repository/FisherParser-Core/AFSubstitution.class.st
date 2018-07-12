@@ -65,6 +65,13 @@ AFSubstitution >> applyTo: aMetanotion [
 ]
 
 { #category : #testing }
+AFSubstitution >> ifSolution: aBlock [
+	"Evaluate a block when I'm a solution"
+
+	self subclassResponsibility
+]
+
+{ #category : #testing }
 AFSubstitution >> isEmpty [
 	^ self subclassResponsibility 
 ]
