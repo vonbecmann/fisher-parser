@@ -106,12 +106,17 @@ AFVWGrammar >> computeCrossReferences [
 	alternatives
 		do: [ :hyperRule | 
 			hyperRule body
-				do: [ :rightHypernotion | 
+				withIndexDo: [ :rightHypernotion :index | 
 					rightHypernotion isTerminal
-						ifFalse: [ alternatives
+						ifFalse: [ 
+							alternatives
 								do: [ :crossHyperRule | 
 									(crossHyperRule head superMatches: rightHypernotion)
-										ifTrue: [ rightHypernotion addForwardCrossReference: crossHyperRule ] ] ] ] ]
+										ifTrue: [ 
+											index == 1
+												ifTrue: [ 
+													crossHyperRule head addBackwardCrossReference: hyperRule ].
+											rightHypernotion addForwardCrossReference: crossHyperRule ] ] ] ] ]
 ]
 
 { #category : #initialization }

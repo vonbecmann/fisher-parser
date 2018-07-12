@@ -10,6 +10,7 @@ Class {
 		'metanotions',
 		'grammar',
 		'metaGrammar',
+		'backwardCrossReferences',
 		'forwardCrossReferences'
 	],
 	#category : #'FisherParser-Core-Implementation'
@@ -74,7 +75,12 @@ AFHypernotion >> = anObject [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : #'cross references' }
+AFHypernotion >> addBackwardCrossReference: anAFHyperRule [ 
+	backwardCrossReferences add: anAFHyperRule 
+]
+
+{ #category : #'cross references' }
 AFHypernotion >> addForwardCrossReference: anAFHyperRule [
 	forwardCrossReferences add: anAFHyperRule
 ]
@@ -126,6 +132,17 @@ AFHypernotion >> gtDisplayOn: aStream [
 ]
 
 { #category : #'inspector extensions' }
+AFHypernotion >> gtInspectorBackwardCrossReferencesIn: composite [
+	<gtInspectorPresentationOrder: 2>
+	^ composite list
+		title: [ 'Backward X-Ref' ];
+		display: [ backwardCrossReferences ];
+		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		showOnly: 50;
+		yourself
+]
+
+{ #category : #'inspector extensions' }
 AFHypernotion >> gtInspectorForwardCrossReferencesIn: composite [
 	<gtInspectorPresentationOrder: 1>
 	^ composite list
@@ -160,6 +177,7 @@ AFHypernotion >> initialize [
 	metanotions := Set new.
 	metaGrammar := nil.
 	grammar := nil.
+	backwardCrossReferences := Set new.
 	forwardCrossReferences := Set new
 ]
 
