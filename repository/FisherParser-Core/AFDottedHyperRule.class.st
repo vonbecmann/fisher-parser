@@ -50,6 +50,23 @@ AFDottedHyperRule >> gtDisplayOn: aStream [
 	aStream nextPut: $.
 ]
 
+{ #category : #'inspector extensions' }
+AFDottedHyperRule >> gtInspectorPureIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite table
+		title: [ 'Pure' ];
+		display: [ {
+			('hyper rule' -> hyperRule).
+			('head' -> hyperRule head).
+			('body' -> hyperRule body).
+			('dotIndex' -> dotIndex).
+			('symbolAtDot' -> self symbolAtDot) } ];
+		column: 'Name' evaluated: [ :each | each key ] width: 100;
+		column: 'Value' evaluated: [ :each | each value gtDisplayString ];
+		send: [ :each | each value ];
+		yourself
+]
+
 { #category : #comparing }
 AFDottedHyperRule >> hash [
 	^ (hyperRule hash + dotIndex hash) hashMultiply
