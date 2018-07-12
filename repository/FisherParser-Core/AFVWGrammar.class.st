@@ -103,8 +103,7 @@ AFVWGrammar >> computeCrossReferences [
 									(crossHyperRule head superMatches: rightHypernotion)
 										ifTrue: [ 
 											index == 1
-												ifTrue: [ 
-													crossHyperRule head addBackwardCrossReference: hyperRule ].
+												ifTrue: [ crossHyperRule head addBackwardCrossReference: hyperRule ].
 											rightHypernotion addForwardCrossReference: crossHyperRule ] ] ] ] ]
 ]
 
