@@ -104,7 +104,17 @@ AFVWGrammar >> computeCrossReferences [
 										ifTrue: [ 
 											index == 1
 												ifTrue: [ crossHyperRule head addBackwardCrossReference: hyperRule ].
-											rightHypernotion addForwardCrossReference: crossHyperRule ] ] ] ] ]
+											rightHypernotion addForwardCrossReference: crossHyperRule ] ].
+							(rightHypernotion isProtonotion and: [ rightHypernotion forwardCrossReferences isEmpty ])
+								ifTrue: [ 
+									Error
+										signal:
+											(String
+												streamContents: [ :s | 
+													s
+														nextPutAll: 'Protonotion ';
+														print: rightHypernotion;
+														nextPutAll: ' used but not defined' ]) ] ] ] ]
 ]
 
 { #category : #initialization }
