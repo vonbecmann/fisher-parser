@@ -15,7 +15,6 @@ Class {
 		'vwGrammar',
 		'startHyperRule',
 		'alternatives',
-		'bottomUpAlternatives',
 		'representationRules',
 		'metaGrammar'
 	],
@@ -38,19 +37,9 @@ AFVWGrammar >> accepts: aString [
 	^ (AFRecognizer of: self) accepts: aString
 ]
 
-{ #category : #private }
-AFVWGrammar >> alternatives [
-	^ alternatives
-]
-
 { #category : #testing }
 AFVWGrammar >> analizeAccepts: aString [
 	^ (AFAnalyticalRecognizer of: self) accepts: aString
-]
-
-{ #category : #private }
-AFVWGrammar >> bottomUpAlternatives [
-	^ bottomUpAlternatives
 ]
 
 { #category : #initialization }
@@ -168,8 +157,6 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 				head: (hypernotionDict at: each head)
 				body: 	(each body collect: [ :hypernotion | hypernotionDict at: hypernotion ]) ]
 		thenDo: [ :newRule | alternatives addLast: newRule ].
-	bottomUpAlternatives := alternatives
-		reject: [ :each | each isRepresentation or: [ each isEpsilon ] ].
 	representationRules := alternatives
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ]
