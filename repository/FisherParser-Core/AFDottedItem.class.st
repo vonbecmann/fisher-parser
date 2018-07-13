@@ -117,9 +117,9 @@ AFDottedItem >> moveDotForwardAfterApplying: aSubstitution [
 		startAt: start
 ]
 
-{ #category : #accessing }
-AFDottedItem >> predictionItems [
-	^ start predictionItems
+{ #category : #enumerating }
+AFDottedItem >> predictionItemsDo: aBlock [
+	start predictionItemsDo: aBlock
 ]
 
 { #category : #printing }

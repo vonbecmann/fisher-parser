@@ -114,9 +114,9 @@ AFColumn >> number [
 	^ number
 ]
 
-{ #category : #accessing }
-AFColumn >> predictionItems [
-	^ predictionItems
+{ #category : #enumerating }
+AFColumn >> predictionItemsDo: aBlock [
+	predictionItems do: aBlock
 ]
 
 { #category : #printing }

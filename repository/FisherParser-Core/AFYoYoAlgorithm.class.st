@@ -41,8 +41,7 @@ AFYoYoAlgorithm >> bottomUpPredict: item [
 
 { #category : #private }
 AFYoYoAlgorithm >> complete: item [
-	item predictionItems
-		do: [ :previous | 
+	item predictionItemsDo: [ :previous | 
 			(previous symbolAtDot match: item head) 
 				ifSolution: [ :substitution | 
 					item end add: (previous moveDotForwardAfterApplying: substitution) ] ]
