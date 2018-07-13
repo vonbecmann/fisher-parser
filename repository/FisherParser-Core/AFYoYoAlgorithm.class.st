@@ -76,17 +76,17 @@ AFYoYoAlgorithm >> evaluate: words [
 							item symbolAtDot isProtonotion
 								ifTrue: [ self topDownPredict: item ].
 							item symbolAtDot isHypernotion 
-								ifTrue: [ self gapScan: item at: column ] ] ] ].
+								ifTrue: [ self gapScan: item ] ] ] ].
 	^ chart
 ]
 
 { #category : #private }
-AFYoYoAlgorithm >> gapScan: item at: column [
+AFYoYoAlgorithm >> gapScan: item [
 	" gap scanner "
 
 	(item symbolAtDot match: emptyHypernotion)
 		ifSolution: [ :substitution | 
-			column add: (item moveDotForwardAfterApplying: substitution) ]
+			item end add: (item moveDotForwardAfterApplying: substitution) ]
 ]
 
 { #category : #initialization }
