@@ -24,10 +24,14 @@ Class {
 { #category : #'instance creation' }
 AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToRepresentationList [
 	^ self basicNew
-		initializeVWGrammar: (AVWGrammar evw: aVWRuleString representations: terminalNotionToRepresentationList);
+		initializeVWGrammar: 
+			(AVWGrammar 
+				evw: aVWRuleString 
+				representations: terminalNotionToRepresentationList);
 		computeFirstSet;
-		checkBoundness;
+		checkMetaGrammarIsLLOne;
 		checkHyperRulesLeftHandSides;
+		checkBoundness;
 		computeCrossReferences;
 		yourself
 ]

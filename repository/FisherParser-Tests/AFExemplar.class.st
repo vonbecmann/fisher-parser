@@ -37,9 +37,11 @@ nNa: 	letter a symbol, Na.
 nNb: 	letter b symbol, Nb.
 na: 	letter a symbol.
 nb: 	letter b symbol.	"
+		" introduce NETY so N metanotion is LL(1) "
 	^ AFVWGrammar 
 		evw: 
-'N:: n;	 Nn.
+'N:: n NETY.
+NETY:: N; .
 
 s: 		Na, Nb.
 nNa: 	letter a symbol, Na.
