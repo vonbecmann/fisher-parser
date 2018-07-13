@@ -24,8 +24,7 @@ AFYoYoAlgorithm class >> of: aVWGrammar [
 
 { #category : #private }
 AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
-	grammar representationRules
-		do: [ :dottedHyperRule | 
+	grammar representationRulesDo: [ :dottedHyperRule | 
 			(dottedHyperRule symbolAtDot matches: word)
 				ifTrue: [ column add: (dottedHyperRule startAt: column) ] ]
 ]

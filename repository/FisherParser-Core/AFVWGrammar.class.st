@@ -209,8 +209,8 @@ AFVWGrammar >> protonotions [
 ]
 
 { #category : #private }
-AFVWGrammar >> representationRules [
-	^ representationRules
+AFVWGrammar >> representationRulesDo: aBlock [
+	representationRules do: aBlock
 ]
 
 { #category : #private }
