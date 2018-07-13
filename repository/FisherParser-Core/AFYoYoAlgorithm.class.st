@@ -62,19 +62,17 @@ AFYoYoAlgorithm >> evaluate: words [
 				processItems: [ :item | 
 					item isFinal
 						ifTrue: [ 
-							item head isProtonotion 
-								ifTrue: 
-									 [ self 
-											bottomUpPredict: item;
-											complete: item ] ]
+							item head isProtonotion
+								ifTrue: [ self 
+												bottomUpPredict: item;
+												complete: item ] ]
 						ifFalse: [ 
-							item symbolAtDot isTerminal
-								ifTrue: [ 
-									(i < n and: [ item symbolAtDot matches: (words at: i) ])
-										ifTrue: [ (chart at: i + 1) add: item moveDotForward ] ].
+							(item symbolAtDot isTerminal 
+								and: [ i < n and: [ item symbolAtDot matches: (words at: i) ] ])
+										ifTrue: [ (chart at: i + 1) add: item moveDotForward ].
 							item symbolAtDot isProtonotion
 								ifTrue: [ self topDownPredict: item ].
-							item symbolAtDot isHypernotion 
+							item symbolAtDot isHypernotion
 								ifTrue: [ self gapScan: item ] ] ] ].
 	^ chart
 ]
