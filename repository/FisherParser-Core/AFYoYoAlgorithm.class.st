@@ -31,12 +31,12 @@ AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
 ]
 
 { #category : #private }
-AFYoYoAlgorithm >> bottomUpPredict: item at: aColumn [
+AFYoYoAlgorithm >> bottomUpPredict: item [
 	item head backwardCrossReferences
 		do: [ :hrule | 
 			(hrule body first match: item head)
 				ifSolution: [ :substitution | 
-					aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
+					item start add: ((hrule apply: substitution) dotAtBeginning startAt: item start) ] ]
 ]
 
 { #category : #private }
@@ -66,8 +66,9 @@ AFYoYoAlgorithm >> evaluate: words [
 						ifTrue: [ 
 							item head isProtonotion 
 								ifTrue: 
-									 [ self bottomUpPredict: item at: item start.
-									 	self complete: item ] ]
+									 [ self 
+											bottomUpPredict: item;
+											complete: item ] ]
 						ifFalse: [ 
 							item symbolAtDot isTerminal
 								ifTrue: [ 
