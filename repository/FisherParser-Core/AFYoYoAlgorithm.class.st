@@ -49,7 +49,7 @@ AFYoYoAlgorithm >> complete: item [
 
 { #category : #private }
 AFYoYoAlgorithm >> evaluate: words [
-	| chart n |
+	| n chart |
 	n := words size + 1.
 	chart := AFChart new: n.
 	chart first add: (grammar startHyperRule dotAtBeginning startAt: chart first).
