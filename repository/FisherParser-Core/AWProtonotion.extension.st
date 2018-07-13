@@ -15,12 +15,3 @@ AWProtonotion >> buildBodyOf: symbols [
 				thenDo: [ :orthoNonterminal | 
 					s nextPut: (symbols detect: [ :symbol | symbol = orthoNonterminal ]) ] ]
 ]
-
-{ #category : #'*FisherParser-Core' }
-AWProtonotion >> strictSyntax [
-	^ Array
-		new: smallSyntacticMarks size
-		streamContents: [ :s | 
-			smallSyntacticMarks 
-				do: [ :letter | s nextPut: (NCNonterminal named: letter) ] ]
-]
