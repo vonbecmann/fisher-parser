@@ -74,7 +74,7 @@ AFYoYoAlgorithm >> evaluate: words [
 									(i < n and: [ item symbolAtDot matches: (words at: i) ])
 										ifTrue: [ (chart at: i + 1) add: item moveDotForward ] ].
 							item symbolAtDot isProtonotion
-								ifTrue: [ self topDownPredict: item at: column ].
+								ifTrue: [ self topDownPredict: item ].
 							item symbolAtDot isHypernotion 
 								ifTrue: [ self gapScan: item at: column ] ] ] ].
 	^ chart
@@ -102,10 +102,10 @@ AFYoYoAlgorithm >> initializeGrammar: aVWGrammar [
 ]
 
 { #category : #private }
-AFYoYoAlgorithm >> topDownPredict: item at: aColumn [
+AFYoYoAlgorithm >> topDownPredict: item [
 	item symbolAtDot forwardCrossReferences
 		do: [ :hrule | 
-			(hrule head match: item symbolAtDot)
-				ifSolution: [ :substitution | 
-					aColumn add: ((hrule apply: substitution) dotAtBeginning startAt: aColumn) ] ]
+				(hrule head match: item symbolAtDot) 
+					ifSolution: [ :substitution | 
+						item end add: ((hrule apply: substitution) dotAtBeginning startAt: item end) ] ]
 ]
