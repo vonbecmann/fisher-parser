@@ -32,8 +32,8 @@ AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
 
 { #category : #private }
 AFYoYoAlgorithm >> bottomUpPredict: item [
-	item head backwardCrossReferences
-		do: [ :hrule | 
+	item head
+		backwardCrossReferencesDo: [ :hrule | 
 			(hrule body first match: item head)
 				ifSolution: [ :substitution | 
 					item start add: ((hrule apply: substitution) dotAtBeginning startAt: item start) ] ]
@@ -104,9 +104,9 @@ AFYoYoAlgorithm >> initializeGrammar: aVWGrammar [
 
 { #category : #private }
 AFYoYoAlgorithm >> topDownPredict: item [
-	item symbolAtDot forwardCrossReferences
-		do: [ :hrule | 
-				(hrule head match: item symbolAtDot) 
-					ifSolution: [ :substitution | 
-						item end add: ((hrule apply: substitution) dotAtBeginning startAt: item end) ] ]
+	item symbolAtDot
+		forwardCrossReferencesDo: [ :hrule | 
+			(hrule head match: item symbolAtDot)
+				ifSolution: [ :substitution | 
+					item end add: ((hrule apply: substitution) dotAtBeginning startAt: item end) ] ]
 ]

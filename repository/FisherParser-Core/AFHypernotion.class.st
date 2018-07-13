@@ -95,13 +95,13 @@ AFHypernotion >> apply: aSubstitution [
 ]
 
 { #category : #'cross references' }
-AFHypernotion >> backwardCrossReferences [
-	^ backwardCrossReferences
+AFHypernotion >> backwardCrossReferences: aHyperRuleCollection [ 
+	backwardCrossReferences := aHyperRuleCollection
 ]
 
 { #category : #'cross references' }
-AFHypernotion >> backwardCrossReferences: aHyperRuleCollection [ 
-	backwardCrossReferences := aHyperRuleCollection
+AFHypernotion >> backwardCrossReferencesDo: aBlock [
+	backwardCrossReferences do: aBlock
 ]
 
 { #category : #accessing }
@@ -139,6 +139,11 @@ AFHypernotion >> forwardCrossReferences [
 { #category : #'cross references' }
 AFHypernotion >> forwardCrossReferences: aHyperRuleCollection [ 
 	forwardCrossReferences := aHyperRuleCollection
+]
+
+{ #category : #'cross references' }
+AFHypernotion >> forwardCrossReferencesDo: aBlock [
+	forwardCrossReferences do: aBlock
 ]
 
 { #category : #accessing }
