@@ -11,7 +11,9 @@ Class {
 
 { #category : #accessing }
 AFNoSolution >> applyTo: aMetanotion [
-	self error: self asString
+	" I'm not a solution, there isn't a possible substitution "
+
+	self shouldNotImplement
 ]
 
 { #category : #testing }
@@ -23,7 +25,9 @@ AFNoSolution >> ifSolution: aBlock [
 
 { #category : #testing }
 AFNoSolution >> isEmpty [
-	self error: self asString
+	" I'm not a solution, there isn't a possible substitution "
+
+	self shouldNotImplement
 ]
 
 { #category : #testing }
