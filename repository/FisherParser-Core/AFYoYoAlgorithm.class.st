@@ -40,12 +40,12 @@ AFYoYoAlgorithm >> bottomUpPredict: item at: aColumn [
 ]
 
 { #category : #private }
-AFYoYoAlgorithm >> complete: item at: column [
+AFYoYoAlgorithm >> complete: item [
 	item predictionItems
 		do: [ :previous | 
-			(previous symbolAtDot match: item head)
+			(previous symbolAtDot match: item head) 
 				ifSolution: [ :substitution | 
-					column add: (previous moveDotForwardAfterApplying: substitution) ] ]
+					item end add: (previous moveDotForwardAfterApplying: substitution) ] ]
 ]
 
 { #category : #private }
@@ -67,7 +67,7 @@ AFYoYoAlgorithm >> evaluate: words [
 							item head isProtonotion 
 								ifTrue: 
 									 [ self bottomUpPredict: item at: item start.
-									 	self complete: item at: column  ] ]
+									 	self complete: item ] ]
 						ifFalse: [ 
 							item symbolAtDot isTerminal
 								ifTrue: [ 
