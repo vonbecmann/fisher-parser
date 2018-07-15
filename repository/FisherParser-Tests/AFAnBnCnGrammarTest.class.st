@@ -25,9 +25,9 @@ AFAnBnCnGrammarTest >> testAcceptsABC [
 ]
 
 { #category : #tests }
-AFAnBnCnGrammarTest >> testAnalizeAcceptsA2B2C2 [
+AFAnBnCnGrammarTest >> testAnalyzeAcceptsA2B2C2 [
 	| analysis chart |
-	analysis := grammar analizeAccepts: 'aabbcc'.
+	analysis := grammar analyzeAccepts: 'aabbcc'.
 	self assert: (analysis at: 'accepts').
 	chart := analysis at: 'chart'.
 	self assert: chart size equals: 7.
@@ -35,9 +35,9 @@ AFAnBnCnGrammarTest >> testAnalizeAcceptsA2B2C2 [
 ]
 
 { #category : #tests }
-AFAnBnCnGrammarTest >> testAnalizeAcceptsABC [
+AFAnBnCnGrammarTest >> testAnalyzeAcceptsABC [
 	| analysis chart |
-	analysis := grammar analizeAccepts: 'abc'.
+	analysis := grammar analyzeAccepts: 'abc'.
 	self assert: (analysis at: 'accepts').
 	chart := analysis at: 'chart'.
 	self assert: chart size equals: 4.

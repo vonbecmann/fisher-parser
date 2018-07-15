@@ -19,9 +19,9 @@ AFWegnerGrammarTest >> testAcceptsABC [
 ]
 
 { #category : #tests }
-AFWegnerGrammarTest >> testAnalizeAcceptsABC [
+AFWegnerGrammarTest >> testAnalyzeAcceptsABC [
 	| analysis chart |
-	analysis := grammar analizeAccepts: 'abc'.
+	analysis := grammar analyzeAccepts: 'abc'.
 
 	self assert: (analysis at: 'accepts').
 	chart := analysis at: 'chart'.

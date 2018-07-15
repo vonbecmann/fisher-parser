@@ -42,7 +42,7 @@ AFVWGrammar >> accepts: aString [
 ]
 
 { #category : #testing }
-AFVWGrammar >> analizeAccepts: aString [
+AFVWGrammar >> analyzeAccepts: aString [
 	^ (AFAnalyticalRecognizer of: self) accepts: aString
 ]
 

@@ -20,9 +20,9 @@ AFA3B3C3GrammarTest >> testAcceptsA3B3C3 [
 ]
 
 { #category : #tests }
-AFA3B3C3GrammarTest >> testAnalizeAcceptsA3B3C3 [
+AFA3B3C3GrammarTest >> testAnalyzeAcceptsA3B3C3 [
 	| analysis chart |
-	analysis := grammar analizeAccepts: 'aaabbbccc.'.
+	analysis := grammar analyzeAccepts: 'aaabbbccc.'.
 	self assert: (analysis at: 'accepts').
 	chart := analysis at: 'chart'.
 	self assert: chart size equals: 11.
