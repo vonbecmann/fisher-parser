@@ -40,6 +40,27 @@ AFHypernotionGrammar >> computeFirstSet [
 		previousSize = firstSet size ] whileFalse
 ]
 
+{ #category : #'inspector extensions' }
+AFHypernotionGrammar >> gtDisplayOn: aStream [
+	aStream
+		nextPutAll: self class name;
+		nextPut: $(.
+	hypernotion gtDisplayOn: aStream.
+	aStream nextPut: $)
+]
+
+{ #category : #'inspector extensions' }
+AFHypernotionGrammar >> gtInspectorProductionRulesIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite table
+		title: [ 'Production Rules' ];
+		display: [ productionRules asArray ];
+		column: 'Production Rule' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		send: [ :each | each ];
+		showOnly: 50;
+		yourself
+]
+
 { #category : #initialization }
 AFHypernotionGrammar >> initialize [
 	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set

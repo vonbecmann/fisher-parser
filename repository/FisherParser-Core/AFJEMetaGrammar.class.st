@@ -74,7 +74,7 @@ AFJEMetaGrammar >> computeParseTable [
 AFJEMetaGrammar >> gtInspectorFirstSetIn: composite [
 	<gtInspectorPresentationOrder: 1>
 	^ composite table
-		title: [ 'first set' ];
+		title: [ 'First Set' ];
 		display: [ firstSet keys ];
 		column: 'Nonterminal' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		send: [ :each | firstSet at: each ];
@@ -84,11 +84,11 @@ AFJEMetaGrammar >> gtInspectorFirstSetIn: composite [
 
 { #category : #'inspector extensions' }
 AFJEMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
-	<gtInspectorPresentationOrder: 1>
+	<gtInspectorPresentationOrder: 0>
 	^ composite table
-		title: [ 'meta rules' ];
+		title: [ 'Meta Rules' ];
 		display: [ metaProductionRules asArray ];
-		column: 'Production Rule' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		column: 'Meta Rule' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		send: [ :each | each ];
 		showOnly: 50;
 		yourself
