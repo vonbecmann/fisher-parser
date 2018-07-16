@@ -60,7 +60,7 @@ AFDottedHyperRule >> gtInspectorPureIn: composite [
 			('head' -> hyperRule head).
 			('body' -> hyperRule body).
 			('dotIndex' -> dotIndex).
-			('symbolAtDot' -> self symbolAtDot) } ];
+			('symbolAtDot' -> (self isFinal ifTrue: [ nil ] ifFalse: [ self symbolAtDot ]))} ];
 		column: 'Name' evaluated: [ :each | each key ] width: 100;
 		column: 'Value' evaluated: [ :each | each value gtDisplayString ];
 		send: [ :each | each value ];
