@@ -26,7 +26,7 @@ AFYoYoAlgorithm class >> of: aVWGrammar [
 AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
 	grammar representationRulesDo: [ :dottedHyperRule | 
 			(dottedHyperRule symbolAtDot matches: word)
-				ifTrue: [ column add: (dottedHyperRule startAt: column) ] ]
+				ifTrue: [ column addDottedHyperRule: dottedHyperRule ] ]
 ]
 
 { #category : #private }
@@ -35,7 +35,7 @@ AFYoYoAlgorithm >> bottomUpPredict: item [
 		backwardCrossReferencesDo: [ :hrule | 
 			(hrule body first match: item head)
 				ifSolution: [ :substitution | 
-					item start add: ((hrule apply: substitution) dotAtBeginning startAt: item start) ] ]
+					item start addDottedHyperRule: (hrule apply: substitution) dotAtBeginning ] ]
 ]
 
 { #category : #private }
@@ -104,5 +104,5 @@ AFYoYoAlgorithm >> topDownPredict: item [
 		forwardCrossReferencesDo: [ :hrule | 
 			(hrule head match: item symbolAtDot)
 				ifSolution: [ :substitution | 
-					item end add: ((hrule apply: substitution) dotAtBeginning startAt: item end) ] ]
+					item end addDottedHyperRule: (hrule apply: substitution) dotAtBeginning ] ]
 ]

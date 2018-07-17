@@ -36,19 +36,30 @@ AFColumn >> = anObject [
 { #category : #adding }
 AFColumn >> add: anItem [
 	^ itemSet
-		detect: 	[ :item | item equals: anItem ]
-		ifFound: 	[ :item | item ]
-		ifNone: 
-			[	itemsToProcess nextPut: anItem.
-				itemSet addLast: anItem.
-				orderedItems addLast: anItem.
-				anItem isFinal 
-					ifFalse: [ 
-						anItem symbolAtDot isTerminal 
-							ifFalse: [ predictionItems addLast: anItem ] ].
-				anItem
-					end: self;
-					yourself ]
+		detect: [ :item | item equals: anItem ]
+		ifFound: [ :item | item ]
+		ifNone: [ self basicAdd: anItem ]
+]
+
+{ #category : #adding }
+AFColumn >> addDottedHyperRule: dottedHyperRule [
+	^ itemSet
+		detect: [ :item | item start = self and: [ item dottedHyperRule = dottedHyperRule ] ]
+		ifFound: [ :item | item ]
+		ifNone: [ self basicAdd: (dottedHyperRule startAt: self) ]
+]
+
+{ #category : #private }
+AFColumn >> basicAdd: anItem [
+	itemsToProcess nextPut: anItem.
+	itemSet addLast: anItem.
+	orderedItems addLast: anItem.
+	anItem isFinal
+		ifFalse: [ anItem symbolAtDot isTerminal
+				ifFalse: [ predictionItems addLast: anItem ] ].
+	^ anItem
+		end: self;
+		yourself
 ]
 
 { #category : #'inspector extensions' }
