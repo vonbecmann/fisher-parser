@@ -172,6 +172,17 @@ AFHyperRuleTest >> testIsLeftBoundIffForAll02 [
 ]
 
 { #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsLeftBoundIffForAll03 [
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('a' 's') asNotions
+			bodyWith: (AFHypernotion withAll: #('letter' 'a' 'symbol') asNotions).
+			
+	self assert: (hyperRule isLeftBoundIffForAll: #())
+	
+]
+
+{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsRType [
 	"where TAG1 is in TAG2 TAGS: 	where TAG1 is in TAGS."
 	hyperRule := 
@@ -294,6 +305,16 @@ AFHyperRuleTest >> testIsRightBoundIffForAll02 [
 				isRightBoundIffForAll:
 					{(AWMetanotion named: #LETTER).
 					(AWMetanotion named: #TALLY)})
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsRightBoundIffForAll03 [
+	hyperRule := 
+	AFHyperRule
+		headWithAll: #('a' 's') asNotions
+		bodyWith: (AFHypernotion withAll: #('letter' 'a' 'symbol') asNotions).
+	
+	self assert: (hyperRule isRightBoundIffForAll: #())
 ]
 
 { #category : #'tests - strict language' }
