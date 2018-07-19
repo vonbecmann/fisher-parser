@@ -183,6 +183,16 @@ AFHyperRuleTest >> testIsLeftBoundIffForAll03 [
 ]
 
 { #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsLeftBoundIffForAll04 [
+	hyperRule := 
+	AFHyperRule
+		headWithAll: #('letter' 'a' 'symbol') asNotions
+		bodyWith: (AFHypernotion with: (NCTerminal character: $a)).
+	
+	self assert: (hyperRule isLeftBoundIffForAll: #())
+]
+
+{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsRType [
 	"where TAG1 is in TAG2 TAGS: 	where TAG1 is in TAGS."
 	hyperRule := 
@@ -314,6 +324,16 @@ AFHyperRuleTest >> testIsRightBoundIffForAll03 [
 		headWithAll: #('a' 's') asNotions
 		bodyWith: (AFHypernotion withAll: #('letter' 'a' 'symbol') asNotions).
 	
+	self assert: (hyperRule isRightBoundIffForAll: #())
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsRightBoundIffForAll04 [
+	hyperRule := 
+	AFHyperRule
+		headWithAll: #('letter' 'a' 'symbol') asNotions
+		bodyWith: (AFHypernotion with: (NCTerminal character: $a)).
+		
 	self assert: (hyperRule isRightBoundIffForAll: #())
 ]
 
