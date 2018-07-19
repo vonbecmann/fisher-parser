@@ -270,6 +270,32 @@ AFHyperRuleTest >> testIsRightBound04 [
 	self deny: hyperRule isRightBound
 ]
 
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsRightBoundIffForAll [
+	hyperRule := AFHyperRule
+		headWithAll: #('i' #LETTER 's') asNotions
+		bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
+
+	self 
+		assert: (hyperRule isRightBoundIffForAll: {(AWMetanotion named: #LETTER)})
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsRightBoundIffForAll02 [
+	hyperRule := 
+	AFHyperRule
+		headWithAll: #('i' #LETTER 's') asNotions
+		body:
+			{(AFHypernotion withAll: #('i' #LETTER 's') asNotions).
+			(AFHypernotion with: (AWMetanotion named: 'TALLY'))}.
+	self
+		deny:
+			(hyperRule
+				isRightBoundIffForAll:
+					{(AWMetanotion named: #LETTER).
+					(AWMetanotion named: #TALLY)})
+]
+
 { #category : #'tests - strict language' }
 AFHyperRuleTest >> testIsStrict [
 	hyperRule := 

@@ -200,6 +200,18 @@ AFHyperRule >> isRightBound [
 			true ]
 ]
 
+{ #category : #'testing - boundness' }
+AFHyperRule >> isRightBoundIffForAll: aCollection [
+	" right-bound if and only if(iff) for all m in metanotions:
+		((body occurrencesOf: m) ~= 0) implies that ((head occurrencesOf: m) ~= 0) "
+
+	aCollection
+		do: [ :m | 
+			(body occurrencesOf: m) ~= 0 ==> [ (head occurrencesOf: m) ~= 0 ]
+				ifFalse: [ ^ false ] ].
+	^ true
+]
+
 { #category : #testing }
 AFHyperRule >> isStrict [
 	" if this hyper rule is a production rule that belongs to the strict language.
