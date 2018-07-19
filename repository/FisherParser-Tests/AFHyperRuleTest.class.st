@@ -368,3 +368,17 @@ AFHyperRuleTest >> testIsXType [
 	self deny: hyperRule isLeftBound.
 	self deny: hyperRule isRightBound
 ]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsXTypeIffForAll [
+	| metanotions |
+	metanotions := {(AWMetanotion named: #NOTION). (AWMetanotion named: #EMPTY)}.
+	hyperRule := 
+		AFHyperRule
+			headWithAll: #('where' '<' NOTION '>' 'is' '<' NOTION '>') asNotions
+			bodyWith: (AFHypernotion with: #EMPTY asNotion).
+			
+	self assert: (hyperRule isXTypeIffForAll: metanotions).
+	self deny: (hyperRule isLeftBoundIffForAll: metanotions).
+	self deny: (hyperRule isRightBoundIffForAll: metanotions)
+]

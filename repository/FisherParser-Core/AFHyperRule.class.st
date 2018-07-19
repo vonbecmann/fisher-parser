@@ -232,6 +232,15 @@ AFHyperRule >> isXType [
 	^ self isLeftBound not and: [ self isRightBound not ]
 ]
 
+{ #category : #'testing - boundness' }
+AFHyperRule >> isXTypeIffForAll: aMetanotionCollection [
+	" A hyper rule is of the type X if and only if(iff)
+		it is neither left-bound nor right-bound. "
+
+	^ (self isLeftBoundIffForAll: aMetanotionCollection) not
+		and: [ (self isRightBoundIffForAll: aMetanotionCollection) not ]
+]
+
 { #category : #printing }
 AFHyperRule >> printOn: aStream [
 	aStream
