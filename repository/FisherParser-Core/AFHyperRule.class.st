@@ -138,13 +138,6 @@ AFHyperRule >> isLRType [
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isLType [
-	" A hyper rule is of the type L iif it is left-bound but not right-bound. "
-
-	^ self isLeftBound and: [ self isRightBound not ]
-]
-
-{ #category : #'testing - boundness' }
 AFHyperRule >> isLTypeIffForAll: aMetanotionCollection [
 	" A hyper rule is of the type L if and only if(iff)
 		it is left-bound but not right-bound. "

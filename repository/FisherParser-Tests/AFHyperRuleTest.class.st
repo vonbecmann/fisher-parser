@@ -90,24 +90,6 @@ AFHyperRuleTest >> testIsLRType [
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsLType [
-	"TAGS statement sequence:
-	   TAGS statement sequence, TAG applied occurrence, where TAG is in TAGS."
-	
-	hyperRule := 
-		AFHyperRule
-			headWithAll: #(TAGS 'statement' 'sequence') asNotions
-			body: 
-				{(AFHypernotion withAll: #(TAGS 'statement' 'sequence') asNotions).
-				(AFHypernotion withAll: #(TAG 'applied' 'occurrence') asNotions).
-				(AFHypernotion withAll: #('where' TAG 'is' 'in' TAGS) asNotions)}.
-			
-	self assert: hyperRule isLType.
-	self assert: hyperRule isLeftBound.
-	self deny: hyperRule isRightBound 
-]
-
-{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsLTypeIffForAll [
 	"TAGS statement sequence:
 	   TAGS statement sequence, TAG applied occurrence, where TAG is in TAGS."
