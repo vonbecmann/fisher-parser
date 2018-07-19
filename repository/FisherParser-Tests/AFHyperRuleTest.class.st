@@ -148,6 +148,30 @@ AFHyperRuleTest >> testIsLeftBound04 [
 ]
 
 { #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsLeftBoundIffForAll [
+	hyperRule := AFHyperRule
+		headWithAll: #('i' #LETTER 's') asNotions
+		bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
+
+	self 
+		assert: (hyperRule isLeftBoundIffForAll: {(AWMetanotion named: #LETTER)})
+]
+
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsLeftBoundIffForAll02 [
+	hyperRule := AFHyperRule
+		headWithAll: #(#TALLY #LETTER 's') asNotions
+		bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
+
+	self
+		deny:
+			(hyperRule
+				isLeftBoundIffForAll:
+					{(AWMetanotion named: #TALLY).
+					(AWMetanotion named: #LETTER)})
+]
+
+{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsRType [
 	"where TAG1 is in TAG2 TAGS: 	where TAG1 is in TAGS."
 	hyperRule := 

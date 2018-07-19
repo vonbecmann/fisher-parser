@@ -160,6 +160,18 @@ AFHyperRule >> isLeftBound [
 ]
 
 { #category : #'testing - boundness' }
+AFHyperRule >> isLeftBoundIffForAll: aMetanotionCollection [
+	" left-bound if and only if(iff) for all m in metanotions:
+		((head occurrencesOf: m) ~= 0) implies that ((body occurrencesOf: m) ~= 0) "
+
+	aMetanotionCollection
+		do: [ :m | 
+			(head occurrencesOf: m) ~= 0 ==> [ (body occurrencesOf: m) ~= 0 ]
+				ifFalse: [ ^ false ] ].
+	^ true
+]
+
+{ #category : #'testing - boundness' }
 AFHyperRule >> isRType [
 	" A hyper rule is of the type R iif it is right-bound but not left-bound. "
 
