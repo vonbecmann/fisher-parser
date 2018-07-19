@@ -210,48 +210,6 @@ AFHyperRuleTest >> testIsRepresentation05 [
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsRightBound [
-	hyperRule := 
-		AFHyperRule
-			headWithAll: #('i' #LETTER 's') asNotions
-			bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
-
-	self assert: hyperRule isRightBound
-]
-
-{ #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsRightBound02 [
-	hyperRule := 
-		AFHyperRule
-			headWithAll: #('i' #LETTER 's') asNotions
-			body:
-				{(AFHypernotion withAll: #('i' #LETTER 's') asNotions).
-				(AFHypernotion with: (AWMetanotion named: 'TALLY'))}.
-
-	self deny: hyperRule isRightBound
-]
-
-{ #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsRightBound03 [
-	hyperRule := 
-		AFHyperRule
-			headWithAll: #('a' 's') asNotions
-			bodyWith: (AFHypernotion withAll: #('letter' 'a' 'symbol') asNotions).
-			
-	self deny: hyperRule isRightBound
-]
-
-{ #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsRightBound04 [
-	hyperRule := 
-		AFHyperRule
-			headWithAll: #('letter' 'a' 'symbol') asNotions
-			bodyWith: (AFHypernotion with: (NCTerminal character: $a)).
-			
-	self deny: hyperRule isRightBound
-]
-
-{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsRightBoundIffForAll [
 	hyperRule := AFHyperRule
 		headWithAll: #('i' #LETTER 's') asNotions
