@@ -90,6 +90,20 @@ AFHyperRuleTest >> testIsLRType [
 ]
 
 { #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsLRTypeIffForAll [
+	| metanotions |
+	metanotions := {(AWMetanotion named: #LETTER)}.
+
+	hyperRule := AFHyperRule
+		headWithAll: #('i' #LETTER 's') asNotions
+		bodyWith: (AFHypernotion withAll: #(#LETTER 'symbol') asNotions).
+
+	self assert: (hyperRule isLRTypeIffForAll: metanotions).
+	self assert: (hyperRule isLeftBoundIffForAll: metanotions).
+	self assert: (hyperRule isRightBoundIffForAll: metanotions)
+]
+
+{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsLTypeIffForAll [
 	"TAGS statement sequence:
 	   TAGS statement sequence, TAG applied occurrence, where TAG is in TAGS."
