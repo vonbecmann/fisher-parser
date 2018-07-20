@@ -174,13 +174,6 @@ AFHyperRule >> isLeftBoundIffForAll: aMetanotionCollection [
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isRType [
-	" A hyper rule is of the type R iif it is right-bound but not left-bound. "
-
-	^ self isRightBound and: [ self isLeftBound not ]
-]
-
-{ #category : #'testing - boundness' }
 AFHyperRule >> isRTypeIffForAll: aMetanotionCollection [
 	" A hyper rule is of the type R if and only if(iff)
 		it is right-bound but not left-bound. "

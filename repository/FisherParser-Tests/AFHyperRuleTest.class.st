@@ -156,19 +156,6 @@ AFHyperRuleTest >> testIsLeftBoundIffForAll04 [
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsRType [
-	"where TAG1 is in TAG2 TAGS: 	where TAG1 is in TAGS."
-	hyperRule := 
-		AFHyperRule
-			headWithAll: #('where' TAG1 'is' 'in' TAG2 TAGS) asNotions
-			bodyWith: (AFHypernotion withAll: #('where' TAG1 'is' 'in' TAGS) asNotions).
-			
-	self assert: hyperRule isRType.
-	self assert: hyperRule isRightBound.
-	self deny: hyperRule isLeftBound 
-]
-
-{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsRTypeIffForAll [
 	"where TAG1 is in TAG2 TAGS: 	where TAG1 is in TAGS."
 
