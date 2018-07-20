@@ -24,9 +24,9 @@ Class {
 AFHypernotionGrammar class >> hypernotion: anAFHypernotion metaGrammar: aMetaGrammar [
 	^ self basicNew
 		initializeHypernotion: anAFHypernotion
+			metaProductionRules: aMetaGrammar metaProductionRules
 			nonterminals: aMetaGrammar nonterminals
-			terminals: aMetaGrammar terminals
-			metaProductionRules: aMetaGrammar metaProductionRules;
+			terminals: aMetaGrammar terminals;
 		computeFirstSet;
 		yourself
 ]
@@ -66,7 +66,7 @@ AFHypernotionGrammar >> initialize [
 ]
 
 { #category : #initialization }
-AFHypernotionGrammar >> initializeHypernotion: aHypernotion nonterminals: nonterminals terminals: terminals metaProductionRules: metaProductionRules [
+AFHypernotionGrammar >> initializeHypernotion: aHypernotion metaProductionRules: metaProductionRules nonterminals: nonterminals terminals: terminals [
 	self initialize.
 	hypernotion := aHypernotion.
 	startSymbol := hypernotion asNonterminal.
