@@ -18,7 +18,6 @@ Class {
 	#instVars : [
 		'nonterminals',
 		'terminals',
-		'symbols',
 		'metaProductionRules',
 		'firstSet',
 		'parseTable'
@@ -127,8 +126,7 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 				body: {(terminals like: (NCTerminal character: letter))} ]
 		thenDo: [ :each | 
 			metaProductionRules add: each.
-			firstSet at: each head put: each body first ].
-	symbols := nonterminals, terminals.
+			firstSet at: each head put: each body first ]
 ]
 
 { #category : #accessing }
@@ -146,11 +144,6 @@ AFMetaGrammar >> startAt: aHypernotion [
 	" creates a hypernotion's grammar using the metagramar "
 
 	^ AFHypernotionGrammar hypernotion: aHypernotion metaGrammar: self
-]
-
-{ #category : #accessing }
-AFMetaGrammar >> symbols [
-	^ symbols
 ]
 
 { #category : #accessing }

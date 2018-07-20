@@ -71,7 +71,7 @@ AFHypernotionGrammar >> initializeHypernotion: aHypernotion metaGrammar: aMetaGr
 		(SinglyLinkedList with: 
 				(NCProductionRule 
 					head: startSymbol 
-					body: (hypernotion buildBodyOf: aMetaGrammar symbols)))
+					body: (hypernotion buildBodyOf: aMetaGrammar nonterminals)))
 			addAll: aMetaGrammar metaProductionRules;
 			yourself.
 	associatedGrammar := JEGrammar
