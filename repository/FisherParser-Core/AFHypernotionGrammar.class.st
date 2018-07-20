@@ -21,12 +21,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFHypernotionGrammar class >> hypernotion: anAFHypernotion productionRules: productionRuleCollection nonterminals: nonterminalSet terminals: terminalSet [
+AFHypernotionGrammar class >> hypernotion: anAFHypernotion metaGrammar: anAFMetaGrammar [
 	^ self basicNew
-		initializeHypernotion: anAFHypernotion
-			productionRules: productionRuleCollection
-			nonterminals: nonterminalSet
-			terminals: terminalSet;
+		initializeHypernotion: anAFHypernotion metaGrammar: anAFMetaGrammar;
 		computeFirstSet;
 		yourself
 ]
@@ -66,20 +63,21 @@ AFHypernotionGrammar >> initialize [
 ]
 
 { #category : #initialization }
-AFHypernotionGrammar >> initializeHypernotion: anAFHypernotion productionRules: productionRuleCollection nonterminals: nonterminalSet terminals: terminalSet [
-	| symbols |
+AFHypernotionGrammar >> initializeHypernotion: aHypernotion metaGrammar: aMetaGrammar [
 	self initialize.
-	symbols := nonterminalSet, terminalSet.
-	hypernotion := anAFHypernotion.
+	hypernotion := aHypernotion.
 	startSymbol := hypernotion asNonterminal.
 	productionRules := 
-		(SinglyLinkedList with: (NCProductionRule head: startSymbol body: (hypernotion buildBodyOf: symbols)))
-			addAll: productionRuleCollection;
+		(SinglyLinkedList with: 
+				(NCProductionRule 
+					head: startSymbol 
+					body: (hypernotion buildBodyOf: aMetaGrammar symbols)))
+			addAll: aMetaGrammar metaProductionRules;
 			yourself.
 	associatedGrammar := JEGrammar
 		productionRules: productionRules
-		nonterminals: (nonterminalSet copyWith: startSymbol) 
-		terminals: terminalSet
+		nonterminals: (aMetaGrammar nonterminals copyWith: startSymbol)
+		terminals: aMetaGrammar terminals
 		startNonterminal: startSymbol.
 	associatedGrammar nonterminals do: [ :each | firstSet at: each putAll: #() ]
 ]

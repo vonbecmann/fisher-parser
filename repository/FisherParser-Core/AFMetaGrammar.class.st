@@ -128,14 +128,30 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 	symbols := nonterminals, terminals.
 ]
 
+{ #category : #accessing }
+AFMetaGrammar >> metaProductionRules [
+	^ metaProductionRules
+]
+
+{ #category : #accessing }
+AFMetaGrammar >> nonterminals [
+	^ nonterminals
+]
+
 { #category : #'instance creation' }
 AFMetaGrammar >> startAt: aHypernotion [
 	" 	builds a hypernotion's grammar using the metagramar 
 		and starts at the given hypernotion "
 
-	^ AFHypernotionGrammar
-		hypernotion: aHypernotion
-		productionRules: metaProductionRules
-		nonterminals: nonterminals
-		terminals: terminals
+	^ AFHypernotionGrammar hypernotion: aHypernotion metaGrammar: self
+]
+
+{ #category : #accessing }
+AFMetaGrammar >> symbols [
+	^ symbols
+]
+
+{ #category : #accessing }
+AFMetaGrammar >> terminals [
+	^ terminals
 ]
