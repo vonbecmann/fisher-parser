@@ -21,12 +21,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFHypernotionGrammar class >> hypernotion: anAFHypernotion metaGrammar: aMetaGrammar [
+AFHypernotionGrammar class >> metaProductionRules: metaProductionRules nonterminals: nonterminals terminals: terminals startAt: anAFHypernotion [
 	^ self basicNew
 		initializeHypernotion: anAFHypernotion
-			metaProductionRules: aMetaGrammar metaProductionRules
-			nonterminals: aMetaGrammar nonterminals
-			terminals: aMetaGrammar terminals;
+			metaProductionRules: metaProductionRules
+			nonterminals: nonterminals
+			terminals: terminals;
 		computeFirstSet;
 		yourself
 ]

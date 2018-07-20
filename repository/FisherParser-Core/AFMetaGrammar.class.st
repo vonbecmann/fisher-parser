@@ -143,7 +143,11 @@ AFMetaGrammar >> nonterminals [
 AFMetaGrammar >> startAt: aHypernotion [
 	" creates a hypernotion's grammar using the metagramar "
 
-	^ AFHypernotionGrammar hypernotion: aHypernotion metaGrammar: self
+	^ AFHypernotionGrammar
+		metaProductionRules: metaProductionRules
+		nonterminals: nonterminals
+		terminals: terminals
+		startAt: aHypernotion
 ]
 
 { #category : #accessing }
