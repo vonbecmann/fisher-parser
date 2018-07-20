@@ -10,7 +10,7 @@ and builds a grammar with
 and starts at the hypernotion
 "
 Class {
-	#name : #AFJEMetaGrammar,
+	#name : #AFMetaGrammar,
 	#superclass : #Object,
 	#instVars : [
 		'nonterminals',
@@ -25,14 +25,14 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFJEMetaGrammar class >> metaRules: metaRuleCollection ortholetters: ortholetters [
+AFMetaGrammar class >> metaRules: metaRuleCollection ortholetters: ortholetters [
 	^ self basicNew
 		initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetters;
 		yourself
 ]
 
 { #category : #testing }
-AFJEMetaGrammar >> checkIsLLOne [
+AFMetaGrammar >> checkIsLLOne [
 	parseTable
 		keysDo: [ :key | 
 			(parseTable at: key) size > 1
@@ -49,7 +49,7 @@ AFJEMetaGrammar >> checkIsLLOne [
 ]
 
 { #category : #initialization }
-AFJEMetaGrammar >> computeFirstSet [
+AFMetaGrammar >> computeFirstSet [
 	| previousSize |
 	[ 	previousSize := firstSet size.
 		metaProductionRules 
@@ -58,7 +58,7 @@ AFJEMetaGrammar >> computeFirstSet [
 ]
 
 { #category : #initialization }
-AFJEMetaGrammar >> computeParseTable [
+AFMetaGrammar >> computeParseTable [
 	" compute parse table using first set. then you can test if there's a first conflict "
 
 	metaProductionRules
@@ -71,7 +71,7 @@ AFJEMetaGrammar >> computeParseTable [
 ]
 
 { #category : #'inspector extensions' }
-AFJEMetaGrammar >> gtInspectorFirstSetIn: composite [
+AFMetaGrammar >> gtInspectorFirstSetIn: composite [
 	<gtInspectorPresentationOrder: 1>
 	^ composite table
 		title: [ 'First Set' ];
@@ -83,7 +83,7 @@ AFJEMetaGrammar >> gtInspectorFirstSetIn: composite [
 ]
 
 { #category : #'inspector extensions' }
-AFJEMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
+AFMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ composite table
 		title: [ 'Meta Rules' ];
@@ -95,7 +95,7 @@ AFJEMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
 ]
 
 { #category : #initialization }
-AFJEMetaGrammar >> initialize [
+AFMetaGrammar >> initialize [
 	nonterminals := Set new.
 	terminals := Set new.
 	metaProductionRules := SinglyLinkedList new.
@@ -104,7 +104,7 @@ AFJEMetaGrammar >> initialize [
 ]
 
 { #category : #initialization }
-AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetterSet [
+AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetterSet [
 	self initialize.
 	ortholetters := ortholetterSet.
 	metaRuleCollection 
@@ -132,7 +132,7 @@ AFJEMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetter
 ]
 
 { #category : #'instance creation' }
-AFJEMetaGrammar >> startAt: aHypernotion [
+AFMetaGrammar >> startAt: aHypernotion [
 	" 	builds a grammar with an hypernotion and the metagramar 
 		and starts at the given hypernotion "
 

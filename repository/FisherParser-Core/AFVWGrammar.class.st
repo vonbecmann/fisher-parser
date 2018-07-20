@@ -151,7 +151,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	vwGrammar := aVWGrammar.
 	startNotion := AWProtonotion with: '((start))'.
 	metaGrammar := 
-	AFJEMetaGrammar
+	AFMetaGrammar
 		metaRules: vwGrammar metaRules
 		ortholetters: (vwGrammar ortholetters, startNotion letters).
 	hypernotionDict := Dictionary new.
