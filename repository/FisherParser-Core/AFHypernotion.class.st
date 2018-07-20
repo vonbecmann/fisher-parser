@@ -94,7 +94,7 @@ AFHypernotion >> apply: aSubstitution [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 AFHypernotion >> asNonterminal [
 	^ NCNonterminal named: self printString
 ]
