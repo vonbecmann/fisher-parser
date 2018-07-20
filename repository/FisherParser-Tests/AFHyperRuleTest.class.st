@@ -168,6 +168,22 @@ AFHyperRuleTest >> testIsRType [
 	self deny: hyperRule isLeftBound 
 ]
 
+{ #category : #'tests - boundness' }
+AFHyperRuleTest >> testIsRTypeIffForAll [
+	"where TAG1 is in TAG2 TAGS: 	where TAG1 is in TAGS."
+
+	| metanotions |
+	metanotions := {(AWMetanotion named: #TAG1). (AWMetanotion named: #TAG2). (AWMetanotion named: #TAGS)}.
+	
+	hyperRule := AFHyperRule
+		headWithAll: #('where' TAG1 'is' 'in' TAG2 TAGS) asNotions
+		bodyWith: (AFHypernotion withAll: #('where' TAG1 'is' 'in' TAGS) asNotions).
+	
+	self assert: (hyperRule isRTypeIffForAll: metanotions).
+	self assert: (hyperRule isRightBoundIffForAll: metanotions).
+	self deny: (hyperRule isLeftBoundIffForAll: metanotions)
+]
+
 { #category : #tests }
 AFHyperRuleTest >> testIsRepresentation [
 	hyperRule := 

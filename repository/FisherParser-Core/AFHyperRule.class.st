@@ -180,6 +180,15 @@ AFHyperRule >> isRType [
 	^ self isRightBound and: [ self isLeftBound not ]
 ]
 
+{ #category : #'testing - boundness' }
+AFHyperRule >> isRTypeIffForAll: aMetanotionCollection [
+	" A hyper rule is of the type R if and only if(iff)
+		it is right-bound but not left-bound. "
+
+	^ (self isRightBoundIffForAll: aMetanotionCollection)
+		and: [ (self isLeftBoundIffForAll: aMetanotionCollection) not ]
+]
+
 { #category : #testing }
 AFHyperRule >> isRepresentation [
 	"head is metanotion free and the body is a terminal"
