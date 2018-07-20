@@ -94,6 +94,11 @@ AFHypernotion >> apply: aSubstitution [
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+AFHypernotion >> asNonterminal [
+	^ NCNonterminal named: self printString
+]
+
 { #category : #'cross references' }
 AFHypernotion >> backwardCrossReferences: aHyperRuleCollection [ 
 	backwardCrossReferences := aHyperRuleCollection
