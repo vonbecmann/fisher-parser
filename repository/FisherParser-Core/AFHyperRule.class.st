@@ -149,21 +149,6 @@ AFHyperRule >> isLTypeIffForAll: aMetanotionCollection [
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isLeftBound [
-	" left-bound if for all M in metanotions:
-		((head occurrencesOf: M) ~= 0) implies that ((body occurrencesOf: M) ~= 0) "
-
-	^ metanotions isEmpty
-		ifTrue: [ false ]
-		ifFalse: [ 
-			metanotions
-				do: [ :m | 
-					(head occurrencesOf: m) ~= 0 ==> [ (body occurrencesOf: m) ~= 0 ]
-						ifFalse: [ ^ false ] ].
-			true ]
-]
-
-{ #category : #'testing - boundness' }
 AFHyperRule >> isLeftBoundIffForAll: aMetanotionCollection [
 	" left-bound if and only if(iff) for all m in metanotions:
 		((head occurrencesOf: m) ~= 0) implies that ((body occurrencesOf: m) ~= 0) "
@@ -189,21 +174,6 @@ AFHyperRule >> isRepresentation [
 	"head is metanotion free and the body is a terminal"
 
 	^ head isProtonotion and: [ body size = 1 and: [ body first isTerminal ] ]
-]
-
-{ #category : #'testing - boundness' }
-AFHyperRule >> isRightBound [
-	" right-bound if for all M in metanotions:
-		((body occurrencesOf: M) ~= 0) implies that ((head occurrencesOf: M) ~= 0) "
-
-	^ metanotions isEmpty
-		ifTrue: [ false ]
-		ifFalse: [ 
-			metanotions
-				do: [ :m | 
-					((body occurrencesOf: m) ~= 0) ==> [ (head occurrencesOf: m) ~= 0 ]
-						ifFalse: [ ^ false ] ].
-			true ]
 ]
 
 { #category : #'testing - boundness' }
