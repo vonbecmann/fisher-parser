@@ -17,7 +17,6 @@ Class {
 		'terminals',
 		'symbols',
 		'metaProductionRules',
-		'ortholetters',
 		'firstSet',
 		'parseTable'
 	],
@@ -104,11 +103,9 @@ AFMetaGrammar >> initialize [
 ]
 
 { #category : #initialization }
-AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetterSet [
+AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetters [
 	self initialize.
-	ortholetters := ortholetterSet.
-	metaRuleCollection 
-		do: [ :each | nonterminals add: each head ].
+	metaRuleCollection do: [ :each | nonterminals add: each head ].
 	ortholetters 
 		do: [ :letter |
 			nonterminals add: (NCNonterminal named: letter).
