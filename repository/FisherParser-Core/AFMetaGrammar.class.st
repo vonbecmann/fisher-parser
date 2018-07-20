@@ -1,13 +1,16 @@
 "
-helps to build an hypernotion's grammar.
+helps to create an hypernotion's grammar.
 given  the meta production rules and ortholetters of the metalevel of a vw-grammar.
 
-holds the elements of the meta grammar. meta rules and ortho alphabet.
+holds the elements of the meta grammar. 
+- meta rules
+- nonterminals
+- terminals
+- symbols: nonterminals and terminals.
 
-and builds a grammar with
+and creates a hypernotion's grammar with
 	- an hypernotion 
-	- and the metagramar (nonterminals, terminals, meta rules)	
-and starts at the hypernotion
+	- and the metagramar 
 "
 Class {
 	#name : #AFMetaGrammar,
@@ -140,8 +143,7 @@ AFMetaGrammar >> nonterminals [
 
 { #category : #'instance creation' }
 AFMetaGrammar >> startAt: aHypernotion [
-	" 	builds a hypernotion's grammar using the metagramar 
-		and starts at the given hypernotion "
+	" creates a hypernotion's grammar using the metagramar "
 
 	^ AFHypernotionGrammar hypernotion: aHypernotion metaGrammar: self
 ]

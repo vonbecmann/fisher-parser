@@ -11,8 +11,8 @@ Class {
 	#name : #AFHypernotionGrammar,
 	#superclass : #Object,
 	#instVars : [
-		'startSymbol',
 		'hypernotion',
+		'startSymbol',
 		'productionRules',
 		'associatedGrammar',
 		'firstSet'
