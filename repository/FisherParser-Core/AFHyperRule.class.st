@@ -131,13 +131,6 @@ AFHyperRule >> isEpsilon [
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isLRType [
-	" A hyper rule is of the type LR iif it is both left-bound and right-bound. "
-
-	^ self isLeftBound and: [ self isRightBound ]
-]
-
-{ #category : #'testing - boundness' }
 AFHyperRule >> isLRTypeIffForAll: aMetanotionCollection [
 	" A hyper rule is of the type LR if and only if(iif)
 		it is both left-bound and right-bound. "

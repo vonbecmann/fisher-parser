@@ -78,18 +78,6 @@ AFHyperRuleTest >> testIsEpsilon [
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsLRType [
-	hyperRule := 
-		AFHyperRule
-			headWithAll: #('i' #LETTER 's') asNotions
-			bodyWith: (AFHypernotion withAll: #(#LETTER 'symbol') asNotions).
-			
-	self assert: hyperRule isLRType.
-	self assert: hyperRule isLeftBound.
-	self assert: hyperRule isRightBound
-]
-
-{ #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsLRTypeIffForAll [
 	| metanotions |
 	metanotions := {(AWMetanotion named: #LETTER)}.
