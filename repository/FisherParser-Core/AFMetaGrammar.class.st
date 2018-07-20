@@ -133,7 +133,7 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 
 { #category : #'instance creation' }
 AFMetaGrammar >> startAt: aHypernotion [
-	" 	builds a grammar with an hypernotion and the metagramar 
+	" 	builds a hypernotion's grammar using the metagramar 
 		and starts at the given hypernotion "
 
 	| startSymbol productionRules |
