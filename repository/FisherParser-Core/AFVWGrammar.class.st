@@ -28,7 +28,7 @@ AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToReprese
 			(AVWGrammar 
 				evw: aVWRuleString 
 				representations: terminalNotionToRepresentationList);
-		computeFirstSet;
+		computeFirstAndFollowSet;
 		checkMetaGrammarIsLLOne;
 		checkHyperRulesLeftHandSides;
 		checkBoundness;
@@ -122,9 +122,10 @@ AFVWGrammar >> computeCrossReferences [
 ]
 
 { #category : #initialization }
-AFVWGrammar >> computeFirstSet [
+AFVWGrammar >> computeFirstAndFollowSet [
 	metaGrammar
 		computeFirstSet;
+		computeFollowSet;
 		computeParseTable
 ]
 
