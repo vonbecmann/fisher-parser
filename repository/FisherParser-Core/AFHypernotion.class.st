@@ -65,13 +65,11 @@ AFHypernotion >> = anObject [
 		ifTrue: [ ^ true ].
 	self class == anObject class
 		ifFalse: [ ^ false ].
-	notions size == anObject notions size
+	self size == anObject size
 		ifFalse: [ ^ false ].
-	notions
-		with: anObject notions
-		do: [ :first :second | 
-			first = second
-				ifFalse: [ ^ false ] ].
+	1 to: notions size do: [ :index | 
+		(notions at: index) = (anObject at: index)
+			ifFalse: [ ^ false ] ].
 	^ true
 ]
 
@@ -97,6 +95,11 @@ AFHypernotion >> apply: aSubstitution [
 { #category : #accessing }
 AFHypernotion >> asNonterminal [
 	^ NCNonterminal named: self printString
+]
+
+{ #category : #accessing }
+AFHypernotion >> at: index [
+	^ notions at: index
 ]
 
 { #category : #'cross references' }
@@ -298,6 +301,11 @@ AFHypernotion >> release [
 	notions := metanotions := metaGrammar := nil.
 	grammar := forwardCrossReferences := nil.
 	super release
+]
+
+{ #category : #accessing }
+AFHypernotion >> size [
+	^ notions size
 ]
 
 { #category : #matching }
