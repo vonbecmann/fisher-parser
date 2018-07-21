@@ -164,16 +164,6 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 			firstSet at: each head put: each body first ]
 ]
 
-{ #category : #accessing }
-AFMetaGrammar >> metaProductionRules [
-	^ metaProductionRules
-]
-
-{ #category : #accessing }
-AFMetaGrammar >> nonterminals [
-	^ nonterminals
-]
-
 { #category : #'instance creation' }
 AFMetaGrammar >> startAt: aHypernotion [
 	" creates a hypernotion's grammar using the metagramar "
@@ -183,9 +173,4 @@ AFMetaGrammar >> startAt: aHypernotion [
 		nonterminals: nonterminals
 		terminals: terminals
 		startAt: aHypernotion
-]
-
-{ #category : #accessing }
-AFMetaGrammar >> terminals [
-	^ terminals
 ]
