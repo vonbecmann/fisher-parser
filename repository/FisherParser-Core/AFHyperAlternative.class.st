@@ -5,8 +5,7 @@ Class {
 	#name : #AFHyperAlternative,
 	#superclass : #Object,
 	#instVars : [
-		'hypernotions',
-		'metanotions'
+		'hypernotions'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -90,15 +89,8 @@ AFHyperAlternative >> hash [
 ]
 
 { #category : #initialization }
-AFHyperAlternative >> initialize [
-	metanotions := Set new
-]
-
-{ #category : #initialization }
 AFHyperAlternative >> initializeHypernotions: anAFHypernotionArray [
-	self initialize.
-	hypernotions := anAFHypernotionArray.
-	hypernotions do: [ :hn | metanotions addAll: hn metanotions ]
+	hypernotions := anAFHypernotionArray
 ]
 
 { #category : #testing }
@@ -109,11 +101,6 @@ AFHyperAlternative >> isEmpty [
 { #category : #testing }
 AFHyperAlternative >> isStrict [
 	^ hypernotions allSatisfy: [ :hn | hn isStrict ]
-]
-
-{ #category : #accessing }
-AFHyperAlternative >> metanotions [
-	^ metanotions
 ]
 
 { #category : #testing }
@@ -151,7 +138,7 @@ AFHyperAlternative >> printString [
 
 { #category : #'initialize-release' }
 AFHyperAlternative >> release [
-	hypernotions := metanotions := nil.
+	hypernotions := nil.
 	super release
 ]
 
