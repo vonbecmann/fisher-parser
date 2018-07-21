@@ -283,6 +283,12 @@ AFHyperRuleTest >> testIsStrict02 [
 	self assert: hyperRule isStrict
 ]
 
+{ #category : #'tests - strict language' }
+AFHyperRuleTest >> testIsStrict03 [
+	hyperRule := AFHyperRule headWith: 'letter' asNotion body: {}.
+	self assert: hyperRule isStrict
+]
+
 { #category : #'tests - boundness' }
 AFHyperRuleTest >> testIsXTypeIffForAll [
 	| metanotions |

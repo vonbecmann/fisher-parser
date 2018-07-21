@@ -198,7 +198,7 @@ AFHyperRule >> isStrict [
 	- some other protonotion (for which no production rule can be derived),
 		which is then said to be a 'blind alley'. "
 
-	^ metanotions isEmpty
+	^ head isStrict and: [ body isStrict ]
 ]
 
 { #category : #'testing - boundness' }

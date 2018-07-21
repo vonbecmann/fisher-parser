@@ -243,6 +243,11 @@ AFHypernotion >> isProtonotion [
 ]
 
 { #category : #testing }
+AFHypernotion >> isStrict [
+	^ metanotions isEmpty
+]
+
+{ #category : #testing }
 AFHypernotion >> isTerminal [
 	^ metanotions isEmpty
 		and: [ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isTerminal ] ] ]

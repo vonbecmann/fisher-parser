@@ -106,6 +106,11 @@ AFHyperAlternative >> isEmpty [
 	^ hypernotions isEmpty
 ]
 
+{ #category : #testing }
+AFHyperAlternative >> isStrict [
+	^ hypernotions allSatisfy: [ :hn | hn isStrict ]
+]
+
 { #category : #accessing }
 AFHyperAlternative >> metanotions [
 	^ metanotions
