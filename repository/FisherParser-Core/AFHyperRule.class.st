@@ -11,8 +11,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'head',
-		'body',
-		'metanotions'
+		'body'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -111,18 +110,9 @@ AFHyperRule >> head [
 ]
 
 { #category : #initialization }
-AFHyperRule >> initialize [
-	metanotions := Set new
-]
-
-{ #category : #initialization }
 AFHyperRule >> initializeHead: aHypernotion body: aHyperalternative [
-	self initialize.
 	head := aHypernotion.
-	body := aHyperalternative.
-	metanotions
-		addAll: head metanotions;
-		addAll: body metanotions
+	body := aHyperalternative
 ]
 
 { #category : #testing }
@@ -226,6 +216,6 @@ AFHyperRule >> printString [
 
 { #category : #'initialize-release' }
 AFHyperRule >> release [
-	head := body := metanotions := nil.
+	head := body := nil.
 	super release
 ]
