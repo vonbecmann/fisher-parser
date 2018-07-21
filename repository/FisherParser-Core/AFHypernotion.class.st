@@ -276,11 +276,6 @@ AFHypernotion >> metanotions [
 	^ metanotions
 ]
 
-{ #category : #accessing }
-AFHypernotion >> notions [
-	^ notions
-]
-
 { #category : #testing }
 AFHypernotion >> occurrencesOf: aNotion [ 
 	^ notions occurrencesOf: aNotion 
