@@ -30,6 +30,7 @@ AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToReprese
 				representations: terminalNotionToRepresentationList);
 		computeFirstAndFollowSet;
 		checkMetaGrammarIsLLOne;
+		checkHypernotionsAreLLOne;
 		checkHyperRulesLeftHandSides;
 		checkBoundness;
 		computeCrossReferences;
@@ -85,6 +86,14 @@ AFVWGrammar >> checkHyperRulesLeftHandSides [
 										print: hyperRule;
 										crlf;
 										nextPutAll: ' matches an empty protonotion' ]) ] ]
+]
+
+{ #category : #initialization }
+AFVWGrammar >> checkHypernotionsAreLLOne [
+	alternatives
+		do: [ :hrule | 
+			hrule isRepresentation
+				ifFalse: [ hrule checkHypernotionsAreLLOne ] ]
 ]
 
 { #category : #initialization }

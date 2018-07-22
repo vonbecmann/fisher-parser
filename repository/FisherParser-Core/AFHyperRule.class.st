@@ -81,6 +81,12 @@ AFHyperRule >> body [
 	^ body
 ]
 
+{ #category : #testing }
+AFHyperRule >> checkHypernotionsAreLLOne [
+	head checkIsLLOne.
+	body checkHypernotionsAreLLOne
+]
+
 { #category : #accessing }
 AFHyperRule >> dotAtBeginning [
 	^ AFDottedHyperRule atTheBeginningOf: self

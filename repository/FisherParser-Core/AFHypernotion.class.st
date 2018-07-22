@@ -134,6 +134,11 @@ AFHypernotion >> buildBodyOf: symbols [
 						ifTrue: [ s nextPut: (symbols detect: [ :symbol | symbol = each ]) ] ] ]
 ]
 
+{ #category : #testing }
+AFHypernotion >> checkIsLLOne [
+	self grammar checkIsLLOne
+]
+
 { #category : #accessing }
 AFHypernotion >> firstSet [
 	^ self grammar startSymbolFirstSet

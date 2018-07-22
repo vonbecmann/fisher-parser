@@ -15,7 +15,8 @@ Class {
 		'startSymbol',
 		'productionRules',
 		'associatedGrammar',
-		'firstSet'
+		'firstSet',
+		'parseTable'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -31,12 +32,45 @@ AFHypernotionGrammar class >> metaProductionRules: metaProductionRules nontermin
 		yourself
 ]
 
+{ #category : #testing }
+AFHypernotionGrammar >> checkIsLLOne [
+	self computeParseTable.
+	parseTable
+		keysDo: [ :key | 
+			(parseTable at: key) size > 1
+				ifTrue: [ 
+					Error
+						signal:
+							(String
+								streamContents: [ :s | 
+									s
+										nextPutAll: 'CONFLICT at ';
+										print: key;
+										nextPutAll: ' -> '.
+									(parseTable at: key) 
+										do: [ :rule | s print: rule ] 
+										separatedBy: [ s space ] ]) ] ]
+]
+
 { #category : #initialization }
 AFHypernotionGrammar >> computeFirstSet [
 	| previousSize |
 	[ 	previousSize := firstSet size.
 		productionRules do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
 		previousSize = firstSet size ] whileFalse
+]
+
+{ #category : #initialization }
+AFHypernotionGrammar >> computeParseTable [
+	" compute parse table using first set. then you can test if there's a conflict "
+
+	productionRules
+		do: [ :rule | 
+			(associatedGrammar terminals intersection: (firstSet firstOf: rule body))
+				do: [ :terminal | 
+					parseTable 
+						at: (OrderedPair first: rule head second: terminal) 
+						put: rule ] ]
 ]
 
 { #category : #'inspector extensions' }
@@ -46,6 +80,19 @@ AFHypernotionGrammar >> gtDisplayOn: aStream [
 		nextPut: $(.
 	hypernotion gtDisplayOn: aStream.
 	aStream nextPut: $)
+]
+
+{ #category : #'inspector extensions' }
+AFHypernotionGrammar >> gtInspectorParseTableIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite table
+		title: [ 'Parse Table' ];
+		display: [ parseTable keys ];
+		column: '(Nonterminal, terminal)'
+			evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		send: [ :each | parseTable at: each ];
+		showOnly: 50;
+		yourself
 ]
 
 { #category : #'inspector extensions' }
@@ -62,7 +109,8 @@ AFHypernotionGrammar >> gtInspectorProductionRulesIn: composite [
 
 { #category : #initialization }
 AFHypernotionGrammar >> initialize [
-	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set
+	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set
 ]
 
 { #category : #initialization }

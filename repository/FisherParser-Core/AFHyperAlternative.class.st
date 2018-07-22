@@ -42,6 +42,11 @@ AFHyperAlternative >> at: index [
 	^ hypernotions at: index
 ]
 
+{ #category : #testing }
+AFHyperAlternative >> checkHypernotionsAreLLOne [
+	hypernotions do: [ :hn | hn checkIsLLOne ]
+]
+
 { #category : #accessing }
 AFHyperAlternative >> first [
 	^ hypernotions first
