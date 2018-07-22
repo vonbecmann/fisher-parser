@@ -38,9 +38,11 @@ AFHypernotionTest >> testApply02 [
 
 { #category : #tests }
 AFHypernotionTest >> testAsNonterminal [
-	self
-		assert: (AFHypernotion withAll: {(AWProtonotion with: 'letter'). (AWMetanotion named: 'ALPHA')}) asNonterminal
-		equals: (NCNonterminal named: 'letterALPHA')
+	hypernotion := AFHypernotion withAll: {(AWProtonotion with: 'letter'). (AWMetanotion named: 'ALPHA')}.
+	
+	self 
+		assert: hypernotion asNonterminal 
+		equals: (NCNonterminal named: ('letterALPHA#', hypernotion identityHash asString))
 ]
 
 { #category : #tests }

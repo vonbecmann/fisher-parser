@@ -94,7 +94,15 @@ AFHypernotion >> apply: aSubstitution [
 
 { #category : #accessing }
 AFHypernotion >> asNonterminal [
-	^ NCNonterminal named: self printString
+	" must be a unique nonterminal "
+
+	^ NCNonterminal
+		named:
+			(String
+				streamContents: [ :s | 
+					self printOn: s.
+					s nextPut: $#.
+					self identityHash printOn: s ])
 ]
 
 { #category : #accessing }
