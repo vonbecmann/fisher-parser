@@ -179,6 +179,27 @@ LETTER thing: LETTER symbol, LETTER symbol, LETTER symbol.'
 ]
 
 { #category : #'instance creation' }
+AFExemplar class >> test5 [
+	^ AFVWGrammar
+		evw:
+'EMPTY::  .
+
+NOTION:: ALPHA NOTETY; <NOTION>.
+NOTETY:: NOTION; EMPTY.
+ALPHA:: a;b;c;d;e;f;g;h;i;j;k;l;m;n;o;p;q;r;s;t;u;v;w;x;y;z.
+
+program:          abc.
+
+abc:              pack of <abc>; star symbol.
+
+pack of <NOTION>: lpar symbol, NOTION, rpar symbol.'
+		representations:
+			{(#('lpar' 'symbol') -> (NCTerminal character: $()).
+			(#('rpar' 'symbol') -> (NCTerminal character: $))).
+			(#('star' 'symbol') -> (NCTerminal character: $*))}
+]
+
+{ #category : #'instance creation' }
 AFExemplar class >> wegner [
 	"
 BETY::	 b BETY; EMPTY.

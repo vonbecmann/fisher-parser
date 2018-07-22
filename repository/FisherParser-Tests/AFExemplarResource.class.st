@@ -12,7 +12,8 @@ Class {
 		'anbn',
 		'wegner',
 		'test4',
-		'test15'
+		'test15',
+		'test5'
 	],
 	#category : #'FisherParser-Tests-Grammar'
 }
@@ -42,7 +43,8 @@ AFExemplarResource >> setUp [
 	anbn := AFExemplar anbn.
 	wegner := AFExemplar wegner.
 	test4 := AFExemplar test4.
-	test15 := AFExemplar test15
+	test15 := AFExemplar test15.
+	test5 := AFExemplar test5 
 ]
 
 { #category : #accessing }
@@ -55,7 +57,7 @@ AFExemplarResource >> tearDown [
 	"Does nothing. Subclasses should override this to tear down their resource"
 
 	a3b3c3 := starSequence := anbncn := test3 := anbn := nil.
-	wegner := test4 := test15 := nil.
+	wegner := test4 := test15 := test5 := nil.
 	super tearDown
 ]
 
@@ -72,6 +74,11 @@ AFExemplarResource >> test3 [
 { #category : #accessing }
 AFExemplarResource >> test4 [
 	^ test4
+]
+
+{ #category : #accessing }
+AFExemplarResource >> test5 [
+	^ test5
 ]
 
 { #category : #accessing }
