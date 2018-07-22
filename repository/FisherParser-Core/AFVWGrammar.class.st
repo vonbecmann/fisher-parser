@@ -90,6 +90,9 @@ AFVWGrammar >> checkHyperRulesLeftHandSides [
 
 { #category : #initialization }
 AFVWGrammar >> checkHypernotionsAreLLOne [
+	"P1.	the defining context-free grammar of each hypernotion 
+			in the vw-grammar is LL(1) "
+
 	alternatives
 		do: [ :hrule | 
 			hrule isRepresentation
