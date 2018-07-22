@@ -15,7 +15,8 @@ Class {
 		'startSymbol',
 		'associatedGrammar',
 		'firstSet',
-		'parseTable'
+		'parseTable',
+		'followSet'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -33,7 +34,10 @@ AFHypernotionGrammar class >> metaProductionRules: metaProductionRules nontermin
 
 { #category : #testing }
 AFHypernotionGrammar >> checkIsLLOne [
-	self computeParseTable.
+	self 
+		computeFollowSet;
+		computeParseTable.
+	
 	parseTable
 		keysDo: [ :key | 
 			(parseTable at: key) size > 1
@@ -63,17 +67,47 @@ AFHypernotionGrammar >> computeFirstSet [
 		previousSize = firstSet size ] whileFalse
 ]
 
-{ #category : #initialization }
+{ #category : #private }
+AFHypernotionGrammar >> computeFollowSet [
+	| previousSize follow followsFirst |
+	[ previousSize := followSet size.
+	associatedGrammar productionRules 
+		do: [ :rule | 
+			rule body
+				withIndexDo: [ :symbol :index | 
+					symbol isNonterminal
+						ifTrue: [
+							follow := rule body copyFrom: index + 1 to: rule body size.
+							follow isEmpty
+								ifTrue: [ followSet at: symbol putAll: (followSet at: rule head) ]
+								ifFalse: [ 
+									followsFirst := firstSet firstOf: follow.
+									(followsFirst includes: #epsilon)
+										ifTrue: [ followSet at: symbol putAll: (followSet at: rule head) ].
+									followSet at: symbol putAll: (followsFirst copyWithout: #epsilon) ] ] ] ].
+	previousSize = followSet size ] whileFalse
+]
+
+{ #category : #private }
 AFHypernotionGrammar >> computeParseTable [
 	" compute parse table using first set. then you can test if there's a conflict "
 
 	associatedGrammar productionRules
 		do: [ :rule | 
-			(associatedGrammar terminals intersection: (firstSet firstOf: rule body))
+			| bodyFirstSet |
+			bodyFirstSet := firstSet firstOf: rule body.
+			(associatedGrammar terminals intersection: bodyFirstSet)
 				do: [ :terminal | 
 					parseTable 
 						at: (OrderedPair first: rule head second: terminal) 
-						put: rule ] ]
+						put: rule ].
+			(bodyFirstSet includes: #epsilon)
+				ifTrue: [ 
+					(associatedGrammar terminals intersection: (followSet at: rule head))
+						do: [ :terminal | 
+							parseTable 
+								at: (OrderedPair first: rule head second: terminal) 
+								put: rule ] ] ]
 ]
 
 { #category : #'inspector extensions' }
@@ -107,6 +141,7 @@ AFHypernotionGrammar >> gtInspectorProductionRulesIn: composite [
 { #category : #initialization }
 AFHypernotionGrammar >> initialize [
 	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
 	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set
 ]
 
@@ -126,7 +161,10 @@ AFHypernotionGrammar >> initializeHypernotion: aHypernotion metaProductionRules:
 		nonterminals: (nonterminals copyWith: startSymbol)
 		terminals: terminals
 		startNonterminal: startSymbol.
-	associatedGrammar nonterminals do: [ :each | firstSet at: each putAll: #() ]
+	associatedGrammar nonterminals 
+		do: [ :each | 
+			firstSet at: each putAll: #().
+			followSet at: each putAll: #() ]
 ]
 
 { #category : #public }
