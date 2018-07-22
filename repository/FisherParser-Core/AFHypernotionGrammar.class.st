@@ -13,7 +13,6 @@ Class {
 	#instVars : [
 		'hypernotion',
 		'startSymbol',
-		'productionRules',
 		'associatedGrammar',
 		'firstSet',
 		'parseTable'
@@ -56,7 +55,11 @@ AFHypernotionGrammar >> checkIsLLOne [
 AFHypernotionGrammar >> computeFirstSet [
 	| previousSize |
 	[ 	previousSize := firstSet size.
-		productionRules do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
+		associatedGrammar productionRules 
+			do: [ :rule | 
+				firstSet 
+					at: rule head 
+					putAll: (firstSet firstOf: rule body) ].
 		previousSize = firstSet size ] whileFalse
 ]
 
@@ -64,7 +67,7 @@ AFHypernotionGrammar >> computeFirstSet [
 AFHypernotionGrammar >> computeParseTable [
 	" compute parse table using first set. then you can test if there's a conflict "
 
-	productionRules
+	associatedGrammar productionRules
 		do: [ :rule | 
 			(associatedGrammar terminals intersection: (firstSet firstOf: rule body))
 				do: [ :terminal | 
@@ -98,13 +101,7 @@ AFHypernotionGrammar >> gtInspectorParseTableIn: composite [
 { #category : #'inspector extensions' }
 AFHypernotionGrammar >> gtInspectorProductionRulesIn: composite [
 	<gtInspectorPresentationOrder: 0>
-	^ composite table
-		title: [ 'Production Rules' ];
-		display: [ productionRules asArray ];
-		column: 'Production Rule' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		send: [ :each | each ];
-		showOnly: 50;
-		yourself
+	^ associatedGrammar gtInspectorProductionRulesIn: composite
 ]
 
 { #category : #initialization }
@@ -118,15 +115,14 @@ AFHypernotionGrammar >> initializeHypernotion: aHypernotion metaProductionRules:
 	self initialize.
 	hypernotion := aHypernotion.
 	startSymbol := hypernotion asNonterminal.
-	productionRules := 
-		(SinglyLinkedList with: 
-				(NCProductionRule 
-					head: startSymbol 
-					body: (hypernotion buildBodyOf: nonterminals)))
-			addAll: metaProductionRules;
-			yourself.
 	associatedGrammar := JEGrammar
-		productionRules: productionRules
+		productionRules:
+			((SinglyLinkedList
+				with: 	(NCProductionRule 
+							head: startSymbol 
+							body: (hypernotion buildBodyOf: nonterminals)))
+				addAll: metaProductionRules;
+				yourself)
 		nonterminals: (nonterminals copyWith: startSymbol)
 		terminals: terminals
 		startNonterminal: startSymbol.
