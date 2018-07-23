@@ -167,7 +167,8 @@ AFHypernotionGrammar >> initializeHypernotion: aHypernotion metaProductionRules:
 	associatedGrammar nonterminals 
 		do: [ :each | 
 			firstSet at: each putAll: #().
-			followSet at: each putAll: #() ]
+			followSet at: each putAll: #() ].
+	followSet at: startSymbol put: #endmarker
 ]
 
 { #category : #public }
