@@ -69,28 +69,31 @@ AFHypernotionGrammar >> computeFirstSet [
 
 { #category : #private }
 AFHypernotionGrammar >> computeFollowSet [
-	| previousSize follow followsFirst |
+	| previousSize symbolFollowSet rest restFirstSet |
 	[ previousSize := followSet size.
-	associatedGrammar productionRules 
+	associatedGrammar productionRules
 		do: [ :rule | 
 			rule body
 				withIndexDo: [ :symbol :index | 
 					symbol isNonterminal
-						ifTrue: [
-							follow := rule body copyFrom: index + 1 to: rule body size.
-							follow isEmpty
-								ifTrue: [ followSet at: symbol putAll: (followSet at: rule head) ]
+						ifTrue: [ 
+							symbolFollowSet := Set new.
+							rest := rule body copyFrom: index + 1 to: rule body size.
+							rest isEmpty
+								ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ]
 								ifFalse: [ 
-									followsFirst := firstSet firstOf: follow.
-									(followsFirst includes: #epsilon)
-										ifTrue: [ followSet at: symbol putAll: (followSet at: rule head) ].
-									followSet at: symbol putAll: (followsFirst copyWithout: #epsilon) ] ] ] ].
+									restFirstSet := firstSet firstOf: rest.
+									(restFirstSet includes: #epsilon)
+										ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ].
+									symbolFollowSet addAll: (restFirstSet copyWithout: #epsilon) ].
+							followSet at: symbol putAll: symbolFollowSet ] ] ].
 	previousSize = followSet size ] whileFalse
 ]
 
 { #category : #private }
 AFHypernotionGrammar >> computeParseTable [
-	" compute parse table using first set. then you can test if there's a conflict "
+	" compute parse table using first set and follow test. 
+	  then you can test if there's a conflict "
 
 	associatedGrammar productionRules
 		do: [ :rule | 
