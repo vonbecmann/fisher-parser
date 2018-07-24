@@ -37,6 +37,17 @@ AFFamily >> first [
 	^ first
 ]
 
+{ #category : #'inspector extensions' }
+AFFamily >> gtInspectorMembersIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite table
+		title: [ 'Members' ];
+		display: [ self members ];
+		column: 'Member' evaluated: [ :each | each ];
+		showOnly: 50;
+		yourself
+]
+
 { #category : #comparing }
 AFFamily >> hash [
 	| hash |
@@ -57,6 +68,16 @@ AFFamily >> initializeFirst: firstPackedNode andSecond: secondPackedNode [
 { #category : #testing }
 AFFamily >> isEmpty [
 	^ first isNil and: [ second isNil ]
+]
+
+{ #category : #'inspector extensions' }
+AFFamily >> members [
+	^ first
+		ifNil: [ #() ]
+		ifNotNil: [ 
+			second
+				ifNil: [ {first} ]
+				ifNotNil: [ {first. second} ] ]
 ]
 
 { #category : #accessing }

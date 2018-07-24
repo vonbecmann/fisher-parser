@@ -32,6 +32,6 @@ AFParser >> parse: aString [
 	chart := self evaluate: aString.
 	finalItem := grammar startHyperRule dotAtEnd startAt: chart first.
 	^ (chart last includes: finalItem)
-		ifTrue: [ chart last like: finalItem ]
+		ifTrue: [ AFBSPPForest root: (chart last like: finalItem) node ]
 		ifFalse: [ AFFailure signal ]
 ]
