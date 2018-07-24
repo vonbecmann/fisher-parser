@@ -1,0 +1,80 @@
+Class {
+	#name : #AFPackedNode,
+	#superclass : #Object,
+	#instVars : [
+		'model',
+		'families'
+	],
+	#category : #'FisherParser-Core-BSPPForest'
+}
+
+{ #category : #'instance creation' }
+AFPackedNode class >> model: anItem [
+	^ self basicNew initializeModel: anItem
+]
+
+{ #category : #comparing }
+AFPackedNode >> = anObject [
+	^ self class == anObject class and: [ model = anObject model ]
+]
+
+{ #category : #accessing }
+AFPackedNode >> addFamily: aFamily [
+	(families includes: aFamily)
+		ifFalse: [ 
+			aFamily parent: self.
+			families add: aFamily ]
+]
+
+{ #category : #accessing }
+AFPackedNode >> families [
+	^ families
+]
+
+{ #category : #'inspector extensions' }
+AFPackedNode >> gtInspectorFamiliesIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite table
+		title: [ 'Families' ];
+		display: [ families ];
+		column: 'Family' evaluated: [ :each | each ];
+		showOnly: 50;
+		yourself
+]
+
+{ #category : #comparing }
+AFPackedNode >> hash [
+	^ (self class hash + model hash) hashMultiply
+]
+
+{ #category : #initialization }
+AFPackedNode >> initializeModel: anItem [
+	families := Set new.
+	model := anItem
+]
+
+{ #category : #accessing }
+AFPackedNode >> model [
+	^ model
+]
+
+{ #category : #printing }
+AFPackedNode >> printOn: aStream [
+	aStream
+		nextPutAll: self className;
+		nextPut: $(;
+		print: model;
+		nextPut: $)
+]
+
+{ #category : #printing }
+AFPackedNode >> printString [
+	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
+{ #category : #'initialize-release' }
+AFPackedNode >> release [
+	model := nil.
+	families := nil.
+	super release
+]

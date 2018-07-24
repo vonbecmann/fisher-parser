@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'dottedHyperRule',
 		'start',
-		'end'
+		'end',
+		'node'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -40,6 +41,16 @@ AFDottedItem >> = anItem [
 	end = anItem end
 		ifFalse: [ ^ false ].
 	^ true
+]
+
+{ #category : #accessing }
+AFDottedItem >> addFamily: aFamily [
+	self node addFamily: aFamily
+]
+
+{ #category : #accessing }
+AFDottedItem >> addFamilyWith: previousItem and: completeItem [
+	self node addFamily: (previousItem newFamilyWith: completeItem)
 ]
 
 { #category : #accessing }
@@ -94,6 +105,11 @@ AFDottedItem >> head [
 ]
 
 { #category : #initialization }
+AFDottedItem >> initialize [
+	node := nil
+]
+
+{ #category : #initialization }
 AFDottedItem >> initializeDottedHyperRule: aDottedHyperRule start: aColumn [
 	self initialize.
 	dottedHyperRule := aDottedHyperRule.
@@ -103,6 +119,11 @@ AFDottedItem >> initializeDottedHyperRule: aDottedHyperRule start: aColumn [
 { #category : #testing }
 AFDottedItem >> isFinal [
 	^ dottedHyperRule isFinal
+]
+
+{ #category : #testing }
+AFDottedItem >> isPredicted [
+	^ dottedHyperRule isPredicted
 ]
 
 { #category : #accessing }
@@ -115,6 +136,18 @@ AFDottedItem >> moveDotForwardAfterApplying: aSubstitution [
 	^ self class
 		of: (dottedHyperRule moveDotForwardAfterApplying: aSubstitution)
 		startAt: start
+]
+
+{ #category : #accessing }
+AFDottedItem >> newFamilyWith: anItem [
+	^ self isPredicted
+		ifTrue: [ AFFamily with: anItem node ]
+		ifFalse: [ AFFamily with: self node with: anItem node ]
+]
+
+{ #category : #accessing }
+AFDottedItem >> node [
+	^ node ifNil: [ node := AFPackedNode model: self ]
 ]
 
 { #category : #enumerating }
@@ -154,7 +187,7 @@ AFDottedItem >> printString [
 
 { #category : #'initialize-release' }
 AFDottedItem >> release [
-	dottedHyperRule := start := end := nil.
+	dottedHyperRule := start := end := node := nil.
 	super release
 ]
 

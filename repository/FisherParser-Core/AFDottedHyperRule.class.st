@@ -94,6 +94,11 @@ AFDottedHyperRule >> isFinal [
 	^ dotIndex > hyperRule body size
 ]
 
+{ #category : #testing }
+AFDottedHyperRule >> isPredicted [
+	^ dotIndex == 1 and: [ self isFinal not ]
+]
+
 { #category : #accessing }
 AFDottedHyperRule >> moveDotForward [
 	^ self class of: hyperRule withDotAt: dotIndex + 1

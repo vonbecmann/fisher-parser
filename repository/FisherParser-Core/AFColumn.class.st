@@ -121,6 +121,16 @@ AFColumn >> isEmpty [
 ]
 
 { #category : #accessing }
+AFColumn >> like: anItem [
+	" Answer an item in the receiver that is equal to anItem, nil if no such item is found. "
+
+	^ itemSet 
+		detect: [ :item | item equals: anItem ] 
+		ifFound: [ :item | item ] 
+		ifNone: [ nil ]
+]
+
+{ #category : #accessing }
 AFColumn >> number [
 	^ number
 ]

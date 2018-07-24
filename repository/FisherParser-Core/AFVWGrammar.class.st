@@ -203,6 +203,11 @@ AFVWGrammar >> metanotions [
 	^ vwGrammar metanotions
 ]
 
+{ #category : #accessing }
+AFVWGrammar >> parse: aString [
+	^ (AFParser of: self) parse: aString
+]
+
 { #category : #printing }
 AFVWGrammar >> printOn: aStream [
 	"Append to the argument, aStream, a sequence of characters that  
