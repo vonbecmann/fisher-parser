@@ -43,12 +43,12 @@ AFDottedItem >> = anItem [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : #parsing }
 AFDottedItem >> addFamily: aFamily [
 	self node addFamily: aFamily
 ]
 
-{ #category : #accessing }
+{ #category : #parsing }
 AFDottedItem >> addFamilyWith: previousItem and: completeItem [
 	self node addFamily: (previousItem newFamilyWith: completeItem)
 ]
@@ -138,14 +138,14 @@ AFDottedItem >> moveDotForwardAfterApplying: aSubstitution [
 		startAt: start
 ]
 
-{ #category : #accessing }
+{ #category : #parsing }
 AFDottedItem >> newFamilyWith: anItem [
 	^ self isPredicted
 		ifTrue: [ AFFamily with: anItem node ]
 		ifFalse: [ AFFamily with: self node with: anItem node ]
 ]
 
-{ #category : #accessing }
+{ #category : #parsing }
 AFDottedItem >> node [
 	^ node ifNil: [ node := AFPackedNode model: self ]
 ]
