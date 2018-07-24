@@ -20,8 +20,10 @@ AFPackedNode >> = anObject [
 
 { #category : #accessing }
 AFPackedNode >> addFamily: aFamily [
-	(families includes: aFamily)
-		ifFalse: [ 
+	families
+		detect: [ :family | family first = aFamily first and: [ family second = aFamily second ] ]
+		ifFound: [ :element | element ]
+		ifNone: [ 
 			aFamily parent: self.
 			families add: aFamily ]
 ]
@@ -36,7 +38,7 @@ AFPackedNode >> gtInspectorFamiliesIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ composite table
 		title: [ 'Families' ];
-		display: [ families ];
+		display: [ families asArray ];
 		column: 'Family' evaluated: [ :each | each ];
 		showOnly: 50;
 		yourself
@@ -49,7 +51,7 @@ AFPackedNode >> hash [
 
 { #category : #initialization }
 AFPackedNode >> initializeModel: anItem [
-	families := Set new.
+	families := SinglyLinkedList new.
 	model := anItem
 ]
 
