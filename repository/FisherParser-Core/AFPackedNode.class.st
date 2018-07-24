@@ -18,6 +18,21 @@ AFPackedNode >> = anObject [
 	^ self class == anObject class and: [ model = anObject model ]
 ]
 
+{ #category : #visiting }
+AFPackedNode >> acceptPostOrderVisitor: aVisitor [
+	aVisitor visitPostOrderPackedNode: self
+]
+
+{ #category : #visiting }
+AFPackedNode >> acceptPreOrderVisitor: aVisitor [
+	aVisitor visitPreOrderPackedNode: self
+]
+
+{ #category : #visiting }
+AFPackedNode >> acceptVisitor: aVisitor [
+	aVisitor visitNode: self
+]
+
 { #category : #accessing }
 AFPackedNode >> addFamily: aFamily [
 	families
@@ -36,6 +51,11 @@ AFPackedNode >> children [
 { #category : #accessing }
 AFPackedNode >> families [
 	^ families
+]
+
+{ #category : #accessing }
+AFPackedNode >> familiesSize [
+	^ families size
 ]
 
 { #category : #'inspector extensions' }

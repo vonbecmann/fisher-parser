@@ -12,6 +12,11 @@ AFBSPPForest class >> root: aPackedNode [
 	^ self basicNew initializeRoot: aPackedNode
 ]
 
+{ #category : #visiting }
+AFBSPPForest >> acceptVisitor: aVisitor [
+	aVisitor visit: root
+]
+
 { #category : #'inspector extensions' }
 AFBSPPForest >> gtDisplayOn: aStream [
 	aStream

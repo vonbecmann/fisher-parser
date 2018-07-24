@@ -26,12 +26,17 @@ AFParser >> gapScan: item [
 				addFamily: (AFFamily with: item node) ]
 ]
 
+{ #category : #private }
+AFParser >> newParseForestWith: aItem [
+	^ AFParseForest with: (AFBSPPForest root: aItem node)
+]
+
 { #category : #parsing }
 AFParser >> parse: aString [
 	| chart finalItem |
 	chart := self evaluate: aString.
 	finalItem := grammar startHyperRule dotAtEnd startAt: chart first.
 	^ (chart last includes: finalItem)
-		ifTrue: [ AFBSPPForest root: (chart last like: finalItem) node ]
+		ifTrue: [ self newParseForestWith: (chart last like: finalItem) ]
 		ifFalse: [ AFFailure signal ]
 ]

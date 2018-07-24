@@ -33,6 +33,21 @@ AFFamily >> = anObject [
 ]
 
 { #category : #visiting }
+AFFamily >> acceptPostOrderVisitor: aVisitor [
+	aVisitor visitPostOrderFamily: self
+]
+
+{ #category : #visiting }
+AFFamily >> acceptPreOrderVisitor: aVisitor [
+	aVisitor visitPreOrderFamily: self
+]
+
+{ #category : #visiting }
+AFFamily >> acceptVisitor: aVisitor [
+	aVisitor visitNode: self
+]
+
+{ #category : #visiting }
 AFFamily >> children [
 	^ self members
 ]
