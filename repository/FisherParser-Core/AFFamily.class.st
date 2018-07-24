@@ -38,12 +38,25 @@ AFFamily >> first [
 ]
 
 { #category : #'inspector extensions' }
+AFFamily >> gtDisplayOn: aStream [
+	aStream nextPut: $(.
+	first
+		ifNotNil: [ 
+			first gtDisplayOn: aStream.
+			second
+				ifNotNil: [ 
+					aStream nextPutAll: ', '.
+					second gtDisplayOn: aStream ] ].
+	aStream nextPut: $)
+]
+
+{ #category : #'inspector extensions' }
 AFFamily >> gtInspectorMembersIn: composite [
 	<gtInspectorPresentationOrder: 0>
-	^ composite table
+	^ composite list
 		title: [ 'Members' ];
 		display: [ self members ];
-		column: 'Member' evaluated: [ :each | each ];
+		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
 ]

@@ -34,12 +34,19 @@ AFPackedNode >> families [
 ]
 
 { #category : #'inspector extensions' }
+AFPackedNode >> gtDisplayOn: aStream [
+	aStream nextPut: $(.
+	model gtDisplayOn: aStream.
+	aStream nextPut: $)
+]
+
+{ #category : #'inspector extensions' }
 AFPackedNode >> gtInspectorFamiliesIn: composite [
 	<gtInspectorPresentationOrder: 0>
-	^ composite table
+	^ composite list
 		title: [ 'Families' ];
 		display: [ families asArray ];
-		column: 'Family' evaluated: [ :each | each ];
+		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
 ]

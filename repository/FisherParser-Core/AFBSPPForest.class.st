@@ -12,9 +12,18 @@ AFBSPPForest class >> root: aPackedNode [
 	^ self basicNew initializeRoot: aPackedNode
 ]
 
+{ #category : #'inspector extensions' }
+AFBSPPForest >> gtDisplayOn: aStream [
+	aStream
+		nextPutAll: self className;
+		nextPut: $(.
+	root gtDisplayOn: aStream.
+	aStream nextPut: $)
+]
+
 { #category : #initialization }
-AFBSPPForest >> initializeRoot: anAFDottedItem [ 
-	root := anAFDottedItem 
+AFBSPPForest >> initializeRoot: aPackedNode [
+	root := aPackedNode
 ]
 
 { #category : #printing }
