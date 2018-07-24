@@ -32,6 +32,11 @@ AFFamily >> = anObject [
 					and: [ second == anObject second ] ] ]
 ]
 
+{ #category : #visiting }
+AFFamily >> children [
+	^ self members
+]
+
 { #category : #accessing }
 AFFamily >> first [
 	^ first
@@ -56,7 +61,7 @@ AFFamily >> gtInspectorMembersIn: composite [
 	^ composite list
 		title: [ 'Members' ];
 		display: [ self members ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		format: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
 ]
@@ -83,7 +88,7 @@ AFFamily >> isEmpty [
 	^ first isNil and: [ second isNil ]
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : #accessing }
 AFFamily >> members [
 	^ first
 		ifNil: [ #() ]

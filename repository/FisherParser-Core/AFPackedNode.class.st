@@ -28,6 +28,11 @@ AFPackedNode >> addFamily: aFamily [
 			families add: aFamily ]
 ]
 
+{ #category : #visiting }
+AFPackedNode >> children [
+	^ families asArray
+]
+
 { #category : #accessing }
 AFPackedNode >> families [
 	^ families
@@ -46,7 +51,7 @@ AFPackedNode >> gtInspectorFamiliesIn: composite [
 	^ composite list
 		title: [ 'Families' ];
 		display: [ families asArray ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		format: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
 ]

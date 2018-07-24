@@ -21,6 +21,17 @@ AFBSPPForest >> gtDisplayOn: aStream [
 	aStream nextPut: $)
 ]
 
+{ #category : #'inspector extensions' }
+AFBSPPForest >> gtInspectorBrowserIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite tree
+		title: 'Browse';
+		display: [ root ];
+		children: [ :each | each children ];
+		format: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
+		yourself
+]
+
 { #category : #initialization }
 AFBSPPForest >> initializeRoot: aPackedNode [
 	root := aPackedNode
