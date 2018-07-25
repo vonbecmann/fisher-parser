@@ -1,3 +1,6 @@
+"
+Fisher's Parser
+"
 Class {
 	#name : #AFParser,
 	#superclass : #AFYoYoAlgorithm,
@@ -27,8 +30,11 @@ AFParser >> gapScan: item [
 ]
 
 { #category : #private }
-AFParser >> newParseForestWith: aItem [
-	^ AFParseForest with: (AFBSPPForest root: aItem node)
+AFParser >> newParseForestWith: item [
+	self
+		assert: [ item familiesSize = 1 ];
+		assert: [ item families first size = 1 ].
+	^ AFParseForest with: (AFBSPPForest root: item families first first)
 ]
 
 { #category : #parsing }

@@ -154,3 +154,13 @@ AFFamily >> release [
 AFFamily >> second [
 	^ second
 ]
+
+{ #category : #accessing }
+AFFamily >> size [
+	^ first 
+		ifNil: [ 0 ] 
+		ifNotNil: [ 
+			second 
+				ifNil: [ 1 ] 
+				ifNotNil: [ 2 ] ]
+]

@@ -75,6 +75,16 @@ AFDottedItem >> equals: anItem [
 								and: [ dottedHyperRule = anItem dottedHyperRule ] ]
 ]
 
+{ #category : #parsing }
+AFDottedItem >> families [
+	^ self node families
+]
+
+{ #category : #parsing }
+AFDottedItem >> familiesSize [
+	^ self node familiesSize
+]
+
 { #category : #'inspector extensions' }
 AFDottedItem >> gtDisplayIntervalString [
 	^ String streamContents: [ :s | self printIntervalOn: s ]
