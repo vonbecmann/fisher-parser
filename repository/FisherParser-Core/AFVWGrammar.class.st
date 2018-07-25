@@ -93,9 +93,10 @@ AFVWGrammar >> checkHypernotionsAreLLOne [
 			in the vw-grammar is LL(1) "
 
 	alternatives
-		do: [ :hrule | 
-			hrule isRepresentation
-				ifFalse: [ hrule checkHypernotionsAreLLOne ] ]
+		do: [ :hyperRule | 
+			hyperRule isRepresentation
+				ifTrue: [ hyperRule head checkIsLLOne ]
+				ifFalse: [ hyperRule checkHypernotionsAreLLOne ] ]
 ]
 
 { #category : #initialization }
