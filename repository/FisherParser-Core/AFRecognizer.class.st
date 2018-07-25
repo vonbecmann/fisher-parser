@@ -17,6 +17,24 @@ AFRecognizer >> accepts: aString [
 ]
 
 { #category : #private }
+AFRecognizer >> complete: item [
+	item
+		predictionItemsDo: [ :previous | 
+			(previous symbolAtDot match: item head)
+				ifSolution: [ :substitution | 
+					item end add: (previous moveDotForwardAfterApplying: substitution) ] ]
+]
+
+{ #category : #private }
+AFRecognizer >> gapScan: item [
+	" gap scanner "
+
+	(item symbolAtDot match: emptyHypernotion)
+		ifSolution: [ :substitution | 
+			item end add: (item moveDotForwardAfterApplying: substitution) ]
+]
+
+{ #category : #private }
 AFRecognizer >> scan: item with: word at: aColumn [
 	" terminal scanner "
 

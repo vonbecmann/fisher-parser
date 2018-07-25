@@ -40,10 +40,7 @@ AFYoYoAlgorithm >> bottomUpPredict: item [
 
 { #category : #private }
 AFYoYoAlgorithm >> complete: item [
-	item predictionItemsDo: [ :previous | 
-			(previous symbolAtDot match: item head) 
-				ifSolution: [ :substitution | 
-					item end add: (previous moveDotForwardAfterApplying: substitution) ] ]
+	self subclassResponsibility
 ]
 
 { #category : #private }
@@ -81,9 +78,7 @@ AFYoYoAlgorithm >> evaluate: words [
 AFYoYoAlgorithm >> gapScan: item [
 	" gap scanner "
 
-	(item symbolAtDot match: emptyHypernotion)
-		ifSolution: [ :substitution | 
-			item end add: (item moveDotForwardAfterApplying: substitution) ]
+	self subclassResponsibility
 ]
 
 { #category : #initialization }
