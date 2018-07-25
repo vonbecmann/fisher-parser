@@ -28,7 +28,6 @@ AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToReprese
 			(AVWGrammar 
 				evw: aVWRuleString 
 				representations: terminalNotionToRepresentationList);
-		computeFirstAndFollowSet;
 		checkMetaGrammarIsLLOne;
 		checkHypernotionsAreLLOne;
 		checkHyperRulesLeftHandSides;
@@ -101,7 +100,11 @@ AFVWGrammar >> checkHypernotionsAreLLOne [
 
 { #category : #initialization }
 AFVWGrammar >> checkMetaGrammarIsLLOne [
-	metaGrammar checkIsLLOne
+	metaGrammar
+		computeFirstSet;
+		computeFollowSet;
+		computeParseTable;
+		checkIsLLOne
 ]
 
 { #category : #initialization }
@@ -131,14 +134,6 @@ AFVWGrammar >> computeCrossReferences [
 														nextPutAll: 'Protonotion ';
 														print: rightHypernotion;
 														nextPutAll: ' used but not defined' ]) ] ] ] ]
-]
-
-{ #category : #initialization }
-AFVWGrammar >> computeFirstAndFollowSet [
-	metaGrammar
-		computeFirstSet;
-		computeFollowSet;
-		computeParseTable
 ]
 
 { #category : #'inspector extensions' }
