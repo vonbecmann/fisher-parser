@@ -69,7 +69,7 @@ AFYoYoAlgorithm >> evaluate: words [
 						ifFalse: [ 
 							(item symbolAtDot isTerminal 
 								and: [ i < n and: [ item symbolAtDot matches: (words at: i) ] ])
-										ifTrue: [ (chart at: i + 1) add: item moveDotForward ].
+										ifTrue: [ self scan: item with: (words at: i) at: (chart at: i + 1) ].
 							item symbolAtDot isProtonotion
 								ifTrue: [ self topDownPredict: item ].
 							item symbolAtDot isHypernotion
@@ -88,7 +88,6 @@ AFYoYoAlgorithm >> gapScan: item [
 
 { #category : #initialization }
 AFYoYoAlgorithm >> initialize [
-	super initialize.
 	emptyHypernotion := AFHypernotion empty
 ]
 
@@ -96,6 +95,13 @@ AFYoYoAlgorithm >> initialize [
 AFYoYoAlgorithm >> initializeGrammar: aVWGrammar [
 	self initialize.
 	grammar := aVWGrammar
+]
+
+{ #category : #private }
+AFYoYoAlgorithm >> scan: item with: word at: aColumn [
+	" terminal scanner "
+
+	self subclassResponsibility
 ]
 
 { #category : #private }

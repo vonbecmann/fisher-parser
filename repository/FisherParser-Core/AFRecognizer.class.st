@@ -15,3 +15,10 @@ AFRecognizer >> accepts: aString [
 		on: AFFailure
 		do: [ :ex | false ]
 ]
+
+{ #category : #private }
+AFRecognizer >> scan: item with: word at: aColumn [
+	" terminal scanner "
+
+	aColumn add: item moveDotForward
+]

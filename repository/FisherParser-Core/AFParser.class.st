@@ -46,3 +46,10 @@ AFParser >> parse: aString [
 		ifTrue: [ self newParseForestWith: (chart last like: finalItem) ]
 		ifFalse: [ AFFailure signal ]
 ]
+
+{ #category : #private }
+AFParser >> scan: item with: word at: aColumn [
+	" terminal scanner "
+
+	aColumn add: item moveDotForward
+]
