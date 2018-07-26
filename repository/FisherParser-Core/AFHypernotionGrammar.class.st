@@ -58,6 +58,7 @@ AFHypernotionGrammar >> checkIsLLOne [
 { #category : #private }
 AFHypernotionGrammar >> computeFirstSet [
 	| previousSize |
+	associatedGrammar nonterminals do: [ :each | firstSet at: each putAll: #() ].
 	[ 	previousSize := firstSet size.
 		associatedGrammar productionRules 
 			do: [ :rule | 
@@ -70,6 +71,8 @@ AFHypernotionGrammar >> computeFirstSet [
 { #category : #private }
 AFHypernotionGrammar >> computeFollowSet [
 	| previousSize symbolFollowSet rest restFirstSet |
+	associatedGrammar nonterminals do: [ :each | followSet at: each putAll: #() ].
+	followSet at: startSymbol put: #endmarker.
 	[ previousSize := followSet size.
 	associatedGrammar productionRules
 		do: [ :rule | 
@@ -163,12 +166,7 @@ AFHypernotionGrammar >> initializeHypernotion: aHypernotion metaProductionRules:
 				yourself)
 		nonterminals: (nonterminals copyWith: startSymbol)
 		terminals: terminals
-		startNonterminal: startSymbol.
-	associatedGrammar nonterminals 
-		do: [ :each | 
-			firstSet at: each putAll: #().
-			followSet at: each putAll: #() ].
-	followSet at: startSymbol put: #endmarker
+		startNonterminal: startSymbol
 ]
 
 { #category : #public }
