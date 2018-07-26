@@ -43,9 +43,8 @@ AFColumn >> add: anItem [
 
 { #category : #adding }
 AFColumn >> addDottedHyperRule: dottedHyperRule [
-	^ itemSet
+	itemSet
 		detect: [ :item | item start = self and: [ item dottedHyperRule = dottedHyperRule ] ]
-		ifFound: [ :item | item ]
 		ifNone: [ self basicAdd: (dottedHyperRule startAt: self) ]
 ]
 
