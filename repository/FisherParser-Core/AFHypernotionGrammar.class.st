@@ -28,13 +28,13 @@ AFHypernotionGrammar class >> metaProductionRules: metaProductionRules nontermin
 			metaProductionRules: metaProductionRules
 			nonterminals: nonterminals
 			terminals: terminals;
-		computeFirstSet;
 		yourself
 ]
 
 { #category : #testing }
 AFHypernotionGrammar >> checkIsLLOne [
 	self 
+		computeFirstSet;
 		computeFollowSet;
 		computeParseTable.
 	
@@ -55,7 +55,7 @@ AFHypernotionGrammar >> checkIsLLOne [
 										separatedBy: [ s space ] ]) ] ]
 ]
 
-{ #category : #initialization }
+{ #category : #private }
 AFHypernotionGrammar >> computeFirstSet [
 	| previousSize |
 	[ 	previousSize := firstSet size.
