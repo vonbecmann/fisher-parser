@@ -120,13 +120,11 @@ AFColumn >> isEmpty [
 ]
 
 { #category : #accessing }
-AFColumn >> like: anItem [
-	" Answer an item in the receiver that is equal to anItem, nil if no such item is found. "
+AFColumn >> like: anItem ifFound: foundBlock ifNone: exceptionBlock [
+	" Evaluate foundBlock if an item in the receiver that is equal to anItem, 
+	  Evaluate exceptionBlock if no such item is found. "
 
-	^ itemSet 
-		detect: [ :item | item equals: anItem ] 
-		ifFound: [ :item | item ] 
-		ifNone: [ nil ]
+	^ itemSet detect: [ :item | item equals: anItem ] ifFound: foundBlock ifNone: exceptionBlock
 ]
 
 { #category : #accessing }

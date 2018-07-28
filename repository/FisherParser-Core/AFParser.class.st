@@ -39,12 +39,12 @@ AFParser >> newParseForestWith: item [
 
 { #category : #parsing }
 AFParser >> parse: aString [
-	| chart finalItem |
+	| chart |
 	chart := self evaluate: aString.
-	finalItem := grammar startHyperRule dotAtEnd startAt: chart first.
-	^ (chart last includes: finalItem)
-		ifTrue: [ self newParseForestWith: (chart last like: finalItem) ]
-		ifFalse: [ AFFailure signal ]
+	^ chart last
+		like: (grammar startHyperRule dotAtEnd startAt: chart first)
+		ifFound: [ :found | self newParseForestWith: found ]
+		ifNone: [ AFFailure signal ]
 ]
 
 { #category : #private }
