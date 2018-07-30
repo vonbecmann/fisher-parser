@@ -53,6 +53,11 @@ AFParser >> scan: item with: word at: aColumn [
 	" terminal scanner "
 
 	item
-		addFamilyWith: (aColumn addTerminalItem: (AFTerminalItem given: item symbolAtDot word: word startedAt: item end))
+		addFamilyWith: 
+			(aColumn addTerminalItem: 
+				(AFTerminalItem 
+					given: item symbolAtDot 
+					word: word 
+					startedAt: item end))
 		to: (aColumn add: item moveDotForward)
 ]
