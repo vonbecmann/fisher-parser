@@ -1,3 +1,7 @@
+"
+a terminal item.
+
+"
 Class {
 	#name : #AFTerminalItem,
 	#superclass : #AFItem,
@@ -25,8 +29,10 @@ AFTerminalItem >> equals: anItem [
 				and: [ terminal = anItem terminal ] ]
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : #printing }
 AFTerminalItem >> gtDisplayOn: aStream [
+	"[ terminal @ [ start, end ] ]"
+
 	aStream nextPut: $[.
 	terminal gtDisplayOn: aStream.
 	aStream nextPutAll: ' @ '.
@@ -43,23 +49,24 @@ AFTerminalItem >> gtDisplayValueString [
 AFTerminalItem >> initializeTerminal: aTerminalHypernotion word: aWord startedAt: aColumn [
 	terminal := aTerminalHypernotion.
 	word := aWord.
-	start := aColumn
+	start := aColumn.
+	node := AFPackedNode model: self
 ]
 
 { #category : #accessing }
 AFTerminalItem >> node [
-	^ node ifNil: [ node := AFPackedNode model: self ]
+	^ node
 ]
 
 { #category : #printing }
 AFTerminalItem >> printOn: aStream [
-	"[ terminal @ [ start, end ] ]"
-
-	aStream nextPut: $[.
+	aStream
+		nextPutAll: self class name;
+		nextPut: $(.
 	terminal printOn: aStream.
 	aStream nextPutAll: ' @ '.
 	self printIntervalOn: aStream.
-	aStream nextPut: $]
+	aStream nextPut: $)
 ]
 
 { #category : #'initialize-release' }

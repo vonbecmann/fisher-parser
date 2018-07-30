@@ -86,6 +86,10 @@ AFDottedItem >> familiesSize [
 
 { #category : #'inspector extensions' }
 AFDottedItem >> gtDisplayOn: aStream [
+	"[ dotted hyper rule @ start ]"
+
+	"[ dotted hyper rule @  [ start, end ] ]"
+
 	aStream nextPut: $[.
 	dottedHyperRule gtDisplayOn: aStream.
 	aStream nextPutAll: ' @ '.
@@ -154,15 +158,13 @@ AFDottedItem >> predictionItemsDo: aBlock [
 
 { #category : #printing }
 AFDottedItem >> printOn: aStream [
-	"[ dotted hyper rule @ start ]"
-
-	"[ dotted hyper rule @  [ start, end ] ]"
-
-	aStream nextPut: $[.
+	aStream
+		nextPutAll: self class name;
+		nextPut: $(.
 	dottedHyperRule printOn: aStream.
 	aStream nextPutAll: ' @ '.
 	self printIntervalOn: aStream.
-	aStream nextPut: $]
+	aStream nextPut: $)
 ]
 
 { #category : #'initialize-release' }

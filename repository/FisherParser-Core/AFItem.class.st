@@ -1,3 +1,7 @@
+"
+LR item.
+
+"
 Class {
 	#name : #AFItem,
 	#superclass : #Object,
