@@ -3,12 +3,9 @@ a dotted item
 "
 Class {
 	#name : #AFDottedItem,
-	#superclass : #Object,
+	#superclass : #AFItem,
 	#instVars : [
-		'dottedHyperRule',
-		'start',
-		'end',
-		'node'
+		'dottedHyperRule'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -70,16 +67,6 @@ AFDottedItem >> dottedHyperRule [
 	^ dottedHyperRule
 ]
 
-{ #category : #accessing }
-AFDottedItem >> end [
-	^ end
-]
-
-{ #category : #accessing }
-AFDottedItem >> end: aColumn [ 
-	end := aColumn
-]
-
 { #category : #comparing }
 AFDottedItem >> equals: anItem [
 	^ self class == anItem class
@@ -95,11 +82,6 @@ AFDottedItem >> families [
 { #category : #parsing }
 AFDottedItem >> familiesSize [
 	^ self node familiesSize
-]
-
-{ #category : #'inspector extensions' }
-AFDottedItem >> gtDisplayIntervalString [
-	^ String streamContents: [ :s | self printIntervalOn: s ]
 ]
 
 { #category : #'inspector extensions' }
@@ -171,18 +153,6 @@ AFDottedItem >> predictionItemsDo: aBlock [
 ]
 
 { #category : #printing }
-AFDottedItem >> printIntervalOn: aStream [
-	end
-		ifNil: [ 	start shortPrintOn: aStream ]
-		ifNotNil: [ 
-			aStream nextPut: $[.
-			start shortPrintOn: aStream.
-			aStream nextPutAll: ', '.
-			end shortPrintOn: aStream.
-			aStream nextPut: $] ]
-]
-
-{ #category : #printing }
 AFDottedItem >> printOn: aStream [
 	"[ dotted hyper rule @ start ]"
 
@@ -195,20 +165,10 @@ AFDottedItem >> printOn: aStream [
 	aStream nextPut: $]
 ]
 
-{ #category : #printing }
-AFDottedItem >> printString [
-	^ String streamContents: [ :stream | self printOn: stream ]
-]
-
 { #category : #'initialize-release' }
 AFDottedItem >> release [
-	dottedHyperRule := start := end := node := nil.
+	dottedHyperRule := nil.
 	super release
-]
-
-{ #category : #accessing }
-AFDottedItem >> start [
-	^ start
 ]
 
 { #category : #accessing }

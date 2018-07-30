@@ -52,5 +52,7 @@ AFParser >> parse: aString [
 AFParser >> scan: item with: word at: aColumn [
 	" terminal scanner "
 
-	aColumn add: item moveDotForward
+	item
+		addFamilyWith: (aColumn addTerminalItem: (AFTerminalItem given: item symbolAtDot word: word startedAt: item end))
+		to: (aColumn add: item moveDotForward)
 ]

@@ -48,6 +48,19 @@ AFColumn >> addDottedHyperRule: dottedHyperRule [
 		ifNone: [ self basicAdd: (dottedHyperRule startAt: self) ]
 ]
 
+{ #category : #adding }
+AFColumn >> addTerminalItem: aTerminalItem [
+	^ itemSet
+		detect: [ :item | item equals: aTerminalItem ]
+		ifFound: [ :item | item ]
+		ifNone: [ 
+			itemSet addLast: aTerminalItem.
+			orderedItems addLast: aTerminalItem.
+			^ aTerminalItem
+				end: self;
+				yourself ]
+]
+
 { #category : #private }
 AFColumn >> basicAdd: anItem [
 	itemsToProcess nextPut: anItem.
