@@ -14,9 +14,10 @@ AFParser >> complete: item [
 	item
 		predictionItemsDo: [ :previous | 
 			(previous symbolAtDot match: item head)
-				ifSolution: [ :substitution | 
-					(item end add: (previous moveDotForwardAfterApplying: substitution))
-						addFamilyWith: previous and: item ] ]
+				ifSolution: 	[ :substitution | 
+					previous 
+						addFamilyWith: item 
+						to: (item end add: (previous moveDotForwardAfterApplying: substitution)) ] ]
 ]
 
 { #category : #private }

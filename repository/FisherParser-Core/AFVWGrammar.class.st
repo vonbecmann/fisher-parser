@@ -199,7 +199,7 @@ AFVWGrammar >> metanotions [
 	^ vwGrammar metanotions
 ]
 
-{ #category : #accessing }
+{ #category : #parsing }
 AFVWGrammar >> parse: aString [
 	^ (AFParser of: self) parse: aString
 ]

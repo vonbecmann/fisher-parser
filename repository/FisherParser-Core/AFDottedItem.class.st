@@ -49,8 +49,20 @@ AFDottedItem >> addFamily: aFamily [
 ]
 
 { #category : #parsing }
+AFDottedItem >> addFamilyWith: completeItem [
+	self node addFamily: (AFFamily with: completeItem node)
+]
+
+{ #category : #parsing }
 AFDottedItem >> addFamilyWith: previousItem and: completeItem [
-	self node addFamily: (previousItem newFamilyWith: completeItem)
+	self node addFamily: (AFFamily with: previousItem node with: completeItem node)
+]
+
+{ #category : #parsing }
+AFDottedItem >> addFamilyWith: completeItem to: parentItem [
+	^ self isPredicted
+		ifTrue: [ parentItem addFamilyWith: completeItem ]
+		ifFalse: [ parentItem addFamilyWith: self and: completeItem ]
 ]
 
 { #category : #accessing }
@@ -146,13 +158,6 @@ AFDottedItem >> moveDotForwardAfterApplying: aSubstitution [
 	^ self class
 		of: (dottedHyperRule moveDotForwardAfterApplying: aSubstitution)
 		startAt: start
-]
-
-{ #category : #parsing }
-AFDottedItem >> newFamilyWith: anItem [
-	^ self isPredicted
-		ifTrue: [ AFFamily with: anItem node ]
-		ifFalse: [ AFFamily with: self node with: anItem node ]
 ]
 
 { #category : #parsing }
