@@ -34,6 +34,11 @@ AFPackedNode >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
+AFPackedNode >> addEmptyFamily [
+	self addFamily: AFFamily empty
+]
+
+{ #category : #accessing }
 AFPackedNode >> addFamily: aFamily [
 	families
 		detect: [ :family | family first = aFamily first and: [ family second = aFamily second ] ]

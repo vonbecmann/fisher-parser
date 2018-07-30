@@ -125,6 +125,11 @@ AFDottedItem >> initializeDottedHyperRule: aDottedHyperRule start: aColumn [
 ]
 
 { #category : #testing }
+AFDottedItem >> isEpsilon [
+	^ dottedHyperRule isEpsilon
+]
+
+{ #category : #testing }
 AFDottedItem >> isFinal [
 	^ dottedHyperRule isFinal
 ]
@@ -148,7 +153,11 @@ AFDottedItem >> moveDotForwardAfterApplying: aSubstitution [
 
 { #category : #parsing }
 AFDottedItem >> node [
-	^ node ifNil: [ node := AFPackedNode model: self ]
+	^ node
+		ifNil: [ 
+			node := AFPackedNode model: self.
+			self isEpsilon ifTrue: [ node addEmptyFamily ].
+			node ]
 ]
 
 { #category : #enumerating }

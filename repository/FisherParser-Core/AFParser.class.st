@@ -27,7 +27,7 @@ AFParser >> gapScan: item [
 	(item symbolAtDot match: emptyHypernotion)
 		ifSolution: [ :substitution | 
 			(item end add: (item moveDotForwardAfterApplying: substitution))
-				addFamily: (AFFamily with: item node) ]
+				addFamilyWith: item ]
 ]
 
 { #category : #private }

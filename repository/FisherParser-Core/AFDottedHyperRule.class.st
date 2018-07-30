@@ -90,6 +90,11 @@ AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [
 ]
 
 { #category : #testing }
+AFDottedHyperRule >> isEpsilon [
+	^ hyperRule isEpsilon
+]
+
+{ #category : #testing }
 AFDottedHyperRule >> isFinal [
 	^ dotIndex > hyperRule body size
 ]
