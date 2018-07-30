@@ -56,7 +56,7 @@ AFColumn >> addTerminalItem: aTerminalItem [
 		ifNone: [ 
 			itemSet addLast: aTerminalItem.
 			orderedItems addLast: aTerminalItem.
-			^ aTerminalItem
+			aTerminalItem
 				end: self;
 				yourself ]
 ]
