@@ -113,13 +113,8 @@ AFDottedItem >> head [
 ]
 
 { #category : #initialization }
-AFDottedItem >> initialize [
-	node := nil
-]
-
-{ #category : #initialization }
 AFDottedItem >> initializeDottedHyperRule: aDottedHyperRule start: aColumn [
-	self initialize.
+	node := nil.
 	dottedHyperRule := aDottedHyperRule.
 	start := aColumn
 ]
