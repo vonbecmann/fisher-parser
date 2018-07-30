@@ -28,6 +28,13 @@ AFItem >> gtDisplayIntervalString [
 	^ String streamContents: [ :s | self printIntervalOn: s ]
 ]
 
+{ #category : #parsing }
+AFItem >> node [
+	" a packed node of myself "
+
+	self subclassResponsibility
+]
+
 { #category : #printing }
 AFItem >> printIntervalOn: aStream [
 	end
