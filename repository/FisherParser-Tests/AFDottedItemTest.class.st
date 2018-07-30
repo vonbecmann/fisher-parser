@@ -74,7 +74,7 @@ AFDottedItemTest >> testAsString04 [
 ]
 
 { #category : #tests }
-AFDottedItemTest >> testEqual [
+AFDottedItemTest >> testEquals [
 	| first third one another |
 	first := AFColumn number: 1.
 	third := AFColumn number: 3.
@@ -97,7 +97,7 @@ AFDottedItemTest >> testEqual [
 ]
 
 { #category : #tests }
-AFDottedItemTest >> testEqual02 [
+AFDottedItemTest >> testEquals02 [
 	| first third one another |
 	first := AFColumn number: 1.
 	third := AFColumn number: 3.

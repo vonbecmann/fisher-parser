@@ -23,6 +23,11 @@ AFItem >> end: aColumn [
 	end := aColumn
 ]
 
+{ #category : #comparing }
+AFItem >> equals: anItem [
+	^ self class == anItem class and: [ start = anItem start ]
+]
+
 { #category : #'inspector extensions' }
 AFItem >> gtDisplayIntervalString [
 	^ String streamContents: [ :s | self printIntervalOn: s ]

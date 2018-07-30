@@ -39,9 +39,7 @@ AFTerminalItem >> = anObject [
 
 { #category : #comparing }
 AFTerminalItem >> equals: anItem [
-	^ self class == anItem class
-			and: [ start = anItem start 
-				and: [ terminal = anItem terminal ] ]
+	^ (super equals: anItem) and: [ terminal = anItem terminal ]
 ]
 
 { #category : #printing }
