@@ -101,11 +101,7 @@ AFVWGrammar >> checkHypernotionsAreLLOne [
 
 { #category : #initialization }
 AFVWGrammar >> checkMetaGrammarIsLLOne [
-	metaGrammar
-		computeFirstSet;
-		computeFollowSet;
-		computeParseTable;
-		checkIsLLOne
+	metaGrammar checkIsLLOne
 ]
 
 { #category : #initialization }

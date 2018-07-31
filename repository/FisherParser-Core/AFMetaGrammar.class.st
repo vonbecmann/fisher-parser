@@ -35,11 +35,14 @@ AFMetaGrammar class >> metaRules: metaRuleCollection ortholetters: ortholetters 
 
 { #category : #testing }
 AFMetaGrammar >> checkIsLLOne [
+	self
+		computeFirstSet;
+		computeFollowSet;
+		computeParseTable.
 	parseTable
 		keysDo: [ :key | 
 			(parseTable at: key) size > 1
-				ifTrue: [ 
-					Error
+				ifTrue: [ Error
 						signal:
 							(String
 								streamContents: [ :s | 
@@ -47,7 +50,9 @@ AFMetaGrammar >> checkIsLLOne [
 										nextPutAll: 'CONFLICT at ';
 										print: key;
 										nextPutAll: ' -> '.
-									(parseTable at: key) do: [ :rule | s print: rule ] separatedBy: [ s space ] ]) ] ]
+									(parseTable at: key) 
+										do: [ :rule | s print: rule ] 
+										separatedBy: [ s space ] ]) ] ]
 ]
 
 { #category : #initialization }
