@@ -11,19 +11,19 @@ AFTest3ParseTest >> setUp [
 	forest := nil
 ]
 
-{ #category : #running }
+{ #category : #tests }
 AFTest3ParseTest >> testParseHHH [
 	forest := grammar parse: 'hhh'.
 	self deny: forest isAmbiguous
 ]
 
-{ #category : #running }
+{ #category : #tests }
 AFTest3ParseTest >> testParseIII [
 	forest := grammar parse: 'iii'.
 	self deny: forest isAmbiguous
 ]
 
-{ #category : #running }
+{ #category : #tests }
 AFTest3ParseTest >> testParseJJJ [
 	forest := grammar parse: 'jjj'.
 	self deny: forest isAmbiguous
