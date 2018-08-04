@@ -13,7 +13,8 @@ Class {
 		'wegner',
 		'test4',
 		'test15',
-		'test5'
+		'test5',
+		'doubleLettersB'
 	],
 	#category : #'FisherParser-Tests-Grammar'
 }
@@ -33,6 +34,11 @@ AFExemplarResource >> anbncn [
 	^ anbncn
 ]
 
+{ #category : #accessing }
+AFExemplarResource >> doubleLettersB [
+	^ doubleLettersB
+]
+
 { #category : #running }
 AFExemplarResource >> setUp [
 	super setUp.
@@ -44,7 +50,8 @@ AFExemplarResource >> setUp [
 	wegner := AFExemplar wegner.
 	test4 := AFExemplar test4.
 	test15 := AFExemplar test15.
-	test5 := AFExemplar test5 
+	test5 := AFExemplar test5.
+	doubleLettersB := AFExemplar doubleLettersB 
 ]
 
 { #category : #accessing }
