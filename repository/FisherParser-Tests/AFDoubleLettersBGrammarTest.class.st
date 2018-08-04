@@ -15,11 +15,11 @@ AFDoubleLettersBGrammarTest >> setUp [
 ]
 
 { #category : #tests }
-AFDoubleLettersBGrammarTest >> testYX [
+AFDoubleLettersBGrammarTest >> testAcceptsYX [
 	self deny: (grammar accepts: 'yx')
 ]
 
 { #category : #tests }
-AFDoubleLettersBGrammarTest >> testYY [
+AFDoubleLettersBGrammarTest >> testAcceptsYY [
 	self assert: (grammar accepts: 'yy')
 ]

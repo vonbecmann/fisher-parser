@@ -74,11 +74,54 @@ i LETTER s:	  LETTER symbol.'
 
 { #category : #'instance creation' }
 AFExemplar class >> doubleLettersB [
+	" first W-grammar description of double letters "
+
 	^ AFVWGrammar
 		evw:
 'ALPHA:: a; b; c; d; e; f; g; h; i; j; k; l; m; n; o; p; q; r; s; t; u; v; w; x; y; z.
 
 double letters: letter ALPHA symbol, letter ALPHA symbol.'
+		representations:
+			{(#('letter' 'a' 'symbol') -> (NCTerminal character: $a)).
+			(#('letter' 'b' 'symbol') -> (NCTerminal character: $b)).
+			(#('letter' 'c' 'symbol') -> (NCTerminal character: $c)).
+			(#('letter' 'd' 'symbol') -> (NCTerminal character: $d)).
+			(#('letter' 'e' 'symbol') -> (NCTerminal character: $e)).
+			(#('letter' 'f' 'symbol') -> (NCTerminal character: $f)).
+			(#('letter' 'g' 'symbol') -> (NCTerminal character: $g)).
+			(#('letter' 'h' 'symbol') -> (NCTerminal character: $h)).
+			(#('letter' 'i' 'symbol') -> (NCTerminal character: $i)).
+			(#('letter' 'j' 'symbol') -> (NCTerminal character: $j)).
+			(#('letter' 'k' 'symbol') -> (NCTerminal character: $k)).
+			(#('letter' 'l' 'symbol') -> (NCTerminal character: $l)).
+			(#('letter' 'm' 'symbol') -> (NCTerminal character: $m)).
+			(#('letter' 'n' 'symbol') -> (NCTerminal character: $n)).
+			(#('letter' 'o' 'symbol') -> (NCTerminal character: $o)).
+			(#('letter' 'p' 'symbol') -> (NCTerminal character: $p)).
+			(#('letter' 'q' 'symbol') -> (NCTerminal character: $q)).
+			(#('letter' 'r' 'symbol') -> (NCTerminal character: $r)).
+			(#('letter' 's' 'symbol') -> (NCTerminal character: $s)).
+			(#('letter' 't' 'symbol') -> (NCTerminal character: $t)).
+			(#('letter' 'u' 'symbol') -> (NCTerminal character: $u)).
+			(#('letter' 'v' 'symbol') -> (NCTerminal character: $v)).
+			(#('letter' 'w' 'symbol') -> (NCTerminal character: $w)).
+			(#('letter' 'x' 'symbol') -> (NCTerminal character: $x)).
+			(#('letter' 'y' 'symbol') -> (NCTerminal character: $y)).
+			(#('letter' 'z' 'symbol') -> (NCTerminal character: $z))}
+]
+
+{ #category : #'instance creation' }
+AFExemplar class >> doubleLettersC [
+	" second W-grammar description of double letters "
+
+	^ AFVWGrammar
+		evw:
+'ALPHA:: a; b; c; d; e; f; g; h; i; j; k; l; m; n; o; p; q; r; s; t; u; v; w; x; y; z.
+ALPHA1:: ALPHA.
+ALPHA2:: ALPHA.
+
+double letters: letter ALPHA1 symbol, letter ALPHA2 symbol, where ALPHA1 is ALPHA2.
+where ALPHA is ALPHA: .'
 		representations:
 			{(#('letter' 'a' 'symbol') -> (NCTerminal character: $a)).
 			(#('letter' 'b' 'symbol') -> (NCTerminal character: $b)).
