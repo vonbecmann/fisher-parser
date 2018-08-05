@@ -58,10 +58,11 @@ AFMetaGrammar >> checkIsLLOne [
 { #category : #initialization }
 AFMetaGrammar >> computeFirstSet [
 	| previousSize |
-	[ 	previousSize := firstSet size.
-		metaProductionRules 
-			do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
-		previousSize = firstSet size ] whileFalse
+	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	nonterminals do: [ :each | firstSet at: each putAll: #() ].
+	[	previousSize := firstSet size.
+		metaProductionRules do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
+	previousSize = firstSet size ] whileFalse
 ]
 
 { #category : #initialization }
@@ -139,7 +140,6 @@ AFMetaGrammar >> initialize [
 	nonterminals := Set new.
 	terminals := Set new.
 	metaProductionRules := SinglyLinkedList new.
-	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
 	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
 	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set
 ]
@@ -152,10 +152,7 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 		do: [ :letter |
 			nonterminals add: (NCNonterminal named: letter).
 			terminals add: (NCTerminal character: letter) ].
-	nonterminals 
-		do: [ :each |
-			firstSet at: each putAll: #().
-			followSet at: each putAll: #() ].
+	nonterminals do: [ :each | followSet at: each putAll: #() ].
 	metaRuleCollection
 		collect: [ :each | 
 				NCProductionRule
@@ -167,9 +164,7 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 			NCProductionRule
 				head: (nonterminals like: (NCNonterminal named: letter))
 				body: {(terminals like: (NCTerminal character: letter))} ]
-		thenDo: [ :each | 
-			metaProductionRules add: each.
-			firstSet at: each head put: each body first ]
+		thenDo: [ :each | metaProductionRules add: each ]
 ]
 
 { #category : #'instance creation' }
