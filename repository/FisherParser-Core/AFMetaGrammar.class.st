@@ -68,6 +68,8 @@ AFMetaGrammar >> computeFirstSet [
 { #category : #initialization }
 AFMetaGrammar >> computeFollowSet [
 	| previousSize symbolFollowSet rest restFirstSet |
+	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	nonterminals do: [ :each | followSet at: each putAll: #() ].
 	[ previousSize := followSet size.
 	metaProductionRules
 		do: [ :rule | 
@@ -140,7 +142,6 @@ AFMetaGrammar >> initialize [
 	nonterminals := Set new.
 	terminals := Set new.
 	metaProductionRules := SinglyLinkedList new.
-	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
 	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set
 ]
 
@@ -152,7 +153,6 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 		do: [ :letter |
 			nonterminals add: (NCNonterminal named: letter).
 			terminals add: (NCTerminal character: letter) ].
-	nonterminals do: [ :each | followSet at: each putAll: #() ].
 	metaRuleCollection
 		collect: [ :each | 
 				NCProductionRule
