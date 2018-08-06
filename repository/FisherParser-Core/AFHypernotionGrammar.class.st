@@ -126,19 +126,6 @@ AFHypernotionGrammar >> gtDisplayOn: aStream [
 ]
 
 { #category : #'inspector extensions' }
-AFHypernotionGrammar >> gtInspectorParseTableIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ composite table
-		title: [ 'Parse Table' ];
-		display: [ parseTable keys ];
-		column: '(Nonterminal, terminal)'
-			evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		send: [ :each | parseTable at: each ];
-		showOnly: 50;
-		yourself
-]
-
-{ #category : #'inspector extensions' }
 AFHypernotionGrammar >> gtInspectorProductionRulesIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ associatedGrammar gtInspectorProductionRulesIn: composite
