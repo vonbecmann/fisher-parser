@@ -126,18 +126,6 @@ AFMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
 		yourself
 ]
 
-{ #category : #'inspector extensions' }
-AFMetaGrammar >> gtInspectorParseTableIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ composite table
-		title: [ 'Parse Table' ];
-		display: [ parseTable keys ];
-		column: '(Nonterminal, terminal)' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		send: [ :each | parseTable at: each ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #initialization }
 AFMetaGrammar >> initialize [
 	nonterminals := Set new.
