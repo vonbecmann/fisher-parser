@@ -20,8 +20,7 @@ Class {
 		'terminals',
 		'metaProductionRules',
 		'firstSet',
-		'followSet',
-		'parseTable'
+		'followSet'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -35,10 +34,11 @@ AFMetaGrammar class >> metaRules: metaRuleCollection ortholetters: ortholetters 
 
 { #category : #testing }
 AFMetaGrammar >> checkIsLLOne [
+	| parseTable |
 	self
 		computeFirstSet;
-		computeFollowSet;
-		computeParseTable.
+		computeFollowSet.
+	parseTable := self computeParseTable.
 	parseTable
 		keysDo: [ :key | 
 			(parseTable at: key) size > 1
@@ -95,7 +95,7 @@ AFMetaGrammar >> computeParseTable [
 	" compute parse table using first set and follow set. 
 	then you can test if there's a conflict "
 
-	| bodyFirstSet |
+	| parseTable bodyFirstSet |
 	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set.
 	metaProductionRules
 		do: [ :rule | 
@@ -111,7 +111,8 @@ AFMetaGrammar >> computeParseTable [
 						do: [ :terminal | 
 							parseTable 
 								at: (OrderedPair first: rule head second: terminal) 
-								put: rule ] ] ]
+								put: rule ] ] ].
+	^ parseTable 
 ]
 
 { #category : #'inspector extensions' }
