@@ -18,9 +18,7 @@ Class {
 	#instVars : [
 		'nonterminals',
 		'terminals',
-		'metaProductionRules',
-		'firstSet',
-		'followSet'
+		'metaProductionRules'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -34,11 +32,10 @@ AFMetaGrammar class >> metaRules: metaRuleCollection ortholetters: ortholetters 
 
 { #category : #testing }
 AFMetaGrammar >> checkIsLLOne [
-	| parseTable |
-	self
-		computeFirstSet;
-		computeFollowSet.
-	parseTable := self computeParseTable.
+	| firstSet followSet parseTable |
+	firstSet := self computeFirstSet.
+	followSet := self computeFollowSetUsing: firstSet.
+	parseTable := self computeParseTableUsing: firstSet and: followSet.
 	parseTable
 		keysDo: [ :key | 
 			(parseTable at: key) size > 1
@@ -57,17 +54,18 @@ AFMetaGrammar >> checkIsLLOne [
 
 { #category : #initialization }
 AFMetaGrammar >> computeFirstSet [
-	| previousSize |
+	| firstSet previousSize |
 	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
 	nonterminals do: [ :each | firstSet at: each putAll: #() ].
 	[	previousSize := firstSet size.
 		metaProductionRules do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
-	previousSize = firstSet size ] whileFalse
+	previousSize = firstSet size ] whileFalse.
+	^ firstSet
 ]
 
 { #category : #initialization }
-AFMetaGrammar >> computeFollowSet [
-	| previousSize symbolFollowSet rest restFirstSet |
+AFMetaGrammar >> computeFollowSetUsing: firstSet [
+	| followSet previousSize symbolFollowSet rest restFirstSet |
 	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
 	nonterminals do: [ :each | followSet at: each putAll: #() ].
 	[ previousSize := followSet size.
@@ -87,11 +85,12 @@ AFMetaGrammar >> computeFollowSet [
 										ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ].
 									symbolFollowSet addAll: (restFirstSet copyWithout: #epsilon) ].
 							followSet at: symbol putAll: symbolFollowSet ] ] ].
-	previousSize = followSet size ] whileFalse
+	previousSize = followSet size ] whileFalse.
+	^ followSet 
 ]
 
 { #category : #initialization }
-AFMetaGrammar >> computeParseTable [
+AFMetaGrammar >> computeParseTableUsing: firstSet and: followSet [
 	" compute parse table using first set and follow set. 
 	then you can test if there's a conflict "
 
