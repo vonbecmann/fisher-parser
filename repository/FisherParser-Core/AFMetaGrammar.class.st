@@ -96,6 +96,7 @@ AFMetaGrammar >> computeParseTable [
 	then you can test if there's a conflict "
 
 	| bodyFirstSet |
+	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set.
 	metaProductionRules
 		do: [ :rule | 
 			bodyFirstSet := firstSet firstOf: rule body.
@@ -141,8 +142,8 @@ AFMetaGrammar >> gtInspectorParseTableIn: composite [
 AFMetaGrammar >> initialize [
 	nonterminals := Set new.
 	terminals := Set new.
-	metaProductionRules := SinglyLinkedList new.
-	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set
+	metaProductionRules := SinglyLinkedList new
+
 ]
 
 { #category : #initialization }
