@@ -15,7 +15,6 @@ Class {
 		'startSymbol',
 		'associatedGrammar',
 		'firstSet',
-		'parseTable',
 		'followSet'
 	],
 	#category : #'FisherParser-Core-Implementation'
@@ -33,10 +32,11 @@ AFHypernotionGrammar class >> metaProductionRules: metaProductionRules nontermin
 
 { #category : #testing }
 AFHypernotionGrammar >> checkIsLLOne [
+	| parseTable |
 	self 
 		computeFirstSet;
-		computeFollowSet;
-		computeParseTable.
+		computeFollowSet.
+	parseTable := self computeParseTable.
 	
 	parseTable
 		keysDo: [ :key | 
@@ -97,7 +97,8 @@ AFHypernotionGrammar >> computeFollowSet [
 AFHypernotionGrammar >> computeParseTable [
 	" compute parse table using first set and follow test. 
 	  then you can test if there's a conflict "
-
+	| parseTable |
+	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set.
 	associatedGrammar productionRules
 		do: [ :rule | 
 			| bodyFirstSet |
@@ -113,7 +114,9 @@ AFHypernotionGrammar >> computeParseTable [
 						do: [ :terminal | 
 							parseTable 
 								at: (OrderedPair first: rule head second: terminal) 
-								put: rule ] ] ]
+								put: rule ] ] ].
+	^ parseTable 					
+
 ]
 
 { #category : #'inspector extensions' }
@@ -134,8 +137,7 @@ AFHypernotionGrammar >> gtInspectorProductionRulesIn: composite [
 { #category : #initialization }
 AFHypernotionGrammar >> initialize [
 	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
-	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
-	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set
+	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set
 ]
 
 { #category : #initialization }
