@@ -74,8 +74,7 @@ AFMetanotionSubstitutions >> includesMetanotion: aMetanotion [
 
 { #category : #initialization }
 AFMetanotionSubstitutions >> initialize [
-	super initialize.
-	associations := SinglyLinkedList new.
+	associations := SinglyLinkedList new
 ]
 
 { #category : #testing }
