@@ -16,7 +16,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'hypernotion',
-		'startSymbol',
 		'associatedGrammar',
 		'firstSet',
 		'followSet'
@@ -76,7 +75,7 @@ AFHypernotionGrammar >> computeFirstSet [
 AFHypernotionGrammar >> computeFollowSet [
 	| previousSize symbolFollowSet rest restFirstSet |
 	associatedGrammar nonterminals do: [ :each | followSet at: each putAll: #() ].
-	followSet at: startSymbol put: #endmarker.
+	followSet at: associatedGrammar startSymbol put: #endmarker.
 	[ previousSize := followSet size.
 	associatedGrammar productionRules
 		do: [ :rule | 
@@ -146,19 +145,17 @@ AFHypernotionGrammar >> initialize [
 
 { #category : #initialization }
 AFHypernotionGrammar >> initializeHypernotion: aHypernotion metaProductionRules: metaProductionRules nonterminals: nonterminals terminals: terminals [
+	| startSymbol |
 	self initialize.
 	hypernotion := aHypernotion.
 	startSymbol := hypernotion asNonterminal.
 	associatedGrammar := JEGrammar
-		productionRules:
-			((SinglyLinkedList
-				with: 	(NCProductionRule 
-							head: startSymbol 
-							body: (hypernotion buildBodyOf: nonterminals)))
-				addAll: metaProductionRules;
-				yourself)
 		nonterminals: (nonterminals copyWith: startSymbol)
 		terminals: terminals
+		productionRules:
+			((SinglyLinkedList with: (NCProductionRule head: startSymbol body: (hypernotion buildBodyOf: nonterminals)))
+				addAll: metaProductionRules;
+				yourself)
 		startNonterminal: startSymbol
 ]
 
@@ -173,7 +170,7 @@ AFHypernotionGrammar >> match: aProtonotion [
 
 { #category : #testing }
 AFHypernotionGrammar >> matchesEmptyProtonotion [
-	^ (firstSet at: startSymbol) includes: #epsilon
+	^ (firstSet at: associatedGrammar startSymbol) includes: #epsilon
 ]
 
 { #category : #printing }
@@ -192,5 +189,5 @@ AFHypernotionGrammar >> printString [
 
 { #category : #public }
 AFHypernotionGrammar >> startSymbolFirstSet [
-	^ firstSet at: startSymbol
+	^ firstSet at: associatedGrammar startSymbol
 ]
