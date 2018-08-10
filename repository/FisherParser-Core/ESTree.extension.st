@@ -10,11 +10,7 @@ ESTree >> substitutionsOf: metanotions [
 	root children
 		select: [ :child | metanotions includes: child model symbol ]
 		thenDo: [ :child | substitutions add: child model symbol -> child asProtonotion ].
-	metanotions size = substitutions size
-		ifFalse: [ ^ AFSubstitution noSolution ].
-	metanotions
-		do: [ :metanotion | 
-			(substitutions includesMetanotion: metanotion)
-				ifFalse: [ ^ AFSubstitution noSolution ] ].
-	^ AFSubstitution solution: substitutions
+	^ (substitutions uniquelyAssign: metanotions)
+			ifTrue: [ AFSubstitution solution: substitutions ]
+			ifFalse: [ AFSubstitution noSolution ]
 ]

@@ -102,3 +102,16 @@ AFMetanotionSubstitutions >> release [
 AFMetanotionSubstitutions >> size [
 	^ associations size
 ]
+
+{ #category : #testing }
+AFMetanotionSubstitutions >> uniquelyAssign: metanotions [
+	" true if these substitutions uniquely assign each metanotion "
+
+	self size == metanotions size
+		ifFalse: [ ^ false ].
+	metanotions
+		do: [ :metanotion | 
+			(self includesMetanotion: metanotion)
+				ifFalse: [ ^ false ] ].
+	^ true
+]
