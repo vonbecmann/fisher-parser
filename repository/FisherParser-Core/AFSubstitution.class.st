@@ -72,11 +72,6 @@ AFSubstitution >> ifSolution: aBlock [
 ]
 
 { #category : #testing }
-AFSubstitution >> isEmpty [
-	^ self subclassResponsibility 
-]
-
-{ #category : #testing }
 AFSubstitution >> isSolution [
 	"if this substitution is a solution to the syntactic matching problem"
 
