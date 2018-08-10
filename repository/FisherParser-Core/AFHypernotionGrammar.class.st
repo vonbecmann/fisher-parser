@@ -2,9 +2,13 @@
 a hypernotion's grammar. (some called it hypernotion system).
 
 use jay earley parser as a pattern matching algorithm.
-the hypernotion system is uniquely assignable (u.a.) [wegner]
+the hypernotion system is uniquely assignable (u.a.) [On Parsing Two-Level Grammars, Lutz Michael Wegner]
 
 Definition 12. Let M, V, Rm be defined as for two-level grammars(Definition 1). A hypernotion system HS is a 4-tuple (M, V, Rm, H), where H in (M u V)+, the hypernotion (axiom).
+The language of a hypernotion system HS = (M, V, Rm, H) where H contains the n>=0 metanotions W1, W2, ..., Wn is defined as L(HS) = {phi(H) | phi is a homomorphism with phi(v) = v for v in V and phi(Wi) in L((M, V, Rm, Wi)) for all 1<=i<=n}.
+
+Definition 13. If HS=(M, V, Rm, H) is a hypernotion system with H = X1X2...Xn, Xi in (M u V) for 1<=i<=n, then HS is uniquely assignable (u.a.) if for all w in L(HS) there is exactly on partition (p1, p2, ..., pn) such that.  w = p1p2...pn and phi(Xi) = pi for phi homomorphism of Definition 12.
+
 
 "
 Class {
