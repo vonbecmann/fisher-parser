@@ -62,7 +62,7 @@ AFMetanotionSubstitutionsTest >> testAddAll02 [
 AFMetanotionSubstitutionsTest >> testAsString [
 	self 
 		assert: AFMetanotionSubstitutions empty asString
-		equals: '{}'
+		equals: 'AFMetanotionSubstitutions()'
 ]
 
 { #category : #tests }
@@ -72,7 +72,7 @@ AFMetanotionSubstitutionsTest >> testAsString02 [
 			(AFMetanotionSubstitutions new
 				add: (AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a');
 				yourself) asString
-		equals: '{LETTER->a}'
+		equals: 'AFMetanotionSubstitutions(LETTER->a)'
 ]
 
 { #category : #tests }
@@ -83,5 +83,5 @@ AFMetanotionSubstitutionsTest >> testAsString03 [
 				add: (AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a');
 				add: (AWMetanotion named: 'NOTION') -> (AWProtonotion with: 'hij');
 				yourself) asString
-		equals: '{LETTER->a, NOTION->hij}'
+		equals: 'AFMetanotionSubstitutions(LETTER->a, NOTION->hij)'
 ]

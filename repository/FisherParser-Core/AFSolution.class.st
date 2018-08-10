@@ -42,6 +42,13 @@ AFSolution >> applyTo: aMetanotion [
 ]
 
 { #category : #'inspector extensions' }
+AFSolution >> gtDisplayOn: aStream [
+	aStream nextPutAll: 'solution('.
+	metanotionSubstitutions gtDisplayOn: aStream.
+	aStream nextPut: $)
+]
+
+{ #category : #'inspector extensions' }
 AFSolution >> gtInspectorSubstitutionIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ (metanotionSubstitutions gtInspectorSubstitutionsIn: composite)
@@ -74,7 +81,8 @@ AFSolution >> isSolution [
 { #category : #printing }
 AFSolution >> printOn: aStream [
 	aStream
-		nextPutAll: 'solution(';
+		nextPutAll: self className;
+		nextPut: $(;
 		print: metanotionSubstitutions;
 		nextPut: $)
 ]

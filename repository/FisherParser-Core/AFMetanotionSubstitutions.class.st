@@ -53,6 +53,15 @@ AFMetanotionSubstitutions >> at: aMetanotion [
 ]
 
 { #category : #'inspector extensions' }
+AFMetanotionSubstitutions >> gtDisplayOn: aStream [
+	aStream nextPut: ${.
+	associations 
+		do: [ :assoc | assoc gtDisplayOn: aStream ] 
+		separatedBy: [ aStream nextPutAll: ', ' ].
+	aStream nextPut: $}
+]
+
+{ #category : #'inspector extensions' }
 AFMetanotionSubstitutions >> gtInspectorSubstitutionsIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ composite table
@@ -84,11 +93,13 @@ AFMetanotionSubstitutions >> isEmpty [
 
 { #category : #printing }
 AFMetanotionSubstitutions >> printOn: aStream [
-	aStream nextPut: ${.
-	associations
-		do: [ :assoc | aStream print: assoc ]
+	aStream
+		nextPutAll: self className;
+		nextPut: $(.
+	associations 
+		do: [ :assoc | aStream print: assoc ] 
 		separatedBy: [ aStream nextPutAll: ', ' ].
-	aStream nextPut: $}
+	aStream nextPut: $)
 ]
 
 { #category : #'initialize-release' }

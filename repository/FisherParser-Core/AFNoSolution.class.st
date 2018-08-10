@@ -16,6 +16,11 @@ AFNoSolution >> applyTo: aMetanotion [
 	self shouldNotImplement
 ]
 
+{ #category : #'inspector extensions' }
+AFNoSolution >> gtDisplayOn: aStream [
+	aStream nextPutAll: 'no solution substitution'
+]
+
 { #category : #testing }
 AFNoSolution >> ifSolution: aBlock [
 	"Return self because I'm not a solution"
@@ -30,5 +35,7 @@ AFNoSolution >> isSolution [
 
 { #category : #printing }
 AFNoSolution >> printOn: aStream [
-	aStream nextPutAll: 'substitution(no solution)'
+	aStream
+		nextPutAll: self className;
+		nextPutAll: '()'
 ]

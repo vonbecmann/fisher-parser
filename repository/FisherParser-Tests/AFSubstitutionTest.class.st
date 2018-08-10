@@ -12,14 +12,14 @@ Class {
 AFSubstitutionTest >> testEmptySolutionAsString [
 	self 
 		assert: AFSubstitution emptySolution asString 
-		equals: 'solution({})'
+		equals: 'AFSolution(AFMetanotionSubstitutions())'
 ]
 
 { #category : #tests }
 AFSubstitutionTest >> testNoSolutionAsString [
 	self 
 		assert: AFSubstitution noSolution asString 
-		equals: 'substitution(no solution)'
+		equals: 'AFNoSolution()'
 ]
 
 { #category : #tests }
@@ -29,7 +29,7 @@ AFSubstitutionTest >> testSolutionAsString [
 			(AFSubstitution 
 				solutionWith: 
 					(AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a')) asString
-		equals: 'solution({LETTER->a})'
+		equals: 'AFSolution(AFMetanotionSubstitutions(LETTER->a))'
 ]
 
 { #category : #tests }
@@ -40,5 +40,5 @@ AFSubstitutionTest >> testSolutionAsString02 [
 				solutionWithAll:
 					{((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a')).
 					((AWMetanotion named: 'ALPHA') -> (AWProtonotion with: 'b'))}) asString
-		equals: 'solution({LETTER->a, ALPHA->b})'
+		equals: 'AFSolution(AFMetanotionSubstitutions(LETTER->a, ALPHA->b))'
 ]
