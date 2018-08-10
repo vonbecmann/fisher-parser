@@ -9,18 +9,7 @@ ESTree >> substitutionsOf: metanotions [
 	substitutions := AFMetanotionSubstitutions new.
 	root children
 		select: [ :child | metanotions includes: child model symbol ]
-		thenDo: [ :child | 
-			| substitute |
-			substitute := AWProtonotion
-				with:
-					(String
-						streamContents: [ :s | 
-							ESTreeVisitor depthFirst new
-								preOrderBlock: [ :node | 
-									node model isTerminal
-										ifTrue: [ s nextPut: node model reason ] ];
-								visit: child ]).
-			substitutions add: child model symbol -> substitute ].
+		thenDo: [ :child | substitutions add: child model symbol -> child asProtonotion ].
 	metanotions size = substitutions size
 		ifFalse: [ ^ AFSubstitution noSolution ].
 	metanotions
