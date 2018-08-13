@@ -19,9 +19,7 @@ JEBSPPForest >> substitutionsOf: metanotions [
 								select: [ :node | node model isNonterminal and: [ metanotions includes: node model head ] ]
 								thenDo: [ :node | substitutions at: node put: node asMetanotionSubstitution ]  ] ];
 				postOrderFamilyBlock: [ :family | 
-					substitutions
-						at: family
-						putAll: (family children inject: SinglyLinkedList new into: [ :subs :node | subs product: (substitutions at: node) ]) ];
+					substitutions at: family putAll: (family productMemberSubstitutionsAt: substitutions) ];
 				visit: self.
 			(substitutions at: root)
 				detect: [ :each | each uniquelyAssign: metanotions ]

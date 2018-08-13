@@ -22,8 +22,8 @@ JEPackedNode >> asProtonotion [
 
 { #category : #'*FisherParser-Core' }
 JEPackedNode >> sumFamilySubstitutionsAt: substitutions [
-	| sum |
-	sum := SinglyLinkedList new.
-	families do: [ :family | sum addAll: (substitutions at: family) ].
-	^ sum
+	| familySubstitutions |
+	familySubstitutions := SinglyLinkedList new.
+	families do: [ :family | familySubstitutions addAll: (substitutions at: family) ].
+	^ familySubstitutions
 ]

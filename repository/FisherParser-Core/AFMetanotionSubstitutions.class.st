@@ -110,11 +110,10 @@ AFMetanotionSubstitutions >> printOn: aStream [
 { #category : #accessing }
 AFMetanotionSubstitutions >> product: metanotionSubstitutionCollection [
 	^ metanotionSubstitutionCollection isEmpty
-		ifTrue: [ SinglyLinkedList with: self ]
+		ifTrue: [ {self} ]
 		ifFalse: [ | product |
 			product := SinglyLinkedList new.
-			metanotionSubstitutionCollection 
-				do: [ :metanotionSubstitution | product add: (self union: metanotionSubstitution) ].
+			metanotionSubstitutionCollection do: [ :metanotionSubstitution | product add: (self union: metanotionSubstitution) ].
 			product ]
 ]
 
