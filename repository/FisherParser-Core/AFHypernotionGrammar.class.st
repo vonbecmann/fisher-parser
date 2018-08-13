@@ -170,7 +170,7 @@ AFHypernotionGrammar >> match: aProtonotion [
 
 { #category : #testing }
 AFHypernotionGrammar >> matchesEmptyProtonotion [
-	^ (firstSet at: associatedGrammar startSymbol) includes: #epsilon
+	^ associatedGrammar accepts: String empty
 ]
 
 { #category : #printing }
