@@ -179,7 +179,7 @@ AFHypernotionGrammar >> matchEmptyDo: aBlock [
 ]
 
 { #category : #testing }
-AFHypernotionGrammar >> matchesEmptyProtonotion [
+AFHypernotionGrammar >> matchesEmpty [
 	^ associatedGrammar accepts: String empty
 ]
 

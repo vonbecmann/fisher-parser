@@ -290,8 +290,8 @@ AFHypernotion >> matches: aCharacter [
 ]
 
 { #category : #testing }
-AFHypernotion >> matchesEmptyProtonotion [
-	^ self grammar matchesEmptyProtonotion
+AFHypernotion >> matchesEmpty [
+	^ self grammar matchesEmpty
 ]
 
 { #category : #accessing }

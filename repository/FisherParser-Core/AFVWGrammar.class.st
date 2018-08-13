@@ -73,7 +73,7 @@ AFVWGrammar >> checkBoundness [
 AFVWGrammar >> checkHyperRulesLeftHandSides [
 	alternatives
 		do: [ :hyperRule | 
-			hyperRule head matchesEmptyProtonotion
+			hyperRule head matchesEmpty
 				ifTrue: [ 
 					Error
 						signal:
