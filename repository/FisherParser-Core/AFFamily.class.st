@@ -71,13 +71,13 @@ AFFamily >> gtDisplayOn: aStream [
 ]
 
 { #category : #'inspector extensions' }
-AFFamily >> gtInspectorMembersIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite list
-		title: [ 'Members' ];
-		display: [ self members ];
+AFFamily >> gtInspectorBrowserIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite tree
+		title: 'Browse';
+		display: [ self ];
+		children: [ :each | each children ];
 		format: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
-		showOnly: 50;
 		yourself
 ]
 
