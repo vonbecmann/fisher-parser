@@ -34,18 +34,30 @@ AFColumn >> = anObject [
 ]
 
 { #category : #adding }
-AFColumn >> add: anItem [
+AFColumn >> add: dottedItem [
 	^ itemSet
-		detect: [ :item | item equals: anItem ]
+		detect: [ :item | item equals: dottedItem ]
 		ifFound: [ :item | item ]
-		ifNone: [ self basicAdd: anItem ]
+		ifNone: [ self addDottedItem: dottedItem ]
 ]
 
 { #category : #adding }
 AFColumn >> addDottedHyperRule: dottedHyperRule [
 	itemSet
 		detect: [ :item | item start = self and: [ item dottedHyperRule = dottedHyperRule ] ]
-		ifNone: [ self basicAdd: (dottedHyperRule startAt: self) ]
+		ifNone: [ self addDottedItem: (dottedHyperRule startAt: self) ]
+]
+
+{ #category : #private }
+AFColumn >> addDottedItem: dottedItem [
+	itemsToProcess nextPut: dottedItem.
+	itemSet addLast: dottedItem.
+	dottedItem isFinal
+		ifFalse: [ 
+			dottedItem symbolAtDot isTerminal
+				ifFalse: [ predictionItems addLast: dottedItem ] ].
+	dottedItem end: self.
+	^ orderedItems addLast: dottedItem
 ]
 
 { #category : #adding }
@@ -54,24 +66,9 @@ AFColumn >> addTerminalItem: aTerminalItem [
 		detect: [ :item | item equals: aTerminalItem ]
 		ifFound: [ :item | item ]
 		ifNone: [ 
+			aTerminalItem end: self.
 			itemSet addLast: aTerminalItem.
-			orderedItems addLast: aTerminalItem.
-			aTerminalItem
-				end: self;
-				yourself ]
-]
-
-{ #category : #private }
-AFColumn >> basicAdd: anItem [
-	itemsToProcess nextPut: anItem.
-	itemSet addLast: anItem.
-	orderedItems addLast: anItem.
-	anItem isFinal
-		ifFalse: [ anItem symbolAtDot isTerminal
-				ifFalse: [ predictionItems addLast: anItem ] ].
-	^ anItem
-		end: self;
-		yourself
+			orderedItems addLast: aTerminalItem ]
 ]
 
 { #category : #'inspector extensions' }
@@ -113,7 +110,6 @@ AFColumn >> includes: anItem [
 
 { #category : #initialization }
 AFColumn >> initialize [
-	super initialize.
 	itemsToProcess := SinglyLinkedQueue new.
 	itemSet := SinglyLinkedList new.
 	orderedItems := SinglyLinkedList new.
@@ -188,7 +184,7 @@ AFColumn >> shortPrintOn: aStream [
 
 { #category : #accessing }
 AFColumn >> size [
-	^ itemSet size
+	^ orderedItems size
 ]
 
 { #category : #'inspector extensions' }
