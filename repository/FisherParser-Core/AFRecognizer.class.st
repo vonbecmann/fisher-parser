@@ -20,18 +20,18 @@ AFRecognizer >> accepts: aString [
 AFRecognizer >> complete: item [
 	item
 		predictionItemsDo: [ :previous | 
-			(previous symbolAtDot match: item head)
-				ifSolution: [ :substitution | 
-					item end add: (previous moveDotForwardAfterApplying: substitution) ] ]
+			previous symbolAtDot
+				match: item head
+				do: [ :substitution | item end add: (previous moveDotForwardAfterApplying: substitution) ] ]
 ]
 
 { #category : #private }
 AFRecognizer >> gapScan: item [
 	" gap scanner "
 
-	(item symbolAtDot match: emptyHypernotion)
-		ifSolution: [ :substitution | 
-			item end add: (item moveDotForwardAfterApplying: substitution) ]
+	item symbolAtDot
+		match: emptyHypernotion
+		do: [ :substitution | item end add: (item moveDotForwardAfterApplying: substitution) ]
 ]
 
 { #category : #private }

@@ -168,6 +168,11 @@ AFHypernotionGrammar >> match: aProtonotion [
 		do: [ AFSubstitution noSolution ]
 ]
 
+{ #category : #public }
+AFHypernotionGrammar >> match: aProtonotion do: aBlock [
+	(self match: aProtonotion) ifSolution: aBlock
+]
+
 { #category : #testing }
 AFHypernotionGrammar >> matchesEmptyProtonotion [
 	^ associatedGrammar accepts: String empty

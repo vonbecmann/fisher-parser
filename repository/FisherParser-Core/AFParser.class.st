@@ -13,8 +13,9 @@ AFParser >> complete: item [
 
 	item
 		predictionItemsDo: [ :previous | 
-			(previous symbolAtDot match: item head)
-				ifSolution: 	[ :substitution | 
+			previous symbolAtDot
+				match: item head
+				do: [ :substitution | 
 					previous 
 						addFamilyWith: item 
 						to: (item end add: (previous moveDotForwardAfterApplying: substitution)) ] ]
@@ -24,10 +25,9 @@ AFParser >> complete: item [
 AFParser >> gapScan: item [
 	" gap scanner with parsing "
 
-	(item symbolAtDot match: emptyHypernotion)
-		ifSolution: [ :substitution | 
-			(item end add: (item moveDotForwardAfterApplying: substitution))
-				addFamilyWith: item ]
+	item symbolAtDot
+		match: emptyHypernotion
+		do: [ :substitution | (item end add: (item moveDotForwardAfterApplying: substitution)) addFamilyWith: item ]
 ]
 
 { #category : #private }

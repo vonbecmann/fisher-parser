@@ -33,9 +33,9 @@ AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
 AFYoYoAlgorithm >> bottomUpPredict: item [
 	item head
 		backwardCrossReferencesDo: [ :hrule | 
-			(hrule body first match: item head)
-				ifSolution: [ :substitution | 
-					item start addDottedHyperRule: (hrule apply: substitution) dotAtBeginning ] ]
+			hrule body first
+				match: item head
+				do: [ :substitution | item start addDottedHyperRule: (hrule apply: substitution) dotAtBeginning ] ]
 ]
 
 { #category : #private }
@@ -103,7 +103,7 @@ AFYoYoAlgorithm >> scan: item with: word at: aColumn [
 AFYoYoAlgorithm >> topDownPredict: item [
 	item symbolAtDot
 		forwardCrossReferencesDo: [ :hrule | 
-			(hrule head match: item symbolAtDot)
-				ifSolution: [ :substitution | 
-					item end addDottedHyperRule: (hrule apply: substitution) dotAtBeginning ] ]
+			hrule head
+				match: item symbolAtDot
+				do: [ :substitution | item end addDottedHyperRule: (hrule apply: substitution) dotAtBeginning ] ]
 ]
