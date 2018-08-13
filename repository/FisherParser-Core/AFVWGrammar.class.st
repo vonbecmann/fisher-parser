@@ -81,10 +81,8 @@ AFVWGrammar >> checkHyperRulesLeftHandSides [
 								streamContents: [ :s | 
 									s
 										nextPutAll: 'left hand side of hyper rule ';
-										crlf;
 										print: hyperRule;
-										crlf;
-										nextPutAll: ' matches an empty protonotion' ]) ] ]
+										nextPutAll: ' matches empty' ]) ] ]
 ]
 
 { #category : #initialization }
