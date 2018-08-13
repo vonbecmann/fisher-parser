@@ -8,8 +8,8 @@ Class {
 AFColumnTest >> testAsString [
 	| one |
 	one := AFColumn number: 1.
-	
-	self assert: one asString equals: 'AFColumn[1]'
+
+	self assert: one asString equals: 'AFColumn(1)'
 ]
 
 { #category : #tests }

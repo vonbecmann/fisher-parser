@@ -72,6 +72,17 @@ AFColumn >> addTerminalItem: aTerminalItem [
 ]
 
 { #category : #'inspector extensions' }
+AFColumn >> gtDisplayOn: aStream [
+	"AFColumn [number]"
+
+	aStream
+		nextPutAll: self className;
+		nextPut: $[;
+		print: number;
+		nextPut: $]
+]
+
+{ #category : #'inspector extensions' }
 AFColumn >> gtInspectorItemsIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ composite table
@@ -148,13 +159,11 @@ AFColumn >> predictionItemsDo: aBlock [
 
 { #category : #printing }
 AFColumn >> printOn: aStream [
-	"Column [number]"
-
 	aStream
 		nextPutAll: self className;
-		nextPut: $[;
+		nextPut: $(;
 		print: number;
-		nextPut: $]
+		nextPut: $)
 ]
 
 { #category : #printing }
