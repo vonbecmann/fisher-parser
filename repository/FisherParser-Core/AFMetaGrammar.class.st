@@ -32,24 +32,19 @@ AFMetaGrammar class >> metaRules: metaRuleCollection ortholetters: ortholetters 
 
 { #category : #testing }
 AFMetaGrammar >> checkIsLLOne [
-	| firstSet followSet parseTable |
+	| firstSet followSet parseTable conflictKeys |
 	firstSet := self computeFirstSet.
 	followSet := self computeFollowSetUsing: firstSet.
 	parseTable := self computeParseTableUsing: firstSet and: followSet.
-	parseTable
-		keysDo: [ :key | 
-			(parseTable at: key) size > 1
-				ifTrue: [ Error
-						signal:
-							(String
-								streamContents: [ :s | 
-									s
-										nextPutAll: 'CONFLICT at ';
-										print: key;
-										nextPutAll: ' -> '.
-									(parseTable at: key) 
-										do: [ :rule | s print: rule ] 
-										separatedBy: [ s space ] ]) ] ]
+	conflictKeys := parseTable keys select: [ :key | (parseTable at: key) size > 1 ].
+	conflictKeys isEmpty
+		ifFalse: [ 
+			Error
+				signal:
+					(String
+						streamContents: [ :s | 
+							s nextPutAll: 'CONFLICT at '.
+							conflictKeys do: [ :key | s print: key ] separatedBy: [ s space ] ]) ]
 ]
 
 { #category : #initialization }

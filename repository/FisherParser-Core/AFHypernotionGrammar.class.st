@@ -35,27 +35,20 @@ AFHypernotionGrammar class >> metaProductionRules: metaProductionRules nontermin
 
 { #category : #testing }
 AFHypernotionGrammar >> checkIsLLOne [
-	| parseTable |
-	self 
+	| parseTable conflictKeys |
+	self
 		computeFirstSet;
 		computeFollowSet.
 	parseTable := self computeParseTable.
-	
-	parseTable
-		keysDo: [ :key | 
-			(parseTable at: key) size > 1
-				ifTrue: [ 
-					Error
-						signal:
-							(String
-								streamContents: [ :s | 
-									s
-										nextPutAll: 'CONFLICT at ';
-										print: key;
-										nextPutAll: ' -> '.
-									(parseTable at: key) 
-										do: [ :rule | s print: rule ] 
-										separatedBy: [ s space ] ]) ] ]
+	conflictKeys := parseTable keys select: [ :key | (parseTable at: key) size > 1 ].
+	conflictKeys isEmpty
+		ifFalse: [ 
+			Error
+				signal:
+					(String
+						streamContents: [ :s | 
+							s nextPutAll: 'CONFLICT at '.
+							conflictKeys do: [ :key | s print: key ] separatedBy: [ s space ] ]) ]
 ]
 
 { #category : #private }
