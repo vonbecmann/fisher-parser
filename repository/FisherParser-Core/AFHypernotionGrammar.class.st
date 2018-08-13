@@ -163,7 +163,7 @@ AFHypernotionGrammar >> initializeHypernotion: aHypernotion metaProductionRules:
 AFHypernotionGrammar >> match: aProtonotion [
 	"	a hypernotion match a protonotion, you need the relative substitution. "
 
-	^ [ (associatedGrammar parseTree: aProtonotion asString) substitutionsOf: hypernotion ]
+	^ [ (associatedGrammar parse: aProtonotion asString) substitutionsOf: hypernotion ]
 		on: JEFailure
 		do: [ AFSubstitution noSolution ]
 ]

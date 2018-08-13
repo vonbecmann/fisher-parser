@@ -44,6 +44,11 @@ AFMetanotionSubstitutions >> addAll: anAssocCollection [
 ]
 
 { #category : #accessing }
+AFMetanotionSubstitutions >> associations [
+	^ associations
+]
+
+{ #category : #accessing }
 AFMetanotionSubstitutions >> at: aMetanotion [
 	associations
 		do: [ :assoc | 
@@ -102,6 +107,17 @@ AFMetanotionSubstitutions >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
+{ #category : #accessing }
+AFMetanotionSubstitutions >> product: metanotionSubstitutionCollection [
+	^ metanotionSubstitutionCollection isEmpty
+		ifTrue: [ SinglyLinkedList with: self ]
+		ifFalse: [ | product |
+			product := SinglyLinkedList new.
+			metanotionSubstitutionCollection 
+				do: [ :metanotionSubstitution | product add: (self union: metanotionSubstitution) ].
+			product ]
+]
+
 { #category : #'initialize-release' }
 AFMetanotionSubstitutions >> release [
 	associations := nil.
@@ -111,6 +127,14 @@ AFMetanotionSubstitutions >> release [
 { #category : #accessing }
 AFMetanotionSubstitutions >> size [
 	^ associations size
+]
+
+{ #category : #accessing }
+AFMetanotionSubstitutions >> union: aMetanotionSubstitutions [
+	^ self class new
+		addAll: associations;
+		addAll: aMetanotionSubstitutions associations;
+		yourself
 ]
 
 { #category : #testing }
