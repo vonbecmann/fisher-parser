@@ -280,6 +280,11 @@ AFHypernotion >> match: aProtonotionHypernotion do: aBlock [
 ]
 
 { #category : #matching }
+AFHypernotion >> matchEmptyProtonotionDo: aBlock [
+	self grammar matchEmptyProtonotionDo: aBlock
+]
+
+{ #category : #matching }
 AFHypernotion >> matches: aCharacter [ 
 	^ notions first matches: aCharacter 
 ]

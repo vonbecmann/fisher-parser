@@ -29,9 +29,7 @@ AFRecognizer >> complete: item [
 AFRecognizer >> gapScan: item [
 	" gap scanner "
 
-	item symbolAtDot
-		match: emptyHypernotion
-		do: [ :substitution | item end add: (item moveDotForwardAfterApplying: substitution) ]
+	item symbolAtDot matchEmptyProtonotionDo: [ :substitution | item end add: (item moveDotForwardAfterApplying: substitution) ]
 ]
 
 { #category : #private }
