@@ -11,9 +11,7 @@ JEBSPPForest >> substitutionsOf: metanotions [
 			substitutions := MultiValuedDictionary dictionary: IdentityDictionary collection: SinglyLinkedList.
 			JEDepthFirstVisitor new
 				postOrderNodeBlock: [ :packed | 
-					substitutions 
-						at: packed 
-						putAll: (packed children flatCollect: [ :family | substitutions at: family ]) ];
+					substitutions at: packed putAll: (packed sumFamilySubstitutionsAt: substitutions) ];
 				preOrderFamilyBlock: [ :family | 
 					(family parent model isNonterminal and: [ family parent model head = root model head ])
 						ifTrue: [ 

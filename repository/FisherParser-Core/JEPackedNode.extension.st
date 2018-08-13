@@ -19,3 +19,11 @@ JEPackedNode >> asProtonotion [
 								ifTrue: [ s nextPut: node model word ] ];
 						visit: self ])
 ]
+
+{ #category : #'*FisherParser-Core' }
+JEPackedNode >> sumFamilySubstitutionsAt: substitutions [
+	| sum |
+	sum := SinglyLinkedList new.
+	families do: [ :family | sum addAll: (substitutions at: family) ].
+	^ sum
+]
