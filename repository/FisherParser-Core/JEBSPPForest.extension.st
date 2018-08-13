@@ -18,9 +18,8 @@ JEBSPPForest >> substitutionsOf: metanotions [
 					(family parent model isNonterminal and: [ family parent model head = root model head ])
 						ifTrue: [ 
 							family children
-								do: [ :node | 
-									(node model isNonterminal and: [ metanotions includes: node model head ])
-										ifTrue: [ substitutions at: node put: node asMetanotionSubstitution ] ] ] ];
+								select: [ :node | node model isNonterminal and: [ metanotions includes: node model head ] ]
+								thenDo: [ :node | substitutions at: node put: node asMetanotionSubstitution ]  ] ];
 				postOrderFamilyBlock: [ :family | 
 					substitutions
 						at: family
