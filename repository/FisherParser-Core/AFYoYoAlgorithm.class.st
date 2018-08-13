@@ -9,8 +9,7 @@ Class {
 	#name : #AFYoYoAlgorithm,
 	#superclass : #Object,
 	#instVars : [
-		'grammar',
-		'emptyHypernotion'
+		'grammar'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -82,13 +81,7 @@ AFYoYoAlgorithm >> gapScan: item [
 ]
 
 { #category : #initialization }
-AFYoYoAlgorithm >> initialize [
-	emptyHypernotion := AFHypernotion empty
-]
-
-{ #category : #initialization }
 AFYoYoAlgorithm >> initializeGrammar: aVWGrammar [
-	self initialize.
 	grammar := aVWGrammar
 ]
 
