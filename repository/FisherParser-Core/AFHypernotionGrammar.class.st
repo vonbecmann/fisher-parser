@@ -174,7 +174,7 @@ AFHypernotionGrammar >> match: aProtonotion do: aBlock [
 ]
 
 { #category : #public }
-AFHypernotionGrammar >> matchEmptyProtonotionDo: aBlock [
+AFHypernotionGrammar >> matchEmptyDo: aBlock [
 	(self match: String empty) ifSolution: aBlock
 ]
 

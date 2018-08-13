@@ -280,8 +280,8 @@ AFHypernotion >> match: aProtonotionHypernotion do: aBlock [
 ]
 
 { #category : #matching }
-AFHypernotion >> matchEmptyProtonotionDo: aBlock [
-	self grammar matchEmptyProtonotionDo: aBlock
+AFHypernotion >> matchEmptyDo: aBlock [
+	self grammar matchEmptyDo: aBlock
 ]
 
 { #category : #matching }

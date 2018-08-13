@@ -25,7 +25,8 @@ AFParser >> complete: item [
 AFParser >> gapScan: item [
 	" gap scanner with parsing "
 
-	item symbolAtDot matchEmptyProtonotionDo: [ :substitution | (item end add: (item moveDotForwardAfterApplying: substitution)) addFamilyWith: item ]
+	item symbolAtDot matchEmptyDo: [ :substitution | 
+		(item end add: (item moveDotForwardAfterApplying: substitution)) addFamilyWith: item ]
 ]
 
 { #category : #private }

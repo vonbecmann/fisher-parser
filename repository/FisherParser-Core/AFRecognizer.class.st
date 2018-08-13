@@ -29,7 +29,8 @@ AFRecognizer >> complete: item [
 AFRecognizer >> gapScan: item [
 	" gap scanner "
 
-	item symbolAtDot matchEmptyProtonotionDo: [ :substitution | item end add: (item moveDotForwardAfterApplying: substitution) ]
+	item symbolAtDot matchEmptyDo: [ :substitution | 
+		item end add: (item moveDotForwardAfterApplying: substitution) ]
 ]
 
 { #category : #private }
