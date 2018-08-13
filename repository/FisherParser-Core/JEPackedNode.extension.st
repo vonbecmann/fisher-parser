@@ -1,6 +1,11 @@
 Extension { #name : #JEPackedNode }
 
 { #category : #'*FisherParser-Core' }
+JEPackedNode >> asMetanotionSubstitution [
+	^ AFMetanotionSubstitutions with: self model head -> self asProtonotion
+]
+
+{ #category : #'*FisherParser-Core' }
 JEPackedNode >> asProtonotion [
 	" a new protonotion with terminals as small syntactic marks "
 
