@@ -13,6 +13,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'vwGrammar',
+		'afHypernotions',
 		'startHyperRule',
 		'alternatives',
 		'representationRules',
@@ -90,11 +91,7 @@ AFVWGrammar >> checkHypernotionsAreLLOne [
 	"P1.	the defining context-free grammar of each hypernotion 
 			in the vw-grammar is LL(1) "
 
-	alternatives
-		do: [ :hyperRule | 
-			hyperRule isRepresentation
-				ifTrue: [ hyperRule head checkIsLLOne ]
-				ifFalse: [ hyperRule checkHypernotionsAreLLOne ] ]
+	afHypernotions reject: [ :hn | hn isTerminal ] thenDo: [ :hn | hn checkIsLLOne ]
 ]
 
 { #category : #initialization }
@@ -149,7 +146,7 @@ AFVWGrammar >> hypernotions [
 
 { #category : #initialization }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
-	| startNotion hypernotionDict |
+	| startNotion startHypernotion hypernotionDict |
 	self initialize.
 	vwGrammar := aVWGrammar.
 	startNotion := AWProtonotion with: '((start))'.
@@ -163,9 +160,9 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 			hypernotionDict 
 				at: hypernotion 
 				put: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: hypernotion) ].
-	startHyperRule := AFHyperRule
-		head: (AFHypernotion belongsTo: metaGrammar with: startNotion)
-		bodyWith: (hypernotionDict at: vwGrammar startNotion).
+	startHypernotion := AFHypernotion belongsTo: metaGrammar with: startNotion.
+	afHypernotions := hypernotionDict values copyWith: startHypernotion.
+	startHyperRule := AFHyperRule head: startHypernotion bodyWith: (hypernotionDict at: vwGrammar startNotion).
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
 		collect: [ :each | 
