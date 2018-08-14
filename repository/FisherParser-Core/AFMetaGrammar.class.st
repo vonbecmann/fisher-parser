@@ -50,7 +50,7 @@ AFMetaGrammar >> checkIsLLOne [
 { #category : #initialization }
 AFMetaGrammar >> computeFirstSet [
 	| firstSet previousSize |
-	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	firstSet := MultiValuedDictionary dictionary: IdentityDictionary collection: Set.
 	nonterminals do: [ :each | firstSet at: each putAll: #() ].
 	[	previousSize := firstSet size.
 		metaProductionRules do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
@@ -61,7 +61,7 @@ AFMetaGrammar >> computeFirstSet [
 { #category : #initialization }
 AFMetaGrammar >> computeFollowSetUsing: firstSet [
 	| followSet previousSize symbolFollowSet rest restFirstSet |
-	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	followSet := MultiValuedDictionary dictionary: IdentityDictionary collection: Set.
 	nonterminals do: [ :each | followSet at: each putAll: #() ].
 	[ previousSize := followSet size.
 	metaProductionRules

@@ -65,7 +65,7 @@ AFHypernotionGrammar >> computeFirstSet [
 { #category : #private }
 AFHypernotionGrammar >> computeFollowSet [
 	| followSet previousSize symbolFollowSet rest restFirstSet |
-	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	followSet := MultiValuedDictionary dictionary: IdentityDictionary collection: Set.
 	associatedGrammar nonterminals do: [ :each | followSet at: each putAll: #() ].
 	followSet at: associatedGrammar startSymbol put: #endmarker.
 	[ previousSize := followSet size.
@@ -132,7 +132,7 @@ AFHypernotionGrammar >> gtInspectorProductionRulesIn: composite [
 
 { #category : #initialization }
 AFHypernotionGrammar >> initialize [
-	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set
+	firstSet := MultiValuedDictionary dictionary: IdentityDictionary collection: Set
 ]
 
 { #category : #initialization }
