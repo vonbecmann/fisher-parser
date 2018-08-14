@@ -35,7 +35,6 @@ AFHypernotionGrammar class >> metaProductionRules: metaProductionRules nontermin
 { #category : #testing }
 AFHypernotionGrammar >> checkIsLLOne [
 	| followSet parseTable conflictKeys |
-	self computeFirstSet.
 	followSet := self computeFollowSet.
 	parseTable := self computeParseTableUsing: followSet.
 	conflictKeys := parseTable keys select: [ :key | (parseTable at: key) size > 1 ].

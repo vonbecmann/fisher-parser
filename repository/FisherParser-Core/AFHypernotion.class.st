@@ -148,6 +148,11 @@ AFHypernotion >> checkIsLLOne [
 ]
 
 { #category : #accessing }
+AFHypernotion >> computeFirstSet [
+	self grammar computeFirstSet
+]
+
+{ #category : #accessing }
 AFHypernotion >> firstSet [
 	^ self grammar startSymbolFirstSet
 ]
