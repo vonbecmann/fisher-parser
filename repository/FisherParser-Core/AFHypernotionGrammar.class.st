@@ -17,8 +17,7 @@ Class {
 	#instVars : [
 		'hypernotion',
 		'associatedGrammar',
-		'firstSet',
-		'followSet'
+		'firstSet'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -35,11 +34,10 @@ AFHypernotionGrammar class >> metaProductionRules: metaProductionRules nontermin
 
 { #category : #testing }
 AFHypernotionGrammar >> checkIsLLOne [
-	| parseTable conflictKeys |
-	self
-		computeFirstSet;
-		computeFollowSet.
-	parseTable := self computeParseTable.
+	| followSet parseTable conflictKeys |
+	self computeFirstSet.
+	followSet := self computeFollowSet.
+	parseTable := self computeParseTableUsing: followSet.
 	conflictKeys := parseTable keys select: [ :key | (parseTable at: key) size > 1 ].
 	conflictKeys isEmpty
 		ifFalse: [ 
@@ -66,7 +64,8 @@ AFHypernotionGrammar >> computeFirstSet [
 
 { #category : #private }
 AFHypernotionGrammar >> computeFollowSet [
-	| previousSize symbolFollowSet rest restFirstSet |
+	| followSet previousSize symbolFollowSet rest restFirstSet |
+	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
 	associatedGrammar nonterminals do: [ :each | followSet at: each putAll: #() ].
 	followSet at: associatedGrammar startSymbol put: #endmarker.
 	[ previousSize := followSet size.
@@ -86,11 +85,12 @@ AFHypernotionGrammar >> computeFollowSet [
 										ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ].
 									symbolFollowSet addAll: (restFirstSet copyWithout: #epsilon) ].
 							followSet at: symbol putAll: symbolFollowSet ] ] ].
-	previousSize = followSet size ] whileFalse
+	previousSize = followSet size ] whileFalse.
+	^ followSet 
 ]
 
 { #category : #private }
-AFHypernotionGrammar >> computeParseTable [
+AFHypernotionGrammar >> computeParseTableUsing: followSet [
 	" compute parse table using first set and follow test. 
 	  then you can test if there's a conflict "
 	| parseTable |
@@ -132,8 +132,7 @@ AFHypernotionGrammar >> gtInspectorProductionRulesIn: composite [
 
 { #category : #initialization }
 AFHypernotionGrammar >> initialize [
-	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set.
-	followSet := MultiValuedDictionary dictionary: Dictionary collection: Set
+	firstSet := MultiValuedDictionary dictionary: Dictionary collection: Set
 ]
 
 { #category : #initialization }
