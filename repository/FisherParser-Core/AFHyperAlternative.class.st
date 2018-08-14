@@ -148,6 +148,6 @@ AFHyperAlternative >> size [
 ]
 
 { #category : #enumerating }
-AFHyperAlternative >> withIndexDo: aBlockClosure [ 
-	hypernotions withIndexDo: aBlockClosure 
+AFHyperAlternative >> withIndexDo: aBlock [ 
+	hypernotions withIndexDo: aBlock 
 ]
