@@ -206,7 +206,7 @@ AFVWGrammar >> printOn: aStream [
 	aStream
 		nextPutAll: self class name;
 		nextPut: $(;
-		print: startHyperRule;
+		print: vwGrammar startNotion;
 		nextPut: $)
 ]
 
