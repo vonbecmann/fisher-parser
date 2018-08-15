@@ -16,8 +16,8 @@ Class {
 	#instVars : [
 		'notions',
 		'metanotions',
-		'grammar',
 		'metaGrammar',
+		'grammar',
 		'backwardCrossReferences',
 		'forwardCrossReferences',
 		'firstSet'
@@ -358,7 +358,7 @@ AFHypernotion >> isTerminal [
 AFHypernotion >> match: aProtonotionHypernotion [
 	"	a hypernotion match a protonotion, you need the relative substitution. "
 
-	^ [ (self grammar parse: aProtonotionHypernotion asString) substitutionsOf: self ]
+	^ [ (self grammar parse: aProtonotionHypernotion asString) substitutionsOf: metanotions ]
 		on: JEFailure
 		do: [ AFSubstitution noSolution ]
 ]
