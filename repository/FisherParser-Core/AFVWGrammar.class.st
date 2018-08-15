@@ -13,7 +13,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'vwGrammar',
-		'afHypernotions',
+		'nonterminalHypernotions',
 		'startHyperRule',
 		'alternatives',
 		'representationRules',
@@ -92,7 +92,7 @@ AFVWGrammar >> checkHypernotionsAreLLOne [
 	"P1.	the defining context-free grammar of each hypernotion 
 			in the vw-grammar is LL(1) "
 
-	afHypernotions reject: [ :hn | hn isTerminal ] thenDo: [ :hn | hn checkIsLLOne ]
+	nonterminalHypernotions do: [ :hn | hn checkIsLLOne ]
 ]
 
 { #category : #initialization }
@@ -131,7 +131,7 @@ AFVWGrammar >> computeCrossReferences [
 
 { #category : #initialization }
 AFVWGrammar >> computeHypernotionsFirstSet [
-	afHypernotions reject: [ :hn | hn isTerminal ] thenDo: [ :hn | hn computeFirstSet ]
+	nonterminalHypernotions do: [ :hn | hn computeFirstSet ]
 ]
 
 { #category : #'inspector extensions' }
@@ -167,7 +167,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 				at: hypernotion 
 				put: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: hypernotion) ].
 	startHypernotion := AFHypernotion belongsTo: metaGrammar with: startNotion.
-	afHypernotions := hypernotionDict values copyWith: startHypernotion.
+	nonterminalHypernotions := (hypernotionDict reject: [:hn | hn isTerminal ]) values copyWith: startHypernotion.
 	startHyperRule := AFHyperRule head: startHypernotion bodyWith: (hypernotionDict at: vwGrammar startNotion).
 	alternatives := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
