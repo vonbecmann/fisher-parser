@@ -84,7 +84,6 @@ AFDottedHyperRule >> hyperRule [
 
 { #category : #initialization }
 AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [ 
-	self initialize.
 	hyperRule := aHyperRule.
 	dotIndex := index 
 ]
