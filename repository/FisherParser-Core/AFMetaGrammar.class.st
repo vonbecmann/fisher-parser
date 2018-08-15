@@ -155,9 +155,14 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 AFMetaGrammar >> startAt: aHypernotion [
 	" creates a hypernotion's grammar using the metagramar "
 
-	^ AFHypernotionGrammar
-		metaProductionRules: metaProductionRules
-		nonterminals: nonterminals
+	| startSymbol |
+	startSymbol := aHypernotion asNonterminal.
+	^ JEGrammar
+		nonterminals: (nonterminals copyWith: startSymbol)
 		terminals: terminals
-		startAt: aHypernotion
+		productionRules:
+			((SinglyLinkedList with: (NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: nonterminals)))
+				addAll: metaProductionRules;
+				yourself)
+		startNonterminal: startSymbol
 ]

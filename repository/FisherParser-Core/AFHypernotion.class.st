@@ -1,6 +1,14 @@
 "
 a hypernotion used by the algorithm.
 
+
+use jay earley parser as a pattern matching algorithm.
+the hypernotion system is uniquely assignable (u.a.) [On Parsing Two-Level Grammars, Lutz Michael Wegner]
+
+Definition 12. Let M, V, Rm be defined as for two-level grammars(Definition 1). A hypernotion system HS is a 4-tuple (M, V, Rm, H), where H in (M u V)+, the hypernotion (axiom).
+The language of a hypernotion system HS = (M, V, Rm, H) where H contains the n>=0 metanotions W1, W2, ..., Wn is defined as L(HS) = {phi(H) | phi is a homomorphism with phi(v) = v for v in V and phi(Wi) in L((M, V, Rm, Wi)) for all 1<=i<=n}.
+
+Definition 13. If HS=(M, V, Rm, H) is a hypernotion system with H = X1X2...Xn, Xi in (M u V) for 1<=i<=n, then HS is uniquely assignable (u.a.) if for all w in L(HS) there is exactly on partition (p1, p2, ..., pn) such that.  w = p1p2...pn and phi(Xi) = pi for phi homomorphism of Definition 12.
 "
 Class {
 	#name : #AFHypernotion,
@@ -11,7 +19,8 @@ Class {
 		'grammar',
 		'metaGrammar',
 		'backwardCrossReferences',
-		'forwardCrossReferences'
+		'forwardCrossReferences',
+		'firstSet'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -144,17 +153,87 @@ AFHypernotion >> buildBodyOf: symbols [
 
 { #category : #testing }
 AFHypernotion >> checkIsLLOne [
-	self grammar checkIsLLOne
+	| followSet parseTable conflictKeys |
+	followSet := self computeFollowSet.
+	parseTable := self computeParseTableUsing: followSet.
+	conflictKeys := parseTable keys select: [ :key | (parseTable at: key) size > 1 ].
+	conflictKeys isEmpty
+		ifFalse: [ 
+			Error
+				signal:
+					(String
+						streamContents: [ :s | 
+							s nextPutAll: 'CONFLICT at '.
+							conflictKeys do: [ :key | s print: key ] separatedBy: [ s space ] ]) ]
 ]
 
 { #category : #accessing }
 AFHypernotion >> computeFirstSet [
-	self grammar computeFirstSet
+	| previousSize |
+	firstSet := MultiValuedDictionary dictionary: IdentityDictionary collection: Set.
+	self grammar nonterminals do: [ :each | firstSet at: each putAll: #() ].
+	[	previousSize := firstSet size.
+		self grammar productionRules 
+			do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
+		previousSize = firstSet size ] whileFalse
+]
+
+{ #category : #private }
+AFHypernotion >> computeFollowSet [
+	| followSet previousSize symbolFollowSet rest restFirstSet |
+	followSet := MultiValuedDictionary dictionary: IdentityDictionary collection: Set.
+	self grammar nonterminals do: [ :each | followSet at: each putAll: #() ].
+	followSet at: self grammar startSymbol put: #endmarker.
+	[ previousSize := followSet size.
+	self grammar productionRules
+		do: [ :rule | 
+			rule body
+				withIndexDo: [ :symbol :index | 
+					symbol isNonterminal
+						ifTrue: [ 
+							symbolFollowSet := Set new.
+							rest := rule body copyFrom: index + 1 to: rule body size.
+							rest isEmpty
+								ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ]
+								ifFalse: [ 
+									restFirstSet := firstSet firstOf: rest.
+									(restFirstSet includes: #epsilon)
+										ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ].
+									symbolFollowSet addAll: (restFirstSet copyWithout: #epsilon) ].
+							followSet at: symbol putAll: symbolFollowSet ] ] ].
+	previousSize = followSet size ] whileFalse.
+	^ followSet 
+]
+
+{ #category : #private }
+AFHypernotion >> computeParseTableUsing: followSet [
+	" compute parse table using first set and follow test. 
+	  then you can test if there's a conflict "
+	| parseTable |
+	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	self grammar productionRules
+		do: [ :rule | 
+			| bodyFirstSet |
+			bodyFirstSet := firstSet firstOf: rule body.
+			(self grammar terminals intersection: bodyFirstSet)
+				do: [ :terminal | 
+					parseTable 
+						at: (OrderedPair first: rule head second: terminal) 
+						put: rule ].
+			(bodyFirstSet includes: #epsilon)
+				ifTrue: [ 
+					(self grammar terminals intersection: (followSet at: rule head))
+						do: [ :terminal | 
+							parseTable 
+								at: (OrderedPair first: rule head second: terminal) 
+								put: rule ] ] ].
+	^ parseTable 					
+
 ]
 
 { #category : #accessing }
 AFHypernotion >> firstSet [
-	^ self grammar startSymbolFirstSet
+	^ firstSet at: self grammar startSymbol
 ]
 
 { #category : #'cross references' }
@@ -231,7 +310,8 @@ AFHypernotion >> initialize [
 	metaGrammar := nil.
 	grammar := nil.
 	backwardCrossReferences := Set new.
-	forwardCrossReferences := Set new
+	forwardCrossReferences := Set new.
+	firstSet := nil
 ]
 
 { #category : #initialization }
@@ -276,17 +356,21 @@ AFHypernotion >> isTerminal [
 
 { #category : #matching }
 AFHypernotion >> match: aProtonotionHypernotion [
-	^ self grammar match: aProtonotionHypernotion
+	"	a hypernotion match a protonotion, you need the relative substitution. "
+
+	^ [ (self grammar parse: aProtonotionHypernotion asString) substitutionsOf: self ]
+		on: JEFailure
+		do: [ AFSubstitution noSolution ]
 ]
 
 { #category : #matching }
 AFHypernotion >> match: aProtonotionHypernotion do: aBlock [
-	self grammar match: aProtonotionHypernotion do: aBlock
+	(self match: aProtonotionHypernotion) ifSolution: aBlock
 ]
 
 { #category : #matching }
 AFHypernotion >> matchEmptyDo: aBlock [
-	self grammar matchEmptyDo: aBlock
+	(self match: String empty) ifSolution: aBlock
 ]
 
 { #category : #matching }
@@ -296,7 +380,7 @@ AFHypernotion >> matches: aCharacter [
 
 { #category : #testing }
 AFHypernotion >> matchesEmpty [
-	^ self grammar matchesEmpty
+	^ self grammar accepts: String empty
 ]
 
 { #category : #accessing }
