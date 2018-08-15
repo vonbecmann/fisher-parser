@@ -78,26 +78,20 @@ AFHyperRuleTest >> testIsEpsilon [
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsLRTypeIffForAll [
-	| metanotions |
-	metanotions := {(AWMetanotion named: #LETTER)}.
-
+AFHyperRuleTest >> testIsLRType [
 	hyperRule := AFHyperRule
 		headWithAll: #('i' #LETTER 's') asNotions
 		bodyWith: (AFHypernotion withAll: #(#LETTER 'symbol') asNotions).
 
-	self assert: (hyperRule isLRTypeIffForAll: metanotions).
-	self assert: (hyperRule isLeftBoundIffForAll: metanotions).
-	self assert: (hyperRule isRightBoundIffForAll: metanotions)
+	self assert: hyperRule isLRType.
+	self assert: hyperRule isLeftBound.
+	self assert: hyperRule isRightBound
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsLTypeIffForAll [
+AFHyperRuleTest >> testIsLType [
 	"TAGS statement sequence:
 	   TAGS statement sequence, TAG applied occurrence, where TAG is in TAGS."
-
-	| metanotions |
-	metanotions := { (AWMetanotion named: #TAGS). (AWMetanotion named: #TAG) }.
 
 	hyperRule := 
 		AFHyperRule
@@ -107,70 +101,61 @@ AFHyperRuleTest >> testIsLTypeIffForAll [
 				(AFHypernotion withAll: #(TAG 'applied' 'occurrence') asNotions).
 				(AFHypernotion withAll: #('where' TAG 'is' 'in' TAGS) asNotions)}.
 			
-	self assert: (hyperRule isLTypeIffForAll: metanotions).
-	self assert: (hyperRule isLeftBoundIffForAll: metanotions).
-	self deny: (hyperRule isRightBoundIffForAll: metanotions) 
+	self assert: hyperRule isLType.
+	self assert: hyperRule isLeftBound.
+	self deny: hyperRule isRightBound 
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsLeftBoundIffForAll [
+AFHyperRuleTest >> testIsLeftBound [
 	hyperRule := AFHyperRule
 		headWithAll: #('i' #LETTER 's') asNotions
 		bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
 
-	self 
-		assert: (hyperRule isLeftBoundIffForAll: {(AWMetanotion named: #LETTER)})
+	self assert: hyperRule isLeftBound
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsLeftBoundIffForAll02 [
+AFHyperRuleTest >> testIsLeftBound02 [
 	hyperRule := AFHyperRule
 		headWithAll: #(#TALLY #LETTER 's') asNotions
 		bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
 
-	self
-		deny:
-			(hyperRule
-				isLeftBoundIffForAll:
-					{(AWMetanotion named: #TALLY).
-					(AWMetanotion named: #LETTER)})
+	self deny: hyperRule isLeftBound
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsLeftBoundIffForAll03 [
+AFHyperRuleTest >> testIsLeftBound03 [
 	hyperRule := 
 		AFHyperRule
 			headWithAll: #('a' 's') asNotions
 			bodyWith: (AFHypernotion withAll: #('letter' 'a' 'symbol') asNotions).
 			
-	self assert: (hyperRule isLeftBoundIffForAll: #())
+	self assert: hyperRule isLeftBound
 	
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsLeftBoundIffForAll04 [
+AFHyperRuleTest >> testIsLeftBound04 [
 	hyperRule := 
 	AFHyperRule
 		headWithAll: #('letter' 'a' 'symbol') asNotions
 		bodyWith: (AFHypernotion with: (NCTerminal character: $a)).
 	
-	self assert: (hyperRule isLeftBoundIffForAll: #())
+	self assert: hyperRule isLeftBound
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsRTypeIffForAll [
+AFHyperRuleTest >> testIsRType [
 	"where TAG1 is in TAG2 TAGS: 	where TAG1 is in TAGS."
 
-	| metanotions |
-	metanotions := {(AWMetanotion named: #TAG1). (AWMetanotion named: #TAG2). (AWMetanotion named: #TAGS)}.
-	
 	hyperRule := AFHyperRule
 		headWithAll: #('where' TAG1 'is' 'in' TAG2 TAGS) asNotions
 		bodyWith: (AFHypernotion withAll: #('where' TAG1 'is' 'in' TAGS) asNotions).
 	
-	self assert: (hyperRule isRTypeIffForAll: metanotions).
-	self assert: (hyperRule isRightBoundIffForAll: metanotions).
-	self deny: (hyperRule isLeftBoundIffForAll: metanotions)
+	self assert: hyperRule isRType.
+	self assert: hyperRule isRightBound.
+	self deny: hyperRule isLeftBound
 ]
 
 { #category : #tests }
@@ -218,49 +203,43 @@ AFHyperRuleTest >> testIsRepresentation05 [
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsRightBoundIffForAll [
+AFHyperRuleTest >> testIsRightBound [
 	hyperRule := AFHyperRule
 		headWithAll: #('i' #LETTER 's') asNotions
 		bodyWith: (AFHypernotion withAll: #('i' #LETTER 's') asNotions).
 
-	self 
-		assert: (hyperRule isRightBoundIffForAll: {(AWMetanotion named: #LETTER)})
+	self assert: hyperRule isRightBound
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsRightBoundIffForAll02 [
+AFHyperRuleTest >> testIsRightBound02 [
 	hyperRule := 
 	AFHyperRule
 		headWithAll: #('i' #LETTER 's') asNotions
 		body:
 			{(AFHypernotion withAll: #('i' #LETTER 's') asNotions).
 			(AFHypernotion with: (AWMetanotion named: 'TALLY'))}.
-	self
-		deny:
-			(hyperRule
-				isRightBoundIffForAll:
-					{(AWMetanotion named: #LETTER).
-					(AWMetanotion named: #TALLY)})
+	self deny: hyperRule isRightBound
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsRightBoundIffForAll03 [
+AFHyperRuleTest >> testIsRightBound03 [
 	hyperRule := 
 	AFHyperRule
 		headWithAll: #('a' 's') asNotions
 		bodyWith: (AFHypernotion withAll: #('letter' 'a' 'symbol') asNotions).
 	
-	self assert: (hyperRule isRightBoundIffForAll: #())
+	self assert: hyperRule isRightBound
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsRightBoundIffForAll04 [
+AFHyperRuleTest >> testIsRightBound04 [
 	hyperRule := 
 	AFHyperRule
 		headWithAll: #('letter' 'a' 'symbol') asNotions
 		bodyWith: (AFHypernotion with: (NCTerminal character: $a)).
 		
-	self assert: (hyperRule isRightBoundIffForAll: #())
+	self assert: hyperRule isRightBound
 ]
 
 { #category : #'tests - strict language' }
@@ -290,15 +269,13 @@ AFHyperRuleTest >> testIsStrict03 [
 ]
 
 { #category : #'tests - boundness' }
-AFHyperRuleTest >> testIsXTypeIffForAll [
-	| metanotions |
-	metanotions := {(AWMetanotion named: #NOTION). (AWMetanotion named: #EMPTY)}.
+AFHyperRuleTest >> testIsXType [
 	hyperRule := 
 		AFHyperRule
 			headWithAll: #('where' '<' NOTION '>' 'is' '<' NOTION '>') asNotions
 			bodyWith: (AFHypernotion with: #EMPTY asNotion).
 			
-	self assert: (hyperRule isXTypeIffForAll: metanotions).
-	self deny: (hyperRule isLeftBoundIffForAll: metanotions).
-	self deny: (hyperRule isRightBoundIffForAll: metanotions)
+	self assert: hyperRule isXType.
+	self deny: hyperRule isLeftBound.
+	self deny: hyperRule isRightBound
 ]

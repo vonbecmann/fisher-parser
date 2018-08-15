@@ -121,29 +121,27 @@ AFHyperRule >> isEpsilon [
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isLRTypeIffForAll: metanotions [
+AFHyperRule >> isLRType [
 	" A hyper rule is of the type LR if and only if(iif)
 		it is both left-bound and right-bound. "
 
-	^ (self isLeftBoundIffForAll: metanotions)
-		and: [ self isRightBoundIffForAll: metanotions ]
+	^ self isLeftBound and: [ self isRightBound ]
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isLTypeIffForAll: metanotions [
+AFHyperRule >> isLType [
 	" A hyper rule is of the type L if and only if(iff)
 		it is left-bound but not right-bound. "
 
-	^ (self isLeftBoundIffForAll: metanotions)
-		and: [ (self isRightBoundIffForAll: metanotions) not ]
+	^ self isLeftBound and: [ self isRightBound not ]
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isLeftBoundIffForAll: metanotions [
+AFHyperRule >> isLeftBound [
 	" left-bound if and only if(iff) for all m in metanotions:
 		((head occurrencesOf: m) ~= 0) implies that ((body occurrencesOf: m) ~= 0) "
 
-	metanotions
+	head metanotions
 		do: [ :m | 
 			(head occurrencesOf: m) ~= 0 ==> [ (body occurrencesOf: m) ~= 0 ]
 				ifFalse: [ ^ false ] ].
@@ -151,12 +149,11 @@ AFHyperRule >> isLeftBoundIffForAll: metanotions [
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isRTypeIffForAll: metanotions [
+AFHyperRule >> isRType [
 	" A hyper rule is of the type R if and only if(iff)
 		it is right-bound but not left-bound. "
 
-	^ (self isRightBoundIffForAll: metanotions)
-		and: [ (self isLeftBoundIffForAll: metanotions) not ]
+	^ self isRightBound and: [ self isLeftBound not ]
 ]
 
 { #category : #testing }
@@ -167,11 +164,11 @@ AFHyperRule >> isRepresentation [
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isRightBoundIffForAll: metanotions [
+AFHyperRule >> isRightBound [
 	" right-bound if and only if(iff) for all m in metanotions:
 		((body occurrencesOf: m) ~= 0) implies that ((head occurrencesOf: m) ~= 0) "
 
-	metanotions
+	body metanotions
 		do: [ :m | 
 			(body occurrencesOf: m) ~= 0 ==> [ (head occurrencesOf: m) ~= 0 ]
 				ifFalse: [ ^ false ] ].
@@ -192,12 +189,11 @@ AFHyperRule >> isStrict [
 ]
 
 { #category : #'testing - boundness' }
-AFHyperRule >> isXTypeIffForAll: metanotions [
+AFHyperRule >> isXType [
 	" A hyper rule is of the type X if and only if(iff)
 		it is neither left-bound nor right-bound. "
 
-	^ (self isLeftBoundIffForAll: metanotions) not
-		and: [ (self isRightBoundIffForAll: metanotions) not ]
+	^ self isLeftBound not and: [ self isRightBound not ]
 ]
 
 { #category : #printing }

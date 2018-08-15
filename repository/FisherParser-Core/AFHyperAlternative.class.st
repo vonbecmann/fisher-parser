@@ -103,6 +103,14 @@ AFHyperAlternative >> isStrict [
 	^ hypernotions allSatisfy: [ :hn | hn isStrict ]
 ]
 
+{ #category : #accessing }
+AFHyperAlternative >> metanotions [
+	| metanotions |
+	metanotions := Set new.
+	hypernotions do: [ :hn | metanotions addAll: hn metanotions ].
+	^ metanotions
+]
+
 { #category : #testing }
 AFHyperAlternative >> occurrencesOf: aNotion [
 	| tally |
