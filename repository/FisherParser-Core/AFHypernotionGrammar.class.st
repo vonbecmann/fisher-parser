@@ -48,16 +48,14 @@ AFHypernotionGrammar >> checkIsLLOne [
 							conflictKeys do: [ :key | s print: key ] separatedBy: [ s space ] ]) ]
 ]
 
-{ #category : #private }
+{ #category : #public }
 AFHypernotionGrammar >> computeFirstSet [
 	| previousSize |
+	firstSet := MultiValuedDictionary dictionary: IdentityDictionary collection: Set.
 	associatedGrammar nonterminals do: [ :each | firstSet at: each putAll: #() ].
-	[ 	previousSize := firstSet size.
+	[	previousSize := firstSet size.
 		associatedGrammar productionRules 
-			do: [ :rule | 
-				firstSet 
-					at: rule head 
-					putAll: (firstSet firstOf: rule body) ].
+			do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
 		previousSize = firstSet size ] whileFalse
 ]
 
@@ -130,14 +128,9 @@ AFHypernotionGrammar >> gtInspectorProductionRulesIn: composite [
 ]
 
 { #category : #initialization }
-AFHypernotionGrammar >> initialize [
-	firstSet := MultiValuedDictionary dictionary: IdentityDictionary collection: Set
-]
-
-{ #category : #initialization }
 AFHypernotionGrammar >> initializeHypernotion: aHypernotion metaProductionRules: metaProductionRules nonterminals: nonterminals terminals: terminals [
 	| startSymbol |
-	self initialize.
+	firstSet := nil.
 	hypernotion := aHypernotion.
 	startSymbol := hypernotion asNonterminal.
 	associatedGrammar := JEGrammar
