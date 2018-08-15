@@ -153,7 +153,6 @@ AFVWGrammar >> hypernotions [
 { #category : #initialization }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	| startNotion startHypernotion hypernotionDict |
-	self initialize.
 	vwGrammar := aVWGrammar.
 	startNotion := AWProtonotion with: '((start))'.
 	metaGrammar := 
