@@ -46,7 +46,6 @@ AFChart >> gtInspectorColumnsIn: composite [
 
 { #category : #initialization }
 AFChart >> initializeSize: sizeRequested [
-	self initialize.
 	columns := Array new: sizeRequested.
 	1 to: columns size do: [ :index | columns at: index put: (AFColumn number: index) ]
 ]
