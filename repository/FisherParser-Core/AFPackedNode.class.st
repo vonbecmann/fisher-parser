@@ -92,6 +92,16 @@ AFPackedNode >> initializeModel: anItem [
 	model := anItem
 ]
 
+{ #category : #testing }
+AFPackedNode >> isAmbiguous [
+	AFDepthFirstVisitor new
+		preOrderNodeBlock: [ :packed | 
+			packed familiesSize > 1
+				ifTrue: [ ^ true ] ];
+		visit: self.
+	^ false
+]
+
 { #category : #accessing }
 AFPackedNode >> model [
 	^ model
