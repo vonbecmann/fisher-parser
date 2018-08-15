@@ -251,7 +251,7 @@ AFHypernotion >> forwardCrossReferencesDo: aBlock [
 	forwardCrossReferences do: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 AFHypernotion >> grammar [
 	^ grammar ifNil: [ grammar := metaGrammar startAt: self ]
 ]
