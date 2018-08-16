@@ -3,7 +3,7 @@ Extension { #name : #MultiValuedDictionary }
 { #category : #'*FisherParser-Core' }
 MultiValuedDictionary >> firstOf: symbols [
 	| symbolsFirst |
-	symbolsFirst := Set new.
+	symbolsFirst := collectionClass new.
 	symbols isEmpty
 		ifTrue: [ symbolsFirst add: #epsilon ]
 		ifFalse: [ | index symbol |
