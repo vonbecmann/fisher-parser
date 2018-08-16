@@ -170,7 +170,7 @@ AFHypernotion >> checkIsLLOne [
 { #category : #accessing }
 AFHypernotion >> computeFirstSet [
 	| previousSize |
-	firstSet := MultiValuedDictionary dictionary: IdentityDictionary collection: Set.
+	firstSet := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
 	self grammar nonterminals do: [ :each | firstSet at: each putAll: #() ].
 	[	previousSize := firstSet size.
 		self grammar productionRules 
@@ -181,7 +181,7 @@ AFHypernotion >> computeFirstSet [
 { #category : #private }
 AFHypernotion >> computeFollowSet [
 	| followSet previousSize symbolFollowSet rest restFirstSet |
-	followSet := MultiValuedDictionary dictionary: IdentityDictionary collection: Set.
+	followSet := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
 	self grammar nonterminals do: [ :each | followSet at: each putAll: #() ].
 	followSet at: self grammar startSymbol put: #endmarker.
 	[ previousSize := followSet size.
@@ -191,7 +191,7 @@ AFHypernotion >> computeFollowSet [
 				withIndexDo: [ :symbol :index | 
 					symbol isNonterminal
 						ifTrue: [ 
-							symbolFollowSet := Set new.
+							symbolFollowSet := IdentitySet new.
 							rest := rule body copyFrom: index + 1 to: rule body size.
 							rest isEmpty
 								ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ]
