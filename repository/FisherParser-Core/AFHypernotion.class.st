@@ -406,7 +406,7 @@ AFHypernotion >> printString [
 { #category : #'initialize-release' }
 AFHypernotion >> release [
 	notions := metanotions := metaGrammar := nil.
-	grammar := forwardCrossReferences := firstSet := nil.
+	grammar := backwardCrossReferences := forwardCrossReferences := firstSet := nil.
 	super release
 ]
 
