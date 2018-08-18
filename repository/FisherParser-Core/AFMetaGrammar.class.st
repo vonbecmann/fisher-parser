@@ -90,7 +90,7 @@ AFMetaGrammar >> computeParseTableUsing: firstSet and: followSet [
 	then you can test if there's a conflict "
 
 	| parseTable bodyFirstSet |
-	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	parseTable := MultiValuedDictionary dictionary: Dictionary collection: IdentitySet.
 	metaProductionRules
 		do: [ :rule | 
 			bodyFirstSet := firstSet firstOf: rule body.

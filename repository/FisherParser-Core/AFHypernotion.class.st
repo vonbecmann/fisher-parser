@@ -210,7 +210,7 @@ AFHypernotion >> computeParseTableUsing: followSet [
 	" compute parse table using first set and follow test. 
 	  then you can test if there's a conflict "
 	| parseTable |
-	parseTable := MultiValuedDictionary dictionary: Dictionary collection: Set.
+	parseTable := MultiValuedDictionary dictionary: Dictionary collection: IdentitySet.
 	self grammar productionRules
 		do: [ :rule | 
 			| bodyFirstSet |
