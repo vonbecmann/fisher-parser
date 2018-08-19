@@ -42,7 +42,7 @@ AFTerminalItem >> equals: anItem [
 	^ (super equals: anItem) and: [ terminal = anItem terminal ]
 ]
 
-{ #category : #printing }
+{ #category : #'inspector extensions' }
 AFTerminalItem >> gtDisplayOn: aStream [
 	"[ terminal @ [ start, end ] ]"
 
