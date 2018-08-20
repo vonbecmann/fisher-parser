@@ -34,12 +34,46 @@ AFChart >> first [
 ]
 
 { #category : #'inspector extensions' }
-AFChart >> gtInspectorColumnsIn: composite [
+AFChart >> gtInspectorAllSortedItemsAtColumnsIn: composite [
 	<gtInspectorPresentationOrder: 0>
+	^ composite fastTable
+		title: [ 'all sorted items' ];
+		display: [ 
+			OrderedCollection
+				new: (columns inject: 0 into: [ :sum :column | sum + column size ])
+				streamContents: [ :s | columns do: [ :column | s nextPutAll: column sortedItems ] ] ];
+		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
+		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
+		showOnly: 50;
+		yourself
+]
+
+{ #category : #'inspector extensions' }
+AFChart >> gtInspectorColumnBrowserIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite tabulator
+		with: [ :tab | 
+			tab title: 'browse'.
+			columns
+				do: [ :column | 
+					tab column: column asString asSymbol.
+					tab transmit
+						to: column asString asSymbol;
+						andShow: [ :a | 
+							a fastList
+								display: [ column sortedItems ];
+								format: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
+								yourself ] ] ];
+		yourself
+]
+
+{ #category : #'inspector extensions' }
+AFChart >> gtInspectorColumnsIn: composite [
+	<gtInspectorPresentationOrder: 2>
 	^ composite table
 		title: [ columns size asString , ' columns' ];
 		display: [ columns ];
-		column: 'Column' evaluated: [ :each | each ];
+		column: 'Column' evaluated: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
 ]
