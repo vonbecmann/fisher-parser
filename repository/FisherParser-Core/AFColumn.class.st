@@ -73,11 +73,10 @@ AFColumn >> addTerminalItem: aTerminalItem [
 
 { #category : #'inspector extensions' }
 AFColumn >> gtDisplayOn: aStream [
-	"AFColumn [number]"
+	"Column [number]"
 
 	aStream
-		nextPutAll: self className;
-		nextPut: $[;
+		nextPutAll: 'Column [';
 		print: number;
 		nextPut: $]
 ]
