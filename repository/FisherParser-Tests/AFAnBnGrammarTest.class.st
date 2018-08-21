@@ -42,3 +42,21 @@ AFAnBnGrammarTest >> testAcceptsBC [
 AFAnBnGrammarTest >> testAcceptsEpsilon [
 	self deny: (grammar accepts: '')
 ]
+
+{ #category : #tests }
+AFAnBnGrammarTest >> testAnalyzeAcceptsAB [
+	| analysis chart |
+	analysis := grammar analyzeAccepts: 'ab'.
+	self assert: (analysis at: 'accepts').
+	chart := analysis at: 'chart'.
+	self assert: chart size equals: 3
+]
+
+{ #category : #tests }
+AFAnBnGrammarTest >> testAnalyzeAcceptsAC [
+	| analysis message |
+	analysis := grammar analyzeAccepts: 'ac'.
+	self deny: (analysis at: 'accepts').
+	message := analysis at: 'message'.
+	self assert: message equals: 'failed at AFColumn(2)'
+]

@@ -9,10 +9,17 @@ Class {
 
 { #category : #testing }
 AFAnalyticalRecognizer >> accepts: aString [
-	| chart |
+	^ [ | chart |
 	chart := self evaluate: aString.
-	^ OrderedDictionary
+	OrderedDictionary
 		newFrom:
 			{('chart' -> chart).
-			('accepts' -> (chart last includes: (grammar startHyperRule dotAtEnd startAt: chart first)))}
+			('accepts'
+				-> (chart last includes: (grammar startHyperRule dotAtEnd startAt: chart first)))} ]
+		on: AFFailure
+		do: [ :ex | 
+			OrderedDictionary
+				newFrom:
+					{('accepts' -> false).
+					('message' -> ex messageText)} ]
 ]
