@@ -109,7 +109,9 @@ AFHypernotion >> asNonterminal [
 		named:
 			(String
 				streamContents: [ :s | 
-					self printOn: s.
+					self isEmpty
+						ifTrue: [ s nextPutAll: '_empty_' ]
+						ifFalse: [ self printOn: s ].
 					s nextPut: $#.
 					self identityHash printOn: s ])
 ]

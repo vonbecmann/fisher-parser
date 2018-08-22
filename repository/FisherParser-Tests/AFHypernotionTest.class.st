@@ -46,6 +46,14 @@ AFHypernotionTest >> testAsNonterminal [
 ]
 
 { #category : #tests }
+AFHypernotionTest >> testAsNonterminal02 [
+	hypernotion := AFHypernotion empty.
+	self
+		assert: hypernotion asNonterminal
+		equals: (NCNonterminal named: '_empty_#' , hypernotion identityHash asString)
+]
+
+{ #category : #tests }
 AFHypernotionTest >> testAsString [
 	self
 		assert:
