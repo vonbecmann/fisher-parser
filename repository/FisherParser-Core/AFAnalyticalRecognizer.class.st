@@ -21,5 +21,5 @@ AFAnalyticalRecognizer >> accepts: aString [
 			OrderedDictionary
 				newFrom:
 					{('accepts' -> false).
-					('message' -> ex messageText)} ]
+					('exception' -> ex)} ]
 ]

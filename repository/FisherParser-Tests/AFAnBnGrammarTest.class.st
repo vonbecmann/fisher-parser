@@ -54,9 +54,9 @@ AFAnBnGrammarTest >> testAnalyzeAcceptsAB [
 
 { #category : #tests }
 AFAnBnGrammarTest >> testAnalyzeAcceptsAC [
-	| analysis message |
+	| analysis exception |
 	analysis := grammar analyzeAccepts: 'ac'.
 	self deny: (analysis at: 'accepts').
-	message := analysis at: 'message'.
-	self assert: message equals: 'failed at AFColumn(2)'
+	exception := analysis at: 'exception'.
+	self assert: exception asString equals: 'AFFailure: failed at AFColumn(2)'
 ]
