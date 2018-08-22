@@ -125,8 +125,7 @@ AFMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
 AFMetaGrammar >> initialize [
 	nonterminals := Set new.
 	terminals := Set new.
-	metaProductionRules := SinglyLinkedList new
-
+	metaProductionRules := MultiValuedDictionary dictionary: IdentityDictionary collection: SinglyLinkedList
 ]
 
 { #category : #initialization }
@@ -142,13 +141,13 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 				NCProductionRule
 					head: (nonterminals like: each head)
 					body: (each body buildBodyOf: nonterminals) ]
-		thenDo: [ :each | metaProductionRules add: each ].
+		thenDo: [ :each | metaProductionRules at: each head put: each ].
 	ortholetters 
 		collect: [ :letter | 
 			NCProductionRule
 				head: (nonterminals like: (NCNonterminal named: letter))
 				body: {(terminals like: (NCTerminal character: letter))} ]
-		thenDo: [ :each | metaProductionRules add: each ]
+		thenDo: [ :each | metaProductionRules at: each head put: each ]
 ]
 
 { #category : #'instance creation' }
@@ -162,7 +161,7 @@ AFMetaGrammar >> startAt: aHypernotion [
 		terminals: terminals
 		productionRules:
 			((SinglyLinkedList with: (NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: nonterminals)))
-				addAll: metaProductionRules;
+				addAll: metaProductionRules values;
 				yourself)
 		startNonterminal: startSymbol
 ]
