@@ -168,14 +168,21 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 AFMetaGrammar >> startAt: aHypernotion [
 	" creates a hypernotion's grammar using the metagramar "
 
-	| startSymbol |
+	| startSymbol productionRules previousSize |
 	startSymbol := aHypernotion asNonterminal.
+	productionRules := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
+	productionRules at: startSymbol put: (NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: nonterminals)).
+	[ previousSize := productionRules size.
+	productionRules
+		do: [ :rule | 
+			rule body
+				do: [ :symbol | 
+					symbol isNonterminal
+						ifTrue: [ productionRules at: symbol putAll: (metaProductionRules at: symbol) ] ] ].
+	previousSize = productionRules size ] whileFalse.
 	^ JEGrammar
-		nonterminals: (nonterminals copyWith: startSymbol)
+		nonterminals: productionRules keys
 		terminals: terminals
-		productionRules:
-			((SinglyLinkedList with: (NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: nonterminals)))
-				addAll: metaProductionRules values;
-				yourself)
+		productionRules: productionRules
 		startNonterminal: startSymbol
 ]
