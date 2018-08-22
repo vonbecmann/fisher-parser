@@ -110,6 +110,20 @@ AFMetaGrammar >> computeParseTableUsing: firstSet and: followSet [
 ]
 
 { #category : #'inspector extensions' }
+AFMetaGrammar >> gtInspectorMetaProductionRulesBrowserIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite fastTreeTable
+		title: [ 'Nonterminal -> Meta Rules' ];
+		display: [ metaProductionRules keys ];
+		column: 'Nonterminal' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		hasChildren: [ :key | (metaProductionRules at: key ifAbsent: #()) isNotEmpty ];
+		children: [ :key | (metaProductionRules at: key) asArray ];
+		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		showOnly: 50;
+		yourself
+]
+
+{ #category : #'inspector extensions' }
 AFMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	^ composite table
