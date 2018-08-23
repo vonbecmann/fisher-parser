@@ -173,7 +173,7 @@ AFMetaGrammar >> startAt: aHypernotion [
 	productionRules := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
 	productionRules at: startSymbol put: (NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: nonterminals)).
 	[ previousSize := productionRules size.
-	productionRules
+	productionRules values
 		do: [ :rule | 
 			rule body
 				do: [ :symbol | 
