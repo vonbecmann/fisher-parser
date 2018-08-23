@@ -154,7 +154,7 @@ AFVWGrammar >> hypernotions [
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	| startNotion startHypernotion hypernotionDict |
 	vwGrammar := aVWGrammar.
-	startNotion := AWProtonotion with: '((start))'.
+	startNotion := AWProtonotion with: '_top'.
 	metaGrammar := 
 	AFMetaGrammar
 		metaRules: vwGrammar metaRules
