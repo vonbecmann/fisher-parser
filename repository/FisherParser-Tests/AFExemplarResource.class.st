@@ -15,7 +15,8 @@ Class {
 		'test15',
 		'test5',
 		'doubleLettersB',
-		'doubleLettersC'
+		'doubleLettersC',
+		'pl'
 	],
 	#category : #'FisherParser-Tests-Grammar'
 }
@@ -45,6 +46,11 @@ AFExemplarResource >> doubleLettersC [
 	^ doubleLettersC
 ]
 
+{ #category : #accessing }
+AFExemplarResource >> pl [
+	^ pl
+]
+
 { #category : #running }
 AFExemplarResource >> setUp [
 	super setUp.
@@ -58,7 +64,8 @@ AFExemplarResource >> setUp [
 	test15 := AFExemplar test15.
 	test5 := AFExemplar test5.
 	doubleLettersB := AFExemplar doubleLettersB.
-	doubleLettersC := AFExemplar doubleLettersC
+	doubleLettersC := AFExemplar doubleLettersC.
+	pl := AFExemplar pl
 ]
 
 { #category : #accessing }
@@ -72,7 +79,7 @@ AFExemplarResource >> tearDown [
 
 	a3b3c3 := starSequence := anbncn := test3 := anbn := nil.
 	wegner := test4 := test15 := test5 := doubleLettersB := nil.
-	doubleLettersC := nil.
+	doubleLettersC := pl := nil.
 	super tearDown
 ]
 
