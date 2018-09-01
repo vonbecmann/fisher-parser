@@ -158,10 +158,10 @@ AFHypernotion >> checkIsLLOne [
 	| followSet parseTable conflictKeys |
 	followSet := self computeFollowSet.
 	parseTable := self computeParseTableUsing: followSet.
-	conflictKeys := parseTable keys select: [ :key | (parseTable at: key) size > 1 ].
+	conflictKeys := parseTable keys
+		select: [ :key | (metanotions includes: key first) and: [ (parseTable at: key) size > 1 ] ].
 	conflictKeys isEmpty
-		ifFalse: [ 
-			Error
+		ifFalse: [ Error
 				signal:
 					(String
 						streamContents: [ :s | 
@@ -182,17 +182,19 @@ AFHypernotion >> computeFirstSet [
 
 { #category : #private }
 AFHypernotion >> computeFollowSet [
-	| followSet previousSize symbolFollowSet rest restFirstSet |
+	| followSet previousSize previousNonterminals symbolFollowSet rest restFirstSet |
 	followSet := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
 	self grammar nonterminals do: [ :each | followSet at: each putAll: #() ].
 	followSet at: self grammar startSymbol put: #endmarker.
 	[ previousSize := followSet size.
 	self grammar productionRules
 		do: [ :rule | 
+			previousNonterminals := IdentitySet new.
 			rule body
 				withIndexDo: [ :symbol :index | 
-					symbol isNonterminal
+					(symbol isNonterminal and: [ (previousNonterminals includes: symbol) not ])
 						ifTrue: [ 
+							previousNonterminals add: symbol.
 							symbolFollowSet := IdentitySet new.
 							rest := rule body copyFrom: index + 1 to: rule body size.
 							rest isEmpty
