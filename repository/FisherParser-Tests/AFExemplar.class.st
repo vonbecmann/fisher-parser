@@ -152,6 +152,70 @@ where ALPHA is ALPHA: .'
 ]
 
 { #category : #'instance creation' }
+AFExemplar class >> nd [
+	" a w-grammar that describes all alphabetic character strings in which no letter is repeated. "
+	^ AFVWGrammar
+		evw:
+'ALPHA:: a; b; c; d; e; f; g; h; i; j; k; l; m; n; o; p; q; r; s; t; u; v; w; x; y; z.
+LETTER:: letter ALPHA.
+TAG:: LETTER TAGETY. 
+	TAGETY:: TAG; .
+NOTION:: ALPHA NOTETY.
+	NOTETY:: NOTION; .
+
+LETTER1:: LETTER.
+LETTER2:: LETTER.
+ALPHA1:: ALPHA.
+ALPHA2:: ALPHA.
+NOTETY1:: NOTETY.
+NOTETY2:: NOTETY.
+NOTETY3:: NOTETY.
+
+s: 	TAG unique.
+
+LETTER TAG unique: LETTER symbol, TAG unique, where LETTER is not in TAG.
+LETTER unique: 	LETTER symbol.
+
+where LETTER1 is not in LETTER2 TAG:
+	where LETTER1 isnt LETTER2, where LETTER1 is not in TAG.
+where LETTER1 is not in LETTER2:
+	where LETTER1 isnt LETTER2.
+
+where letter ALPHA1 isnt letter ALPHA2: 
+	where ALPHA1 precedes ALPHA2 in abcdefghijklmnopqrstuvwxyz;
+	where ALPHA2 precedes ALPHA1 in abcdefghijklmnopqrstuvwxyz.
+
+where ALPHA1 precedes ALPHA2 in NOTETY1 ALPHA1 NOTETY2 ALPHA2 NOTETY3: .'
+		representations:
+			{(#('letter' 'a' 'symbol') -> (NCTerminal character: $a)).
+			(#('letter' 'b' 'symbol') -> (NCTerminal character: $b)).
+			(#('letter' 'c' 'symbol') -> (NCTerminal character: $c)).
+			(#('letter' 'd' 'symbol') -> (NCTerminal character: $d)).
+			(#('letter' 'e' 'symbol') -> (NCTerminal character: $e)).
+			(#('letter' 'f' 'symbol') -> (NCTerminal character: $f)).
+			(#('letter' 'g' 'symbol') -> (NCTerminal character: $g)).
+			(#('letter' 'h' 'symbol') -> (NCTerminal character: $h)).
+			(#('letter' 'i' 'symbol') -> (NCTerminal character: $i)).
+			(#('letter' 'j' 'symbol') -> (NCTerminal character: $j)).
+			(#('letter' 'k' 'symbol') -> (NCTerminal character: $k)).
+			(#('letter' 'l' 'symbol') -> (NCTerminal character: $l)).
+			(#('letter' 'm' 'symbol') -> (NCTerminal character: $m)).
+			(#('letter' 'n' 'symbol') -> (NCTerminal character: $n)).
+			(#('letter' 'o' 'symbol') -> (NCTerminal character: $o)).
+			(#('letter' 'p' 'symbol') -> (NCTerminal character: $p)).
+			(#('letter' 'q' 'symbol') -> (NCTerminal character: $q)).
+			(#('letter' 'r' 'symbol') -> (NCTerminal character: $r)).
+			(#('letter' 's' 'symbol') -> (NCTerminal character: $s)).
+			(#('letter' 't' 'symbol') -> (NCTerminal character: $t)).
+			(#('letter' 'u' 'symbol') -> (NCTerminal character: $u)).
+			(#('letter' 'v' 'symbol') -> (NCTerminal character: $v)).
+			(#('letter' 'w' 'symbol') -> (NCTerminal character: $w)).
+			(#('letter' 'x' 'symbol') -> (NCTerminal character: $x)).
+			(#('letter' 'y' 'symbol') -> (NCTerminal character: $y)).
+			(#('letter' 'z' 'symbol') -> (NCTerminal character: $z))}
+]
+
+{ #category : #'instance creation' }
 AFExemplar class >> pl [
 	" w-grammar description of two-letters strings, the first letter precedes the second in the alphabet. "
 	^ AFVWGrammar

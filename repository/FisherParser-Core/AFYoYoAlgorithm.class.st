@@ -59,9 +59,9 @@ AFYoYoAlgorithm >> evaluate: words [
 					item isFinal
 						ifTrue: [ 
 							item head isProtonotion
-								ifTrue: [ self 
-												bottomUpPredict: item;
-												complete: item ] ]
+								ifTrue: [ 
+									item start = item end ifFalse: [ self bottomUpPredict: item  ].
+									self complete: item ] ]
 						ifFalse: [ 
 							(item symbolAtDot isTerminal 
 								and: [ i < n and: [ item symbolAtDot matches: (words at: i) ] ])
