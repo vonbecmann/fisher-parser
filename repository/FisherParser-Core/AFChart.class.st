@@ -70,10 +70,10 @@ AFChart >> gtInspectorColumnBrowserIn: composite [
 { #category : #'inspector extensions' }
 AFChart >> gtInspectorColumnsIn: composite [
 	<gtInspectorPresentationOrder: 2>
-	^ composite table
+	^ composite fastList
 		title: [ columns size asString , ' columns' ];
 		display: [ columns ];
-		column: 'Column' evaluated: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
+		format: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
 		showOnly: 50;
 		yourself
 ]
