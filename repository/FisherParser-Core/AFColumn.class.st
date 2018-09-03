@@ -82,11 +82,11 @@ AFColumn >> gtDisplayOn: aStream [
 ]
 
 { #category : #'inspector extensions' }
-AFColumn >> gtInspectorItemsIn: composite [
-	<gtInspectorPresentationOrder: 0>
+AFColumn >> gtInspectorOrderedItemsIn: composite [
+	<gtInspectorPresentationOrder: 1>
 	^ composite table
-		title: [ orderedItems size asString , ' items' ];
-		display: [ self sortedItems ];
+		title: [ ' ordered items' ];
+		display: [ orderedItems asArray ];
 		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
 		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
 		showOnly: 50;
@@ -95,10 +95,22 @@ AFColumn >> gtInspectorItemsIn: composite [
 
 { #category : #'inspector extensions' }
 AFColumn >> gtInspectorPredictionItemsIn: composite [
-	<gtInspectorPresentationOrder: 1>
+	<gtInspectorPresentationOrder: 2>
 	^ composite table
 		title: [ 'Prediction' ];
 		display: [ predictionItems asArray ];
+		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
+		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
+		showOnly: 50;
+		yourself
+]
+
+{ #category : #'inspector extensions' }
+AFColumn >> gtInspectorSortedItemsIn: composite [
+	<gtInspectorPresentationOrder: 0>
+	^ composite table
+		title: [ orderedItems size asString , ' sorted items' ];
+		display: [ self sortedItems ];
 		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
 		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
 		showOnly: 50;
