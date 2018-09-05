@@ -82,6 +82,11 @@ AFDottedItem >> familiesSize [
 	^ self node familiesSize
 ]
 
+{ #category : #enumerating }
+AFDottedItem >> finalItemsWithHeadMatchSymbolAtDotDo: aBlock [
+	end finalItemsWithHeadMatch: self symbolAtDot do: aBlock
+]
+
 { #category : #'inspector extensions' }
 AFDottedItem >> gtDisplayOn: aStream [
 	"[ dotted hyper rule @ start ]"

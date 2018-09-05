@@ -67,7 +67,11 @@ AFYoYoAlgorithm >> evaluate: words [
 								and: [ i < n and: [ item symbolAtDot matches: (words at: i) ] ])
 										ifTrue: [ self scan: item with: (words at: i) at: (chart at: i + 1) ].
 							item symbolAtDot isProtonotion
-								ifTrue: [ self topDownPredict: item ].
+								ifTrue: [ 
+									self topDownPredict: item.
+									item 
+										finalItemsWithHeadMatchSymbolAtDotDo: [ :again | 
+											self complete: again ] ].
 							item symbolAtDot isHypernotion
 								ifTrue: [ self gapScan: item ] ] ] ].
 	^ chart

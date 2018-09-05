@@ -9,7 +9,8 @@ Class {
 		'itemSet',
 		'orderedItems',
 		'predictionItems',
-		'itemsToProcess'
+		'itemsToProcess',
+		'finalItems'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
@@ -53,6 +54,9 @@ AFColumn >> addDottedItem: dottedItem [
 	itemsToProcess nextPut: dottedItem.
 	itemSet addLast: dottedItem.
 	dottedItem isFinal
+		ifTrue: [ 
+			dottedItem start = self
+				ifTrue: [ finalItems addLast: dottedItem ] ]
 		ifFalse: [ 
 			dottedItem symbolAtDot isTerminal
 				ifFalse: [ predictionItems addLast: dottedItem ] ].
@@ -71,6 +75,15 @@ AFColumn >> addTerminalItem: aTerminalItem [
 			orderedItems addLast: aTerminalItem ]
 ]
 
+{ #category : #enumerating }
+AFColumn >> finalItemsWithHeadMatch: aProtonotionHypernotion do: aBlock [
+	finalItems
+		do: [ :finalItem | 
+			finalItem head 
+				match: aProtonotionHypernotion 
+				do: [ aBlock cull: finalItem ] ]
+]
+
 { #category : #'inspector extensions' }
 AFColumn >> gtDisplayOn: aStream [
 	"Column [number]"
@@ -79,6 +92,17 @@ AFColumn >> gtDisplayOn: aStream [
 		nextPutAll: 'Column [';
 		print: number;
 		nextPut: $]
+]
+
+{ #category : #'inspector extensions' }
+AFColumn >> gtInspectorFinalItemsIn: composite [
+	<gtInspectorPresentationOrder: 3>
+	^ composite fastList
+		title: [ 'Final' ];
+		display: [ finalItems asArray ];
+		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
+		showOnly: 50;
+		yourself
 ]
 
 { #category : #'inspector extensions' }
@@ -135,8 +159,8 @@ AFColumn >> initialize [
 	itemsToProcess := SinglyLinkedQueue new.
 	itemSet := SinglyLinkedList new.
 	orderedItems := SinglyLinkedList new.
-	predictionItems := SinglyLinkedList new
-	
+	predictionItems := SinglyLinkedList new.
+	finalItems := SinglyLinkedList new
 ]
 
 { #category : #initialization }
@@ -192,6 +216,7 @@ AFColumn >> processItems: aBlock [
 { #category : #'initialize-release' }
 AFColumn >> release [
 	number := itemsToProcess := itemSet := orderedItems := predictionItems := nil.
+	finalItems := nil.
 	super release
 ]
 
