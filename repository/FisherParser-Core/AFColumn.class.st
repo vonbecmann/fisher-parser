@@ -81,7 +81,7 @@ AFColumn >> finalItemsWithHeadMatch: aProtonotionHypernotion do: aBlock [
 		do: [ :finalItem | 
 			finalItem head 
 				match: aProtonotionHypernotion 
-				do: [ aBlock cull: finalItem ] ]
+				do: [ aBlock value: finalItem ] ]
 ]
 
 { #category : #'inspector extensions' }
