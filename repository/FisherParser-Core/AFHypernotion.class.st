@@ -155,6 +155,19 @@ AFHypernotion >> buildBodyOf: symbols [
 
 { #category : #testing }
 AFHypernotion >> checkIsLLOne [
+	" page 14.
+	The weaker version of P1 is: 
+	R1. For each hypernotion h in the VWG, let h' denote the value of
+		h after the following operation has been performed: for each
+		metanotion m present in h, replace the second and subsequent
+		ocurrences of m in h' consistently by some protonotion
+		derivable from m. The VWG is acceptable only if the defining
+		CFG of h' is LL(1), no matter which substitutions are chosen.
+	R1 is easily checked. The standard algorithms all proceed by constructing
+	'starter' and 'follower' sets for non-terminals in the CFG. To check R1,
+	one applies one of the standard algorithms, but neglects to record followers
+	for the second and subsequent occurrences of each metanotion. "
+	
 	| followSet parseTable conflictKeys |
 	followSet := self computeFollowSet.
 	parseTable := self computeParseTableUsing: followSet.
