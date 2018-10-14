@@ -160,7 +160,7 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		metaRules: vwGrammar metaRules
 		ortholetters: (vwGrammar ortholetters, startNotion letters).
 	hypernotionDict := Dictionary new.
-	vwGrammar hypernotions 
+	vwGrammar hyperRulesHypernotions  
 		do: [ :hypernotion | 
 			hypernotionDict 
 				at: hypernotion 

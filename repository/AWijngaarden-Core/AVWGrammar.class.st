@@ -17,6 +17,7 @@ Class {
 		'terminals',
 		'metaRules',
 		'hyperRules',
+		'hyperRulesHypernotions',
 		'startNotion'
 	],
 	#category : #'AWijngaarden-Core'
@@ -74,6 +75,13 @@ AVWGrammar >> hyperRules [
 ]
 
 { #category : #accessing }
+AVWGrammar >> hyperRulesHypernotions [
+	" hyperRule's hypernotions "
+
+	^ hyperRulesHypernotions
+]
+
+{ #category : #accessing }
 AVWGrammar >> hyperRulesSize [
 	^ hyperRules size
 ]
@@ -86,7 +94,9 @@ AVWGrammar >> hypernotions [
 { #category : #initialization }
 AVWGrammar >> initialize [
 	super initialize.
-	ortholetters := Set new
+	ortholetters := Set new.
+	hyperRulesHypernotions := Set new.
+	
 ]
 
 { #category : #initialization }
@@ -99,6 +109,11 @@ AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet 
 	terminals := terminalSet.
 	metaRules := metaRuleCollection.
 	hyperRules := hyperRuleCollection.
+	hyperRules
+		do: [ :each | 
+			hyperRulesHypernotions
+				add: each head;
+				addAll: each body ].
 	startNotion := aHypernotion
 ]
 
