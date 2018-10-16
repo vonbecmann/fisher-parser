@@ -53,8 +53,8 @@ AVWGrammarBuilder >> build [
 	hyperRules do: [ :hRule | notions addAll: hRule notions ].
 	hyperRules
 		do: [ :hRule | 
-			hypernotions add: (hRule head buildWith: metanotions and: notions).
-			hypernotions
+			hypernotions 
+				add: (hRule head buildWith: metanotions and: notions);
 				addAll: (hRule body collect: [ :hypernotion | hypernotion buildWith: metanotions and: notions ]) ].
 	representations
 		do: [ :repRule | 
@@ -62,8 +62,8 @@ AVWGrammarBuilder >> build [
 			notions addAll: repRule notions ].
 	representations
 		do: [ :repRule | 
-			hypernotions add: (repRule head collect: [ :notion | notions like: notion ]).
-			hypernotions
+			hypernotions 
+				add: (repRule head collect: [ :notion | notions like: notion ]);
 				addAll: (repRule body collect: [ :hypernotion | hypernotion collect: [ :notion | notions like: notion ] ]) ].
 	hyperRuleSet := Set new.
 	hyperRules
