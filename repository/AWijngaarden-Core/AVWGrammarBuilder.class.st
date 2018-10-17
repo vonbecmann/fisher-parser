@@ -37,12 +37,7 @@ AVWGrammarBuilder >> build [
 			notions addAll: metaRule notions.
 			metanotions add: metaRule head ].
 	metaRules
-		collect: [ :metaRule | 
-			metaRule body
-				collect: [ :notion | 
-					notion isMetanotion
-						ifTrue: [ metanotions like: notion ifAbsent: [ self unknown: notion in: metaRule ] ]
-						ifFalse: [ notions like: notion ] ] ]
+		collect: [ :metaRule | metaRule body newInstanceWith: metanotions and: notions ]
 		thenDo: [ :hn | hypernotions add: hn ].
 	metaRuleSet := Set new.
 	metaRules
@@ -120,17 +115,4 @@ AVWGrammarBuilder >> representations: terminalNotionToRepresentationList [
 			AWHyperRule
 				head: (AWHypernotion withAll: (assoc key collect: [ :n | n asNotion ]))
 				body: {(AWHypernotion with: assoc value)} ]
-]
-
-{ #category : #private }
-AVWGrammarBuilder >> unknown: metanotion in: rule [
-	^ Error
-		signal:
-			(String
-				streamContents: [ :s | 
-					s
-						nextPutAll: 'Unknown Metanotion ';
-						print: metanotion;
-						nextPutAll: ' in ';
-						print: rule ])
 ]

@@ -205,7 +205,7 @@ where <NOTION> is <NOTION>: EMPTY.'
 		withExceptionDo: [ :ex |
 			self 
 				assert: ex messageText  
-				equals: 'Unknown Metanotion EMPTY in NOTETY:: EMPTY.'
+				equals: 'Unknown Metanotion EMPTY in EMPTY'
 			 ].
 ]
 
