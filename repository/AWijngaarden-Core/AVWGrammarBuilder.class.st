@@ -54,8 +54,8 @@ AVWGrammarBuilder >> build [
 	hyperRules
 		do: [ :hRule | 
 			hypernotions 
-				add: (hRule head buildWith: metanotions and: notions);
-				addAll: (hRule body collect: [ :hypernotion | hypernotion buildWith: metanotions and: notions ]) ].
+				add: (hRule head newInstanceWith: metanotions and: notions);
+				addAll: (hRule body collect: [ :hypernotion | hypernotion newInstanceWith: metanotions and: notions ]) ].
 	representations
 		do: [ :repRule | 
 			self assert: repRule isRepresentation.
