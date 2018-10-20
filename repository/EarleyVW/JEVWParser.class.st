@@ -154,7 +154,6 @@ separator plus:
 
 { #category : #initialization }
 JEVWParser >> initialize [
-	super initialize.
 	evaluator := self class vwEvaluator
 ]
 
