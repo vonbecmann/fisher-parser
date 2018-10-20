@@ -15,9 +15,9 @@ Class {
 		'vwGrammar',
 		'nonterminalHypernotions',
 		'startHyperRule',
-		'alternatives',
 		'representationRules',
-		'metaGrammar'
+		'metaGrammar',
+		'hyperRules'
 	],
 	#category : #'FisherParser-Core-Public'
 }
@@ -53,7 +53,7 @@ AFVWGrammar >> checkBoundness [
 	" R2. The hypersyntax must not contain any type X rules. 
 	A hyper rule is of type X iif it is neither left-bound nor right-bound. "
 
-	alternatives
+	hyperRules
 		do: [ :hrule | 
 			hrule isXType
 				ifTrue: [ 
@@ -73,7 +73,7 @@ AFVWGrammar >> checkBoundness [
 
 { #category : #initialization }
 AFVWGrammar >> checkHyperRulesLeftHandSides [
-	alternatives
+	hyperRules
 		do: [ :hyperRule | 
 			hyperRule head matchesEmpty
 				ifTrue: [ 
@@ -104,13 +104,13 @@ AFVWGrammar >> checkMetaGrammarIsLLOne [
 AFVWGrammar >> computeCrossReferences [
 	" compute cross-references "
 
-	alternatives
+	hyperRules
 		do: [ :hyperRule | 
 			hyperRule body
 				withIndexDo: [ :rightHypernotion :index | 
 					rightHypernotion isTerminal
 						ifFalse: [ 
-							alternatives
+							hyperRules
 								do: [ :crossHyperRule | 
 									(crossHyperRule head superMatches: rightHypernotion)
 										ifTrue: [ 
@@ -168,14 +168,14 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	startHypernotion := AFHypernotion belongsTo: metaGrammar with: startNotion.
 	nonterminalHypernotions := (hypernotionDict reject: [:hn | hn isTerminal ]) values copyWith: startHypernotion.
 	startHyperRule := AFHyperRule head: startHypernotion bodyWith: (hypernotionDict at: vwGrammar startNotion).
-	alternatives := SinglyLinkedList with: startHyperRule.
+	hyperRules := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
 		collect: [ :each | 
 			AFHyperRule
 				head: (hypernotionDict at: each head)
 				body: 	(each body collect: [ :hypernotion | hypernotionDict at: hypernotion ]) ]
-		thenDo: [ :newRule | alternatives addLast: newRule ].
-	representationRules := alternatives
+		thenDo: [ :newRule | hyperRules addLast: newRule ].
+	representationRules := hyperRules
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ]
 ]
