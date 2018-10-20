@@ -54,8 +54,8 @@ AFVWGrammar >> checkBoundness [
 	A hyper rule is of type X iif it is neither left-bound nor right-bound. "
 
 	hyperRules
-		do: [ :hrule | 
-			hrule isXType
+		do: [ :hyperRule | 
+			hyperRule isXType
 				ifTrue: [ 
 					Warning signal:
 							(String
@@ -66,7 +66,7 @@ AFVWGrammar >> checkBoundness [
 										nextPutAll: 'iif it is neither left-bound nor right-bound.';
 										nextPutAll: ' This hyper rule'; 
 										crlf;
-										print: hrule;
+										print: hyperRule;
 										crlf;
 										nextPutAll: ' is of type X.' ]) ] ]
 ]
