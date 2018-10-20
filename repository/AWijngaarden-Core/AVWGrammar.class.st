@@ -93,7 +93,6 @@ AVWGrammar >> hypernotions [
 
 { #category : #initialization }
 AVWGrammar >> initialize [
-	super initialize.
 	ortholetters := Set new.
 	hyperRulesHypernotions := Set new.
 	
