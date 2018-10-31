@@ -140,6 +140,18 @@ AFVWGrammar >> gtInspectorDefinitionIn: composite [
 	^ vwGrammar gtInspectorDefinitionIn: composite
 ]
 
+{ #category : #'inspector extensions' }
+AFVWGrammar >> gtInspectorHyperRulesIn: composite [
+	<gtInspectorPresentationOrder: 2>
+	^ vwGrammar gtInspectorHyperRulesIn: composite
+]
+
+{ #category : #'inspector extensions' }
+AFVWGrammar >> gtInspectorMetaRulesIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ vwGrammar gtInspectorMetaRulesIn: composite
+]
+
 { #category : #accessing }
 AFVWGrammar >> hyperRulesSize [
 	^ vwGrammar hyperRulesSize
