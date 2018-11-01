@@ -284,6 +284,25 @@ where ALPHA is ALPHA: .'
 ]
 
 { #category : #'instance creation' }
+AFExemplar class >> leftRecursiveAnbncn [
+	^ AFVWGrammar
+		evw:
+'TALLY::		  i TALLETY.
+TALLETY::	  TALLY; EMPTY.
+EMPTY::		  .
+LETTER::	  a; b; c.
+
+an bn cn:	  TALLY as, TALLY bs, TALLY cs.
+
+i TALLY LETTER s: TALLY LETTER s, i LETTER s.
+i LETTER s:	  LETTER symbol.'
+		representations:
+			{(#('a' 'symbol') -> (NCTerminal character: $a)).
+			(#('b' 'symbol') -> (NCTerminal character: $b)).
+			(#('c' 'symbol') -> (NCTerminal character: $c))}
+]
+
+{ #category : #'instance creation' }
 AFExemplar class >> nd [
 	" a w-grammar that describes all alphabetic character strings in which no letter is repeated. "
 	^ AFVWGrammar

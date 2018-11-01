@@ -16,7 +16,8 @@ Class {
 		'test5',
 		'doubleLettersB',
 		'doubleLettersC',
-		'pl'
+		'pl',
+		'leftRecursiveAnbncn'
 	],
 	#category : #'FisherParser-Tests-Grammar'
 }
@@ -47,6 +48,11 @@ AFExemplarResource >> doubleLettersC [
 ]
 
 { #category : #accessing }
+AFExemplarResource >> leftRecursiveAnbncn [
+	^ leftRecursiveAnbncn
+]
+
+{ #category : #accessing }
 AFExemplarResource >> pl [
 	^ pl
 ]
@@ -65,7 +71,8 @@ AFExemplarResource >> setUp [
 	test5 := AFExemplar test5.
 	doubleLettersB := AFExemplar doubleLettersB.
 	doubleLettersC := AFExemplar doubleLettersC.
-	pl := AFExemplar pl
+	pl := AFExemplar pl.
+	leftRecursiveAnbncn := AFExemplar leftRecursiveAnbncn 
 ]
 
 { #category : #accessing }
@@ -79,7 +86,7 @@ AFExemplarResource >> tearDown [
 
 	a3b3c3 := starSequence := anbncn := test3 := anbn := nil.
 	wegner := test4 := test15 := test5 := doubleLettersB := nil.
-	doubleLettersC := pl := nil.
+	doubleLettersC := pl := leftRecursiveAnbncn := nil.
 	super tearDown
 ]
 
