@@ -43,9 +43,14 @@ AFVWGrammar >> accepts: aString [
 	^ (AFRecognizer of: self) accepts: aString
 ]
 
-{ #category : #testing }
+{ #category : #analysis }
 AFVWGrammar >> analyzeAccepts: aString [
 	^ (AFAnalyticalRecognizer of: self) accepts: aString
+]
+
+{ #category : #analysis }
+AFVWGrammar >> analyzeParse: aString [
+	^ (AFAnalyticalParser of: self) parse: aString
 ]
 
 { #category : #initialization }

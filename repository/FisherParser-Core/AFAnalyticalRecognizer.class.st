@@ -1,5 +1,5 @@
 "
-analize the recognition of a string.
+analyze the recognition of a string.
 "
 Class {
 	#name : #AFAnalyticalRecognizer,
@@ -15,7 +15,13 @@ AFAnalyticalRecognizer >> accepts: aString [
 		newFrom:
 			{('chart' -> chart).
 			('accepts'
-				-> (chart last includes: (grammar startHyperRule dotAtEnd startAt: chart first)))} ]
+				-> (chart last includes: (grammar startHyperRule dotAtEnd startAt: chart first))).
+			('chart stats'
+				->
+					(OrderedDictionary
+						newFrom:
+							{('each column size' -> chart columnSizes).
+							('total item count' -> chart columnSizes sum)}))} ]
 		on: AFFailure
 		do: [ :ex | 
 			OrderedDictionary
