@@ -142,9 +142,5 @@ AFMetanotionSubstitutions >> uniquelyAssign: metanotions [
 
 	self size == metanotions size
 		ifFalse: [ ^ false ].
-	metanotions
-		do: [ :metanotion | 
-			(self includesMetanotion: metanotion)
-				ifFalse: [ ^ false ] ].
-	^ true
+	^ metanotions allSatisfy: [ :metanotion | self includesMetanotion: metanotion ]
 ]
