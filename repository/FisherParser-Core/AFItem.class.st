@@ -33,6 +33,12 @@ AFItem >> gtDisplayIntervalString [
 	^ String streamContents: [ :s | self printIntervalOn: s ]
 ]
 
+{ #category : #'inspector extensions' }
+AFItem >> gtDisplayValueString [
+	^ self subclassResponsibility
+
+]
+
 { #category : #parsing }
 AFItem >> node [
 	" a packed node of myself "
