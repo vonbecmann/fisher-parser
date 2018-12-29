@@ -67,27 +67,20 @@ JEVWParser class >> vwEvaluator [
 			AWMetanotion named: 
 				(String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ])]).
 (('uppercase letter plus' -> 2) 
-	-> [ :nodes | 
-			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
-(('large syntactic mark plus' -> 2) 
-	-> [ :nodes | 
-			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
+	-> [ :nodes | String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
 (('digit star' -> 1) 
-	-> [ :nodes | 
-			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
+	-> [ :nodes | String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
 (('digit star' -> 2) 	-> [ String empty ]).
 (('protonotion' -> 1) -> [ :node | AWProtonotion with: node ]).
 (('small syntactic mark plus' -> 2) 
-	-> [ :nodes | 
-			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ] ]).
+	-> [ :nodes | String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
 (('layout' -> 1) -> [ nil ]).
 (('layout' -> 2) -> [ nil ]).
 (('separator plus' -> 1) -> [ nil ]).
 (('separator plus' -> 2) -> [ nil ]).
 (('small syntactic mark symbol' -> 1) -> [ :node | String with: node ]).
 (('uppercase letter symbol' -> 1) -> [ :node | String with: node ]).
-(('digit symbol' -> 1) -> [ :node | String with: node ]).
-(('large syntactic mark symbol' -> 1) -> [ :node | String with: node ]). }
+(('digit symbol' -> 1) -> [ :node | String with: node ]). }
 ]
 
 { #category : #grammar }
@@ -143,10 +136,6 @@ uppercase letter plus:
 
 digit star: digit symbol, digit star; .
 	
-large syntactic mark plus:
-	large syntactic mark symbol;
-	large syntactic mark plus, large syntactic mark symbol.
-
 protonotion: small syntactic mark plus.
 small syntactic mark plus:
 	small syntactic mark symbol;
@@ -164,7 +153,6 @@ separator plus:
 			('small syntactic mark symbol' -> (NCTerminal charSet: ($a to: $z) , '()<>')).
 			('uppercase letter symbol' -> (NCTerminal charSet: ($A to: $Z))).
 			('digit symbol' -> (NCTerminal charSet: ($0 to: $9))).
-			('large syntactic mark symbol' -> (NCTerminal charSet: ($A to: $Z) , ($0 to: $9))).
 			('space symbol' -> (NCTerminal character: Character space)).
 			('colon symbol' -> (NCTerminal character: $:)).
 			('semicolon symbol' -> (NCTerminal character: $;)).
