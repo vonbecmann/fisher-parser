@@ -62,10 +62,20 @@ JEVWParser class >> vwEvaluator [
 	-> [ :nodes | Array streamContents: [ :s | s nextPut: nodes first; nextPutAll: nodes second ]]).
 (('metanotion then protonotion' -> 3)
 	-> [ :nodes | Array streamContents: [ :s | s nextPut: nodes first; nextPutAll: nodes third ]]).
-(('metanotion' -> 1) -> [ :node | AWMetanotion named: node ]).
+(('metanotion' -> 1) 
+	-> [ :nodes | 
+			AWMetanotion named: 
+				(String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ])]).
+(('uppercase letter plus' -> 2) 
+	-> [ :nodes | 
+			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
 (('large syntactic mark plus' -> 2) 
 	-> [ :nodes | 
-			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ] ]).
+			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
+(('digit star' -> 1) 
+	-> [ :nodes | 
+			String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
+(('digit star' -> 2) 	-> [ String empty ]).
 (('protonotion' -> 1) -> [ :node | AWProtonotion with: node ]).
 (('small syntactic mark plus' -> 2) 
 	-> [ :nodes | 
@@ -75,6 +85,8 @@ JEVWParser class >> vwEvaluator [
 (('separator plus' -> 1) -> [ nil ]).
 (('separator plus' -> 2) -> [ nil ]).
 (('small syntactic mark symbol' -> 1) -> [ :node | String with: node ]).
+(('uppercase letter symbol' -> 1) -> [ :node | String with: node ]).
+(('digit symbol' -> 1) -> [ :node | String with: node ]).
 (('large syntactic mark symbol' -> 1) -> [ :node | String with: node ]). }
 ]
 
@@ -123,7 +135,14 @@ metanotion then protonotion:
 	metanotion, protonotion then metanotion;	
 	metanotion, space plus, (protonotion or metanotion) plus. 
 	
-metanotion: large syntactic mark plus.
+metanotion: uppercase letter plus, digit star.
+
+uppercase letter plus: 
+	uppercase letter symbol;
+	uppercase letter plus, uppercase letter symbol.
+
+digit star: digit symbol, digit star; .
+	
 large syntactic mark plus:
 	large syntactic mark symbol;
 	large syntactic mark plus, large syntactic mark symbol.
@@ -143,6 +162,8 @@ separator plus:
 	separator plus, separator symbol.'
 		representations: {
 			('small syntactic mark symbol' -> (NCTerminal charSet: ($a to: $z) , '()<>')).
+			('uppercase letter symbol' -> (NCTerminal charSet: ($A to: $Z))).
+			('digit symbol' -> (NCTerminal charSet: ($0 to: $9))).
 			('large syntactic mark symbol' -> (NCTerminal charSet: ($A to: $Z) , ($0 to: $9))).
 			('space symbol' -> (NCTerminal character: Character space)).
 			('colon symbol' -> (NCTerminal character: $:)).

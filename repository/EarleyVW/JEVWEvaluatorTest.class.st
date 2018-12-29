@@ -365,6 +365,14 @@ JEVWEvaluatorTest >> testEvaluatesMetanotion [
 		equals: (AWMetanotion named: 'NOTION')
 ]
 
+{ #category : #'tests - metanotion' }
+JEVWEvaluatorTest >> testEvaluatesMetanotion02 [
+	self
+		assertGrammarAt: metanotion
+		evaluates: 'NOTION2'
+		equals: (AWMetanotion named: 'NOTION2')
+]
+
 { #category : #'tests - protonotion' }
 JEVWEvaluatorTest >> testEvaluatesProtonotion [
 	self

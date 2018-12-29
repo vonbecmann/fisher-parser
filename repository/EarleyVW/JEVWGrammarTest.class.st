@@ -37,6 +37,19 @@ JEVWGrammarTest >> assertGrammarAt: aGrammar accepts: words [
 						nextPutAll: words ])
 ]
 
+{ #category : #asserting }
+JEVWGrammarTest >> denyGrammarAt: aGrammar accepts: words [
+	self
+		deny: (aGrammar accepts: words)
+		description:
+			(String
+				streamContents: [ :s | 
+					s
+						print: aGrammar;
+						nextPutAll: ' accepts ';
+						nextPutAll: words ])
+]
+
 { #category : #running }
 JEVWGrammarTest >> setUp [
 	super setUp.
@@ -227,6 +240,11 @@ JEVWGrammarTest >> testAcceptsMetanotion04 [
 { #category : #'tests - metanotion' }
 JEVWGrammarTest >> testAcceptsMetanotion05 [
 	self assertGrammarAt: metanotion accepts: 'TAG1'
+]
+
+{ #category : #'tests - metanotion' }
+JEVWGrammarTest >> testAcceptsMetanotion06 [
+	self denyGrammarAt: metanotion accepts: '0'
 ]
 
 { #category : #'tests - metaproduction rule' }
