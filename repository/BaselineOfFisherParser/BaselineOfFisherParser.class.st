@@ -12,10 +12,10 @@ BaselineOfFisherParser >> baseline: spec [
 		do: [ 
 			spec
 	        	baseline: 'MultiValuedDictionary'
- 		   		with: [ spec repository: 'github://vonbecmann/multi-valued-dictionary:pharo6/repository' ].
+ 		   		with: [ spec repository: 'github://vonbecmann/multi-valued-dictionary/repository' ].
 			spec
 	        	baseline: 'LinkedList'
- 		   		with: [ spec repository: 'github://vonbecmann/linked-list:pharo6/repository' ].
+ 		   		with: [ spec repository: 'github://vonbecmann/linked-list/repository' ].
 			spec
 				baseline: 'EarleyParser'
 				with: [ 
