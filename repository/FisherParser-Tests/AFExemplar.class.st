@@ -284,6 +284,43 @@ where ALPHA is ALPHA: .'
 ]
 
 { #category : #'instance creation' }
+AFExemplar class >> equal [
+	^ AFVWGrammar
+		evw:
+'VALUE::	 i VALETY.
+VALETY:: VALUE; EMPTY.
+EMPTY::	 .
+VALUE1:: VALUE.
+VALUE2:: VALUE.
+
+equal program:
+	VALUE primary, equals symbol, VALUE expression.
+
+VALUE expression:
+	VALUE primary;
+	VALUE1 primary, plus symbol, VALUE2 primary, where VALUE1 plus VALUE2 equals VALUE;
+	twice symbol, VALUE1 primary, where VALUE1 plus VALUE1 equals VALUE.
+
+VALUE primary:
+	VALUE constant;
+	lpar symbol, VALUE expression, rpar symbol.
+
+VALUE constant: VALUE eyes.
+
+i eyes: i symbol.
+i VALUE eyes: i eyes, VALUE eyes.
+
+where VALUE1 plus VALUE2 equals VALUE1 VALUE2: .'
+		representations:
+			{(#('equals' 'symbol') -> (NCTerminal character: $=)).
+			(#('plus' 'symbol') -> (NCTerminal character: $+)).
+			(#('twice' 'symbol') -> (NCTerminal character: $2)).
+			(#('lpar' 'symbol') -> (NCTerminal character: $()).
+			(#('rpar' 'symbol') -> (NCTerminal character: $))).
+			(#('i' 'symbol') -> (NCTerminal character: $i))}
+]
+
+{ #category : #'instance creation' }
 AFExemplar class >> leftRecursiveAnbncn [
 	^ AFVWGrammar
 		evw:
