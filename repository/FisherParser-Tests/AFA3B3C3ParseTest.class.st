@@ -1,3 +1,6 @@
+"
+three as, three bs and three cs parsing tests
+"
 Class {
 	#name : #AFA3B3C3ParseTest,
 	#superclass : #AFParseGrammarTest,
