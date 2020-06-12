@@ -10,13 +10,14 @@ Class {
 
 { #category : #environment }
 AFisherUI class >> fisherEnvironment [
-	| baseline packageNames |
+	| baseline packages |
 	baseline := BaselineOfFisherParser.
-	packageNames := OrderedCollection with: baseline package packageName.
-	packageNames addAll: (baseline project version packages collect: [ :each | each name ]).
-	^ (RBBrowserEnvironment new forPackageNames: packageNames)
-		label: 'Fisher Parser Environment';
-		yourself
+	packages := OrderedCollection with: baseline package.
+	packages
+		addAll:
+			(baseline allPackageNames
+				collect: [ :each | RPackage organizer packageNamed: each ]).
+	^ packages
 ]
 
 { #category : #'menu declaration' }
@@ -39,5 +40,6 @@ AFisherUI class >> fisherToolsOn: aBuilder [
 
 { #category : #environment }
 AFisherUI class >> openBrowserInFisherEnvironment [
-	^ (Smalltalk tools browser browsedEnvironment: self fisherEnvironment) open
+	^ Smalltalk tools browser
+		openWithState: [ :browser | browser switchToPackageScopeOf: self fisherEnvironment ]
 ]
