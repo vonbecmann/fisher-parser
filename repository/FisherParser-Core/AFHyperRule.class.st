@@ -141,11 +141,9 @@ AFHyperRule >> isLeftBound [
 	" left-bound if and only if(iff) for all m in metanotions:
 		((head occurrencesOf: m) ~= 0) implies that ((body occurrencesOf: m) ~= 0) "
 
-	head metanotions
-		do: [ :m | 
-			(head occurrencesOf: m) ~= 0 ==> [ (body occurrencesOf: m) ~= 0 ]
-				ifFalse: [ ^ false ] ].
-	^ true
+	^ head metanotions
+		allSatisfy:
+			[ :m | (head occurrencesOf: m) ~= 0 ==> [ (body occurrencesOf: m) ~= 0 ] ]
 ]
 
 { #category : #'testing - boundness' }
@@ -168,11 +166,8 @@ AFHyperRule >> isRightBound [
 	" right-bound if and only if(iff) for all m in metanotions:
 		((body occurrencesOf: m) ~= 0) implies that ((head occurrencesOf: m) ~= 0) "
 
-	body metanotions
-		do: [ :m | 
-			(body occurrencesOf: m) ~= 0 ==> [ (head occurrencesOf: m) ~= 0 ]
-				ifFalse: [ ^ false ] ].
-	^ true
+	^ body metanotions
+		allSatisfy: [ :m | (body occurrencesOf: m) ~= 0 ==> [ (head occurrencesOf: m) ~= 0 ] ]
 ]
 
 { #category : #testing }
