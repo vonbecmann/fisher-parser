@@ -1,3 +1,6 @@
+"
+a family of packed parse nodes.
+"
 Class {
 	#name : #AFFamily,
 	#superclass : #Object,

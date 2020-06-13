@@ -1,3 +1,6 @@
+"
+a packed parse node.
+"
 Class {
 	#name : #AFPackedNode,
 	#superclass : #Object,

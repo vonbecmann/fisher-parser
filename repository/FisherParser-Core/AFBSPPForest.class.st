@@ -1,3 +1,11 @@
+"
+Binary 
+Shared 
+Packed
+Parse 
+Forest 
+
+"
 Class {
 	#name : #AFBSPPForest,
 	#superclass : #Object,
