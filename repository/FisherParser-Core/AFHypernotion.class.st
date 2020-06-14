@@ -324,11 +324,8 @@ AFHypernotion >> hash [
 { #category : #initialization }
 AFHypernotion >> initialize [
 	metanotions := Set new.
-	metaGrammar := nil.
-	grammar := nil.
 	backwardCrossReferences := Set new.
-	forwardCrossReferences := Set new.
-	firstSet := nil
+	forwardCrossReferences := Set new
 ]
 
 { #category : #initialization }
