@@ -30,12 +30,9 @@ AVWGrammarBuilder >> build [
 		yourself.
 	index := Dictionary new.
 	notions := Set new.
-	metanotions := Set new.
+	metanotions := metaRules collect: [ :metaRule | metaRule head ] as: Set.
 	hypernotions := Set new.
-	metaRules
-		do: [ :metaRule | 
-			notions addAll: metaRule notions.
-			metanotions add: metaRule head ].
+	metaRules do: [ :metaRule | notions addAll: metaRule notions ].
 	metaRules
 		collect: [ :metaRule | metaRule body newInstanceWith: metanotions and: notions ]
 		thenDo: [ :hn | hypernotions add: hn ].
