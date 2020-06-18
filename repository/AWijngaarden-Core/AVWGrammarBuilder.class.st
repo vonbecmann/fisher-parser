@@ -30,33 +30,44 @@ AVWGrammarBuilder >> build [
 		yourself.
 	index := Dictionary new.
 	notions := Set new.
-	metanotions := metaRules collect: [ :metaRule | metaRule head ] as: Set.
+	metanotions := metaRules
+		collect: [ :metaRule | metaRule head ]
+		as: Set.
 	hypernotions := Set new.
 	metaRules do: [ :metaRule | notions addAll: metaRule notions ].
 	metaRules
-		collect: [ :metaRule | metaRule body newInstanceWith: metanotions and: notions ]
+		collect:
+			[ :metaRule | metaRule body newInstanceWith: metanotions and: notions ]
 		thenDo: [ :hn | hypernotions add: hn ].
-	metaRuleSet := Set new.
-	metaRules
+	metaRuleSet := metaRules
 		collect: [ :each | 
-			AWMetaProductionRule head: (metanotions like: each head) body: (hypernotions like: each body) ]
-		thenDo: [ :metaRule | metaRuleSet add: metaRule ].
-	metaRuleSet do: [ :metaRule | index at: metaRule put: (lineup indexOf: metaRule) ].
+			AWMetaProductionRule
+				head: (metanotions like: each head)
+				body: (hypernotions like: each body) ]
+		as: Set.
+	metaRuleSet
+		do: [ :metaRule | index at: metaRule put: (lineup indexOf: metaRule) ].
 	hyperRules do: [ :hRule | notions addAll: hRule notions ].
 	hyperRules
 		do: [ :hRule | 
-			hypernotions 
+			hypernotions
 				add: (hRule head newInstanceWith: metanotions and: notions);
-				addAll: (hRule body collect: [ :hypernotion | hypernotion newInstanceWith: metanotions and: notions ]) ].
+				addAll:
+					(hRule body
+						collect:
+							[ :hypernotion | hypernotion newInstanceWith: metanotions and: notions ]) ].
 	representations
 		do: [ :repRule | 
 			self assert: repRule isRepresentation.
 			notions addAll: repRule notions ].
 	representations
 		do: [ :repRule | 
-			hypernotions 
+			hypernotions
 				add: (repRule head collect: [ :notion | notions like: notion ]);
-				addAll: (repRule body collect: [ :hypernotion | hypernotion collect: [ :notion | notions like: notion ] ]) ].
+				addAll:
+					(repRule body
+						collect:
+							[ :hypernotion | hypernotion collect: [ :notion | notions like: notion ] ]) ].
 	hyperRuleSet := Set new.
 	hyperRules
 		collect: [ :each | 
@@ -64,7 +75,8 @@ AVWGrammarBuilder >> build [
 				head: (hypernotions like: each head)
 				body: (each body collect: [ :hypernotion | hypernotions like: hypernotion ]) ]
 		thenDo: [ :hyperRule | hyperRuleSet add: hyperRule ].
-	hyperRuleSet do: [ :hyperRule | index at: hyperRule put: (lineup indexOf: hyperRule) ].
+	hyperRuleSet
+		do: [ :hyperRule | index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	representationSet := Set new.
 	representations
 		collect: [ :each | 
@@ -72,7 +84,8 @@ AVWGrammarBuilder >> build [
 				head: (hypernotions like: each head)
 				body: (each body collect: [ :hypernotion | hypernotions like: hypernotion ]) ]
 		thenDo: [ :hyperRule | representationSet add: hyperRule ].
-	representationSet do: [ :hyperRule | index at: hyperRule put: (lineup indexOf: hyperRule) ].
+	representationSet
+		do: [ :hyperRule | index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	^ AVWGrammar
 		metanotions: metanotions
 		protonotions: (notions select: [ :each | each isProtonotion ])
