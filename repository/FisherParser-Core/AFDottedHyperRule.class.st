@@ -38,6 +38,11 @@ AFDottedHyperRule >> = anObject [
 ]
 
 { #category : #accessing }
+AFDottedHyperRule >> body [
+	^ hyperRule body
+]
+
+{ #category : #accessing }
 AFDottedHyperRule >> dotIndex [
 	^ dotIndex
 ]
@@ -133,6 +138,11 @@ AFDottedHyperRule >> printString [
 AFDottedHyperRule >> release [
 	hyperRule := dotIndex := nil.
 	super release
+]
+
+{ #category : #accessing }
+AFDottedHyperRule >> rule [
+	^ hyperRule
 ]
 
 { #category : #accessing }

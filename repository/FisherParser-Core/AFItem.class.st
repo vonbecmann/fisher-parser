@@ -39,6 +39,11 @@ AFItem >> gtDisplayValueString [
 
 ]
 
+{ #category : #testing }
+AFItem >> isTerminal [
+	^ self subclassResponsibility
+]
+
 { #category : #parsing }
 AFItem >> node [
 	" a packed node of myself "

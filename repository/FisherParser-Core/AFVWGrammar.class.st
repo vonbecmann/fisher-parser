@@ -217,6 +217,11 @@ AFVWGrammar >> parse: aString [
 	^ (AFParser of: self) parse: aString
 ]
 
+{ #category : #parsing }
+AFVWGrammar >> parseTree: aString [
+	^ (AFTreeParser of: self) parse: aString
+]
+
 { #category : #printing }
 AFVWGrammar >> printOn: aStream [
 	"Append to the argument, aStream, a sequence of characters that  
@@ -232,6 +237,11 @@ AFVWGrammar >> printOn: aStream [
 { #category : #printing }
 AFVWGrammar >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
+]
+
+{ #category : #private }
+AFVWGrammar >> productionRuleAt: anAFHyperRule [ 
+	^ anAFHyperRule 
 ]
 
 { #category : #accessing }

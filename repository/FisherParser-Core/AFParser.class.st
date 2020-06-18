@@ -34,7 +34,9 @@ AFParser >> newParseForestWith: item [
 	self
 		assert: [ item familiesSize = 1 ];
 		assert: [ item families first size = 1 ].
-	^ AFParseForest with: (AFBSPPForest root: item families first first)
+	^ AFParseForest
+		given: (AFBSPPForest root: item families first first)
+		of: grammar
 ]
 
 { #category : #parsing }

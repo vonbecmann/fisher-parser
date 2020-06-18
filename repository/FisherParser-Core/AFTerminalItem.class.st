@@ -37,6 +37,15 @@ AFTerminalItem >> = anObject [
 	^ true
 ]
 
+{ #category : #parsing }
+AFTerminalItem >> asSyntaxNode [
+	^ ESSyntaxNode
+		symbol: terminal
+		reason: word
+		start: start number
+		end: end number
+]
+
 { #category : #comparing }
 AFTerminalItem >> equals: anItem [
 	^ (super equals: anItem) and: [ terminal = anItem terminal ]
@@ -69,6 +78,11 @@ AFTerminalItem >> initializeTerminal: aTerminalHypernotion word: aWord startedAt
 	word := aWord.
 	start := aColumn.
 	node := AFPackedNode model: self
+]
+
+{ #category : #testing }
+AFTerminalItem >> isTerminal [
+	^ true
 ]
 
 { #category : #parsing }

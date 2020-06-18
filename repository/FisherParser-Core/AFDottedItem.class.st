@@ -62,6 +62,15 @@ AFDottedItem >> addFamilyWith: completeItem to: parentItem [
 		ifFalse: [ parentItem addFamilyWith: self and: completeItem ]
 ]
 
+{ #category : #parsing }
+AFDottedItem >> asSyntaxNodeOf: grammar [
+	^ ESSyntaxNode
+		symbol: self head
+		reason: (grammar productionRuleAt: self rule)
+		start: start number
+		end: end number
+]
+
 { #category : #accessing }
 AFDottedItem >> dottedHyperRule [
 	^ dottedHyperRule
@@ -137,6 +146,11 @@ AFDottedItem >> isPredicted [
 	^ dottedHyperRule isPredicted
 ]
 
+{ #category : #testing }
+AFDottedItem >> isTerminal [
+	^ false
+]
+
 { #category : #accessing }
 AFDottedItem >> moveDotForward [
 	^ self class of: dottedHyperRule moveDotForward startAt: start
@@ -178,6 +192,11 @@ AFDottedItem >> printOn: aStream [
 AFDottedItem >> release [
 	dottedHyperRule := nil.
 	super release
+]
+
+{ #category : #accessing }
+AFDottedItem >> rule [
+	^ dottedHyperRule rule
 ]
 
 { #category : #accessing }

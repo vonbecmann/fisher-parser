@@ -22,3 +22,10 @@ AFLeftRecursiveAnBnCnParseTest >> testParseA3B3C3 [
 	forest := grammar parse: 'aaabbbccc'.
 	self assert: forest isAmbiguous not
 ]
+
+{ #category : #tests }
+AFLeftRecursiveAnBnCnParseTest >> testParseTreeA2B2C2 [
+	| tree |
+	tree := grammar parseTree: 'aabbcc'.
+	self assert: tree isNotNil
+]

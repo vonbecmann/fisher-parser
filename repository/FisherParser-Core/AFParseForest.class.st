@@ -7,16 +7,43 @@ Class {
 	#name : #AFParseForest,
 	#superclass : #Object,
 	#instVars : [
-		'syntaxForest'
+		'syntaxForest',
+		'grammar'
 	],
 	#category : #'FisherParser-Core-Public'
 }
 
 { #category : #'instance creation' }
-AFParseForest class >> with: aBSPPForest [
+AFParseForest class >> given: aBSPPForest of: aVWGrammar [
+	"given a syntax forest of a grammar"
+
 	^ self basicNew
-		initializeSyntaxForest: aBSPPForest;
-		yourself
+		initializeSyntaxForest: aBSPPForest
+		andGrammar: aVWGrammar
+]
+
+{ #category : #parsing }
+AFParseForest >> extractSingleParseTree [
+	"the forest has one binary tree, so we need to extract it from the forest. 
+	 but flatten as the production rules and using syntax nodes."
+
+	| stack |
+	stack := SinglyLinkedStack new.
+	JETreeDepthFirstVisitor new
+		postOrderNodeBlock: [ :node | 
+			node model isTerminal
+				ifTrue: [ stack push: (ESTreeNode	model: node model asSyntaxNode) ]
+				ifFalse: [ 
+					node model isFinal
+						ifTrue: [ 
+							stack
+								push:
+									(ESTreeNode
+										model: (node model asSyntaxNodeOf: grammar)
+										children: (stack popReversed: node model dottedHyperRule body size)) ] ] ];
+		visit: syntaxForest.
+	self assert: [ stack size = 1 ].
+	^ ESParseTree given: (ESTree rootNode: stack pop) of: grammar
 ]
 
 { #category : #'inspector extensions' }
@@ -26,8 +53,9 @@ AFParseForest >> gtInspectorBrowserIn: composite [
 ]
 
 { #category : #initialization }
-AFParseForest >> initializeSyntaxForest: aBSPPForest [ 
-	syntaxForest := aBSPPForest 
+AFParseForest >> initializeSyntaxForest: aBSPPForest andGrammar: aVWGrammar [
+	syntaxForest := aBSPPForest.
+	grammar := aVWGrammar
 ]
 
 { #category : #testing }
