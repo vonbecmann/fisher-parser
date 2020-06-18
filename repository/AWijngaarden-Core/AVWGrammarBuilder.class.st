@@ -34,10 +34,10 @@ AVWGrammarBuilder >> build [
 		collect: [ :metaRule | metaRule head ]
 		as: Set.
 	metaRules do: [ :metaRule | notions addAll: metaRule notions ].
-	hypernotions := 
-		metaRules 
-			collect: [ :metaRule | metaRule body newInstanceWith: metanotions and: notions ] 
-			as: Set.
+	hypernotions := metaRules
+		collect:
+			[ :metaRule | metaRule body newInstanceWith: metanotions and: notions ]
+		as: Set.
 	metaRuleSet := metaRules
 		collect: [ :each | 
 			AWMetaProductionRule
@@ -67,22 +67,20 @@ AVWGrammarBuilder >> build [
 					(repRule body
 						collect:
 							[ :hypernotion | hypernotion collect: [ :notion | notions like: notion ] ]) ].
-	hyperRuleSet := Set new.
-	hyperRules
+	hyperRuleSet := hyperRules
 		collect: [ :each | 
 			AWHyperRule
 				head: (hypernotions like: each head)
 				body: (each body collect: [ :hypernotion | hypernotions like: hypernotion ]) ]
-		thenDo: [ :hyperRule | hyperRuleSet add: hyperRule ].
+		as: Set.
 	hyperRuleSet
 		do: [ :hyperRule | index at: hyperRule put: (lineup indexOf: hyperRule) ].
-	representationSet := Set new.
-	representations
+	representationSet := representations
 		collect: [ :each | 
 			AWHyperRule
 				head: (hypernotions like: each head)
 				body: (each body collect: [ :hypernotion | hypernotions like: hypernotion ]) ]
-		thenDo: [ :hyperRule | representationSet add: hyperRule ].
+		as: Set.
 	representationSet
 		do: [ :hyperRule | index at: hyperRule put: (lineup indexOf: hyperRule) ].
 	^ AVWGrammar
