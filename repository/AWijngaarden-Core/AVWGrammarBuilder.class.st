@@ -33,12 +33,11 @@ AVWGrammarBuilder >> build [
 	metanotions := metaRules
 		collect: [ :metaRule | metaRule head ]
 		as: Set.
-	hypernotions := Set new.
 	metaRules do: [ :metaRule | notions addAll: metaRule notions ].
-	metaRules
-		collect:
-			[ :metaRule | metaRule body newInstanceWith: metanotions and: notions ]
-		thenDo: [ :hn | hypernotions add: hn ].
+	hypernotions := 
+		metaRules 
+			collect: [ :metaRule | metaRule body newInstanceWith: metanotions and: notions ] 
+			as: Set.
 	metaRuleSet := metaRules
 		collect: [ :each | 
 			AWMetaProductionRule
