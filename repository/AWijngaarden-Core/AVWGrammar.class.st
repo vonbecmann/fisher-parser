@@ -93,9 +93,7 @@ AVWGrammar >> hypernotions [
 
 { #category : #initialization }
 AVWGrammar >> initialize [
-	ortholetters := Set new.
-	hyperRulesHypernotions := Set new.
-	
+	hyperRulesHypernotions := Set new
 ]
 
 { #category : #initialization }
@@ -103,7 +101,7 @@ AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet 
 	self initialize.
 	metanotions := metanotionSet.
 	protonotions := protonotionSet.
-	protonotions do: [ :protonotion | ortholetters addAll: protonotion letters ].
+	ortholetters := protonotions flatCollect: [ :protonotion | protonotion letters ] as: Set.
 	hypernotions := hypernotionSet.
 	terminals := terminalSet.
 	metaRules := metaRuleCollection.
