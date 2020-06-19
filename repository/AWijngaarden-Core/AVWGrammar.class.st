@@ -92,25 +92,19 @@ AVWGrammar >> hypernotions [
 ]
 
 { #category : #initialization }
-AVWGrammar >> initialize [
-	hyperRulesHypernotions := Set new
-]
-
-{ #category : #initialization }
 AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet hypernotions: hypernotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startNotion: aHypernotion [
 	self initialize.
 	metanotions := metanotionSet.
 	protonotions := protonotionSet.
-	ortholetters := protonotions flatCollect: [ :protonotion | protonotion letters ] as: Set.
+	ortholetters := protonotions
+		flatCollect: [ :protonotion | protonotion letters ]
+		as: Set.
 	hypernotions := hypernotionSet.
 	terminals := terminalSet.
 	metaRules := metaRuleCollection.
 	hyperRules := hyperRuleCollection.
-	hyperRules
-		do: [ :each | 
-			hyperRulesHypernotions
-				add: each head;
-				addAll: each body ].
+	hyperRulesHypernotions := hyperRules collect: [ :each | each head ] as: Set.
+	hyperRules do: [ :each | hyperRulesHypernotions addAll: each body ].
 	startNotion := aHypernotion
 ]
 
