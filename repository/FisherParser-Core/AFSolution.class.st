@@ -92,3 +92,13 @@ AFSolution >> release [
 	metanotionSubstitutions := nil.
 	super release
 ]
+
+{ #category : #accessing }
+AFSolution >> union: anAFSolution [
+	^ anAFSolution withAll: metanotionSubstitutions
+]
+
+{ #category : #'instance creation' }
+AFSolution >> withAll: anAFMetanotionSubstitutions [
+	^ self class substitutions: (anAFMetanotionSubstitutions union: metanotionSubstitutions)
+]

@@ -190,7 +190,8 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		collect: [ :each | 
 			AFHyperRule
 				head: (hypernotionDict at: each head)
-				body: 	(each body collect: [ :hypernotion | hypernotionDict at: hypernotion ]) ]
+				body: 	(each body collect: [ :hypernotion | hypernotionDict at: hypernotion ])
+				instanceOf: each ]
 		thenDo: [ :newRule | hyperRules addLast: newRule ].
 	representationRules := hyperRules
 		select: [ :each | each isRepresentation ]

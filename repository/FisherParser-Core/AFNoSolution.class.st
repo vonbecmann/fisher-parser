@@ -39,3 +39,10 @@ AFNoSolution >> printOn: aStream [
 		nextPutAll: self className;
 		nextPutAll: '()'
 ]
+
+{ #category : #accessing }
+AFNoSolution >> union: anAFSolution [
+	" I'm not a solution, there isn't a possible substitution "
+
+	self shouldNotImplement
+]

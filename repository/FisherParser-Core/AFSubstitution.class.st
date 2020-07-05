@@ -82,3 +82,8 @@ AFSubstitution >> isSolution [
 AFSubstitution >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
+
+{ #category : #accessing }
+AFSubstitution >> union: anAFSolution [
+	self subclassResponsibility
+]

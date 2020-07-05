@@ -5,21 +5,34 @@ allows
 	- to create a dotted hyper rule of myself.
 	- to substitute metanotions and result on another hyper rule
 
+this hyper rule is the result of applying a substitution to a hyper rule.
+self = instanceOfHyperRule apply: appliedSubstitution 
 "
 Class {
 	#name : #AFHyperRule,
 	#superclass : #Object,
 	#instVars : [
 		'head',
-		'body'
+		'body',
+		'instanceOfHyperRule',
+		'appliedSubstitution'
 	],
 	#category : #'FisherParser-Core-Implementation'
 }
 
 { #category : #'instance creation' }
-AFHyperRule class >> head: anAFHypernotion body: anAFHypernotionCollection [
+AFHyperRule class >> head: anAFHypernotion body: anAFHypernotionCollection instanceOf: anAWHyperRule [
 	^ self basicNew
 		initializeHead: anAFHypernotion body: (AFHyperAlternative withAll: anAFHypernotionCollection);
+		instanceOf: anAWHyperRule appliedSubstitution: AFSubstitution emptySolution;
+		yourself
+]
+
+{ #category : #'instance creation' }
+AFHyperRule class >> head: anAFHypernotion body: anAFHyperAlternative instanceOf: anAWHyperRule applied: aSubstitution [
+	^ self basicNew
+		initializeHead: anAFHypernotion body: anAFHyperAlternative;
+		instanceOf: anAWHyperRule appliedSubstitution: aSubstitution;
 		yourself
 ]
 
@@ -73,7 +86,11 @@ AFHyperRule >> = anObject [
 
 { #category : #accessing }
 AFHyperRule >> apply: aSubstitution [
-	^ self class head: (head apply: aSubstitution) body: (body apply: aSubstitution)
+	^ self class
+		head: (head apply: aSubstitution)
+		body: (body apply: aSubstitution)
+		instanceOf: instanceOfHyperRule
+		applied: (appliedSubstitution union: aSubstitution)
 ]
 
 { #category : #accessing }
@@ -112,7 +129,15 @@ AFHyperRule >> head [
 { #category : #initialization }
 AFHyperRule >> initializeHead: aHypernotion body: aHyperalternative [
 	head := aHypernotion.
-	body := aHyperalternative
+	body := aHyperalternative.
+	instanceOfHyperRule := self.
+	appliedSubstitution := AFSubstitution emptySolution
+]
+
+{ #category : #initialization }
+AFHyperRule >> instanceOf: anAWHyperRule appliedSubstitution: aSubstitution [
+	instanceOfHyperRule := anAWHyperRule.
+	appliedSubstitution := aSubstitution
 ]
 
 { #category : #testing }
