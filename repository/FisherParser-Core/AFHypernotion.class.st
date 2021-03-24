@@ -349,6 +349,11 @@ AFHypernotion >> isHypernotion [
 ]
 
 { #category : #testing }
+AFHypernotion >> isNonterminal [
+	^ self isTerminal not
+]
+
+{ #category : #testing }
 AFHypernotion >> isProtonotion [
 	"its metanotion free"
 
