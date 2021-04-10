@@ -158,6 +158,16 @@ AFVWGrammar >> gtInspectorMetaRulesIn: composite [
 ]
 
 { #category : #accessing }
+AFVWGrammar >> hyperRuleAt: index [ 
+	^ vwGrammar hyperRuleAt: index 
+]
+
+{ #category : #accessing }
+AFVWGrammar >> hyperRuleAtAll: indexArray [ 
+	^ vwGrammar hyperRuleAtAll: indexArray 
+]
+
+{ #category : #accessing }
 AFVWGrammar >> hyperRulesSize [
 	^ vwGrammar hyperRulesSize
 ]
@@ -238,11 +248,6 @@ AFVWGrammar >> printOn: aStream [
 { #category : #printing }
 AFVWGrammar >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
-]
-
-{ #category : #private }
-AFVWGrammar >> productionRuleAt: anAFHyperRule [ 
-	^ anAFHyperRule 
 ]
 
 { #category : #accessing }

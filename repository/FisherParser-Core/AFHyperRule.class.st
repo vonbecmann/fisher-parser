@@ -93,6 +93,13 @@ AFHyperRule >> apply: aSubstitution [
 		applied: (appliedSubstitution union: aSubstitution)
 ]
 
+{ #category : #parsing }
+AFHyperRule >> asSubstitutionExpression [
+	"this hyper rule is the result of applying a substitution to the grammar's hyper rule"
+
+	^ OrderedPair first: instanceOfHyperRule second: appliedSubstitution
+]
+
 { #category : #accessing }
 AFHyperRule >> body [
 	^ body

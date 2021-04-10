@@ -70,6 +70,16 @@ AVWGrammar >> gtInspectorMetaRulesIn: composite [
 ]
 
 { #category : #accessing }
+AVWGrammar >> hyperRuleAt: index [
+	^ hyperRules at: index
+]
+
+{ #category : #accessing }
+AVWGrammar >> hyperRuleAtAll: indexArray [
+	^ hyperRules atAll: indexArray
+]
+
+{ #category : #accessing }
 AVWGrammar >> hyperRules [
 	^ hyperRules
 ]

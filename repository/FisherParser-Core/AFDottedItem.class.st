@@ -66,7 +66,7 @@ AFDottedItem >> addFamilyWith: completeItem to: parentItem [
 AFDottedItem >> asSyntaxNodeOf: grammar [
 	^ ESSyntaxNode
 		symbol: self head
-		reason: (grammar productionRuleAt: self rule)
+		reason: self rule asSubstitutionExpression
 		start: start number
 		end: end number
 ]
