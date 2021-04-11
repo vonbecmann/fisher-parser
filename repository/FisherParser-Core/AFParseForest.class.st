@@ -39,7 +39,7 @@ AFParseForest >> extractSingleParseTree [
 							stack
 								push:
 									(ESTreeNode
-										model: (node model asSyntaxNodeOf: grammar)
+										model: (node model asSyntaxNode)
 										children: (stack popReversed: node model dottedHyperRule body size)) ] ] ];
 		visit: syntaxForest.
 	self assert: [ stack size = 1 ].

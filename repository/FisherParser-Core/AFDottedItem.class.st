@@ -63,7 +63,7 @@ AFDottedItem >> addFamilyWith: completeItem to: parentItem [
 ]
 
 { #category : #parsing }
-AFDottedItem >> asSyntaxNodeOf: grammar [
+AFDottedItem >> asSyntaxNode [
 	^ ESSyntaxNode
 		symbol: self head
 		reason: self rule asSubstitutionExpression
