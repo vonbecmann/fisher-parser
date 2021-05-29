@@ -85,3 +85,43 @@ AFMetanotionSubstitutionsTest >> testAsString03 [
 				yourself) asString
 		equals: 'AFMetanotionSubstitutions(LETTER->a, NOTION->hij)'
 ]
+
+{ #category : #tests }
+AFMetanotionSubstitutionsTest >> testEqual01 [
+	| one other |
+	one := AFMetanotionSubstitutions
+		withAll:
+			{((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a')).
+			((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'b'))}.
+	other := AFMetanotionSubstitutions
+		withAll:
+			{((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a')).
+			((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'b'))}.
+	self assert: one equals: other.
+	self assert: one hash equals: other hash
+]
+
+{ #category : #tests }
+AFMetanotionSubstitutionsTest >> testEqual02 [
+	| one other |
+	one := AFMetanotionSubstitutions
+		withAll:
+			{((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'b')).
+			((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a'))}.
+	other := AFMetanotionSubstitutions
+		withAll:
+			{((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a')).
+			((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'b'))}.
+	self assert: one equals: other.
+	self assert: one hash equals: other hash
+]
+
+{ #category : #tests }
+AFMetanotionSubstitutionsTest >> testEqual03 [
+	| one other |
+	one := AFMetanotionSubstitutions
+		withAll: {((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'b'))}.
+	other := AFMetanotionSubstitutions
+		withAll: {((AWMetanotion named: 'LETTER') -> (AWProtonotion with: 'a'))}.
+	self deny: one equals: other
+]

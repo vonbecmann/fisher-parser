@@ -7,8 +7,7 @@ Class {
 { #category : #running }
 AFLeftRecursiveAnBnCnParseTest >> setUp [
 	super setUp.
-	grammar := self examples leftRecursiveAnbncn.
-	forest := nil
+	grammar := self examples leftRecursiveAnbncn
 ]
 
 { #category : #tests }

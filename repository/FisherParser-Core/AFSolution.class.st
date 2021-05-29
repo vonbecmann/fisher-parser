@@ -36,6 +36,15 @@ AFSolution class >> withAll: anAssocCollection [
 	^ self substitutions: (AFMetanotionSubstitutions withAll: anAssocCollection)
 ]
 
+{ #category : #comparing }
+AFSolution >> = anObject [
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class == anObject class
+		ifFalse: [ ^ false ].
+	^ metanotionSubstitutions = anObject metanotionSubstitutions
+]
+
 { #category : #accessing }
 AFSolution >> applyTo: aMetanotion [
 	^ metanotionSubstitutions at: aMetanotion
@@ -54,6 +63,11 @@ AFSolution >> gtInspectorSubstitutionIn: composite [
 	^ (metanotionSubstitutions gtInspectorSubstitutionsIn: composite)
 			title: [ 'Solution' ];
 			yourself
+]
+
+{ #category : #comparing }
+AFSolution >> hash [
+	^ (self class hash + metanotionSubstitutions hash) hashMultiply
 ]
 
 { #category : #testing }
@@ -76,6 +90,11 @@ AFSolution >> isEmpty [
 { #category : #testing }
 AFSolution >> isSolution [
 	^ true
+]
+
+{ #category : #accessing }
+AFSolution >> metanotionSubstitutions [
+	^ metanotionSubstitutions
 ]
 
 { #category : #printing }

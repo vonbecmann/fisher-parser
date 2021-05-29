@@ -7,8 +7,7 @@ Class {
 { #category : #running }
 AFAnBnCnParseTest >> setUp [
 	super setUp.
-	grammar := self examples anbncn.
-	forest := nil
+	grammar := self examples anbncn
 ]
 
 { #category : #tests }

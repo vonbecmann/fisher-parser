@@ -7,8 +7,7 @@ Class {
 { #category : #running }
 AFTest3ParseTest >> setUp [
 	super setUp.
-	grammar := self examples test3.
-	forest := nil
+	grammar := self examples test3
 ]
 
 { #category : #tests }

@@ -10,8 +10,7 @@ Class {
 { #category : #running }
 AFA3B3C3ParseTest >> setUp [
 	super setUp.
-	grammar := self examples a3b3c3.
-	forest := nil
+	grammar := self examples a3b3c3
 ]
 
 { #category : #tests }

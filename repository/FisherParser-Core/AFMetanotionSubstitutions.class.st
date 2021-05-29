@@ -30,6 +30,17 @@ AFMetanotionSubstitutions class >> withAll: anAssocCollection [
 		yourself
 ]
 
+{ #category : #comparing }
+AFMetanotionSubstitutions >> = anObject [
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class == anObject class
+		ifFalse: [ ^ false ].
+	self size == anObject size
+		ifFalse: [ ^ false ].
+	^ associations allSatisfy: [ :assoc | anObject includes: assoc ]
+]
+
 { #category : #adding }
 AFMetanotionSubstitutions >> add: anAssociation [
 	" Metanotion -> Substitute "
@@ -79,6 +90,16 @@ AFMetanotionSubstitutions >> gtInspectorSubstitutionsIn: composite [
 		send: [ :each | each value ];
 		showOnly: 50;
 		yourself
+]
+
+{ #category : #comparing }
+AFMetanotionSubstitutions >> hash [
+	^ (self class hash + self size hash) hashMultiply
+]
+
+{ #category : #testing }
+AFMetanotionSubstitutions >> includes: anAssociation [
+	^ associations includes: anAssociation
 ]
 
 { #category : #testing }

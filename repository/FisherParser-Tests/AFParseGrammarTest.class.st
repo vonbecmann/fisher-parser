@@ -31,6 +31,12 @@ AFParseGrammarTest >> examples [
 ]
 
 { #category : #running }
+AFParseGrammarTest >> setUp [
+	super setUp.
+	grammar := forest := nil
+]
+
+{ #category : #running }
 AFParseGrammarTest >> tearDown [
 	grammar := forest := nil.
 	super tearDown
