@@ -80,8 +80,7 @@ AFChart >> gtInspectorColumnsIn: composite [
 
 { #category : #initialization }
 AFChart >> initializeSize: sizeRequested [
-	columns := Array new: sizeRequested.
-	1 to: columns size do: [ :index | columns at: index put: (AFColumn number: index) ]
+	columns := (1 to: sizeRequested) collect: [ :index | AFColumn number: index ]
 ]
 
 { #category : #accessing }
