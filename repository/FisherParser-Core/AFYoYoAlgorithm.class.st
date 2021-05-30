@@ -50,8 +50,7 @@ AFYoYoAlgorithm >> evaluate: words [
 	chart first add: (grammar startHyperRule dotAtBeginning startAt: chart first).
 	chart
 		withIndexDo: [ :column :i | 
-			column isEmpty
-				ifTrue: [ ^ AFFailure signal: 'failed at ' , (chart at: i - 1) asString ].
+			column ifEmpty: [ ^ AFFailure signal: 'failed at ' , (chart at: i - 1) asString ].
 			i < n
 				ifTrue: [ self addPreterminalsWith: (words at: i) at: column ].
 			column

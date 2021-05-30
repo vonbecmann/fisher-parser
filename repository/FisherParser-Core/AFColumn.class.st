@@ -147,6 +147,15 @@ AFColumn >> hash [
 ]
 
 { #category : #testing }
+AFColumn >> ifEmpty: aBlock [
+	"Evaluate the given block, answering its value if the receiver is empty, otherwise answer the receiver."
+
+	^ self isEmpty
+		ifTrue: [ aBlock value ]
+		ifFalse: [ self ]
+]
+
+{ #category : #testing }
 AFColumn >> includes: anItem [
 	^ itemSet 
 		detect: [ :each | each equals: anItem ] 
