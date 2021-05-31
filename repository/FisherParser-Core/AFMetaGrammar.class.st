@@ -137,26 +137,25 @@ AFMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
 
 { #category : #initialization }
 AFMetaGrammar >> initialize [
-	nonterminals := Set new.
-	terminals := Set new.
-	metaProductionRules := MultiValuedDictionary dictionary: IdentityDictionary collection: SinglyLinkedList
+	metaProductionRules := MultiValuedDictionary
+		dictionary: IdentityDictionary
+		collection: SinglyLinkedList
 ]
 
 { #category : #initialization }
 AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetters [
 	self initialize.
-	metaRuleCollection do: [ :each | nonterminals add: each head ].
-	ortholetters 
-		do: [ :letter |
-			nonterminals add: (NCNonterminal named: letter).
-			terminals add: (NCTerminal character: letter) ].
+	terminals := ortholetters collect: [ :letter | NCTerminal character: letter ] as: Set.
+	nonterminals := 
+		(metaRuleCollection collect: [ :each | each head ] as: Set),
+		(ortholetters collect: [ :letter | NCNonterminal named: letter ] as: Set).
 	metaRuleCollection
 		collect: [ :each | 
-				NCProductionRule
-					head: (nonterminals like: each head)
-					body: (each body buildBodyOf: nonterminals) ]
+			NCProductionRule
+				head: (nonterminals like: each head)
+				body: (each body buildBodyOf: nonterminals) ]
 		thenDo: [ :each | metaProductionRules at: each head put: each ].
-	ortholetters 
+	ortholetters
 		collect: [ :letter | 
 			NCProductionRule
 				head: (nonterminals like: (NCNonterminal named: letter))
