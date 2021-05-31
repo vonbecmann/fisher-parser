@@ -36,15 +36,18 @@ AFMetaGrammar >> checkIsLLOne [
 	firstSet := self computeFirstSet.
 	followSet := self computeFollowSetUsing: firstSet.
 	parseTable := self computeParseTableUsing: firstSet and: followSet.
-	conflictKeys := parseTable keys select: [ :key | (parseTable at: key) size > 1 ].
-	conflictKeys isEmpty
-		ifFalse: [ 
+	conflictKeys := parseTable keys
+		select: [ :key | (parseTable at: key) size > 1 ].
+	conflictKeys
+		ifNotEmpty: [ 
 			Error
 				signal:
 					(String
 						streamContents: [ :s | 
 							s nextPutAll: 'CONFLICT at '.
-							conflictKeys do: [ :key | s print: key ] separatedBy: [ s space ] ]) ]
+							conflictKeys
+								do: [ :key | s print: key ]
+								separatedBy: [ s space ] ]) ]
 ]
 
 { #category : #initialization }
@@ -61,7 +64,9 @@ AFMetaGrammar >> computeFirstSet [
 { #category : #initialization }
 AFMetaGrammar >> computeFollowSetUsing: firstSet [
 	| followSet previousSize symbolFollowSet rest restFirstSet |
-	followSet := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
+	followSet := MultiValuedDictionary
+		dictionary: IdentityDictionary
+		collection: IdentitySet.
 	nonterminals do: [ :each | followSet at: each putAll: #() ].
 	[ previousSize := followSet size.
 	metaProductionRules
@@ -69,19 +74,18 @@ AFMetaGrammar >> computeFollowSetUsing: firstSet [
 			rule body
 				withIndexDo: [ :symbol :index | 
 					symbol isNonterminal
-						ifTrue: [ 
-							symbolFollowSet := IdentitySet new.
+						ifTrue: [ symbolFollowSet := IdentitySet new.
 							rest := rule body copyFrom: index + 1 to: rule body size.
-							rest isEmpty
-								ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ]
-								ifFalse: [ 
+							rest
+								ifEmpty: [ symbolFollowSet addAll: (followSet at: rule head) ]
+								ifNotEmpty: [ 
 									restFirstSet := firstSet firstOf: rest.
 									(restFirstSet includes: #epsilon)
 										ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ].
 									symbolFollowSet addAll: (restFirstSet copyWithout: #epsilon) ].
 							followSet at: symbol putAll: symbolFollowSet ] ] ].
 	previousSize = followSet size ] whileFalse.
-	^ followSet 
+	^ followSet
 ]
 
 { #category : #initialization }
