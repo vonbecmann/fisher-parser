@@ -22,6 +22,13 @@ AFColumn class >> number: anInteger [
 		yourself
 ]
 
+{ #category : #'instance creation' }
+AFColumn class >> numberOneWithDottedHyperRule: aDottedHyperRule [
+	^ (self number: 1)
+		addDottedHyperRule: aDottedHyperRule;
+		yourself
+]
+
 { #category : #comparing }
 AFColumn >> <= column [
 	^ number <= column number

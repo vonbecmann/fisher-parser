@@ -12,9 +12,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-AFChart class >> new: size [
+AFChart class >> numberOfColumns: numberOfColumns withStartHyperRule: startHyperRule [
 	^ self basicNew
-		initializeSize: size;
+		initializeNumberOfColumns: numberOfColumns startHyperRule: startHyperRule;
 		yourself
 ]
 
@@ -79,8 +79,10 @@ AFChart >> gtInspectorColumnsIn: composite [
 ]
 
 { #category : #initialization }
-AFChart >> initializeSize: sizeRequested [
-	columns := (1 to: sizeRequested) collect: [ :index | AFColumn number: index ]
+AFChart >> initializeNumberOfColumns: numberOfColumns startHyperRule: aHyperRule [
+	columns := 
+	{(AFColumn numberOneWithDottedHyperRule: aHyperRule dotAtBeginning)}
+		, ((2 to: numberOfColumns) collect: [ :index | AFColumn number: index ])
 ]
 
 { #category : #accessing }

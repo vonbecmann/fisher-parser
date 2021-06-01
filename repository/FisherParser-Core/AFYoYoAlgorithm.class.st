@@ -46,8 +46,7 @@ AFYoYoAlgorithm >> complete: item [
 AFYoYoAlgorithm >> evaluate: words [
 	| n chart |
 	n := words size + 1.
-	chart := AFChart new: n.
-	chart first add: (grammar startHyperRule dotAtBeginning startAt: chart first).
+	chart := AFChart numberOfColumns: n withStartHyperRule: grammar startHyperRule.
 	chart
 		withIndexDo: [ :column :i | 
 			column ifEmpty: [ ^ AFFailure signal: 'failed at ' , (chart at: i - 1) asString ].
