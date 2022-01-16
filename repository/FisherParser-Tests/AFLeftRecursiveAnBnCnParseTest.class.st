@@ -45,3 +45,16 @@ AFLeftRecursiveAnBnCnParseTest >> testParseTreeABC [
 		assert: (derivation collect: #first)
 		equals: (grammar hyperRuleAtAll: #(1 3 4 3 5 3 6))
 ]
+
+{ #category : #tests }
+AFLeftRecursiveAnBnCnParseTest >> testTallyIsTwo [
+	| tree solution |
+	tree := grammar parseTree: 'aabbcc'.
+	self assert: tree isNotNil.
+	self assert: grammar firstHyperRule equals: tree hyperRule.
+	solution := tree solution.
+	self assert: solution isNotNil.
+	self
+		assert: (solution applyTo: #TALLY asNotion)
+		equals: 'ii' asNotion
+]

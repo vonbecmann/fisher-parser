@@ -139,6 +139,11 @@ AFVWGrammar >> computeHypernotionsFirstSet [
 	nonterminalHypernotions do: [ :hn | hn computeFirstSet ]
 ]
 
+{ #category : #accessing }
+AFVWGrammar >> firstHyperRule [
+	^ vwGrammar hyperRuleAt: 1
+]
+
 { #category : #'inspector extensions' }
 AFVWGrammar >> gtInspectorDefinitionIn: composite [
 	<gtInspectorPresentationOrder: 0>
