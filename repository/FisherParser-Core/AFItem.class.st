@@ -33,12 +33,6 @@ AFItem >> gtDisplayIntervalString [
 	^ String streamContents: [ :s | self printIntervalOn: s ]
 ]
 
-{ #category : #'inspector extensions' }
-AFItem >> gtDisplayValueString [
-	^ self subclassResponsibility
-
-]
-
 { #category : #testing }
 AFItem >> isTerminal [
 	^ self subclassResponsibility

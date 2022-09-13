@@ -71,6 +71,19 @@ AFDottedItem >> asSyntaxNode [
 		end: end number
 ]
 
+{ #category : #displaying }
+AFDottedItem >> displayStringOn: aStream [
+	"[ dotted hyper rule @ start ]"
+
+	"[ dotted hyper rule @  [ start, end ] ]"
+
+	aStream nextPut: $[.
+	dottedHyperRule gtDisplayOn: aStream.
+	aStream nextPutAll: ' @ '.
+	self printIntervalOn: aStream.
+	aStream nextPut: $]
+]
+
 { #category : #accessing }
 AFDottedItem >> dottedHyperRule [
 	^ dottedHyperRule
@@ -94,24 +107,6 @@ AFDottedItem >> familiesSize [
 { #category : #enumerating }
 AFDottedItem >> finalItemsWithHeadMatchSymbolAtDotDo: aBlock [
 	end finalItemsWithHeadMatch: self symbolAtDot do: aBlock
-]
-
-{ #category : #'inspector extensions' }
-AFDottedItem >> gtDisplayOn: aStream [
-	"[ dotted hyper rule @ start ]"
-
-	"[ dotted hyper rule @  [ start, end ] ]"
-
-	aStream nextPut: $[.
-	dottedHyperRule gtDisplayOn: aStream.
-	aStream nextPutAll: ' @ '.
-	self printIntervalOn: aStream.
-	aStream nextPut: $]
-]
-
-{ #category : #'inspector extensions' }
-AFDottedItem >> gtDisplayValueString [
-	^ String streamContents: [ :s | dottedHyperRule gtDisplayOn: s ]
 ]
 
 { #category : #comparing }

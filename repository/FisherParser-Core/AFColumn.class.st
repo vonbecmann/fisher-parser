@@ -119,7 +119,7 @@ AFColumn >> gtInspectorOrderedItemsIn: composite [
 		title: [ ' ordered items' ];
 		display: [ orderedItems asArray ];
 		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
-		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
+		column: 'Value' evaluated: [ :each | each displayString ];
 		showOnly: 50;
 		yourself
 ]
@@ -131,7 +131,7 @@ AFColumn >> gtInspectorPredictionItemsIn: composite [
 		title: [ 'Prediction' ];
 		display: [ predictionItems asArray ];
 		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
-		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
+		column: 'Value' evaluated: [ :each | each displayString ];
 		showOnly: 50;
 		yourself
 ]
@@ -143,7 +143,7 @@ AFColumn >> gtInspectorSortedItemsIn: composite [
 		title: [ orderedItems size asString , ' sorted items' ];
 		display: [ self sortedItems ];
 		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
-		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
+		column: 'Value' evaluated: [ :each | each displayString ];
 		showOnly: 50;
 		yourself
 ]

@@ -45,7 +45,7 @@ AFChart >> gtInspectorAllSortedItemsAtColumnsIn: composite [
 				new: (columns inject: 0 into: [ :sum :column | sum + column size ])
 				streamContents: [ :s | columns do: [ :column | s nextPutAll: column sortedItems ] ] ];
 		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
-		column: 'Value' evaluated: [ :each | each gtDisplayValueString ];
+		column: 'Value' evaluated: [ :each | each displayString ];
 		showOnly: 50;
 		yourself
 ]

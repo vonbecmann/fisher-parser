@@ -46,13 +46,8 @@ AFTerminalItem >> asSyntaxNode [
 		end: end number
 ]
 
-{ #category : #comparing }
-AFTerminalItem >> equals: anItem [
-	^ (super equals: anItem) and: [ terminal = anItem terminal ]
-]
-
-{ #category : #'inspector extensions' }
-AFTerminalItem >> gtDisplayOn: aStream [
+{ #category : #displaying }
+AFTerminalItem >> displayStringOn: aStream [
 	"[ terminal @ [ start, end ] ]"
 
 	aStream nextPut: $[.
@@ -62,9 +57,9 @@ AFTerminalItem >> gtDisplayOn: aStream [
 	aStream nextPut: $]
 ]
 
-{ #category : #'inspector extensions' }
-AFTerminalItem >> gtDisplayValueString [
-	^ String streamContents: [ :s | terminal gtDisplayOn: s ]
+{ #category : #comparing }
+AFTerminalItem >> equals: anItem [
+	^ (super equals: anItem) and: [ terminal = anItem terminal ]
 ]
 
 { #category : #comparing }
