@@ -13,10 +13,10 @@ JEBSPPForest >> substitutionsOf: metanotions [
 				postOrderNodeBlock: [ :packed | 
 					substitutions at: packed putAll: (packed sumFamilySubstitutionsAt: substitutions) ];
 				preOrderFamilyBlock: [ :family | 
-					(family parent model isNonterminal and: [ family parent model head = root model head ])
+					(family parent isNonterminal and: [ family parent head = root head ])
 						ifTrue: [ 
 							family children
-								select: [ :node | node model isNonterminal and: [ metanotions includes: node model head ] ]
+								select: [ :node | node isNonterminal and: [ metanotions includes: node head ] ]
 								thenDo: [ :node | substitutions at: node put: node asMetanotionSubstitution ]  ] ];
 				postOrderFamilyBlock: [ :family | 
 					substitutions at: family putAll: (family productMemberSubstitutionsAt: substitutions) ];

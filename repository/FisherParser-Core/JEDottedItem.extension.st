@@ -1,12 +1,12 @@
-Extension { #name : #JEPackedNode }
+Extension { #name : #JEDottedItem }
 
 { #category : #'*FisherParser-Core' }
-JEPackedNode >> asMetanotionSubstitution [
-	^ AFMetanotionSubstitutions with: self model head -> self asProtonotion
+JEDottedItem >> asMetanotionSubstitution [
+	^ AFMetanotionSubstitutions with: self head -> self asProtonotion
 ]
 
 { #category : #'*FisherParser-Core' }
-JEPackedNode >> asProtonotion [
+JEDottedItem >> asProtonotion [
 	" a new protonotion with terminals as small syntactic marks "
 
 	^ AWProtonotion
@@ -15,13 +15,12 @@ JEPackedNode >> asProtonotion [
 				streamContents: [ :s | 
 					JETreeDepthFirstVisitor new
 						preOrderNodeBlock: [ :node | 
-							node model isTerminal
-								ifTrue: [ s nextPut: node model word ] ];
+							node isTerminal ifTrue: [ s nextPut: node word ] ];
 						visit: self ])
 ]
 
 { #category : #'*FisherParser-Core' }
-JEPackedNode >> sumFamilySubstitutionsAt: substitutions [
+JEDottedItem >> sumFamilySubstitutionsAt: substitutions [
 	| familySubstitutions |
 	familySubstitutions := SinglyLinkedList new.
 	families do: [ :family | familySubstitutions addAll: (substitutions at: family) ].
