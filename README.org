@@ -1,7 +1,7 @@
 * Parsing van Wijngaarden grammars
   - Anthony J. Fisher
 * Continuous Integration 
-  - [[https://github.com/vonbecmann/multi-valued-dictionary/actions/workflows/CI.yml][https://github.com/vonbecmann/fisher-parser/actions/workflows/CI.yml/badge.svg]] 
+  - [[https://github.com/vonbecmann/fishe-parser/actions/workflows/CI.yml][https://github.com/vonbecmann/fisher-parser/actions/workflows/CI.yml/badge.svg]] 
 
 
  
