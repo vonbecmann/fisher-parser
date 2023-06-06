@@ -248,11 +248,6 @@ AFHypernotion >> computeParseTableUsing: followSet [
 
 ]
 
-{ #category : #accessing }
-AFHypernotion >> firstSet [
-	^ firstSet at: self grammar startSymbol
-]
-
 { #category : #'cross references' }
 AFHypernotion >> forwardCrossReferences [
 	^ forwardCrossReferences
@@ -434,6 +429,11 @@ AFHypernotion >> size [
 	^ notions size
 ]
 
+{ #category : #accessing }
+AFHypernotion >> startFirstSet [
+	^ firstSet at: self grammar startSymbol
+]
+
 { #category : #matching }
 AFHypernotion >> superMatches: anAFHypernotion [
 
@@ -442,5 +442,5 @@ AFHypernotion >> superMatches: anAFHypernotion [
 		^ (anAFHypernotion match: self) isSolution ].
 	anAFHypernotion isProtonotion ifTrue: [ 
 		^ (self match: anAFHypernotion) isSolution ].
-	^ (self firstSet intersection: anAFHypernotion firstSet) isNotEmpty
+	^ (self startFirstSet intersection: anAFHypernotion startFirstSet) isNotEmpty
 ]
