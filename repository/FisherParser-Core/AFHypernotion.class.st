@@ -436,9 +436,11 @@ AFHypernotion >> size [
 
 { #category : #matching }
 AFHypernotion >> superMatches: anAFHypernotion [
-	self isProtonotion
-		ifTrue: [ ^ (anAFHypernotion match: self) isSolution ].
-	anAFHypernotion isProtonotion
-		ifTrue: [ ^ (self match: anAFHypernotion) isSolution ].
+
+	self = anAFHypernotion ifTrue: [ ^ true ].
+	self isProtonotion ifTrue: [ 
+		^ (anAFHypernotion match: self) isSolution ].
+	anAFHypernotion isProtonotion ifTrue: [ 
+		^ (self match: anAFHypernotion) isSolution ].
 	^ (self firstSet intersection: anAFHypernotion firstSet) isNotEmpty
 ]
