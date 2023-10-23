@@ -113,18 +113,6 @@ AFColumn >> gtInspectorFinalItemsIn: composite [
 ]
 
 { #category : #'inspector extensions' }
-AFColumn >> gtInspectorOrderedItemsIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ composite table
-		title: [ ' ordered items' ];
-		display: [ orderedItems asArray ];
-		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
-		column: 'Value' evaluated: [ :each | each displayString ];
-		showOnly: 50;
-		yourself
-]
-
-{ #category : #'inspector extensions' }
 AFColumn >> gtInspectorPredictionItemsIn: composite [
 	<gtInspectorPresentationOrder: 2>
 	^ composite table
@@ -183,6 +171,23 @@ AFColumn >> initialize [
 AFColumn >> initializeNumber: anInteger [
 	self initialize.
 	number := anInteger
+]
+
+{ #category : #'inspector extensions' }
+AFColumn >> inspectionOrderedItemsIn: builder [
+
+	<inspectorPresentationOrder: 1 title: 'ordered items'>
+	^ builder newTable
+		  addColumn: (SpStringTableColumn new
+				   title: '[start, end]';
+				   evaluated: [ :each | each gtDisplayIntervalString ];
+				   width: 70;
+				   yourself);
+		  addColumn: (SpStringTableColumn
+				   title: 'Value'
+				   evaluated: [ :each | each displayString ]);
+		  items: orderedItems asArray;
+		  yourself
 ]
 
 { #category : #testing }
