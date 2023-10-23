@@ -248,6 +248,14 @@ AFHypernotion >> computeParseTableUsing: followSet [
 
 ]
 
+{ #category : #'inspector extensions' }
+AFHypernotion >> displayStringOn: aStream [
+
+	notions
+		do: [ :each | each displayStringOn: aStream ]
+		separatedBy: [ aStream space ]
+]
+
 { #category : #'cross references' }
 AFHypernotion >> forwardCrossReferences [
 	^ forwardCrossReferences
@@ -297,17 +305,6 @@ AFHypernotion >> gtInspectorForwardCrossReferencesIn: composite [
 		yourself
 ]
 
-{ #category : #'inspector extensions' }
-AFHypernotion >> gtInspectorNotionsIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite list
-		title: [ notions size asString, ' notions' ];
-		display: [ notions ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #comparing }
 AFHypernotion >> hash [
 	| hash |
@@ -331,6 +328,16 @@ AFHypernotion >> initializeNotions: aNotionCollection [
 		do: [ :each | 
 			each isMetanotion
 				ifTrue: [ metanotions add: each ] ]
+]
+
+{ #category : #'inspector extensions' }
+AFHypernotion >> inspectionNotionsIn: builder [
+
+	<inspectorPresentationOrder: 0 title: 'notions'>
+	^ builder newList
+		  items: notions;
+		  display: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
+		  yourself
 ]
 
 { #category : #testing }
