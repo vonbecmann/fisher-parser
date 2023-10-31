@@ -30,7 +30,7 @@ AFAnalyticalParser >> parse: aString [
 		do: [ :ex | 
 			Dictionary
 				newFrom:
-					{('expected symbols' -> ex expectedSymbols).
+					{"('expected symbols' -> ex expectedSymbols)."
 					('position' -> ex position).
 					('accepts' -> false).
 					('message' -> ex messageText)} ]
