@@ -42,6 +42,30 @@ AFDottedHyperRuleTest >> testAsString02 [
 ]
 
 { #category : #tests }
+AFDottedHyperRuleTest >> testDisplayStringOn [
+
+	dottedHyperRule := AFDottedHyperRule atTheEndOf: (AFHyperRule
+			                    headWith: (AWProtonotion with: 'start')
+			                    bodyWith: (AFHypernotion with: (AWProtonotion with: 'program'))).
+	self
+		assert: dottedHyperRule displayString
+		equals: 'start: program' , middleDot , '.'
+]
+
+{ #category : #tests }
+AFDottedHyperRuleTest >> testDisplayStringOn02 [
+
+	dottedHyperRule := AFDottedHyperRule atTheBeginningOf: (AFHyperRule
+			                    headWith: (AWProtonotion with: 'start')
+			                    bodyWith:
+			                    (AFHypernotion with:
+				                     (AWProtonotion with: 'program'))).
+	self
+		assert: dottedHyperRule displayString
+		equals: 'start: ' , middleDot , 'program' , '.'
+]
+
+{ #category : #tests }
 AFDottedHyperRuleTest >> testEqual [
 	| one another |
 	one := 

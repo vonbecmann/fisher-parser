@@ -74,6 +74,66 @@ AFDottedItemTest >> testAsString04 [
 ]
 
 { #category : #tests }
+AFDottedItemTest >> testDisplayStringOn [
+
+	| item first |
+	first := AFColumn number: 1.
+	item := (AFHyperRule headWith: 'empty' asNotion body: {  })
+		        dotAtBeginning startAt: first.
+
+	self
+		assert: item displayString
+		equals: '[empty: ' , middleDot , '. @ 1]'
+]
+
+{ #category : #tests }
+AFDottedItemTest >> testDisplayStringOn02 [
+
+	| item first third |
+	first := AFColumn number: 1.
+	third := AFColumn number: 3.
+	item := (AFHyperRule headWith: 'empty' asNotion body: {  })
+		        dotAtBeginning startAt: first endAt: third.
+
+	self
+		assert: item displayString
+		equals: '[empty: ' , middleDot , '. @ [1, 3]]'
+]
+
+{ #category : #tests }
+AFDottedItemTest >> testDisplayStringOn03 [
+
+	| item first third |
+	first := AFColumn number: 1.
+	third := AFColumn number: 3.
+	item := (AFHyperRule
+		         headWithAll: #( #NOTION 'option' ) asNotions
+		         bodyWith: (AFHypernotion with: #NOTION asNotion))
+		        dotAtBeginning startAt: first endAt: third.
+
+	self
+		assert: item displayString
+		equals: '[NOTION option: ' , middleDot , 'NOTION. @ [1, 3]]'
+]
+
+{ #category : #tests }
+AFDottedItemTest >> testDisplayStringOn04 [
+
+	| item first third |
+	first := AFColumn number: 1.
+	third := AFColumn number: 3.
+	item := (AFHyperRule
+		         headWithAll: #( #NOTION 'option' ) asNotions
+		         bodyWith: (AFHypernotion with: #NOTION asNotion)) dotAtEnd
+		        startAt: first
+		        endAt: third.
+
+	self
+		assert: item displayString
+		equals: '[NOTION option: NOTION' , middleDot , '. @ [1, 3]]'
+]
+
+{ #category : #tests }
 AFDottedItemTest >> testEquals [
 	| first third one another |
 	first := AFColumn number: 1.
@@ -113,64 +173,4 @@ AFDottedItemTest >> testEquals02 [
 	self assert: one hash equals: another hash.
 	self assert: another equals: one.
 	self assert: another hash equals: one hash
-]
-
-{ #category : #tests }
-AFDottedItemTest >> testGtDisplayString [
-
-	| item first |
-	first := AFColumn number: 1.
-	item := (AFHyperRule headWith: 'empty' asNotion body: {  })
-		        dotAtBeginning startAt: first.
-
-	self
-		assert: item displayString
-		equals: '[empty: ' , middleDot , '. @ 1]'
-]
-
-{ #category : #tests }
-AFDottedItemTest >> testGtDisplayString02 [
-
-	| item first third |
-	first := AFColumn number: 1.
-	third := AFColumn number: 3.
-	item := (AFHyperRule headWith: 'empty' asNotion body: {  })
-		        dotAtBeginning startAt: first endAt: third.
-
-	self
-		assert: item displayString
-		equals: '[empty: ' , middleDot , '. @ [1, 3]]'
-]
-
-{ #category : #tests }
-AFDottedItemTest >> testGtDisplayString03 [
-
-	| item first third |
-	first := AFColumn number: 1.
-	third := AFColumn number: 3.
-	item := (AFHyperRule
-		         headWithAll: #( #NOTION 'option' ) asNotions
-		         bodyWith: (AFHypernotion with: #NOTION asNotion))
-		        dotAtBeginning startAt: first endAt: third.
-
-	self
-		assert: item displayString
-		equals: '[NOTION option: ' , middleDot , 'NOTION. @ [1, 3]]'
-]
-
-{ #category : #tests }
-AFDottedItemTest >> testGtDisplayString04 [
-
-	| item first third |
-	first := AFColumn number: 1.
-	third := AFColumn number: 3.
-	item := (AFHyperRule
-		         headWithAll: #( #NOTION 'option' ) asNotions
-		         bodyWith: (AFHypernotion with: #NOTION asNotion)) dotAtEnd
-		        startAt: first
-		        endAt: third.
-
-	self
-		assert: item displayString
-		equals: '[NOTION option: NOTION' , middleDot , '. @ [1, 3]]'
 ]

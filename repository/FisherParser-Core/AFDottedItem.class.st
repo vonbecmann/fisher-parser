@@ -73,12 +73,13 @@ AFDottedItem >> asSyntaxNode [
 
 { #category : #displaying }
 AFDottedItem >> displayStringOn: aStream [
+
 	"[ dotted hyper rule @ start ]"
 
 	"[ dotted hyper rule @  [ start, end ] ]"
 
 	aStream nextPut: $[.
-	dottedHyperRule gtDisplayOn: aStream.
+	dottedHyperRule displayStringOn: aStream.
 	aStream nextPutAll: ' @ '.
 	self printIntervalOn: aStream.
 	aStream nextPut: $]

@@ -42,17 +42,18 @@ AFDottedHyperRule >> body [
 	^ hyperRule body
 ]
 
+{ #category : #displaying }
+AFDottedHyperRule >> displayStringOn: aStream [
+
+	hyperRule head displayStringOn: aStream.
+	aStream nextPutAll: ': '.
+	hyperRule body displayStringOn: aStream withDotAt: dotIndex.
+	aStream nextPut: $.
+]
+
 { #category : #accessing }
 AFDottedHyperRule >> dotIndex [
 	^ dotIndex
-]
-
-{ #category : #'inspector extensions' }
-AFDottedHyperRule >> gtDisplayOn: aStream [
-	hyperRule head gtDisplayOn: aStream.
-	aStream nextPutAll: ': '.
-	hyperRule body gtDisplayOn: aStream withDotAt: dotIndex.
-	aStream nextPut: $.
 ]
 
 { #category : #'inspector extensions' }

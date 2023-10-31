@@ -50,24 +50,21 @@ AFHyperAlternative >> displayStringOn: aStream [
 		separatedBy: [ aStream nextPutAll: ', ' ]
 ]
 
+{ #category : #displaying }
+AFHyperAlternative >> displayStringOn: aStream withDotAt: dotIndex [
+
+	| middleDot |
+	middleDot := Character value: 183.
+	hypernotions withIndexDo: [ :each :index | 
+		index == 1 ifFalse: [ aStream nextPutAll: ', ' ].
+		index == dotIndex ifTrue: [ aStream nextPut: middleDot ].
+		each displayStringOn: aStream ].
+	dotIndex > hypernotions size ifTrue: [ aStream nextPut: middleDot ]
+]
+
 { #category : #accessing }
 AFHyperAlternative >> first [
 	^ hypernotions first
-]
-
-{ #category : #'inspector extensions' }
-AFHyperAlternative >> gtDisplayOn: aStream withDotAt: dotIndex [
-	| middleDot |
-	middleDot := Character value: 183.
-	hypernotions
-		withIndexDo: [ :each :index | 
-			index == 1
-				ifFalse: [ aStream nextPutAll: ', ' ].
-			index == dotIndex
-				ifTrue: [ aStream nextPut: middleDot ].
-			each gtDisplayOn: aStream ].
-	dotIndex > hypernotions size
-		ifTrue: [ aStream nextPut: middleDot ]
 ]
 
 { #category : #'inspector extensions' }
