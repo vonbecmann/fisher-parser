@@ -31,6 +31,34 @@ AFHyperRuleTest >> testAsString02 [
 ]
 
 { #category : #tests }
+AFHyperRuleTest >> testDisplayString [
+
+	hyperRule := AFHyperRule headWith: #EMPTY asNotion body: {  }.
+
+	self assert: hyperRule displayString equals: 'EMPTY: .'
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testDisplayString02 [
+
+	hyperRule := AFHyperRule
+		             headWithAll: #( #NOTION 'option' ) asNotions
+		             bodyWith: (AFHypernotion with: #NOTION asNotion).
+	self assert: hyperRule displayString equals: 'NOTION option: NOTION.'
+]
+
+{ #category : #tests }
+AFHyperRuleTest >> testDisplayString03 [
+
+	hyperRule := AFHyperRule
+		             headWithAll: #( #TALLY #LETTER 's' ) asNotions
+		             bodyWith: (AFHypernotion withAll: #( 'i' #LETTER 's' ) asNotions).
+	self
+		assert: hyperRule displayString
+		equals: 'TALLY LETTER s: i LETTER s.'
+]
+
+{ #category : #tests }
 AFHyperRuleTest >> testEqual [
 	| one another |
 	one := AFHyperRule headWith: (#'EMPTY' asNotion) body: {}.

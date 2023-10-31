@@ -248,7 +248,7 @@ AFHypernotion >> computeParseTableUsing: followSet [
 
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : #displaying }
 AFHypernotion >> displayStringOn: aStream [
 
 	notions
@@ -274,13 +274,6 @@ AFHypernotion >> forwardCrossReferencesDo: aBlock [
 { #category : #private }
 AFHypernotion >> grammar [
 	^ grammar ifNil: [ grammar := metaGrammar startAt: self ]
-]
-
-{ #category : #'inspector extensions' }
-AFHypernotion >> gtDisplayOn: aStream [
-	notions 
-		do: [ :each | each printOn: aStream ] 
-		separatedBy: [ aStream space ]
 ]
 
 { #category : #'inspector extensions' }
@@ -328,6 +321,16 @@ AFHypernotion >> initializeNotions: aNotionCollection [
 		do: [ :each | 
 			each isMetanotion
 				ifTrue: [ metanotions add: each ] ]
+]
+
+{ #category : #'inspector extensions' }
+AFHypernotion >> inspectionForwardCrossReferencesIn: builder [
+
+	<inspectorPresentationOrder: 1 title: 'Forward X-Ref'>
+	^ builder newList
+		  items: forwardCrossReferences asArray;
+		  display: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
+		  yourself
 ]
 
 { #category : #'inspector extensions' }

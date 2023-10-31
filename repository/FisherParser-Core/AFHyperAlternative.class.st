@@ -42,16 +42,17 @@ AFHyperAlternative >> at: index [
 	^ hypernotions at: index
 ]
 
+{ #category : #displaying }
+AFHyperAlternative >> displayStringOn: aStream [
+
+	hypernotions
+		do: [ :hn | hn displayStringOn: aStream ]
+		separatedBy: [ aStream nextPutAll: ', ' ]
+]
+
 { #category : #accessing }
 AFHyperAlternative >> first [
 	^ hypernotions first
-]
-
-{ #category : #'inspector extensions' }
-AFHyperAlternative >> gtDisplayOn: aStream [
-	hypernotions 
-		do: [ :hn | hn gtDisplayOn: aStream ] 
-		separatedBy: [ aStream nextPutAll: ', ' ]
 ]
 
 { #category : #'inspector extensions' }

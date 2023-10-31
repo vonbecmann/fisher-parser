@@ -105,6 +105,15 @@ AFHyperRule >> body [
 	^ body
 ]
 
+{ #category : #displaying }
+AFHyperRule >> displayStringOn: aStream [
+
+	head displayStringOn: aStream.
+	aStream nextPutAll: ': '.
+	body displayStringOn: aStream.
+	aStream nextPut: $.
+]
+
 { #category : #accessing }
 AFHyperRule >> dotAtBeginning [
 	^ AFDottedHyperRule atTheBeginningOf: self
@@ -113,14 +122,6 @@ AFHyperRule >> dotAtBeginning [
 { #category : #accessing }
 AFHyperRule >> dotAtEnd [
 	^ AFDottedHyperRule atTheEndOf: self
-]
-
-{ #category : #'inspector extensions' }
-AFHyperRule >> gtDisplayOn: aStream [
-	head gtDisplayOn: aStream.
-	aStream nextPutAll: ': '.
-	body gtDisplayOn: aStream.
-	aStream nextPut: $.
 ]
 
 { #category : #comparing }
