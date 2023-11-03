@@ -51,7 +51,7 @@ AFTerminalItem >> displayStringOn: aStream [
 	"[ terminal @ [ start, end ] ]"
 
 	aStream nextPut: $[.
-	terminal gtDisplayOn: aStream.
+	terminal displayStringOn: aStream.
 	aStream nextPutAll: ' @ '.
 	self printIntervalOn: aStream.
 	aStream nextPut: $]
