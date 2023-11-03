@@ -67,17 +67,6 @@ AFHyperAlternative >> first [
 	^ hypernotions first
 ]
 
-{ #category : #'inspector extensions' }
-AFHyperAlternative >> gtInspectorHypernotionsIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite list
-		title: [ hypernotions size asString , ' hypernotions' ];
-		display: [ hypernotions ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #comparing }
 AFHyperAlternative >> hash [
 	| hash |
@@ -89,6 +78,16 @@ AFHyperAlternative >> hash [
 { #category : #initialization }
 AFHyperAlternative >> initializeHypernotions: anAFHypernotionArray [
 	hypernotions := anAFHypernotionArray
+]
+
+{ #category : #'inspector extensions' }
+AFHyperAlternative >> inspectionHypernotionsIn: aBuilder [
+
+	<inspectorPresentationOrder: 0 title: 'Hypernotions'>
+	^ aBuilder newList
+		  items: hypernotions;
+		  display: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
+		  yourself
 ]
 
 { #category : #testing }
