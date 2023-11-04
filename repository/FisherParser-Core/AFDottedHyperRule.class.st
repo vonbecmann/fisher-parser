@@ -56,23 +56,6 @@ AFDottedHyperRule >> dotIndex [
 	^ dotIndex
 ]
 
-{ #category : #'inspector extensions' }
-AFDottedHyperRule >> gtInspectorPureIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite table
-		title: [ 'Pure' ];
-		display: [ {
-			('hyper rule' -> hyperRule).
-			('head' -> hyperRule head).
-			('body' -> hyperRule body).
-			('dotIndex' -> dotIndex).
-			('symbolAtDot' -> (self isFinal ifTrue: [ nil ] ifFalse: [ self symbolAtDot ]))} ];
-		column: 'Name' evaluated: [ :each | each key ] width: 100;
-		column: 'Value' evaluated: [ :each | each value gtDisplayString ];
-		send: [ :each | each value ];
-		yourself
-]
-
 { #category : #comparing }
 AFDottedHyperRule >> hash [
 	^ (hyperRule hash + dotIndex hash) hashMultiply
@@ -92,6 +75,32 @@ AFDottedHyperRule >> hyperRule [
 AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [ 
 	hyperRule := aHyperRule.
 	dotIndex := index 
+]
+
+{ #category : #'inspector extensions' }
+AFDottedHyperRule >> inspectionPureIn: aBuilder [
+
+	<inspectorPresentationOrder: 1 title: 'Pure'>
+	^ aBuilder newTable
+		  addColumn: (SpStringTableColumn new
+				   title: 'Name';
+				   evaluated: [ :each | each key ];
+				   width: 100;
+				   yourself);
+		  addColumn:
+		  (SpStringTableColumn
+			   title: 'Value'
+			   evaluated: [ :each | each value displayString ]);
+		  items: ({ 
+				   ('hyper rule' -> hyperRule).
+				   ('head' -> hyperRule head).
+				   ('body' -> hyperRule body).
+				   ('dotIndex' -> dotIndex).
+				   ('symbolAtDot' -> (self isFinal
+					     ifTrue: [ nil ]
+					     ifFalse: [ self symbolAtDot ])) } collect: [ :each | 
+				   StInspectorAssociationNode hostObject: each ]);
+		  yourself
 ]
 
 { #category : #testing }
