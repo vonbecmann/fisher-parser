@@ -50,10 +50,11 @@ AFSolution >> applyTo: aMetanotion [
 	^ metanotionSubstitutions at: aMetanotion
 ]
 
-{ #category : #'inspector extensions' }
-AFSolution >> gtDisplayOn: aStream [
+{ #category : #displaying }
+AFSolution >> displayStringOn: aStream [
+
 	aStream nextPutAll: 'solution('.
-	metanotionSubstitutions gtDisplayOn: aStream.
+	metanotionSubstitutions displayStringOn: aStream.
 	aStream nextPut: $)
 ]
 
