@@ -55,17 +55,6 @@ AWHypernotion >> collect: aBlock [
 	^ self class withAll: (notions collect: aBlock)
 ]
 
-{ #category : #'inspector extensions' }
-AWHypernotion >> gtInspectorNotionsIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite list
-		title: [ notions size asString, ' notions' ];
-		display: [ notions ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #comparing }
 AWHypernotion >> hash [
 	| hash |
@@ -78,6 +67,16 @@ AWHypernotion >> hash [
 AWHypernotion >> initializeNotions: aCollection [
 	self initialize.
 	notions := aCollection
+]
+
+{ #category : #'inspector extensions' }
+AWHypernotion >> inspectionNotionsIn: builder [
+
+	<inspectorPresentationOrder: 0 title: 'notions'>
+	^ builder newList
+		  items: notions;
+		  display: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
+		  yourself
 ]
 
 { #category : #testing }
