@@ -78,21 +78,6 @@ AFMetanotionSubstitutions >> displayStringOn: aStream [
 	aStream nextPut: $}
 ]
 
-{ #category : #'inspector extensions' }
-AFMetanotionSubstitutions >> gtInspectorSubstitutionsIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite table
-		title: [ 'Substitutions' ];
-		display: [ associations asArray ];
-		column: 'Metanotion'
-			evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each key ];
-		column: 'Substitute'
-			evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each value ];
-		send: [ :each | each value ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #comparing }
 AFMetanotionSubstitutions >> hash [
 	^ (self class hash + self size hash) hashMultiply
@@ -111,6 +96,23 @@ AFMetanotionSubstitutions >> includesMetanotion: aMetanotion [
 { #category : #initialization }
 AFMetanotionSubstitutions >> initialize [
 	associations := SinglyLinkedList new
+]
+
+{ #category : #'inspector extensions' }
+AFMetanotionSubstitutions >> inspectionSubstitutionsIn: aBuilder [
+
+	<inspectorPresentationOrder: 0 title: 'Subtitutions'>
+	^ aBuilder newTable
+		  items: associations asArray;
+		  addColumn: (SpStringTableColumn
+				   title: 'Metanotion'
+				   evaluated: [ :each | 
+					   StObjectPrinter asTruncatedTextFrom: each key ]);
+		  addColumn: (SpStringTableColumn
+				   title: 'Substitute'
+				   evaluated: [ :each | 
+					   StObjectPrinter asTruncatedTextFrom: each value ]);
+		  yourself
 ]
 
 { #category : #testing }

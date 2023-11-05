@@ -58,14 +58,6 @@ AFSolution >> displayStringOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #'inspector extensions' }
-AFSolution >> gtInspectorSubstitutionIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ (metanotionSubstitutions gtInspectorSubstitutionsIn: composite)
-			title: [ 'Solution' ];
-			yourself
-]
-
 { #category : #comparing }
 AFSolution >> hash [
 	^ (self class hash + metanotionSubstitutions hash) hashMultiply
@@ -81,6 +73,14 @@ AFSolution >> ifSolution: aBlock [
 { #category : #initialization }
 AFSolution >> initializeSubstitutions: aMetanotionSubstitutions [
 	metanotionSubstitutions := aMetanotionSubstitutions
+]
+
+{ #category : #'inspector extensions' }
+AFSolution >> inspectionSubstitutionsIn: aBuilder [
+
+	<inspectorPresentationOrder: 0 title: 'Solution'>
+	^ (metanotionSubstitutions inspectionSubstitutionsIn: aBuilder)
+		  yourself
 ]
 
 { #category : #testing }
