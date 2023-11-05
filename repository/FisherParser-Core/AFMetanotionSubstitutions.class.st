@@ -68,11 +68,12 @@ AFMetanotionSubstitutions >> at: aMetanotion [
 	^ aMetanotion
 ]
 
-{ #category : #'inspector extensions' }
-AFMetanotionSubstitutions >> gtDisplayOn: aStream [
+{ #category : #displaying }
+AFMetanotionSubstitutions >> displayStringOn: aStream [
+
 	aStream nextPut: ${.
-	associations 
-		do: [ :assoc | assoc gtDisplayOn: aStream ] 
+	associations
+		do: [ :assoc | assoc displayStringOn: aStream ]
 		separatedBy: [ aStream nextPutAll: ', ' ].
 	aStream nextPut: $}
 ]
