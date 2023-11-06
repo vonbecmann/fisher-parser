@@ -276,28 +276,6 @@ AFHypernotion >> grammar [
 	^ grammar ifNil: [ grammar := metaGrammar startAt: self ]
 ]
 
-{ #category : #'inspector extensions' }
-AFHypernotion >> gtInspectorBackwardCrossReferencesIn: composite [
-	<gtInspectorPresentationOrder: 2>
-	^ composite list
-		title: [ 'Backward X-Ref' ];
-		display: [ backwardCrossReferences ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		showOnly: 50;
-		yourself
-]
-
-{ #category : #'inspector extensions' }
-AFHypernotion >> gtInspectorForwardCrossReferencesIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ composite list
-		title: [ 'Forward X-Ref' ];
-		display: [ forwardCrossReferences ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #comparing }
 AFHypernotion >> hash [
 	| hash |
@@ -321,6 +299,16 @@ AFHypernotion >> initializeNotions: aNotionCollection [
 		do: [ :each | 
 			each isMetanotion
 				ifTrue: [ metanotions add: each ] ]
+]
+
+{ #category : #'inspector extensions' }
+AFHypernotion >> inspectionBackwardCrossReferencesIn: builder [
+
+	<inspectorPresentationOrder: 2 title: 'Backward X-Ref'>
+	^ builder newList
+		  items: backwardCrossReferences asArray;
+		  display: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
+		  yourself
 ]
 
 { #category : #'inspector extensions' }
