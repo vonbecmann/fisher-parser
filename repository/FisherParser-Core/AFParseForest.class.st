@@ -46,16 +46,17 @@ AFParseForest >> extractSingleParseTree [
 	^ ESParseTree given: (ESTree rootNode: stack pop) of: grammar
 ]
 
-{ #category : #'inspector extensions' }
-AFParseForest >> gtInspectorBrowserIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ syntaxForest gtInspectorBrowserIn: composite
-]
-
 { #category : #initialization }
 AFParseForest >> initializeSyntaxForest: aBSPPForest andGrammar: aVWGrammar [
 	syntaxForest := aBSPPForest.
 	grammar := aVWGrammar
+]
+
+{ #category : #'inspector extensions' }
+AFParseForest >> inspectionBrowserIn: builder [
+
+	<inspectorPresentationOrder: 1 title: 'Browse'>
+	^ syntaxForest inspectionBrowserIn: builder
 ]
 
 { #category : #testing }

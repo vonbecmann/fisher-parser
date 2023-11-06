@@ -25,29 +25,31 @@ AFBSPPForest >> acceptVisitor: aVisitor [
 	aVisitor visit: root
 ]
 
-{ #category : #'inspector extensions' }
-AFBSPPForest >> gtDisplayOn: aStream [
+{ #category : #displaying }
+AFBSPPForest >> displayStringOn: aStream [
+
 	aStream
 		nextPutAll: self className;
 		nextPut: $(.
-	root gtDisplayOn: aStream.
+	root displayStringOn: aStream.
 	aStream nextPut: $)
-]
-
-{ #category : #'inspector extensions' }
-AFBSPPForest >> gtInspectorBrowserIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ composite tree
-		title: 'Browse';
-		display: [ root ];
-		children: [ :each | each children ];
-		format: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
-		yourself
 ]
 
 { #category : #initialization }
 AFBSPPForest >> initializeRoot: aPackedNode [
 	root := aPackedNode
+]
+
+{ #category : #'inspector extensions' }
+AFBSPPForest >> inspectionBrowserIn: aBuilder [
+
+	"to be fix: use asArray for the moment. a linked list doesn't implement sum"
+
+	<inspectorPresentationOrder: 1 title: 'Browse'>
+	^ aBuilder newTree
+		  roots: { root };
+		  children: [ :each | each children asArray ];
+		  yourself
 ]
 
 { #category : #printing }
