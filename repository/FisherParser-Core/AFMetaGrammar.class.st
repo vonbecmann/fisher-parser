@@ -127,18 +127,6 @@ AFMetaGrammar >> gtInspectorMetaProductionRulesBrowserIn: composite [
 		yourself
 ]
 
-{ #category : #'inspector extensions' }
-AFMetaGrammar >> gtInspectorMetaProductionRulesIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite table
-		title: [ 'Meta Rules' ];
-		display: [ metaProductionRules asArray ];
-		column: 'Meta Rule' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		send: [ :each | each ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #initialization }
 AFMetaGrammar >> initialize [
 	metaProductionRules := MultiValuedDictionary
@@ -165,6 +153,18 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 				head: (nonterminals like: (NCNonterminal named: letter))
 				body: {(terminals like: (NCTerminal character: letter))} ]
 		thenDo: [ :each | metaProductionRules at: each head put: each ]
+]
+
+{ #category : #'inspector extensions' }
+AFMetaGrammar >> inspectionMetaProductionRulesIn: builder [
+
+	<inspectorPresentationOrder: 0 title: 'Meta Rules'>
+	^ builder newTable
+		  items: metaProductionRules asArray;
+		  addColumn: (SpStringTableColumn
+				   title: 'Meta Rule'
+				   evaluated: [ :each | StObjectPrinter asTruncatedTextFrom: each ]);
+		  yourself
 ]
 
 { #category : #'instance creation' }
