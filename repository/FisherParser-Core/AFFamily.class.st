@@ -55,22 +55,21 @@ AFFamily >> children [
 	^ self members
 ]
 
+{ #category : #displaying }
+AFFamily >> displayStringOn: aStream [
+
+	aStream nextPut: $(.
+	first ifNotNil: [ 
+		first displayStringOn: aStream.
+		second ifNotNil: [ 
+			aStream nextPutAll: ', '.
+			second displayStringOn: aStream ] ].
+	aStream nextPut: $)
+]
+
 { #category : #accessing }
 AFFamily >> first [
 	^ first
-]
-
-{ #category : #'inspector extensions' }
-AFFamily >> gtDisplayOn: aStream [
-	aStream nextPut: $(.
-	first
-		ifNotNil: [ 
-			first gtDisplayOn: aStream.
-			second
-				ifNotNil: [ 
-					aStream nextPutAll: ', '.
-					second gtDisplayOn: aStream ] ].
-	aStream nextPut: $)
 ]
 
 { #category : #'inspector extensions' }
