@@ -209,7 +209,7 @@ AFHypernotion >> computeFollowSet [
 						ifTrue: [ 
 							previousNonterminals add: symbol.
 							symbolFollowSet := IdentitySet new.
-							rest := rule body copyFrom: index + 1 to: rule body size.
+							rest := rule body allButFirst: index.
 							rest isEmpty
 								ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ]
 								ifFalse: [ 
