@@ -56,6 +56,14 @@ AFPackedNode >> children [
 	^ families asArray
 ]
 
+{ #category : #displaying }
+AFPackedNode >> displayStringOn: aStream [
+
+	aStream nextPut: $(.
+	model displayStringOn: aStream.
+	aStream nextPut: $)
+]
+
 { #category : #accessing }
 AFPackedNode >> families [
 	^ families
@@ -64,13 +72,6 @@ AFPackedNode >> families [
 { #category : #accessing }
 AFPackedNode >> familiesSize [
 	^ families size
-]
-
-{ #category : #'inspector extensions' }
-AFPackedNode >> gtDisplayOn: aStream [
-	aStream nextPut: $(.
-	model gtDisplayOn: aStream.
-	aStream nextPut: $)
 ]
 
 { #category : #'inspector extensions' }
