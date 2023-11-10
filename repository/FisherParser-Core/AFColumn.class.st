@@ -82,6 +82,17 @@ AFColumn >> addTerminalItem: aTerminalItem [
 			orderedItems addLast: aTerminalItem ]
 ]
 
+{ #category : #displaying }
+AFColumn >> displayStringOn: aStream [
+
+	"Column [number]"
+
+	aStream
+		nextPutAll: 'Column [';
+		print: number;
+		nextPut: $]
+]
+
 { #category : #enumerating }
 AFColumn >> finalItemsWithHeadMatch: aProtonotionHypernotion do: aBlock [
 	finalItems
@@ -89,16 +100,6 @@ AFColumn >> finalItemsWithHeadMatch: aProtonotionHypernotion do: aBlock [
 			finalItem head 
 				match: aProtonotionHypernotion 
 				do: [ aBlock value: finalItem ] ]
-]
-
-{ #category : #'inspector extensions' }
-AFColumn >> gtDisplayOn: aStream [
-	"Column [number]"
-
-	aStream
-		nextPutAll: 'Column [';
-		print: number;
-		nextPut: $]
 ]
 
 { #category : #'inspector extensions' }
