@@ -117,9 +117,6 @@ AFChart >> size [
 
 { #category : #enumerating }
 AFChart >> withIndexDo: elementAndIndexBlock [
-	1 	to: columns size 
-		do: [ :index | 
-					elementAndIndexBlock 
-						value: (self at: index) 
-						value: index ]
+
+	columns withIndexDo: elementAndIndexBlock
 ]
