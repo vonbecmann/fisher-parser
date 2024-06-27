@@ -144,8 +144,8 @@ AFColumn >> inspectionFinalItemsIn: aBuilder [
 
 	<inspectorPresentationOrder: 3 title: 'Final'>
 	^ aBuilder newList
-		  items: finalItems asArray;
 		  display: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
+		  items: finalItems asArray;
 		  yourself
 ]
 
