@@ -102,30 +102,6 @@ AFColumn >> finalItemsWithHeadMatch: aProtonotionHypernotion do: aBlock [
 				do: [ aBlock value: finalItem ] ]
 ]
 
-{ #category : #'inspector extensions' }
-AFColumn >> gtInspectorPredictionItemsIn: composite [
-	<gtInspectorPresentationOrder: 2>
-	^ composite table
-		title: [ 'Prediction' ];
-		display: [ predictionItems asArray ];
-		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
-		column: 'Value' evaluated: [ :each | each displayString ];
-		showOnly: 50;
-		yourself
-]
-
-{ #category : #'inspector extensions' }
-AFColumn >> gtInspectorSortedItemsIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite table
-		title: [ orderedItems size asString , ' sorted items' ];
-		display: [ self sortedItems ];
-		column: '[start, end]' evaluated: [ :each | each gtDisplayIntervalString ] width: 70;
-		column: 'Value' evaluated: [ :each | each displayString ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #comparing }
 AFColumn >> hash [
 	^ number hash
@@ -187,6 +163,40 @@ AFColumn >> inspectionOrderedItemsIn: builder [
 				   title: 'Value'
 				   evaluated: [ :each | each displayString ]);
 		  items: orderedItems asArray;
+		  yourself
+]
+
+{ #category : #'inspector extensions' }
+AFColumn >> inspectionPredictionItemsIn: aBuilder [
+
+	<inspectorPresentationOrder: 2 title: 'Prediction'>
+	^ aBuilder newTable
+		  addColumn: (SpStringTableColumn new
+				   title: '[start, end]';
+				   evaluated: [ :each | each gtDisplayIntervalString ];
+				   width: 70;
+				   yourself);
+		  addColumn: (SpStringTableColumn
+				   title: 'Value'
+				   evaluated: [ :each | each displayString ]);
+		  items: predictionItems asArray;
+		  yourself
+]
+
+{ #category : #'inspector extensions' }
+AFColumn >> inspectionSortedItemsIn: aBuilder [
+
+	<inspectorPresentationOrder: 0 title: 'Sorted'>
+	^ aBuilder newTable
+		  addColumn: (SpStringTableColumn new
+				   title: '[start, end]';
+				   evaluated: [ :each | each gtDisplayIntervalString ];
+				   width: 70;
+				   yourself);
+		  addColumn: (SpStringTableColumn
+				   title: 'Value'
+				   evaluated: [ :each | each displayString ]);
+		  items: self sortedItems;
 		  yourself
 ]
 
