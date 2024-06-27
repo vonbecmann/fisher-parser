@@ -103,17 +103,6 @@ AFColumn >> finalItemsWithHeadMatch: aProtonotionHypernotion do: aBlock [
 ]
 
 { #category : #'inspector extensions' }
-AFColumn >> gtInspectorFinalItemsIn: composite [
-	<gtInspectorPresentationOrder: 3>
-	^ composite fastList
-		title: [ 'Final' ];
-		display: [ finalItems asArray ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		showOnly: 50;
-		yourself
-]
-
-{ #category : #'inspector extensions' }
 AFColumn >> gtInspectorPredictionItemsIn: composite [
 	<gtInspectorPresentationOrder: 2>
 	^ composite table
@@ -172,6 +161,16 @@ AFColumn >> initialize [
 AFColumn >> initializeNumber: anInteger [
 	self initialize.
 	number := anInteger
+]
+
+{ #category : #'inspector extensions' }
+AFColumn >> inspectionFinalItemsIn: aBuilder [
+
+	<inspectorPresentationOrder: 3 title: 'Final'>
+	^ aBuilder newList
+		  items: finalItems asArray;
+		  display: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
+		  yourself
 ]
 
 { #category : #'inspector extensions' }
