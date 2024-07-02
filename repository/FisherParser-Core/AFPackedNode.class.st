@@ -74,17 +74,6 @@ AFPackedNode >> familiesSize [
 	^ families size
 ]
 
-{ #category : #'inspector extensions' }
-AFPackedNode >> gtInspectorBrowserIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ composite tree
-		title: 'Browse';
-		display: [ self ];
-		children: [ :each | each children ];
-		format: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
-		yourself
-]
-
 { #category : #comparing }
 AFPackedNode >> hash [
 	^ (self class hash + model hash) hashMultiply
@@ -94,6 +83,17 @@ AFPackedNode >> hash [
 AFPackedNode >> initializeModel: anItem [
 	families := SinglyLinkedList new.
 	model := anItem
+]
+
+{ #category : #'inspector extensions' }
+AFPackedNode >> inspectionBrowserIn: aBuilder [
+
+	<inspectorPresentationOrder: 1 title: 'Browse'>
+	^ aBuilder newTree
+		  roots: { self };
+		  children: [ :each | each children ];
+		  display: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
+		  yourself
 ]
 
 { #category : #testing }
