@@ -113,20 +113,6 @@ AFMetaGrammar >> computeParseTableUsing: firstSet and: followSet [
 	^ parseTable 
 ]
 
-{ #category : #'inspector extensions' }
-AFMetaGrammar >> gtInspectorMetaProductionRulesBrowserIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ composite fastTreeTable
-		title: [ 'Nonterminal -> Meta Rules' ];
-		display: [ metaProductionRules keys ];
-		column: 'Nonterminal' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		hasChildren: [ :key | (metaProductionRules at: key ifAbsent: #()) isNotEmpty ];
-		children: [ :key | (metaProductionRules at: key) asArray ];
-		format: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #initialization }
 AFMetaGrammar >> initialize [
 	metaProductionRules := MultiValuedDictionary
@@ -153,6 +139,20 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 				head: (nonterminals like: (NCNonterminal named: letter))
 				body: {(terminals like: (NCTerminal character: letter))} ]
 		thenDo: [ :each | metaProductionRules at: each head put: each ]
+]
+
+{ #category : #'inspector extensions' }
+AFMetaGrammar >> inspectionMetaProductionRulesBrowserIn: composite [
+
+	<inspectorPresentationOrder: 1 title: 'Nonterminal -> Meta Rules'>
+	^ composite newTreeTable
+		  roots: metaProductionRules keys;
+		  addColumn: (SpStringTableColumn new
+				   title: 'Nonterminal';
+				   evaluated: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
+				   yourself);
+		  children: [ :key | (metaProductionRules at: key ifAbsent: #(  )) asArray ];
+		  yourself
 ]
 
 { #category : #'inspector extensions' }
