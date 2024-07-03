@@ -156,12 +156,6 @@ AFVWGrammar >> gtInspectorHyperRulesIn: composite [
 	^ vwGrammar gtInspectorHyperRulesIn: composite
 ]
 
-{ #category : #'inspector extensions' }
-AFVWGrammar >> gtInspectorMetaRulesIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ vwGrammar gtInspectorMetaRulesIn: composite
-]
-
 { #category : #accessing }
 AFVWGrammar >> hyperRuleAt: index [ 
 	^ vwGrammar hyperRuleAt: index 
@@ -211,6 +205,13 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	representationRules := hyperRules
 		select: [ :each | each isRepresentation ]
 		thenCollect: [ :each | each dotAtBeginning ]
+]
+
+{ #category : #'inspector extensions' }
+AFVWGrammar >> inspectionMetaRulesIn: aBuilder [
+
+	<inspectorPresentationOrder: 1 title: 'Meta Rules'>
+	^ vwGrammar inspectionMetaRulesIn: aBuilder
 ]
 
 { #category : #private }

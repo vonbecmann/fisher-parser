@@ -58,17 +58,6 @@ AVWGrammar >> gtInspectorHyperRulesIn: composite [
 		yourself
 ]
 
-{ #category : #'inspector extensions' }
-AVWGrammar >> gtInspectorMetaRulesIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ composite table
-		title: [ 'Meta Rules' ];
-		display: [ metaRules ];
-		column: 'Meta Rule' evaluated: [ :each | GTObjectPrinter new asTruncatedTextFrom: each ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #accessing }
 AVWGrammar >> hyperRuleAt: index [
 	^ hyperRules at: index
@@ -116,6 +105,18 @@ AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet 
 	hyperRulesHypernotions := hyperRules collect: [ :each | each head ] as: Set.
 	hyperRules do: [ :each | hyperRulesHypernotions addAll: each body ].
 	startNotion := aHypernotion
+]
+
+{ #category : #'inspector extensions' }
+AVWGrammar >> inspectionMetaRulesIn: aBuilder [
+
+	<inspectorPresentationOrder: 1 title: 'Meta Rules'>
+	^ aBuilder newTable
+		  addColumn: (SpStringTableColumn
+				   title: 'Meta Rule'
+				   evaluated: [ :each | StObjectPrinter asTruncatedTextFrom: each ]);
+		  items: metaRules;
+		  yourself
 ]
 
 { #category : #accessing }
