@@ -90,6 +90,7 @@ AVWGrammar >> inspectionDefinitionIn: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Definition'>
 	^ aBuilder newList
+		  display: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
 		  items: metaRules , hyperRules;
 		  yourself
 ]
