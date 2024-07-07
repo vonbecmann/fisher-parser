@@ -36,16 +36,6 @@ AVWGrammar class >> metanotions: metanotionSet protonotions: protonotionSet hype
 		yourself
 ]
 
-{ #category : #'inspector extensions' }
-AVWGrammar >> gtInspectorDefinitionIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite list
-		title: [ 'Definition' ];
-		display: [ metaRules , hyperRules ];
-		showOnly: 50;
-		yourself
-]
-
 { #category : #accessing }
 AVWGrammar >> hyperRuleAt: index [
 	^ hyperRules at: index
@@ -93,6 +83,15 @@ AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet 
 	hyperRulesHypernotions := hyperRules collect: [ :each | each head ] as: Set.
 	hyperRules do: [ :each | hyperRulesHypernotions addAll: each body ].
 	startNotion := aHypernotion
+]
+
+{ #category : #'inspector extensions' }
+AVWGrammar >> inspectionDefinitionIn: aBuilder [
+
+	<inspectorPresentationOrder: 0 title: 'Definition'>
+	^ aBuilder newList
+		  items: metaRules , hyperRules;
+		  yourself
 ]
 
 { #category : #'inspector extensions' }

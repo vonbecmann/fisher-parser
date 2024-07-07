@@ -31,7 +31,7 @@ AFAnalyticalParser >> parse: aString [
 			Dictionary
 				newFrom:
 					{"('expected symbols' -> ex expectedSymbols)."
-					('position' -> ex position).
+					"('position' -> ex position)."
 					('accepts' -> false).
-					('message' -> ex messageText)} ]
+					"('message' -> ex messageText)"} ]
 ]
