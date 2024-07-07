@@ -17,7 +17,8 @@ Class {
 		'doubleLettersB',
 		'doubleLettersC',
 		'pl',
-		'leftRecursiveAnbncn'
+		'leftRecursiveAnbncn',
+		'anbncndnen'
 	],
 	#category : #'FisherParser-Tests-Grammar'
 }
@@ -35,6 +36,12 @@ AFExemplarResource >> anbn [
 { #category : #accessing }
 AFExemplarResource >> anbncn [
 	^ anbncn
+]
+
+{ #category : #accessing }
+AFExemplarResource >> anbncndnen [
+
+	^ anbncndnen
 ]
 
 { #category : #accessing }
@@ -59,6 +66,7 @@ AFExemplarResource >> pl [
 
 { #category : #running }
 AFExemplarResource >> setUp [
+
 	super setUp.
 	a3b3c3 := AFExemplar a3b3c3.
 	starSequence := AFExemplar starSequence.
@@ -72,7 +80,8 @@ AFExemplarResource >> setUp [
 	doubleLettersB := AFExemplar doubleLettersB.
 	doubleLettersC := AFExemplar doubleLettersC.
 	pl := AFExemplar pl.
-	leftRecursiveAnbncn := AFExemplar leftRecursiveAnbncn 
+	leftRecursiveAnbncn := AFExemplar leftRecursiveAnbncn.
+	anbncndnen := AFExemplar anbncndnen
 ]
 
 { #category : #accessing }
@@ -82,11 +91,13 @@ AFExemplarResource >> starSequence [
 
 { #category : #running }
 AFExemplarResource >> tearDown [
+
 	"Does nothing. Subclasses should override this to tear down their resource"
 
 	a3b3c3 := starSequence := anbncn := test3 := anbn := nil.
 	wegner := test4 := test15 := test5 := doubleLettersB := nil.
 	doubleLettersC := pl := leftRecursiveAnbncn := nil.
+	anbncndnen := nil.
 	super tearDown
 ]
 

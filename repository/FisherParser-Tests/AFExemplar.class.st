@@ -73,6 +73,34 @@ i LETTER s:	  LETTER symbol.'
 ]
 
 { #category : #'instance creation' }
+AFExemplar class >> anbncndnen [
+
+	"grammar Ab. page 50"
+
+	^ AFVWGrammar
+		  evw: 'N::	  i NETY.
+NETY::	  N; EMPTY.
+EMPTY::  .
+ALPHA::	  a; b; c; d; e.
+
+an bn cn dn en where (N) greater or equals to one: 
+ raise (a) to the power of (N),
+ raise (b) to the power of (N),
+ raise (c) to the power of (N),
+ raise (d) to the power of (N),
+ raise (e) to the power of (N).
+
+raise (ALPHA) to the power of (i): ALPHA symbol.
+raise (ALPHA) to the power of (i N): ALPHA symbol, raise (ALPHA) to the power of (N).'
+		  representations: { 
+				  (#( 'a' 'symbol' ) -> (NCTerminal character: $a)).
+				  (#( 'b' 'symbol' ) -> (NCTerminal character: $b)).
+				  (#( 'c' 'symbol' ) -> (NCTerminal character: $c)).
+				  (#( 'd' 'symbol' ) -> (NCTerminal character: $d)).
+				  (#( 'e' 'symbol' ) -> (NCTerminal character: $e)) }
+]
+
+{ #category : #'instance creation' }
 AFExemplar class >> def [
 	"NOTION::   ALPHA NOTETY.
 NOTETY::   NOTION; EMPTY.
