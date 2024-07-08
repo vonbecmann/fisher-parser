@@ -47,7 +47,7 @@ AFChart >> inspectionAllSortedItemsAtColumnsIn: aBuilder [
 	^ aBuilder newTable
 		  addColumn: (SpStringTableColumn new
 				   title: '[start, end]';
-				   evaluated: [ :each | each gtDisplayIntervalString ];
+				   evaluated: [ :each | each displayIntervalString ];
 				   width: 70;
 				   yourself);
 		  addColumn: (SpStringTableColumn

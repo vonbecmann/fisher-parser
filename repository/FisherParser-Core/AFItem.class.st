@@ -13,6 +13,11 @@ Class {
 	#category : #'FisherParser-Core-Implementation'
 }
 
+{ #category : #'inspector extensions' }
+AFItem >> displayIntervalString [
+	^ String streamContents: [ :s | self printIntervalOn: s ]
+]
+
 { #category : #accessing }
 AFItem >> end [
 	^ end
@@ -26,11 +31,6 @@ AFItem >> end: aColumn [
 { #category : #comparing }
 AFItem >> equals: anItem [
 	^ self class == anItem class and: [ start = anItem start ]
-]
-
-{ #category : #'inspector extensions' }
-AFItem >> gtDisplayIntervalString [
-	^ String streamContents: [ :s | self printIntervalOn: s ]
 ]
 
 { #category : #testing }

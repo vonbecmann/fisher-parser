@@ -156,7 +156,7 @@ AFColumn >> inspectionOrderedItemsIn: builder [
 	^ builder newTable
 		  addColumn: (SpStringTableColumn new
 				   title: '[start, end]';
-				   evaluated: [ :each | each gtDisplayIntervalString ];
+				   evaluated: [ :each | each displayIntervalString ];
 				   width: 70;
 				   yourself);
 		  addColumn: (SpStringTableColumn
@@ -173,7 +173,7 @@ AFColumn >> inspectionPredictionItemsIn: aBuilder [
 	^ aBuilder newTable
 		  addColumn: (SpStringTableColumn new
 				   title: '[start, end]';
-				   evaluated: [ :each | each gtDisplayIntervalString ];
+				   evaluated: [ :each | each displayIntervalString ];
 				   width: 70;
 				   yourself);
 		  addColumn: (SpStringTableColumn
@@ -190,7 +190,7 @@ AFColumn >> inspectionSortedItemsIn: aBuilder [
 	^ aBuilder newTable
 		  addColumn: (SpStringTableColumn new
 				   title: '[start, end]';
-				   evaluated: [ :each | each gtDisplayIntervalString ];
+				   evaluated: [ :each | each displayIntervalString ];
 				   width: 70;
 				   yourself);
 		  addColumn: (SpStringTableColumn
