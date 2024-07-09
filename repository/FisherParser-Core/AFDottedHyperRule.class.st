@@ -79,6 +79,15 @@ AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [
 ]
 
 { #category : #'inspector extensions' }
+AFDottedHyperRule >> inspectionDisplayIn: aBuilder [
+
+	<inspectorPresentationOrder: 0 title: 'Display'>
+	^ aBuilder newText
+		  text: self displayString;
+		  yourself
+]
+
+{ #category : #'inspector extensions' }
 AFDottedHyperRule >> inspectionPureIn: aBuilder [
 
 	<inspectorPresentationOrder: 1 title: 'Pure'>

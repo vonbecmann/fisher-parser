@@ -127,6 +127,15 @@ AFDottedItem >> initializeDottedHyperRule: aDottedHyperRule start: aColumn [
 	start := aColumn
 ]
 
+{ #category : #'inspector extensions' }
+AFDottedItem >> inspectionDisplayIn: aBuilder [
+
+	<inspectorPresentationOrder: 0 title: 'Display'>
+	^ aBuilder newText
+		  text: self displayString;
+		  yourself
+]
+
 { #category : #testing }
 AFDottedItem >> isEpsilon [
 	^ dottedHyperRule isEpsilon

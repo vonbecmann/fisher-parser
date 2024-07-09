@@ -149,6 +149,15 @@ AFHyperRule >> initializeHead: aHypernotion body: aHyperalternative [
 	appliedSubstitution := AFSubstitution emptySolution
 ]
 
+{ #category : #'inspector extensions' }
+AFHyperRule >> inspectionDisplayIn: aBuilder [
+
+	<inspectorPresentationOrder: 0 title: 'Display'>
+	^ aBuilder newText
+		  text: self displayString;
+		  yourself
+]
+
 { #category : #initialization }
 AFHyperRule >> instanceOf: anAWHyperRule appliedSubstitution: aSubstitution [
 	instanceOfHyperRule := anAWHyperRule.
