@@ -155,9 +155,20 @@ AFHyperRule >> instanceOf: anAWHyperRule appliedSubstitution: aSubstitution [
 	appliedSubstitution := aSubstitution
 ]
 
+{ #category : #accessing }
+AFHyperRule >> instanceOfHyperRule [
+	^ instanceOfHyperRule
+]
+
 { #category : #testing }
 AFHyperRule >> isEpsilon [
 	^ body isEmpty
+]
+
+{ #category : #testing }
+AFHyperRule >> isInstanceOf: anAFHyperRule [
+
+	^ instanceOfHyperRule = anAFHyperRule instanceOfHyperRule
 ]
 
 { #category : #'testing - boundness' }

@@ -92,7 +92,7 @@ AFDottedItem >> dottedHyperRule [
 
 { #category : #comparing }
 AFDottedItem >> equals: anItem [
-	^ (super equals: anItem) and: [ dottedHyperRule = anItem dottedHyperRule ]
+	^ (super equals: anItem) and: [ dottedHyperRule isInstanceOf: anItem dottedHyperRule ]
 ]
 
 { #category : #parsing }

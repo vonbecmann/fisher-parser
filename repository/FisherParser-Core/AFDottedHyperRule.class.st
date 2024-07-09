@@ -115,6 +115,12 @@ AFDottedHyperRule >> isFinal [
 ]
 
 { #category : #testing }
+AFDottedHyperRule >> isInstanceOf: anAFDottedHyperRule [
+
+	^ hyperRule isInstanceOf: anAFDottedHyperRule hyperRule
+]
+
+{ #category : #testing }
 AFDottedHyperRule >> isPredicted [
 	^ dotIndex == 1 and: [ self isFinal not ]
 ]
