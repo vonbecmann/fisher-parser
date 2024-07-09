@@ -16,8 +16,8 @@ AFNoSolution >> applyTo: aMetanotion [
 	self shouldNotImplement
 ]
 
-{ #category : #'inspector extensions' }
-AFNoSolution >> gtDisplayOn: aStream [
+{ #category : #displaying }
+AFNoSolution >> displayStringOn: aStream [
 	aStream nextPutAll: 'no solution substitution'
 ]
 
