@@ -48,7 +48,8 @@ AFDottedHyperRule >> displayStringOn: aStream [
 	hyperRule head displayStringOn: aStream.
 	aStream nextPutAll: ': '.
 	hyperRule body displayStringOn: aStream withDotAt: dotIndex.
-	aStream nextPut: $.
+	aStream nextPutAll: '. '.
+	hyperRule displaySubstitutionStringOn: aStream
 ]
 
 { #category : #accessing }

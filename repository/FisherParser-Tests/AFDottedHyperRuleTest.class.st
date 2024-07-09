@@ -49,7 +49,7 @@ AFDottedHyperRuleTest >> testDisplayStringOn [
 			                    bodyWith: (AFHypernotion with: (AWProtonotion with: 'program'))).
 	self
 		assert: dottedHyperRule displayString
-		equals: 'start: program' , middleDot , '.'
+		equals: 'start: program' , middleDot , '. {}'
 ]
 
 { #category : #tests }
@@ -62,7 +62,7 @@ AFDottedHyperRuleTest >> testDisplayStringOn02 [
 				                     (AWProtonotion with: 'program'))).
 	self
 		assert: dottedHyperRule displayString
-		equals: 'start: ' , middleDot , 'program' , '.'
+		equals: 'start: ' , middleDot , 'program' , '. {}'
 ]
 
 { #category : #tests }

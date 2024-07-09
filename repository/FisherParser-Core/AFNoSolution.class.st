@@ -21,6 +21,12 @@ AFNoSolution >> displayStringOn: aStream [
 	aStream nextPutAll: 'no solution substitution'
 ]
 
+{ #category : #displaying }
+AFNoSolution >> displaySubstitutionStringOn: aStream [
+
+	aStream nextPutAll: 'failure'
+]
+
 { #category : #testing }
 AFNoSolution >> ifSolution: aBlock [
 	"Return self because I'm not a solution"

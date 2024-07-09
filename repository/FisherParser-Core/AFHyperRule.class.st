@@ -111,7 +111,14 @@ AFHyperRule >> displayStringOn: aStream [
 	head displayStringOn: aStream.
 	aStream nextPutAll: ': '.
 	body displayStringOn: aStream.
-	aStream nextPut: $.
+	aStream nextPutAll: '. '.
+	appliedSubstitution displaySubstitutionStringOn: aStream
+]
+
+{ #category : #displaying }
+AFHyperRule >> displaySubstitutionStringOn: aStream [
+
+	appliedSubstitution displaySubstitutionStringOn: aStream
 ]
 
 { #category : #accessing }

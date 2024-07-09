@@ -58,6 +58,12 @@ AFSolution >> displayStringOn: aStream [
 	aStream nextPut: $)
 ]
 
+{ #category : #displaying }
+AFSolution >> displaySubstitutionStringOn: aStream [
+
+	metanotionSubstitutions displayStringOn: aStream
+]
+
 { #category : #comparing }
 AFSolution >> hash [
 	^ (self class hash + metanotionSubstitutions hash) hashMultiply

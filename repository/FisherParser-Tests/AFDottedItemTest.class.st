@@ -83,7 +83,7 @@ AFDottedItemTest >> testDisplayStringOn [
 
 	self
 		assert: item displayString
-		equals: '[empty: ' , middleDot , '. @ 1]'
+		equals: '[empty: ' , middleDot , '. {} @ 1]'
 ]
 
 { #category : #tests }
@@ -97,7 +97,7 @@ AFDottedItemTest >> testDisplayStringOn02 [
 
 	self
 		assert: item displayString
-		equals: '[empty: ' , middleDot , '. @ [1, 3]]'
+		equals: '[empty: ' , middleDot , '. {} @ [1, 3]]'
 ]
 
 { #category : #tests }
@@ -113,7 +113,7 @@ AFDottedItemTest >> testDisplayStringOn03 [
 
 	self
 		assert: item displayString
-		equals: '[NOTION option: ' , middleDot , 'NOTION. @ [1, 3]]'
+		equals: '[NOTION option: ' , middleDot , 'NOTION. {} @ [1, 3]]'
 ]
 
 { #category : #tests }
@@ -130,7 +130,7 @@ AFDottedItemTest >> testDisplayStringOn04 [
 
 	self
 		assert: item displayString
-		equals: '[NOTION option: NOTION' , middleDot , '. @ [1, 3]]'
+		equals: '[NOTION option: NOTION' , middleDot , '. {} @ [1, 3]]'
 ]
 
 { #category : #tests }
