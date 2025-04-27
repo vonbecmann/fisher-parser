@@ -12,15 +12,15 @@ BaselineOfFisherParser >> baseline: spec [
 		do: [ 
 			spec
 	        	baseline: 'MultiValuedDictionary'
- 		   		with: [ spec repository: 'github://vonbecmann/multi-valued-dictionary:pharo10/repository' ].
+ 		   		with: [ spec repository: 'github://vonbecmann/multi-valued-dictionary:pharo12/repository' ].
 			spec
 	        	baseline: 'LinkedList'
- 		   		with: [ spec repository: 'github://vonbecmann/linked-list:pharo10/repository' ].
+ 		   		with: [ spec repository: 'github://vonbecmann/linked-list:pharo12/repository' ].
 			spec
 				baseline: 'EarleyParser'
 				with: [ 
 					spec
-						repository: 'github://vonbecmann/earley-parser:pharo10/repository';
+						repository: 'github://vonbecmann/earley-parser:pharo12/repository';
 						loads: #('Parser') ].
 			spec
 				package: 'AWijngaarden-Core'
