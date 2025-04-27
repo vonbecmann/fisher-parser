@@ -1,1 +1,1 @@
-Package { #name : #'FisherParser-UI' }
+Package { #name : 'FisherParser-UI' }

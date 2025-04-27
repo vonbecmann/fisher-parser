@@ -3,12 +3,13 @@ build fisher's tools in world.
 
 "
 Class {
-	#name : #AFisherUI,
-	#superclass : #Object,
-	#category : #'FisherParser-UI'
+	#name : 'AFisherUI',
+	#superclass : 'Object',
+	#category : 'FisherParser-UI',
+	#package : 'FisherParser-UI'
 }
 
-{ #category : #environment }
+{ #category : 'environment' }
 AFisherUI class >> fisherEnvironment [
 	| baseline packages |
 	baseline := BaselineOfFisherParser.
@@ -20,25 +21,26 @@ AFisherUI class >> fisherEnvironment [
 	^ packages
 ]
 
-{ #category : #'menu declaration' }
+{ #category : 'menu declaration' }
 AFisherUI class >> fisherToolsOn: aBuilder [
+
 	<worldMenu>
 	(aBuilder group: #FisherTools)
 		order: 0.99;
 		withSeparatorAfter;
-		with: 
-			[ (aBuilder item: #'Fisher Tools')
-				with: 
-				[ (aBuilder item: #FisherBrowser)
+		with: [
+			(aBuilder item: #'Fisher Tools') with: [
+					(aBuilder item: #FisherBrowser)
 						label: 'System Browser';
 						action: [ self openBrowserInFisherEnvironment ];
-						icon: Smalltalk tools browser taskbarIcon.
+						icon: (Smalltalk tools browser iconNamed:
+									 Smalltalk tools browser taskbarIconName).
 					(aBuilder item: #Workspace)
 						label: 'Workspace';
-						action: [ Workspace open ] ] ]
+						action: [ Smalltalk tools workspace open ] ] ]
 ]
 
-{ #category : #environment }
+{ #category : 'environment' }
 AFisherUI class >> openBrowserInFisherEnvironment [
 	^ Smalltalk tools browser
 		openWithState: [ :browser | browser switchToPackageScopeOf: self fisherEnvironment ]
