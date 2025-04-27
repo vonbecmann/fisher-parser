@@ -117,11 +117,12 @@ AFColumn >> ifEmpty: aBlock [
 ]
 
 { #category : #testing }
-AFColumn >> includes: anItem [
-	^ itemSet 
-		detect: [ :each | each equals: anItem ] 
-		ifFound: [ true ] 
-		ifNone: [ false ]
+AFColumn >> includesInstanceOf: anItem [
+
+	^ itemSet
+		  detect: [ :each | each isInstanceOf: anItem ]
+		  ifFound: [ true ]
+		  ifNone: [ false ]
 ]
 
 { #category : #initialization }

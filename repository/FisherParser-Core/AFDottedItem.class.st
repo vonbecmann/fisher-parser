@@ -92,7 +92,7 @@ AFDottedItem >> dottedHyperRule [
 
 { #category : #comparing }
 AFDottedItem >> equals: anItem [
-	^ (super equals: anItem) and: [ dottedHyperRule isInstanceOf: anItem dottedHyperRule ]
+	^ (super equals: anItem) and: [ dottedHyperRule = anItem dottedHyperRule ]
 ]
 
 { #category : #parsing }
@@ -144,6 +144,14 @@ AFDottedItem >> isEpsilon [
 { #category : #testing }
 AFDottedItem >> isFinal [
 	^ dottedHyperRule isFinal
+]
+
+{ #category : #testing }
+AFDottedItem >> isInstanceOf: anItem [
+
+	^ self class == anItem class and: [ 
+		  start = anItem start and: [ 
+			  dottedHyperRule isInstanceOf: anItem dottedHyperRule ] ]
 ]
 
 { #category : #testing }

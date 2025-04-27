@@ -11,7 +11,7 @@ Class {
 AFRecognizer >> accepts: aString [
 	^ [ | chart |
 	chart := self evaluate: aString.
-	chart last includes: (grammar startHyperRule dotAtEnd startAt: chart first) ]
+	chart last includesInstanceOf: (grammar startHyperRule dotAtEnd startAt: chart first) ]
 		on: AFFailure
 		do: [ :ex | false ]
 ]

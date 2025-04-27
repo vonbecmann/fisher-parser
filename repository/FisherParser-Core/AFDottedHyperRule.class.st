@@ -124,9 +124,10 @@ AFDottedHyperRule >> isFinal [
 ]
 
 { #category : #testing }
-AFDottedHyperRule >> isInstanceOf: anAFDottedHyperRule [
+AFDottedHyperRule >> isInstanceOf: aDottedHyperRule [
 
-	^ hyperRule isInstanceOf: anAFDottedHyperRule hyperRule
+	^ dotIndex == aDottedHyperRule dotIndex and: [ 
+		  hyperRule isInstanceOf: aDottedHyperRule hyperRule ]
 ]
 
 { #category : #testing }

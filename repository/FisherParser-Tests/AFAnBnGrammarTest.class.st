@@ -60,3 +60,13 @@ AFAnBnGrammarTest >> testAnalyzeAcceptsAC [
 	exception := analysis at: 'exception'.
 	self assert: exception asString equals: 'AFFailure: failed at AFColumn(2)'
 ]
+
+{ #category : #tests }
+AFAnBnGrammarTest >> testAnalyzeAcceptsEpsilon [
+
+	| analysis chart |
+	analysis := grammar analyzeAccepts: ''.
+	self deny: (analysis at: 'accepts').
+	chart := analysis at: 'chart'.
+	self assert: chart size equals: 1
+]
