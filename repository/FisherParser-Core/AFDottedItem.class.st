@@ -2,22 +2,24 @@
 a dotted item
 "
 Class {
-	#name : #AFDottedItem,
-	#superclass : #AFItem,
+	#name : 'AFDottedItem',
+	#superclass : 'AFItem',
 	#instVars : [
 		'dottedHyperRule'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFDottedItem class >> of: aDottedHyperRule startAt: aColumn [
 	^ self basicNew
 		initializeDottedHyperRule: aDottedHyperRule start: aColumn;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFDottedItem class >> of: aDottedHyperRule startAt: firstColumn endAt: secondColumn [
 	^ self basicNew
 		initializeDottedHyperRule: aDottedHyperRule start: firstColumn;
@@ -25,7 +27,7 @@ AFDottedItem class >> of: aDottedHyperRule startAt: firstColumn endAt: secondCol
 		yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFDottedItem >> = anItem [
 	self == anItem
 		ifTrue: [ ^ true ].
@@ -40,29 +42,29 @@ AFDottedItem >> = anItem [
 	^ true
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFDottedItem >> addFamily: aFamily [
 	self node addFamily: aFamily
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFDottedItem >> addFamilyWith: completeItem [
 	self node addFamily: (AFFamily with: completeItem node)
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFDottedItem >> addFamilyWith: previousItem and: completeItem [
 	self node addFamily: (AFFamily with: previousItem node with: completeItem node)
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFDottedItem >> addFamilyWith: completeItem to: parentItem [
 	^ self isPredicted
 		ifTrue: [ parentItem addFamilyWith: completeItem ]
 		ifFalse: [ parentItem addFamilyWith: self and: completeItem ]
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFDottedItem >> asSyntaxNode [
 	^ ESSyntaxNode
 		symbol: self head
@@ -71,7 +73,7 @@ AFDottedItem >> asSyntaxNode [
 		end: end number
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFDottedItem >> displayStringOn: aStream [
 
 	"[ dotted hyper rule @ start ]"
@@ -85,49 +87,49 @@ AFDottedItem >> displayStringOn: aStream [
 	aStream nextPut: $]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedItem >> dottedHyperRule [
 	^ dottedHyperRule
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFDottedItem >> equals: anItem [
 	^ (super equals: anItem) and: [ dottedHyperRule = anItem dottedHyperRule ]
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFDottedItem >> families [
 	^ self node families
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFDottedItem >> familiesSize [
 	^ self node familiesSize
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 AFDottedItem >> finalItemsWithHeadMatchSymbolAtDotDo: aBlock [
 	end finalItemsWithHeadMatch: self symbolAtDot do: aBlock
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFDottedItem >> hash [
 	^ ((dottedHyperRule hash + start hash) hashMultiply + end hash) hashMultiply
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedItem >> head [
 	^ dottedHyperRule head
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFDottedItem >> initializeDottedHyperRule: aDottedHyperRule start: aColumn [
 	node := nil.
 	dottedHyperRule := aDottedHyperRule.
 	start := aColumn
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFDottedItem >> inspectionDisplayIn: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Display'>
@@ -136,17 +138,17 @@ AFDottedItem >> inspectionDisplayIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFDottedItem >> isEpsilon [
 	^ dottedHyperRule isEpsilon
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFDottedItem >> isFinal [
 	^ dottedHyperRule isFinal
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFDottedItem >> isInstanceOf: anItem [
 
 	^ self class == anItem class and: [ 
@@ -154,29 +156,29 @@ AFDottedItem >> isInstanceOf: anItem [
 			  dottedHyperRule isInstanceOf: anItem dottedHyperRule ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFDottedItem >> isPredicted [
 	^ dottedHyperRule isPredicted
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFDottedItem >> isTerminal [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedItem >> moveDotForward [
 	^ self class of: dottedHyperRule moveDotForward startAt: start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedItem >> moveDotForwardAfterApplying: aSubstitution [
 	^ self class
 		of: (dottedHyperRule moveDotForwardAfterApplying: aSubstitution)
 		startAt: start
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFDottedItem >> node [
 	^ node
 		ifNil: [ 
@@ -185,12 +187,12 @@ AFDottedItem >> node [
 			node ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 AFDottedItem >> predictionItemsDo: aBlock [
 	start predictionItemsDo: aBlock
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFDottedItem >> printOn: aStream [
 	aStream
 		nextPutAll: self class name;
@@ -201,18 +203,18 @@ AFDottedItem >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFDottedItem >> release [
 	dottedHyperRule := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedItem >> rule [
 	^ dottedHyperRule rule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedItem >> symbolAtDot [
 	^ dottedHyperRule symbolAtDot
 ]

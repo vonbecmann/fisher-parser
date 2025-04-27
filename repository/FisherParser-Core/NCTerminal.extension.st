@@ -1,6 +1,6 @@
-Extension { #name : #NCTerminal }
+Extension { #name : 'NCTerminal' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 NCTerminal >> apply: aSubstitution [ 
 	^ self
 ]

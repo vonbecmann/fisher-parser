@@ -1,6 +1,6 @@
-Extension { #name : #JEFamily }
+Extension { #name : 'JEFamily' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 JEFamily >> productMemberSubstitutionsAt: substitutions [
 	^ self isEmpty
 		ifTrue: [ #() ]

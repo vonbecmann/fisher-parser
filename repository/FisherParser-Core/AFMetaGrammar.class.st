@@ -13,24 +13,26 @@ and creates a hypernotion's grammar with
 	- and the metagramar 
 "
 Class {
-	#name : #AFMetaGrammar,
-	#superclass : #Object,
+	#name : 'AFMetaGrammar',
+	#superclass : 'Object',
 	#instVars : [
 		'nonterminals',
 		'terminals',
 		'metaProductionRules'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFMetaGrammar class >> metaRules: metaRuleCollection ortholetters: ortholetters [
 	^ self basicNew
 		initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetters;
 		yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFMetaGrammar >> checkIsLLOne [
 	| firstSet followSet parseTable conflictKeys |
 	firstSet := self computeFirstSet.
@@ -50,7 +52,7 @@ AFMetaGrammar >> checkIsLLOne [
 								separatedBy: [ s space ] ]) ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFMetaGrammar >> computeFirstSet [
 	| firstSet previousSize |
 	firstSet := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
@@ -61,7 +63,7 @@ AFMetaGrammar >> computeFirstSet [
 	^ firstSet
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFMetaGrammar >> computeFollowSetUsing: firstSet [
 	| followSet previousSize symbolFollowSet rest restFirstSet |
 	followSet := MultiValuedDictionary
@@ -88,7 +90,7 @@ AFMetaGrammar >> computeFollowSetUsing: firstSet [
 	^ followSet
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFMetaGrammar >> computeParseTableUsing: firstSet and: followSet [
 	" compute parse table using first set and follow set. 
 	then you can test if there's a conflict "
@@ -113,14 +115,14 @@ AFMetaGrammar >> computeParseTableUsing: firstSet and: followSet [
 	^ parseTable 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFMetaGrammar >> initialize [
 	metaProductionRules := MultiValuedDictionary
 		dictionary: IdentityDictionary
 		collection: SinglyLinkedList
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetters [
 	self initialize.
 	terminals := ortholetters collect: [ :letter | NCTerminal character: letter ] as: Set.
@@ -141,7 +143,7 @@ AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters:
 		thenDo: [ :each | metaProductionRules at: each head put: each ]
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFMetaGrammar >> inspectionMetaProductionRulesBrowserIn: composite [
 
 	<inspectorPresentationOrder: 1 title: 'Nonterminal -> Meta Rules'>
@@ -155,7 +157,7 @@ AFMetaGrammar >> inspectionMetaProductionRulesBrowserIn: composite [
 		  yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFMetaGrammar >> inspectionMetaProductionRulesIn: builder [
 
 	<inspectorPresentationOrder: 0 title: 'Meta Rules'>
@@ -167,7 +169,7 @@ AFMetaGrammar >> inspectionMetaProductionRulesIn: builder [
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFMetaGrammar >> startAt: aHypernotion [
 	" creates a hypernotion's grammar using the metagramar "
 

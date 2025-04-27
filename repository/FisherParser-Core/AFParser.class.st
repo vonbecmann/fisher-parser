@@ -2,12 +2,14 @@
 Fisher's Parser
 "
 Class {
-	#name : #AFParser,
-	#superclass : #AFYoYoAlgorithm,
-	#category : #'FisherParser-Core-Implementation'
+	#name : 'AFParser',
+	#superclass : 'AFYoYoAlgorithm',
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 AFParser >> complete: item [
 	" complete with parsing "
 
@@ -21,7 +23,7 @@ AFParser >> complete: item [
 						to: (item end add: (previous moveDotForwardAfterApplying: substitution)) ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFParser >> gapScan: item [
 	" gap scanner with parsing "
 
@@ -29,7 +31,7 @@ AFParser >> gapScan: item [
 		(item end add: (item moveDotForwardAfterApplying: substitution)) addFamilyWith: item ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFParser >> newParseForestWith: item [
 	self
 		assert: [ item familiesSize = 1 ];
@@ -39,7 +41,7 @@ AFParser >> newParseForestWith: item [
 		of: grammar
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFParser >> parse: aString [
 	| chart |
 	chart := self evaluate: aString.
@@ -49,7 +51,7 @@ AFParser >> parse: aString [
 		ifNone: [ AFFailure signal ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFParser >> scan: item with: word at: aColumn [
 	" terminal scanner "
 

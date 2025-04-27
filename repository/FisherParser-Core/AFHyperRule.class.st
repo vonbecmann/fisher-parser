@@ -9,18 +9,20 @@ this hyper rule is the result of applying a substitution to a hyper rule.
 self = instanceOfHyperRule apply: appliedSubstitution 
 "
 Class {
-	#name : #AFHyperRule,
-	#superclass : #Object,
+	#name : 'AFHyperRule',
+	#superclass : 'Object',
 	#instVars : [
 		'head',
 		'body',
 		'instanceOfHyperRule',
 		'appliedSubstitution'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHyperRule class >> head: anAFHypernotion body: anAFHypernotionCollection instanceOf: anAWHyperRule [
 	^ self basicNew
 		initializeHead: anAFHypernotion body: (AFHyperAlternative withAll: anAFHypernotionCollection);
@@ -28,7 +30,7 @@ AFHyperRule class >> head: anAFHypernotion body: anAFHypernotionCollection insta
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHyperRule class >> head: anAFHypernotion body: anAFHyperAlternative instanceOf: anAWHyperRule applied: aSubstitution [
 	^ self basicNew
 		initializeHead: anAFHypernotion body: anAFHyperAlternative;
@@ -36,42 +38,42 @@ AFHyperRule class >> head: anAFHypernotion body: anAFHyperAlternative instanceOf
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHyperRule class >> head: firstAFHypernotion bodyWith: secondAFHypernotion [
 	^ self basicNew
 		initializeHead: firstAFHypernotion body: (AFHyperAlternative with: secondAFHypernotion);
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHyperRule class >> headWith: aNotion body: anAFHypernotionCollection [
 	^ self basicNew
 		initializeHead: (AFHypernotion with: aNotion) body: (AFHyperAlternative withAll: anAFHypernotionCollection);
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHyperRule class >> headWith: aNotion bodyWith: anAFHypernotion [
 	^ self basicNew
 		initializeHead: (AFHypernotion with: aNotion) body: (AFHyperAlternative with: anAFHypernotion);
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHyperRule class >> headWithAll: aNotionCollection body: anAFHypernotionCollection [
 	^ self basicNew
 		initializeHead: (AFHypernotion withAll: aNotionCollection) body: (AFHyperAlternative withAll: anAFHypernotionCollection);
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHyperRule class >> headWithAll: aNotionCollection bodyWith: anAFHypernotion [
 	^ self basicNew
 		initializeHead: (AFHypernotion withAll: aNotionCollection) body: (AFHyperAlternative with: anAFHypernotion);
 		yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFHyperRule >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
@@ -84,7 +86,7 @@ AFHyperRule >> = anObject [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperRule >> apply: aSubstitution [
 	^ self class
 		head: (head apply: aSubstitution)
@@ -93,19 +95,19 @@ AFHyperRule >> apply: aSubstitution [
 		applied: (appliedSubstitution union: aSubstitution)
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFHyperRule >> asSubstitutionExpression [
 	"this hyper rule is the result of applying a substitution to the grammar's hyper rule"
 
 	^ OrderedPair first: instanceOfHyperRule second: appliedSubstitution
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperRule >> body [
 	^ body
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFHyperRule >> displayStringOn: aStream [
 
 	head displayStringOn: aStream.
@@ -115,33 +117,33 @@ AFHyperRule >> displayStringOn: aStream [
 	appliedSubstitution displaySubstitutionStringOn: aStream
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFHyperRule >> displaySubstitutionStringOn: aStream [
 
 	appliedSubstitution displaySubstitutionStringOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperRule >> dotAtBeginning [
 	^ AFDottedHyperRule atTheBeginningOf: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperRule >> dotAtEnd [
 	^ AFDottedHyperRule atTheEndOf: self
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFHyperRule >> hash [
 	^ ((head hash + body hash) hashMultiply + self class hash) hashMultiply
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperRule >> head [
 	^ head
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFHyperRule >> initializeHead: aHypernotion body: aHyperalternative [
 	head := aHypernotion.
 	body := aHyperalternative.
@@ -149,7 +151,7 @@ AFHyperRule >> initializeHead: aHypernotion body: aHyperalternative [
 	appliedSubstitution := AFSubstitution emptySolution
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFHyperRule >> inspectionDisplayIn: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Display'>
@@ -158,29 +160,29 @@ AFHyperRule >> inspectionDisplayIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFHyperRule >> instanceOf: anAWHyperRule appliedSubstitution: aSubstitution [
 	instanceOfHyperRule := anAWHyperRule.
 	appliedSubstitution := aSubstitution
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperRule >> instanceOfHyperRule [
 	^ instanceOfHyperRule
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHyperRule >> isEpsilon [
 	^ body isEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHyperRule >> isInstanceOf: anAFHyperRule [
 
 	^ instanceOfHyperRule = anAFHyperRule instanceOfHyperRule
 ]
 
-{ #category : #'testing - boundness' }
+{ #category : 'testing - boundness' }
 AFHyperRule >> isLRType [
 	" A hyper rule is of the type LR if and only if(iif)
 		it is both left-bound and right-bound. "
@@ -188,7 +190,7 @@ AFHyperRule >> isLRType [
 	^ self isLeftBound and: [ self isRightBound ]
 ]
 
-{ #category : #'testing - boundness' }
+{ #category : 'testing - boundness' }
 AFHyperRule >> isLType [
 	" A hyper rule is of the type L if and only if(iff)
 		it is left-bound but not right-bound. "
@@ -196,7 +198,7 @@ AFHyperRule >> isLType [
 	^ self isLeftBound and: [ self isRightBound not ]
 ]
 
-{ #category : #'testing - boundness' }
+{ #category : 'testing - boundness' }
 AFHyperRule >> isLeftBound [
 	" left-bound if and only if(iff) for all m in metanotions:
 		((head occurrencesOf: m) ~= 0) implies that ((body occurrencesOf: m) ~= 0) "
@@ -206,7 +208,7 @@ AFHyperRule >> isLeftBound [
 			[ :m | (head occurrencesOf: m) ~= 0 ==> [ (body occurrencesOf: m) ~= 0 ] ]
 ]
 
-{ #category : #'testing - boundness' }
+{ #category : 'testing - boundness' }
 AFHyperRule >> isRType [
 	" A hyper rule is of the type R if and only if(iff)
 		it is right-bound but not left-bound. "
@@ -214,14 +216,14 @@ AFHyperRule >> isRType [
 	^ self isRightBound and: [ self isLeftBound not ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHyperRule >> isRepresentation [
 	"head is metanotion free and the body is a terminal"
 
 	^ head isProtonotion and: [ body size = 1 and: [ body first isTerminal ] ]
 ]
 
-{ #category : #'testing - boundness' }
+{ #category : 'testing - boundness' }
 AFHyperRule >> isRightBound [
 	" right-bound if and only if(iff) for all m in metanotions:
 		((body occurrencesOf: m) ~= 0) implies that ((head occurrencesOf: m) ~= 0) "
@@ -230,7 +232,7 @@ AFHyperRule >> isRightBound [
 		allSatisfy: [ :m | (body occurrencesOf: m) ~= 0 ==> [ (head occurrencesOf: m) ~= 0 ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHyperRule >> isStrict [
 	" if this hyper rule is a production rule that belongs to the strict language.
 	it has 
@@ -243,7 +245,7 @@ AFHyperRule >> isStrict [
 	^ head isStrict and: [ body isStrict ]
 ]
 
-{ #category : #'testing - boundness' }
+{ #category : 'testing - boundness' }
 AFHyperRule >> isXType [
 	" A hyper rule is of the type X if and only if(iff)
 		it is neither left-bound nor right-bound. "
@@ -251,7 +253,7 @@ AFHyperRule >> isXType [
 	^ self isLeftBound not and: [ self isRightBound not ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFHyperRule >> printOn: aStream [
 	aStream
 		print: head;
@@ -260,12 +262,12 @@ AFHyperRule >> printOn: aStream [
 		nextPut: $.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFHyperRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFHyperRule >> release [
 	head := body := nil.
 	super release

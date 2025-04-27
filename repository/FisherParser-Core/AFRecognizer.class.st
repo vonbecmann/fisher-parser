@@ -2,12 +2,14 @@
 first attempt to recognize a string of a vw grammar
 "
 Class {
-	#name : #AFRecognizer,
-	#superclass : #AFYoYoAlgorithm,
-	#category : #'FisherParser-Core-Implementation'
+	#name : 'AFRecognizer',
+	#superclass : 'AFYoYoAlgorithm',
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFRecognizer >> accepts: aString [
 	^ [ | chart |
 	chart := self evaluate: aString.
@@ -16,7 +18,7 @@ AFRecognizer >> accepts: aString [
 		do: [ :ex | false ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFRecognizer >> complete: item [
 	item
 		predictionItemsDo: [ :previous | 
@@ -25,7 +27,7 @@ AFRecognizer >> complete: item [
 				do: [ :substitution | item end add: (previous moveDotForwardAfterApplying: substitution) ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFRecognizer >> gapScan: item [
 	" gap scanner "
 
@@ -33,7 +35,7 @@ AFRecognizer >> gapScan: item [
 		item end add: (item moveDotForwardAfterApplying: substitution) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFRecognizer >> scan: item with: word at: aColumn [
 	" terminal scanner "
 

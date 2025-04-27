@@ -1,6 +1,6 @@
-Extension { #name : #MultiValuedDictionary }
+Extension { #name : 'MultiValuedDictionary' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 MultiValuedDictionary >> firstOf: symbols [
 	| symbolsFirst |
 	symbolsFirst := collectionClass new.

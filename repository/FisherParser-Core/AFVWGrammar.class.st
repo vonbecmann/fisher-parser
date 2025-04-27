@@ -9,8 +9,8 @@ startHyperRule is hyper rule used by the algorithm.
 
 "
 Class {
-	#name : #AFVWGrammar,
-	#superclass : #Object,
+	#name : 'AFVWGrammar',
+	#superclass : 'Object',
 	#instVars : [
 		'vwGrammar',
 		'nonterminalHypernotions',
@@ -19,10 +19,12 @@ Class {
 		'metaGrammar',
 		'hyperRules'
 	],
-	#category : #'FisherParser-Core-Public'
+	#category : 'FisherParser-Core-Public',
+	#package : 'FisherParser-Core',
+	#tag : 'Public'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToRepresentationList [
 	^ self basicNew
 		initializeVWGrammar: 
@@ -38,22 +40,22 @@ AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToReprese
 		yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFVWGrammar >> accepts: aString [
 	^ (AFRecognizer of: self) accepts: aString
 ]
 
-{ #category : #analysis }
+{ #category : 'analysis' }
 AFVWGrammar >> analyzeAccepts: aString [
 	^ (AFAnalyticalRecognizer of: self) accepts: aString
 ]
 
-{ #category : #analysis }
+{ #category : 'analysis' }
 AFVWGrammar >> analyzeParse: aString [
 	^ (AFAnalyticalParser of: self) parse: aString
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFVWGrammar >> checkBoundness [
 	" R2. The hypersyntax must not contain any type X rules. 
 	A hyper rule is of type X iif it is neither left-bound nor right-bound. "
@@ -76,7 +78,7 @@ AFVWGrammar >> checkBoundness [
 										nextPutAll: ' is of type X.' ]) ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFVWGrammar >> checkHyperRulesLeftHandSides [
 	hyperRules
 		do: [ :hyperRule | 
@@ -92,7 +94,7 @@ AFVWGrammar >> checkHyperRulesLeftHandSides [
 										nextPutAll: ' matches empty' ]) ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFVWGrammar >> checkHypernotionsAreLLOne [
 	"P1.	the defining context-free grammar of each hypernotion 
 			in the vw-grammar is LL(1) "
@@ -100,12 +102,12 @@ AFVWGrammar >> checkHypernotionsAreLLOne [
 	nonterminalHypernotions do: [ :hn | hn checkIsLLOne ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFVWGrammar >> checkMetaGrammarIsLLOne [
 	metaGrammar checkIsLLOne
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFVWGrammar >> computeCrossReferences [
 	" compute cross-references "
 
@@ -134,37 +136,37 @@ AFVWGrammar >> computeCrossReferences [
 														nextPutAll: ' used but not defined' ]) ] ] ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFVWGrammar >> computeHypernotionsFirstSet [
 	nonterminalHypernotions do: [ :hn | hn computeFirstSet ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFVWGrammar >> firstHyperRule [
 	^ vwGrammar hyperRuleAt: 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFVWGrammar >> hyperRuleAt: index [ 
 	^ vwGrammar hyperRuleAt: index 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFVWGrammar >> hyperRuleAtAll: indexArray [ 
 	^ vwGrammar hyperRuleAtAll: indexArray 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFVWGrammar >> hyperRulesSize [
 	^ vwGrammar hyperRulesSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFVWGrammar >> hypernotions [
 	^ vwGrammar hypernotions
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 	| startNotion startHypernotion hypernotionDict |
 	vwGrammar := aVWGrammar.
@@ -195,53 +197,53 @@ AFVWGrammar >> initializeVWGrammar: aVWGrammar [
 		thenCollect: [ :each | each dotAtBeginning ]
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFVWGrammar >> inspectionDefinitionIn: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Definition'>
 	^ vwGrammar inspectionDefinitionIn: aBuilder
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFVWGrammar >> inspectionHyperRulesIn: aBuilder [
 
 	<inspectorPresentationOrder: 2 title: 'Hyper Rules'>
 	^ vwGrammar inspectionHyperRulesIn: aBuilder
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFVWGrammar >> inspectionMetaRulesIn: aBuilder [
 
 	<inspectorPresentationOrder: 1 title: 'Meta Rules'>
 	^ vwGrammar inspectionMetaRulesIn: aBuilder
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFVWGrammar >> metaGrammar [
 	^ metaGrammar
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFVWGrammar >> metaRulesSize [
 	^ vwGrammar metaRulesSize 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFVWGrammar >> metanotions [
 	^ vwGrammar metanotions
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFVWGrammar >> parse: aString [
 	^ (AFParser of: self) parse: aString
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFVWGrammar >> parseTree: aString [
 	^ (AFTreeParser of: self) parse: aString
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFVWGrammar >> printOn: aStream [
 	"Append to the argument, aStream, a sequence of characters that  
 	identifies the receiver."
@@ -253,32 +255,32 @@ AFVWGrammar >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFVWGrammar >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFVWGrammar >> protonotions [
 	^ vwGrammar protonotions 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFVWGrammar >> representationRulesDo: aBlock [
 	representationRules do: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFVWGrammar >> startHyperRule [
 	^ startHyperRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFVWGrammar >> startNotion [
 	^ vwGrammar startNotion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFVWGrammar >> terminals [
 	^ vwGrammar terminals
 ]

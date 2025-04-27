@@ -2,8 +2,8 @@
 similar to earley's column.
 "
 Class {
-	#name : #AFColumn,
-	#superclass : #Object,
+	#name : 'AFColumn',
+	#superclass : 'Object',
 	#instVars : [
 		'number',
 		'itemSet',
@@ -12,36 +12,38 @@ Class {
 		'itemsToProcess',
 		'finalItems'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFColumn class >> number: anInteger [
 	^ self basicNew
 		initializeNumber: anInteger;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFColumn class >> numberOneWithDottedHyperRule: aDottedHyperRule [
 	^ (self number: 1)
 		addDottedHyperRule: aDottedHyperRule;
 		yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFColumn >> <= column [
 	^ number <= column number
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFColumn >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
 	^ self class == anObject class and: [ number == anObject number ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 AFColumn >> add: dottedItem [
 	^ itemSet
 		detect: [ :item | item equals: dottedItem ]
@@ -49,14 +51,14 @@ AFColumn >> add: dottedItem [
 		ifNone: [ self addDottedItem: dottedItem ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 AFColumn >> addDottedHyperRule: dottedHyperRule [
 	itemSet
 		detect: [ :item | item start = self and: [ item dottedHyperRule = dottedHyperRule ] ]
 		ifNone: [ self addDottedItem: (dottedHyperRule startAt: self) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFColumn >> addDottedItem: dottedItem [
 	itemsToProcess nextPut: dottedItem.
 	itemSet addLast: dottedItem.
@@ -71,7 +73,7 @@ AFColumn >> addDottedItem: dottedItem [
 	^ orderedItems addLast: dottedItem
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 AFColumn >> addTerminalItem: aTerminalItem [
 	^ itemSet
 		detect: [ :item | item equals: aTerminalItem ]
@@ -82,7 +84,7 @@ AFColumn >> addTerminalItem: aTerminalItem [
 			orderedItems addLast: aTerminalItem ]
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFColumn >> displayStringOn: aStream [
 
 	"Column [number]"
@@ -93,7 +95,7 @@ AFColumn >> displayStringOn: aStream [
 		nextPut: $]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 AFColumn >> finalItemsWithHeadMatch: aProtonotionHypernotion do: aBlock [
 	finalItems
 		do: [ :finalItem | 
@@ -102,12 +104,12 @@ AFColumn >> finalItemsWithHeadMatch: aProtonotionHypernotion do: aBlock [
 				do: [ aBlock value: finalItem ] ]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFColumn >> hash [
 	^ number hash
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFColumn >> ifEmpty: aBlock [
 	"Evaluate the given block, answering its value if the receiver is empty, otherwise answer the receiver."
 
@@ -116,7 +118,7 @@ AFColumn >> ifEmpty: aBlock [
 		ifFalse: [ self ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFColumn >> includesInstanceOf: anItem [
 
 	^ itemSet
@@ -125,7 +127,7 @@ AFColumn >> includesInstanceOf: anItem [
 		  ifNone: [ false ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFColumn >> initialize [
 	itemsToProcess := SinglyLinkedQueue new.
 	itemSet := SinglyLinkedList new.
@@ -134,13 +136,13 @@ AFColumn >> initialize [
 	finalItems := SinglyLinkedList new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFColumn >> initializeNumber: anInteger [
 	self initialize.
 	number := anInteger
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFColumn >> inspectionFinalItemsIn: aBuilder [
 
 	<inspectorPresentationOrder: 3 title: 'Final'>
@@ -150,7 +152,7 @@ AFColumn >> inspectionFinalItemsIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFColumn >> inspectionOrderedItemsIn: builder [
 
 	<inspectorPresentationOrder: 1 title: 'ordered items'>
@@ -167,7 +169,7 @@ AFColumn >> inspectionOrderedItemsIn: builder [
 		  yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFColumn >> inspectionPredictionItemsIn: aBuilder [
 
 	<inspectorPresentationOrder: 2 title: 'Prediction'>
@@ -184,7 +186,7 @@ AFColumn >> inspectionPredictionItemsIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFColumn >> inspectionSortedItemsIn: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Sorted'>
@@ -201,12 +203,12 @@ AFColumn >> inspectionSortedItemsIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFColumn >> isEmpty [
 	^ orderedItems isEmpty
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFColumn >> like: anItem ifFound: foundBlock ifNone: exceptionBlock [
 	" Evaluate foundBlock if an item in the receiver that is equal to anItem, 
 	  Evaluate exceptionBlock if no such item is found. "
@@ -214,17 +216,17 @@ AFColumn >> like: anItem ifFound: foundBlock ifNone: exceptionBlock [
 	^ itemSet detect: [ :item | item equals: anItem ] ifFound: foundBlock ifNone: exceptionBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFColumn >> number [
 	^ number
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 AFColumn >> predictionItemsDo: aBlock [
 	predictionItems do: aBlock
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFColumn >> printOn: aStream [
 	aStream
 		nextPutAll: self className;
@@ -233,38 +235,38 @@ AFColumn >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFColumn >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFColumn >> processItems: aBlock [
 	"process each item in order"
 
 	[ itemsToProcess isEmpty ] whileFalse: [ aBlock value: itemsToProcess next ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFColumn >> release [
 	number := itemsToProcess := itemSet := orderedItems := predictionItems := nil.
 	finalItems := nil.
 	super release
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFColumn >> shortPrintOn: aStream [
 	"number"
 
 	number printOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFColumn >> size [
 	^ orderedItems size
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFColumn >> sortedItems [
 	| sortedItems |
 	sortedItems := SortedCollection new.

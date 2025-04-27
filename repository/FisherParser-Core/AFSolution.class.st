@@ -6,37 +6,39 @@ a solution substitution to the matching algorithm.
 
 "
 Class {
-	#name : #AFSolution,
-	#superclass : #AFSubstitution,
+	#name : 'AFSolution',
+	#superclass : 'AFSubstitution',
 	#instVars : [
 		'metanotionSubstitutions'
 	],
-	#category : #'FisherParser-Core-Matching'
+	#category : 'FisherParser-Core-Matching',
+	#package : 'FisherParser-Core',
+	#tag : 'Matching'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFSolution class >> empty [
 	^ self substitutions: AFMetanotionSubstitutions empty
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFSolution class >> substitutions: aMetanotionSubstitutions [
 	^ self basicNew
 		initializeSubstitutions: aMetanotionSubstitutions;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFSolution class >> with: anAssociation [
 	^ self substitutions: (AFMetanotionSubstitutions with: anAssociation)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFSolution class >> withAll: anAssocCollection [
 	^ self substitutions: (AFMetanotionSubstitutions withAll: anAssocCollection)
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFSolution >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
@@ -45,12 +47,12 @@ AFSolution >> = anObject [
 	^ metanotionSubstitutions = anObject metanotionSubstitutions
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFSolution >> applyTo: aMetanotion [
 	^ metanotionSubstitutions at: aMetanotion
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFSolution >> displayStringOn: aStream [
 
 	aStream nextPutAll: 'solution('.
@@ -58,30 +60,30 @@ AFSolution >> displayStringOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFSolution >> displaySubstitutionStringOn: aStream [
 
 	metanotionSubstitutions displayStringOn: aStream
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFSolution >> hash [
 	^ (self class hash + metanotionSubstitutions hash) hashMultiply
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFSolution >> ifSolution: aBlock [
 	"Evaluate a block because I'm a solution"
 
 	^ aBlock cull: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFSolution >> initializeSubstitutions: aMetanotionSubstitutions [
 	metanotionSubstitutions := aMetanotionSubstitutions
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFSolution >> inspectionSubstitutionsIn: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Solution'>
@@ -89,22 +91,22 @@ AFSolution >> inspectionSubstitutionsIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFSolution >> isEmpty [
 	^ metanotionSubstitutions isEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFSolution >> isSolution [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFSolution >> metanotionSubstitutions [
 	^ metanotionSubstitutions
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFSolution >> printOn: aStream [
 	aStream
 		nextPutAll: self className;
@@ -113,18 +115,18 @@ AFSolution >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFSolution >> release [
 	metanotionSubstitutions := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFSolution >> union: anAFSolution [
 	^ anAFSolution withAll: metanotionSubstitutions
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFSolution >> withAll: anAFMetanotionSubstitutions [
 	^ self class substitutions: (anAFMetanotionSubstitutions union: metanotionSubstitutions)
 ]

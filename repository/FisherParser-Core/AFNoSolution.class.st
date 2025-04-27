@@ -4,49 +4,51 @@ failed.
 
 "
 Class {
-	#name : #AFNoSolution,
-	#superclass : #AFSubstitution,
-	#category : #'FisherParser-Core-Matching'
+	#name : 'AFNoSolution',
+	#superclass : 'AFSubstitution',
+	#category : 'FisherParser-Core-Matching',
+	#package : 'FisherParser-Core',
+	#tag : 'Matching'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFNoSolution >> applyTo: aMetanotion [
 	" I'm not a solution, there isn't a possible substitution "
 
 	self shouldNotImplement
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFNoSolution >> displayStringOn: aStream [
 	aStream nextPutAll: 'no solution substitution'
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFNoSolution >> displaySubstitutionStringOn: aStream [
 
 	aStream nextPutAll: 'failure'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFNoSolution >> ifSolution: aBlock [
 	"Return self because I'm not a solution"
 
 	^ self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFNoSolution >> isSolution [
 	^ false
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFNoSolution >> printOn: aStream [
 	aStream
 		nextPutAll: self className;
 		nextPutAll: '()'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFNoSolution >> union: anAFSolution [
 	" I'm not a solution, there isn't a possible substitution "
 

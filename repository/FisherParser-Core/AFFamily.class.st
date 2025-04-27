@@ -2,32 +2,34 @@
 a family of packed parse nodes.
 "
 Class {
-	#name : #AFFamily,
-	#superclass : #Object,
+	#name : 'AFFamily',
+	#superclass : 'Object',
 	#instVars : [
 		'parent',
 		'first',
 		'second'
 	],
-	#category : #'FisherParser-Core-BSPPForest'
+	#category : 'FisherParser-Core-BSPPForest',
+	#package : 'FisherParser-Core',
+	#tag : 'BSPPForest'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFFamily class >> empty [
 	^ self basicNew initializeFirst: nil andSecond: nil
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFFamily class >> with: aPackedNode [
 	^ self basicNew initializeFirst: aPackedNode andSecond: nil
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFFamily class >> with: firstPackedNode with: secondPackedNode [
 	^ self basicNew initializeFirst: firstPackedNode andSecond: secondPackedNode
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFFamily >> = anObject [
 	^ self class == anObject class
 		and: [ parent == anObject parent
@@ -35,27 +37,27 @@ AFFamily >> = anObject [
 					and: [ second == anObject second ] ] ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 AFFamily >> acceptPostOrderVisitor: aVisitor [
 	aVisitor visitPostOrderFamily: self
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 AFFamily >> acceptPreOrderVisitor: aVisitor [
 	aVisitor visitPreOrderFamily: self
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 AFFamily >> acceptVisitor: aVisitor [
 	aVisitor visitNode: self
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 AFFamily >> children [
 	^ self members
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFFamily >> displayStringOn: aStream [
 
 	aStream nextPut: $(.
@@ -67,12 +69,12 @@ AFFamily >> displayStringOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFFamily >> first [
 	^ first
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFFamily >> hash [
 	| hash |
 	hash := (self class hash + parent identityHash) hashMultiply.
@@ -83,13 +85,13 @@ AFFamily >> hash [
 	^ hash
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFFamily >> initializeFirst: firstPackedNode andSecond: secondPackedNode [
 	first := firstPackedNode.
 	second := secondPackedNode
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFFamily >> inspectionBrowserIn: aBuilder [
 
 	<inspectorPresentationOrder: 1 title: 'Browse'>
@@ -100,12 +102,12 @@ AFFamily >> inspectionBrowserIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFFamily >> isEmpty [
 	^ first isNil and: [ second isNil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFFamily >> members [
 	^ first
 		ifNil: [ #() ]
@@ -115,17 +117,17 @@ AFFamily >> members [
 				ifNotNil: [ {first. second} ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFFamily >> parent [
 	^ parent
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFFamily >> parent: aPackedNode [
 	parent := aPackedNode
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFFamily >> printOn: aStream [
 	aStream 
 		nextPutAll: self className;
@@ -141,23 +143,23 @@ AFFamily >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFFamily >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFFamily >> release [
 	parent := first := second := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFFamily >> second [
 	^ second
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFFamily >> size [
 	^ first 
 		ifNil: [ 0 ] 

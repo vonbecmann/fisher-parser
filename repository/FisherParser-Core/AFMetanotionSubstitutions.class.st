@@ -3,34 +3,36 @@ metanotion -> substitute.
 
 "
 Class {
-	#name : #AFMetanotionSubstitutions,
-	#superclass : #Object,
+	#name : 'AFMetanotionSubstitutions',
+	#superclass : 'Object',
 	#instVars : [
 		'associations'
 	],
-	#category : #'FisherParser-Core-Matching'
+	#category : 'FisherParser-Core-Matching',
+	#package : 'FisherParser-Core',
+	#tag : 'Matching'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFMetanotionSubstitutions class >> empty [
 	^ self new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFMetanotionSubstitutions class >> with: anAssociation [
 	^ self new
 		add: anAssociation;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFMetanotionSubstitutions class >> withAll: anAssocCollection [
 	^ self new
 		addAll: anAssocCollection;
 		yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFMetanotionSubstitutions >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
@@ -41,7 +43,7 @@ AFMetanotionSubstitutions >> = anObject [
 	^ associations allSatisfy: [ :assoc | anObject includes: assoc ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 AFMetanotionSubstitutions >> add: anAssociation [
 	" Metanotion -> Substitute "
 
@@ -49,17 +51,17 @@ AFMetanotionSubstitutions >> add: anAssociation [
 		ifFalse: [ associations addLast: anAssociation ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 AFMetanotionSubstitutions >> addAll: anAssocCollection [
 	anAssocCollection do: [ :assoc | self add: assoc ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFMetanotionSubstitutions >> associations [
 	^ associations
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFMetanotionSubstitutions >> at: aMetanotion [
 	associations
 		do: [ :assoc | 
@@ -68,7 +70,7 @@ AFMetanotionSubstitutions >> at: aMetanotion [
 	^ aMetanotion
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFMetanotionSubstitutions >> displayStringOn: aStream [
 
 	aStream nextPut: ${.
@@ -78,27 +80,27 @@ AFMetanotionSubstitutions >> displayStringOn: aStream [
 	aStream nextPut: $}
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFMetanotionSubstitutions >> hash [
 	^ (self class hash + self size hash) hashMultiply
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFMetanotionSubstitutions >> includes: anAssociation [
 	^ associations includes: anAssociation
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFMetanotionSubstitutions >> includesMetanotion: aMetanotion [
 	^ associations anySatisfy: [ :assoc | assoc key = aMetanotion ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFMetanotionSubstitutions >> initialize [
 	associations := SinglyLinkedList new
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFMetanotionSubstitutions >> inspectionSubstitutionsIn: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Subtitutions'>
@@ -115,12 +117,12 @@ AFMetanotionSubstitutions >> inspectionSubstitutionsIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFMetanotionSubstitutions >> isEmpty [
 	^ associations isEmpty 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFMetanotionSubstitutions >> printOn: aStream [
 	aStream
 		nextPutAll: self className;
@@ -131,7 +133,7 @@ AFMetanotionSubstitutions >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFMetanotionSubstitutions >> product: metanotionSubstitutionCollection [
 	^ metanotionSubstitutionCollection isEmpty
 		ifTrue: [ {self} ]
@@ -141,18 +143,18 @@ AFMetanotionSubstitutions >> product: metanotionSubstitutionCollection [
 			product ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFMetanotionSubstitutions >> release [
 	associations := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFMetanotionSubstitutions >> size [
 	^ associations size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFMetanotionSubstitutions >> union: aMetanotionSubstitutions [
 	^ self class new
 		addAll: associations;
@@ -160,7 +162,7 @@ AFMetanotionSubstitutions >> union: aMetanotionSubstitutions [
 		yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFMetanotionSubstitutions >> uniquelyAssign: metanotions [
 	" true if these substitutions uniquely assign each metanotion "
 

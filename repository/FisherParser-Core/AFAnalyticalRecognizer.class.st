@@ -2,12 +2,14 @@
 analyze the recognition of a string.
 "
 Class {
-	#name : #AFAnalyticalRecognizer,
-	#superclass : #AFRecognizer,
-	#category : #'FisherParser-Core-Implementation'
+	#name : 'AFAnalyticalRecognizer',
+	#superclass : 'AFRecognizer',
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFAnalyticalRecognizer >> accepts: aString [
 
 	^ [ 

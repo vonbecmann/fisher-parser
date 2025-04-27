@@ -1,6 +1,6 @@
-Extension { #name : #AWHypernotion }
+Extension { #name : 'AWHypernotion' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 AWHypernotion >> buildBodyOf: symbols [
 	^ Array
 		streamContents: [ :s | 

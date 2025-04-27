@@ -6,42 +6,44 @@ a substitution to the matching algorithm.
 
 "
 Class {
-	#name : #AFSubstitution,
-	#superclass : #Object,
+	#name : 'AFSubstitution',
+	#superclass : 'Object',
 	#classInstVars : [
 		'emptySolution',
 		'noSolution'
 	],
-	#category : #'FisherParser-Core-Matching'
+	#category : 'FisherParser-Core-Matching',
+	#package : 'FisherParser-Core',
+	#tag : 'Matching'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFSubstitution class >> emptySolution [
 	" an empty solution "
 
 	^ emptySolution ifNil: [ emptySolution := AFSolution empty ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 AFSubstitution class >> initialize [
 	emptySolution := noSolution := nil
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFSubstitution class >> noSolution [
 	" no solution is possible "
 
 	^ noSolution ifNil: [ noSolution := AFNoSolution new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFSubstitution class >> reset [
 	" reset the usual solutions "
 
 	emptySolution := noSolution := nil
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFSubstitution class >> solution: aMetanotionSubstitutions [
 	" a solution is possible with the given substitutions.
 		{(aMetanotion -> substitute). etc.} "
@@ -49,41 +51,41 @@ AFSubstitution class >> solution: aMetanotionSubstitutions [
 	^ AFSolution substitutions: aMetanotionSubstitutions
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFSubstitution class >> solutionWith: anAssociation [
 	^ AFSolution with: anAssociation
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFSubstitution class >> solutionWithAll: anAssocCollection [
 	^ AFSolution withAll: anAssocCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFSubstitution >> applyTo: aMetanotion [
 	self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFSubstitution >> ifSolution: aBlock [
 	"Evaluate a block when I'm a solution"
 
 	self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFSubstitution >> isSolution [
 	"if this substitution is a solution to the syntactic matching problem"
 
 	self subclassResponsibility
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFSubstitution >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFSubstitution >> union: anAFSolution [
 	self subclassResponsibility
 ]

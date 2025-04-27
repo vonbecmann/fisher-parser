@@ -1,6 +1,6 @@
-Extension { #name : #JETerminalItem }
+Extension { #name : 'JETerminalItem' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 JETerminalItem >> sumFamilySubstitutionsAt: substitutions [
 
 	^ SinglyLinkedList new

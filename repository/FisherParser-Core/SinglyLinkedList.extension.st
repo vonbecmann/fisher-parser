@@ -1,6 +1,6 @@
-Extension { #name : #SinglyLinkedList }
+Extension { #name : 'SinglyLinkedList' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 SinglyLinkedList >> product: metanotionSubstitutionCollection [
 	^ self isEmpty
 		ifTrue: [ metanotionSubstitutionCollection ]

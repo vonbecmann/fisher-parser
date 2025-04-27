@@ -3,49 +3,51 @@ LR item.
 
 "
 Class {
-	#name : #AFItem,
-	#superclass : #Object,
+	#name : 'AFItem',
+	#superclass : 'Object',
 	#instVars : [
 		'start',
 		'end',
 		'node'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFItem >> displayIntervalString [
 	^ String streamContents: [ :s | self printIntervalOn: s ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFItem >> end [
 	^ end
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFItem >> end: aColumn [ 
 	end := aColumn
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFItem >> equals: anItem [
 	^ self class == anItem class and: [ start = anItem start ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFItem >> isTerminal [
 	^ self subclassResponsibility
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFItem >> node [
 	" a packed node of myself "
 
 	self subclassResponsibility
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFItem >> printIntervalOn: aStream [
 	end
 		ifNil: [ 	start shortPrintOn: aStream ]
@@ -57,18 +59,18 @@ AFItem >> printIntervalOn: aStream [
 			aStream nextPut: $] ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFItem >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFItem >> release [
 	start := end := node := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFItem >> start [
 	^ start
 ]

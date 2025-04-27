@@ -1,6 +1,6 @@
-Extension { #name : #JEParseForest }
+Extension { #name : 'JEParseForest' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 JEParseForest >> substitutionsOf: metanotions [
 	^ syntaxForest substitutionsOf: metanotions
 ]

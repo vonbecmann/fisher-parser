@@ -1,11 +1,11 @@
-Extension { #name : #AWProtonotion }
+Extension { #name : 'AWProtonotion' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 AWProtonotion >> apply: aSubstitution [ 
 	^ self
 ]
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 AWProtonotion >> buildBodyOf: symbols [
 	^ Array
 		new: smallSyntacticMarks size

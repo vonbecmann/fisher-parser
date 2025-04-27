@@ -3,16 +3,18 @@ a terminal item.
 
 "
 Class {
-	#name : #AFTerminalItem,
-	#superclass : #AFItem,
+	#name : 'AFTerminalItem',
+	#superclass : 'AFItem',
 	#instVars : [
 		'terminal',
 		'word'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFTerminalItem class >> given: aTerminal word: aWord startedAt: firstColumn [
 	"
 	a terminal item for the given terminal 
@@ -22,7 +24,7 @@ AFTerminalItem class >> given: aTerminal word: aWord startedAt: firstColumn [
 	^ self basicNew initializeTerminal: aTerminal word: aWord startedAt: firstColumn
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFTerminalItem >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
@@ -37,7 +39,7 @@ AFTerminalItem >> = anObject [
 	^ true
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFTerminalItem >> asSyntaxNode [
 	^ ESSyntaxNode
 		symbol: terminal
@@ -46,7 +48,7 @@ AFTerminalItem >> asSyntaxNode [
 		end: end number
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFTerminalItem >> displayStringOn: aStream [
 	"[ terminal @ [ start, end ] ]"
 
@@ -57,17 +59,17 @@ AFTerminalItem >> displayStringOn: aStream [
 	aStream nextPut: $]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFTerminalItem >> equals: anItem [
 	^ (super equals: anItem) and: [ terminal = anItem terminal ]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFTerminalItem >> hash [
 	^ (terminal hash + (start hash + end hash) hashMultiply) hashMultiply
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFTerminalItem >> initializeTerminal: aTerminalHypernotion word: aWord startedAt: aColumn [
 	terminal := aTerminalHypernotion.
 	word := aWord.
@@ -75,17 +77,17 @@ AFTerminalItem >> initializeTerminal: aTerminalHypernotion word: aWord startedAt
 	node := AFPackedNode model: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFTerminalItem >> isTerminal [
 	^ true
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFTerminalItem >> node [
 	^ node
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFTerminalItem >> printOn: aStream [
 	aStream
 		nextPutAll: self class name;
@@ -96,14 +98,14 @@ AFTerminalItem >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFTerminalItem >> release [
 	terminal := nil.
 	word := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFTerminalItem >> terminal [
 	^ terminal
 ]

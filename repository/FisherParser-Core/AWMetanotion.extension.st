@@ -1,6 +1,6 @@
-Extension { #name : #AWMetanotion }
+Extension { #name : 'AWMetanotion' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 AWMetanotion >> apply: aSubstitution [ 
 	^ aSubstitution applyTo: self
 ]

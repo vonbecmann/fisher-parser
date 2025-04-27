@@ -1,11 +1,11 @@
-Extension { #name : #JEDottedItem }
+Extension { #name : 'JEDottedItem' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 JEDottedItem >> asMetanotionSubstitution [
 	^ AFMetanotionSubstitutions with: self head -> self asProtonotion
 ]
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 JEDottedItem >> asProtonotion [
 	" a new protonotion with terminals as small syntactic marks "
 
@@ -19,7 +19,7 @@ JEDottedItem >> asProtonotion [
 						visit: self ])
 ]
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 JEDottedItem >> sumFamilySubstitutionsAt: substitutions [
 	| familySubstitutions |
 	familySubstitutions := SinglyLinkedList new.

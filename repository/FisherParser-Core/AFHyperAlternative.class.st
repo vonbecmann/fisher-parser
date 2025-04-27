@@ -2,25 +2,27 @@
 - A ""hyperalternative"" is a nonempty sequence of hypernotions separated by commas.
 "
 Class {
-	#name : #AFHyperAlternative,
-	#superclass : #Object,
+	#name : 'AFHyperAlternative',
+	#superclass : 'Object',
 	#instVars : [
 		'hypernotions'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHyperAlternative class >> with: anAFHypernotion [
 	^ self basicNew initializeHypernotions: (Array with: anAFHypernotion)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHyperAlternative class >> withAll: anAFHypernotionCollection [
 	^ self basicNew initializeHypernotions: (Array withAll: anAFHypernotionCollection)
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFHyperAlternative >> = anObject [
 	self class == anObject class
 		ifFalse: [ ^ false ].
@@ -32,17 +34,17 @@ AFHyperAlternative >> = anObject [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperAlternative >> apply: aSubstitution [
 	^ self class withAll: (hypernotions collect: [ :each | each apply: aSubstitution ])
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperAlternative >> at: index [
 	^ hypernotions at: index
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFHyperAlternative >> displayStringOn: aStream [
 
 	hypernotions
@@ -50,7 +52,7 @@ AFHyperAlternative >> displayStringOn: aStream [
 		separatedBy: [ aStream nextPutAll: ', ' ]
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFHyperAlternative >> displayStringOn: aStream withDotAt: dotIndex [
 
 	| middleDot |
@@ -62,12 +64,12 @@ AFHyperAlternative >> displayStringOn: aStream withDotAt: dotIndex [
 	dotIndex > hypernotions size ifTrue: [ aStream nextPut: middleDot ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperAlternative >> first [
 	^ hypernotions first
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFHyperAlternative >> hash [
 	| hash |
 	hash := (self class hash + hypernotions size hash) hashMultiply.
@@ -75,12 +77,12 @@ AFHyperAlternative >> hash [
 	^ hash
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFHyperAlternative >> initializeHypernotions: anAFHypernotionArray [
 	hypernotions := anAFHypernotionArray
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFHyperAlternative >> inspectionHypernotionsIn: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Hypernotions'>
@@ -90,17 +92,17 @@ AFHyperAlternative >> inspectionHypernotionsIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHyperAlternative >> isEmpty [
 	^ hypernotions isEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHyperAlternative >> isStrict [
 	^ hypernotions allSatisfy: [ :hn | hn isStrict ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperAlternative >> metanotions [
 	| metanotions |
 	metanotions := Set new.
@@ -108,7 +110,7 @@ AFHyperAlternative >> metanotions [
 	^ metanotions
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHyperAlternative >> occurrencesOf: aNotion [
 	| tally |
 	tally := 0.
@@ -116,12 +118,12 @@ AFHyperAlternative >> occurrencesOf: aNotion [
 	^ tally
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFHyperAlternative >> printOn: aStream [
 	hypernotions do: [ :hn | aStream print: hn ] separatedBy: [ aStream nextPutAll: ', ' ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFHyperAlternative >> printOn: aStream withDotAt: dotIndex [
 	| middleDot |
 	middleDot := Character value: 183.
@@ -136,23 +138,23 @@ AFHyperAlternative >> printOn: aStream withDotAt: dotIndex [
 		ifTrue: [ aStream nextPut: middleDot ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFHyperAlternative >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFHyperAlternative >> release [
 	hypernotions := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHyperAlternative >> size [
 	^ hypernotions size
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 AFHyperAlternative >> withIndexDo: aBlock [ 
 	hypernotions withIndexDo: aBlock 
 ]

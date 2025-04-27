@@ -4,16 +4,18 @@ a parse forest of a vw-grammar.
 syntaxForest - a BSPPForest
 "
 Class {
-	#name : #AFParseForest,
-	#superclass : #Object,
+	#name : 'AFParseForest',
+	#superclass : 'Object',
 	#instVars : [
 		'syntaxForest',
 		'grammar'
 	],
-	#category : #'FisherParser-Core-Public'
+	#category : 'FisherParser-Core-Public',
+	#package : 'FisherParser-Core',
+	#tag : 'Public'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFParseForest class >> given: aBSPPForest of: aVWGrammar [
 	"given a syntax forest of a grammar"
 
@@ -22,7 +24,7 @@ AFParseForest class >> given: aBSPPForest of: aVWGrammar [
 		andGrammar: aVWGrammar
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFParseForest >> extractSingleParseTree [
 	"the forest has one binary tree, so we need to extract it from the forest. 
 	 but flatten as the production rules and using syntax nodes."
@@ -46,20 +48,20 @@ AFParseForest >> extractSingleParseTree [
 	^ ESParseTree given: (ESTree rootNode: stack pop) of: grammar
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFParseForest >> initializeSyntaxForest: aBSPPForest andGrammar: aVWGrammar [
 	syntaxForest := aBSPPForest.
 	grammar := aVWGrammar
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFParseForest >> inspectionBrowserIn: builder [
 
 	<inspectorPresentationOrder: 1 title: 'Browse'>
 	^ syntaxForest inspectionBrowserIn: builder
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFParseForest >> isAmbiguous [
 	AFDepthFirstVisitor new
 		preOrderNodeBlock: [ :packed | 
@@ -69,7 +71,7 @@ AFParseForest >> isAmbiguous [
 	^ false
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFParseForest >> printOn: aStream [
 	aStream
 		nextPutAll: self className;
@@ -78,7 +80,7 @@ AFParseForest >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFParseForest >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]

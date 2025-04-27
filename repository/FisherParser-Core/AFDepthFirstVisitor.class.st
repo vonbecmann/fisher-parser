@@ -5,12 +5,14 @@ of
 a binary shared packed parse forest.
 "
 Class {
-	#name : #AFDepthFirstVisitor,
-	#superclass : #AFBSPPFVisitor,
-	#category : #'FisherParser-Core-BSPPForest'
+	#name : 'AFDepthFirstVisitor',
+	#superclass : 'AFBSPPFVisitor',
+	#category : 'FisherParser-Core-BSPPForest',
+	#package : 'FisherParser-Core',
+	#tag : 'BSPPForest'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 AFDepthFirstVisitor >> visitNode: aPackedOrFamilyNode [
 
 	" status: notvisited(0) -> visited(1) -> done(2)"

@@ -2,46 +2,48 @@
 a packed parse node.
 "
 Class {
-	#name : #AFPackedNode,
-	#superclass : #Object,
+	#name : 'AFPackedNode',
+	#superclass : 'Object',
 	#instVars : [
 		'model',
 		'families'
 	],
-	#category : #'FisherParser-Core-BSPPForest'
+	#category : 'FisherParser-Core-BSPPForest',
+	#package : 'FisherParser-Core',
+	#tag : 'BSPPForest'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFPackedNode class >> model: anItem [
 	^ self basicNew initializeModel: anItem
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFPackedNode >> = anObject [
 	^ self class == anObject class and: [ model = anObject model ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 AFPackedNode >> acceptPostOrderVisitor: aVisitor [
 	aVisitor visitPostOrderPackedNode: self
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 AFPackedNode >> acceptPreOrderVisitor: aVisitor [
 	aVisitor visitPreOrderPackedNode: self
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 AFPackedNode >> acceptVisitor: aVisitor [
 	aVisitor visitNode: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFPackedNode >> addEmptyFamily [
 	self addFamily: AFFamily empty
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFPackedNode >> addFamily: aFamily [
 	families
 		detect: [ :family | family first = aFamily first and: [ family second = aFamily second ] ]
@@ -51,12 +53,12 @@ AFPackedNode >> addFamily: aFamily [
 			families add: aFamily ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 AFPackedNode >> children [
 	^ families asArray
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFPackedNode >> displayStringOn: aStream [
 
 	aStream nextPut: $(.
@@ -64,28 +66,28 @@ AFPackedNode >> displayStringOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFPackedNode >> families [
 	^ families
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFPackedNode >> familiesSize [
 	^ families size
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFPackedNode >> hash [
 	^ (self class hash + model hash) hashMultiply
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFPackedNode >> initializeModel: anItem [
 	families := SinglyLinkedList new.
 	model := anItem
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFPackedNode >> inspectionBrowserIn: aBuilder [
 
 	<inspectorPresentationOrder: 1 title: 'Browse'>
@@ -96,7 +98,7 @@ AFPackedNode >> inspectionBrowserIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFPackedNode >> isAmbiguous [
 	AFDepthFirstVisitor new
 		preOrderNodeBlock: [ :packed | 
@@ -106,12 +108,12 @@ AFPackedNode >> isAmbiguous [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFPackedNode >> model [
 	^ model
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFPackedNode >> printOn: aStream [
 	aStream
 		nextPutAll: self className;
@@ -120,12 +122,12 @@ AFPackedNode >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFPackedNode >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFPackedNode >> release [
 	model := nil.
 	families := nil.

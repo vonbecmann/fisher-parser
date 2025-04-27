@@ -1,6 +1,6 @@
-Extension { #name : #JEBSPPForest }
+Extension { #name : 'JEBSPPForest' }
 
-{ #category : #'*FisherParser-Core' }
+{ #category : '*FisherParser-Core' }
 JEBSPPForest >> substitutionsOf: metanotions [
 	"	a hypernotion match a protonotion, you need the relative substitution.
 		each metanotion should have a unique substitute. "

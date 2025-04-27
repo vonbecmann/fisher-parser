@@ -6,29 +6,31 @@ Summary:
 An algorithm is described for parsing a large class of van wijngaarden grammars in polynomial time. The algorithm is based on Earley's context-free parsing algorithm, with the addition of a bottom-up component and a mechanism for implementing consistent substitution. In contrast to earlier algorithms, this algorithm works for grammars which are both non-left-bound and non-right-bound.
 "
 Class {
-	#name : #AFYoYoAlgorithm,
-	#superclass : #Object,
+	#name : 'AFYoYoAlgorithm',
+	#superclass : 'Object',
 	#instVars : [
 		'grammar'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFYoYoAlgorithm class >> of: aVWGrammar [
 	^ self basicNew
 		initializeGrammar: aVWGrammar;
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
 	grammar representationRulesDo: [ :dottedHyperRule | 
 			(dottedHyperRule symbolAtDot matches: word)
 				ifTrue: [ column addDottedHyperRule: dottedHyperRule ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFYoYoAlgorithm >> bottomUpPredict: item [
 	item head
 		backwardCrossReferencesDo: [ :hrule | 
@@ -37,12 +39,12 @@ AFYoYoAlgorithm >> bottomUpPredict: item [
 				do: [ :substitution | item start addDottedHyperRule: (hrule apply: substitution) dotAtBeginning ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFYoYoAlgorithm >> complete: item [
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFYoYoAlgorithm >> evaluate: words [
 	| n chart |
 	n := words size + 1.
@@ -75,26 +77,26 @@ AFYoYoAlgorithm >> evaluate: words [
 	^ chart
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFYoYoAlgorithm >> gapScan: item [
 	" gap scanner "
 
 	self subclassResponsibility
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFYoYoAlgorithm >> initializeGrammar: aVWGrammar [
 	grammar := aVWGrammar
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFYoYoAlgorithm >> scan: item with: word at: aColumn [
 	" terminal scanner "
 
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFYoYoAlgorithm >> topDownPredict: item [
 	item symbolAtDot
 		forwardCrossReferencesDo: [ :hrule | 

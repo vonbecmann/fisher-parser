@@ -2,12 +2,14 @@
 analyze the parsing of a string.
 "
 Class {
-	#name : #AFAnalyticalParser,
-	#superclass : #AFParser,
-	#category : #'FisherParser-Core-Implementation'
+	#name : 'AFAnalyticalParser',
+	#superclass : 'AFParser',
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 AFAnalyticalParser >> parse: aString [
 	^ [ | chart forest |
 	chart := self evaluate: aString.

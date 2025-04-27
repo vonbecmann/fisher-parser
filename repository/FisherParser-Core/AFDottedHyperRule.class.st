@@ -2,33 +2,35 @@
 dotted hyper rule
 "
 Class {
-	#name : #AFDottedHyperRule,
-	#superclass : #Object,
+	#name : 'AFDottedHyperRule',
+	#superclass : 'Object',
 	#instVars : [
 		'hyperRule',
 		'dotIndex'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFDottedHyperRule class >> atTheBeginningOf: aHyperRule [
 	^ self of: aHyperRule withDotAt: 1
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFDottedHyperRule class >> atTheEndOf: aHyperRule [
 	^ self of: aHyperRule withDotAt: aHyperRule body size + 1
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFDottedHyperRule class >> of: aHyperRule withDotAt: index [
 	^ self basicNew
 		initializeHyperRule: aHyperRule dotAt: index;
 		yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFDottedHyperRule >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
@@ -37,12 +39,12 @@ AFDottedHyperRule >> = anObject [
 	^ dotIndex == anObject dotIndex and: [ hyperRule = anObject hyperRule ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedHyperRule >> body [
 	^ hyperRule body
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFDottedHyperRule >> displayStringOn: aStream [
 
 	hyperRule head displayStringOn: aStream.
@@ -52,33 +54,33 @@ AFDottedHyperRule >> displayStringOn: aStream [
 	hyperRule displaySubstitutionStringOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedHyperRule >> dotIndex [
 	^ dotIndex
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFDottedHyperRule >> hash [
 	^ (hyperRule hash + dotIndex hash) hashMultiply
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedHyperRule >> head [
 	^ hyperRule head
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedHyperRule >> hyperRule [
 	^ hyperRule
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [ 
 	hyperRule := aHyperRule.
 	dotIndex := index 
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFDottedHyperRule >> inspectionDisplayIn: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Display'>
@@ -87,7 +89,7 @@ AFDottedHyperRule >> inspectionDisplayIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFDottedHyperRule >> inspectionPureIn: aBuilder [
 
 	<inspectorPresentationOrder: 1 title: 'Pure'>
@@ -113,39 +115,39 @@ AFDottedHyperRule >> inspectionPureIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFDottedHyperRule >> isEpsilon [
 	^ hyperRule isEpsilon
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFDottedHyperRule >> isFinal [
 	^ dotIndex > hyperRule body size
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFDottedHyperRule >> isInstanceOf: aDottedHyperRule [
 
 	^ dotIndex == aDottedHyperRule dotIndex and: [ 
 		  hyperRule isInstanceOf: aDottedHyperRule hyperRule ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFDottedHyperRule >> isPredicted [
 	^ dotIndex == 1 and: [ self isFinal not ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedHyperRule >> moveDotForward [
 	^ self class of: hyperRule withDotAt: dotIndex + 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedHyperRule >> moveDotForwardAfterApplying: aSubstitution [
 	^ self class of: (hyperRule apply: aSubstitution) withDotAt: dotIndex + 1
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFDottedHyperRule >> printOn: aStream [
 	"head: body with dot.
 	 head: ·. "
@@ -156,33 +158,33 @@ AFDottedHyperRule >> printOn: aStream [
 	aStream nextPut: $.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFDottedHyperRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFDottedHyperRule >> release [
 	hyperRule := dotIndex := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedHyperRule >> rule [
 	^ hyperRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedHyperRule >> startAt: aColumn [
 	^ AFDottedItem of: self startAt: aColumn
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedHyperRule >> startAt: firstColumn endAt: secondColumn [
 	^ AFDottedItem of: self startAt: firstColumn endAt: secondColumn
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFDottedHyperRule >> symbolAtDot [
 	^ hyperRule body at: dotIndex
 ]

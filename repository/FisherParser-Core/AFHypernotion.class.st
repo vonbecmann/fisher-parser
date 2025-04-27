@@ -11,8 +11,8 @@ The language of a hypernotion system HS = (M, V, Rm, H) where H contains the n>=
 Definition 13. If HS=(M, V, Rm, H) is a hypernotion system with H = X1X2...Xn, Xi in (M u V) for 1<=i<=n, then HS is uniquely assignable (u.a.) if for all w in L(HS) there is exactly on partition (p1, p2, ..., pn) such that.  w = p1p2...pn and phi(Xi) = pi for phi homomorphism of Definition 12.
 "
 Class {
-	#name : #AFHypernotion,
-	#superclass : #Object,
+	#name : 'AFHypernotion',
+	#superclass : 'Object',
 	#instVars : [
 		'notions',
 		'metanotions',
@@ -22,53 +22,55 @@ Class {
 		'forwardCrossReferences',
 		'firstSet'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHypernotion class >> belongsTo: aVWGrammar with: aNotion [
 	^ (self with: aNotion)
 		belongsTo: aVWGrammar;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHypernotion class >> belongsTo: aVWGrammar withAll: aNotionCollection [
 	^ (self withAll: aNotionCollection)
 			belongsTo: aVWGrammar;
 			yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHypernotion class >> belongsTo: aVWGrammar withAllNotionsFrom: anotherHypernotion [
 	^ (self withAll: anotherHypernotion notions)
 			belongsTo: aVWGrammar;
 			yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHypernotion class >> empty [
 	^ self new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHypernotion class >> new [
 	^ self basicNew initializeNotions: #()
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHypernotion class >> with: aNotion [
 	^ self basicNew initializeNotions: (Array with: aNotion)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFHypernotion class >> withAll: aNotionCollection [
 	^ self basicNew
 		initializeNotions: aNotionCollection;
 		yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFHypernotion >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
@@ -82,17 +84,17 @@ AFHypernotion >> = anObject [
 	^ true
 ]
 
-{ #category : #'cross references' }
+{ #category : 'cross references' }
 AFHypernotion >> addBackwardCrossReference: anAFHyperRule [ 
 	backwardCrossReferences add: anAFHyperRule 
 ]
 
-{ #category : #'cross references' }
+{ #category : 'cross references' }
 AFHypernotion >> addForwardCrossReference: anAFHyperRule [
 	forwardCrossReferences add: anAFHyperRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHypernotion >> apply: aSubstitution [
 	^ (self class withAll: (notions collect: [ :notion | notion apply: aSubstitution ]))
 		belongsTo: metaGrammar;
@@ -101,7 +103,7 @@ AFHypernotion >> apply: aSubstitution [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHypernotion >> asNonterminal [
 	" must be a unique nonterminal "
 
@@ -116,28 +118,28 @@ AFHypernotion >> asNonterminal [
 					self identityHash printOn: s ])
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHypernotion >> at: index [
 	^ notions at: index
 ]
 
-{ #category : #'cross references' }
+{ #category : 'cross references' }
 AFHypernotion >> backwardCrossReferences: aHyperRuleCollection [ 
 	backwardCrossReferences := aHyperRuleCollection
 ]
 
-{ #category : #'cross references' }
+{ #category : 'cross references' }
 AFHypernotion >> backwardCrossReferencesDo: aBlock [
 	backwardCrossReferences do: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHypernotion >> belongsTo: aMetaGrammar [ 
 	metaGrammar := aMetaGrammar
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHypernotion >> buildBodyOf: symbols [
 	"build body of symbols using those given as parameters"
 
@@ -153,7 +155,7 @@ AFHypernotion >> buildBodyOf: symbols [
 						ifTrue: [ s nextPut: (symbols detect: [ :symbol | symbol = each ]) ] ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHypernotion >> checkIsLLOne [
 	" page 14.
 	The weaker version of P1 is: 
@@ -182,7 +184,7 @@ AFHypernotion >> checkIsLLOne [
 							conflictKeys do: [ :key | s print: key ] separatedBy: [ s space ] ]) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHypernotion >> computeFirstSet [
 	| previousSize |
 	firstSet := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
@@ -193,7 +195,7 @@ AFHypernotion >> computeFirstSet [
 		previousSize = firstSet size ] whileFalse
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFHypernotion >> computeFollowSet [
 	| followSet previousSize previousNonterminals symbolFollowSet rest restFirstSet |
 	followSet := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
@@ -222,7 +224,7 @@ AFHypernotion >> computeFollowSet [
 	^ followSet 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFHypernotion >> computeParseTableUsing: followSet [
 	" compute parse table using first set and follow test. 
 	  then you can test if there's a conflict "
@@ -248,7 +250,7 @@ AFHypernotion >> computeParseTableUsing: followSet [
 
 ]
 
-{ #category : #displaying }
+{ #category : 'displaying' }
 AFHypernotion >> displayStringOn: aStream [
 
 	notions
@@ -256,27 +258,27 @@ AFHypernotion >> displayStringOn: aStream [
 		separatedBy: [ aStream space ]
 ]
 
-{ #category : #'cross references' }
+{ #category : 'cross references' }
 AFHypernotion >> forwardCrossReferences [
 	^ forwardCrossReferences
 ]
 
-{ #category : #'cross references' }
+{ #category : 'cross references' }
 AFHypernotion >> forwardCrossReferences: aHyperRuleCollection [ 
 	forwardCrossReferences := aHyperRuleCollection
 ]
 
-{ #category : #'cross references' }
+{ #category : 'cross references' }
 AFHypernotion >> forwardCrossReferencesDo: aBlock [
 	forwardCrossReferences do: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AFHypernotion >> grammar [
 	^ grammar ifNil: [ grammar := metaGrammar startAt: self ]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AFHypernotion >> hash [
 	| hash |
 	hash := self class hash.
@@ -284,14 +286,14 @@ AFHypernotion >> hash [
 	^ hash
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFHypernotion >> initialize [
 	metanotions := Set new.
 	backwardCrossReferences := Set new.
 	forwardCrossReferences := Set new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFHypernotion >> initializeNotions: aNotionCollection [
 	self initialize.
 	notions := aNotionCollection.
@@ -301,7 +303,7 @@ AFHypernotion >> initializeNotions: aNotionCollection [
 				ifTrue: [ metanotions add: each ] ]
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFHypernotion >> inspectionBackwardCrossReferencesIn: builder [
 
 	<inspectorPresentationOrder: 2 title: 'Backward X-Ref'>
@@ -311,7 +313,7 @@ AFHypernotion >> inspectionBackwardCrossReferencesIn: builder [
 		  yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFHypernotion >> inspectionForwardCrossReferencesIn: builder [
 
 	<inspectorPresentationOrder: 1 title: 'Forward X-Ref'>
@@ -321,7 +323,7 @@ AFHypernotion >> inspectionForwardCrossReferencesIn: builder [
 		  yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFHypernotion >> inspectionNotionsIn: builder [
 
 	<inspectorPresentationOrder: 0 title: 'notions'>
@@ -331,22 +333,22 @@ AFHypernotion >> inspectionNotionsIn: builder [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHypernotion >> isEmpty [
 	^ notions isEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHypernotion >> isHypernotion [
 	^ notions isEmpty or: [ metanotions isNotEmpty ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHypernotion >> isNonterminal [
 	^ self isTerminal not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHypernotion >> isProtonotion [
 	"its metanotion free"
 
@@ -355,18 +357,18 @@ AFHypernotion >> isProtonotion [
 					and: [ notions allSatisfy: [ :notion | notion isProtonotion ] ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHypernotion >> isStrict [
 	^ metanotions isEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHypernotion >> isTerminal [
 	^ metanotions isEmpty
 		and: [ notions isNotEmpty and: [ notions allSatisfy: [ :notion | notion isTerminal ] ] ]
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 AFHypernotion >> match: aProtonotionHypernotion [
 	"	a hypernotion match a protonotion, you need the relative substitution. "
 
@@ -375,64 +377,64 @@ AFHypernotion >> match: aProtonotionHypernotion [
 		do: [ AFSubstitution noSolution ]
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 AFHypernotion >> match: aProtonotionHypernotion do: aBlock [
 	(self match: aProtonotionHypernotion) ifSolution: aBlock
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 AFHypernotion >> matchEmptyDo: aBlock [
 	(self match: String empty) ifSolution: aBlock
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 AFHypernotion >> matches: aCharacter [ 
 	^ notions first matches: aCharacter 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHypernotion >> matchesEmpty [
 	^ self grammar accepts: String empty
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHypernotion >> metanotions [
 	^ metanotions
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFHypernotion >> occurrencesOf: aNotion [ 
 	^ notions occurrencesOf: aNotion 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFHypernotion >> printOn: aStream [
 	notions do: [ :each | each printOn: aStream ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFHypernotion >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFHypernotion >> release [
 	notions := metanotions := metaGrammar := nil.
 	grammar := backwardCrossReferences := forwardCrossReferences := firstSet := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHypernotion >> size [
 	^ notions size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFHypernotion >> startFirstSet [
 	^ firstSet at: self grammar startSymbol
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 AFHypernotion >> superMatches: anAFHypernotion [
 
 	self = anAFHypernotion ifTrue: [ ^ true ].

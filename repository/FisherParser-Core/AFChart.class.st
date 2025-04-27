@@ -3,15 +3,17 @@ chart that hold the columns.
 
 "
 Class {
-	#name : #AFChart,
-	#superclass : #Object,
+	#name : 'AFChart',
+	#superclass : 'Object',
 	#instVars : [
 		'columns'
 	],
-	#category : #'FisherParser-Core-Implementation'
+	#category : 'FisherParser-Core-Implementation',
+	#package : 'FisherParser-Core',
+	#tag : 'Implementation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AFChart class >> numberOfColumns: numberOfColumns withStartHyperRule: startHyperRule [
 	^ self basicNew
 		initializeColumns:
@@ -20,27 +22,27 @@ AFChart class >> numberOfColumns: numberOfColumns withStartHyperRule: startHyper
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFChart >> at: index [
 	^ columns at: index
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AFChart >> columnSizes [
 	^ columns collect: [ :each | each size ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFChart >> first [
 	^ columns first
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AFChart >> initializeColumns: arrayOfColumns [
 	columns := arrayOfColumns
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFChart >> inspectionAllSortedItemsAtColumnsIn: aBuilder [
 
 	<inspectorPresentationOrder: 1 title: 'all sorted items'>
@@ -61,7 +63,7 @@ AFChart >> inspectionAllSortedItemsAtColumnsIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFChart >> inspectionColumnBrowserIn: composite [
 	<gtInspectorPresentationOrder: 1>
 	^ composite tabulator
@@ -80,7 +82,7 @@ AFChart >> inspectionColumnBrowserIn: composite [
 		yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AFChart >> inspectionColumnsIn: aBuilder [
 
 	<inspectorPresentationOrder: 2 title: 'Columns'>
@@ -90,12 +92,12 @@ AFChart >> inspectionColumnsIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFChart >> last [
 	^ columns last
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFChart >> printOn: aStream [
 	aStream
 		nextPutAll: self class name;
@@ -104,23 +106,23 @@ AFChart >> printOn: aStream [
 		nextPutAll: ' columns)'
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AFChart >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 AFChart >> release [
 	columns := nil.
 	super release
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AFChart >> size [
 	^ columns size
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 AFChart >> withIndexDo: elementAndIndexBlock [
 
 	columns withIndexDo: elementAndIndexBlock
