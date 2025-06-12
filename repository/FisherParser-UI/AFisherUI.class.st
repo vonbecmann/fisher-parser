@@ -17,7 +17,7 @@ AFisherUI class >> fisherEnvironment [
 	packages
 		addAll:
 			(baseline allPackageNames
-				collect: [ :each | RPackage organizer packageNamed: each ]).
+				collect: [ :each | self package organizer packageNamed: each ]).
 	^ packages
 ]
 
@@ -29,15 +29,12 @@ AFisherUI class >> fisherToolsOn: aBuilder [
 		order: 0.99;
 		withSeparatorAfter;
 		with: [
-			(aBuilder item: #'Fisher Tools') with: [
-					(aBuilder item: #FisherBrowser)
-						label: 'System Browser';
-						action: [ self openBrowserInFisherEnvironment ];
-						icon: (Smalltalk tools browser iconNamed:
-									 Smalltalk tools browser taskbarIconName).
-					(aBuilder item: #Workspace)
-						label: 'Workspace';
-						action: [ Smalltalk tools workspace open ] ] ]
+				(aBuilder item: #'Fisher Tools') with: [
+							(aBuilder item: #FisherBrowser)
+								label: 'System Browser';
+								action: [ self openBrowserInFisherEnvironment ];
+								icon: (Smalltalk tools browser iconNamed:
+											 Smalltalk tools browser taskbarIconName) ] ]
 ]
 
 { #category : 'environment' }
