@@ -55,9 +55,8 @@ AFItem >> node [
 
 { #category : 'printing' }
 AFItem >> printIntervalOn: aStream [
-	end
-		ifNil: [ 	start shortPrintOn: aStream ]
-		ifNotNil: [ 
+
+	end ifNil: [ start shortPrintOn: aStream ] ifNotNil: [
 			aStream nextPut: $[.
 			start shortPrintOn: aStream.
 			aStream nextPutAll: ', '.

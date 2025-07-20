@@ -60,28 +60,29 @@ AFColumn >> addDottedHyperRule: dottedHyperRule [
 
 { #category : 'private' }
 AFColumn >> addDottedItem: dottedItem [
+
 	itemsToProcess nextPut: dottedItem.
 	itemSet addLast: dottedItem.
 	dottedItem isFinal
-		ifTrue: [ 
-			dottedItem start = self
-				ifTrue: [ finalItems addLast: dottedItem ] ]
-		ifFalse: [ 
-			dottedItem symbolAtDot isTerminal
-				ifFalse: [ predictionItems addLast: dottedItem ] ].
+		ifTrue: [
+		dottedItem start = self ifTrue: [ finalItems addLast: dottedItem ] ]
+		ifFalse: [
+				dottedItem symbolAtDot isTerminal ifFalse: [
+					predictionItems addLast: dottedItem ] ].
 	dottedItem end: self.
 	^ orderedItems addLast: dottedItem
 ]
 
 { #category : 'adding' }
 AFColumn >> addTerminalItem: aTerminalItem [
+
 	^ itemSet
-		detect: [ :item | item equals: aTerminalItem ]
-		ifFound: [ :item | item ]
-		ifNone: [ 
-			aTerminalItem end: self.
-			itemSet addLast: aTerminalItem.
-			orderedItems addLast: aTerminalItem ]
+		  detect: [ :item | item equals: aTerminalItem ]
+		  ifFound: [ :item | item ]
+		  ifNone: [
+				  aTerminalItem end: self.
+				  itemSet addLast: aTerminalItem.
+				  orderedItems addLast: aTerminalItem ]
 ]
 
 { #category : 'displaying' }
@@ -97,10 +98,10 @@ AFColumn >> displayStringOn: aStream [
 
 { #category : 'enumerating' }
 AFColumn >> finalItemsWithHeadMatch: aProtonotionHypernotion do: aBlock [
-	finalItems
-		do: [ :finalItem | 
-			finalItem head 
-				match: aProtonotionHypernotion 
+
+	finalItems do: [ :finalItem |
+			finalItem head
+				match: aProtonotionHypernotion
 				do: [ aBlock value: finalItem ] ]
 ]
 
@@ -215,7 +216,10 @@ AFColumn >> like: anItem ifFound: foundBlock ifNone: exceptionBlock [
 	" Evaluate foundBlock if an item in the receiver that is equal to anItem, 
 	  Evaluate exceptionBlock if no such item is found. "
 
-	^ itemSet detect: [ :item | item equals: anItem ] ifFound: foundBlock ifNone: exceptionBlock
+	^ itemSet
+		  detect: [ :item | item equals: anItem ]
+		  ifFound: foundBlock
+		  ifNone: exceptionBlock
 ]
 
 { #category : 'accessing' }

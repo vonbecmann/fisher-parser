@@ -60,38 +60,31 @@ AFVWGrammar >> checkBoundness [
 	" R2. The hypersyntax must not contain any type X rules. 
 	A hyper rule is of type X iif it is neither left-bound nor right-bound. "
 
-	hyperRules
-		do: [ :hyperRule | 
-			hyperRule isXType
-				ifTrue: [ 
-					Warning signal:
-							(String
-								streamContents: [ :s | 
-									s
-										nextPutAll: 'R2. The hypersyntax must not contain any type X rules.';
-										nextPutAll: ' A hyper rule is of type X ';
-										nextPutAll: 'iif it is neither left-bound nor right-bound.';
-										nextPutAll: ' This hyper rule'; 
-										crlf;
-										print: hyperRule;
-										crlf;
-										nextPutAll: ' is of type X.' ]) ] ]
+	hyperRules do: [ :hyperRule |
+			hyperRule isXType ifTrue: [
+					Warning signal: (String streamContents: [ :s |
+								 s
+									 nextPutAll:
+										 'R2. The hypersyntax must not contain any type X rules.';
+									 nextPutAll: ' A hyper rule is of type X ';
+									 nextPutAll: 'iif it is neither left-bound nor right-bound.';
+									 nextPutAll: ' This hyper rule';
+									 crlf;
+									 print: hyperRule;
+									 crlf;
+									 nextPutAll: ' is of type X.' ]) ] ]
 ]
 
 { #category : 'initialization' }
 AFVWGrammar >> checkHyperRulesLeftHandSides [
-	hyperRules
-		do: [ :hyperRule | 
-			hyperRule head matchesEmpty
-				ifTrue: [ 
-					Error
-						signal:
-							(String
-								streamContents: [ :s | 
-									s
-										nextPutAll: 'left hand side of hyper rule ';
-										print: hyperRule;
-										nextPutAll: ' matches empty' ]) ] ]
+
+	hyperRules do: [ :hyperRule |
+			hyperRule head matchesEmpty ifTrue: [
+					Error signal: (String streamContents: [ :s |
+								 s
+									 nextPutAll: 'left hand side of hyper rule ';
+									 print: hyperRule;
+									 nextPutAll: ' matches empty' ]) ] ]
 ]
 
 { #category : 'initialization' }
@@ -139,13 +132,15 @@ AFVWGrammar >> firstHyperRule [
 ]
 
 { #category : 'accessing' }
-AFVWGrammar >> hyperRuleAt: index [ 
-	^ vwGrammar hyperRuleAt: index 
+AFVWGrammar >> hyperRuleAt: index [
+
+	^ vwGrammar hyperRuleAt: index
 ]
 
 { #category : 'accessing' }
-AFVWGrammar >> hyperRuleAtAll: indexArray [ 
-	^ vwGrammar hyperRuleAtAll: indexArray 
+AFVWGrammar >> hyperRuleAtAll: indexArray [
+
+	^ vwGrammar hyperRuleAtAll: indexArray
 ]
 
 { #category : 'accessing' }
@@ -160,33 +155,45 @@ AFVWGrammar >> hypernotions [
 
 { #category : 'initialization' }
 AFVWGrammar >> initializeVWGrammar: aVWGrammar [
+
 	| startNotion startHypernotion hypernotionDict |
 	vwGrammar := aVWGrammar.
 	startNotion := AWProtonotion with: '_top'.
-	metaGrammar := 
-	AFMetaGrammar
-		metaRules: vwGrammar metaRules
-		ortholetters: (vwGrammar ortholetters, startNotion letters).
+	metaGrammar := AFMetaGrammar
+		               metaRules: vwGrammar metaRules
+		               ortholetters:
+		               vwGrammar ortholetters , startNotion letters.
 	hypernotionDict := Dictionary new.
-	vwGrammar hyperRulesHypernotions  
-		do: [ :hypernotion | 
-			hypernotionDict 
-				at: hypernotion 
-				put: (AFHypernotion belongsTo: metaGrammar withAllNotionsFrom: hypernotion) ].
-	startHypernotion := AFHypernotion belongsTo: metaGrammar with: startNotion.
-	nonterminalHypernotions := (hypernotionDict reject: [:hn | hn isTerminal ]) values copyWith: startHypernotion.
-	startHyperRule := AFHyperRule head: startHypernotion bodyWith: (hypernotionDict at: vwGrammar startNotion).
+	vwGrammar hyperRulesHypernotions do: [ :hypernotion |
+			hypernotionDict
+				at: hypernotion
+				put:
+				(AFHypernotion
+					 belongsTo: metaGrammar
+					 withAllNotionsFrom: hypernotion) ].
+	startHypernotion := AFHypernotion
+		                    belongsTo: metaGrammar
+		                    with: startNotion.
+	nonterminalHypernotions := (hypernotionDict reject: [ :hn |
+		                            hn isTerminal ]) values copyWith:
+		                           startHypernotion.
+	startHyperRule := AFHyperRule
+		                  head: startHypernotion
+		                  bodyWith:
+		                  (hypernotionDict at: vwGrammar startNotion).
 	hyperRules := SinglyLinkedList with: startHyperRule.
 	vwGrammar hyperRules
-		collect: [ :each | 
-			AFHyperRule
-				head: (hypernotionDict at: each head)
-				body: 	(each body collect: [ :hypernotion | hypernotionDict at: hypernotion ])
-				instanceOf: each ]
+		collect: [ :each |
+				AFHyperRule
+					head: (hypernotionDict at: each head)
+					body:
+					(each body collect: [ :hypernotion |
+						 hypernotionDict at: hypernotion ])
+					instanceOf: each ]
 		thenDo: [ :newRule | hyperRules addLast: newRule ].
 	representationRules := hyperRules
-		select: [ :each | each isRepresentation ]
-		thenCollect: [ :each | each dotAtBeginning ]
+		                       select: [ :each | each isRepresentation ]
+		                       thenCollect: [ :each | each dotAtBeginning ]
 ]
 
 { #category : 'inspector extensions' }
@@ -217,7 +224,8 @@ AFVWGrammar >> metaGrammar [
 
 { #category : 'accessing' }
 AFVWGrammar >> metaRulesSize [
-	^ vwGrammar metaRulesSize 
+
+	^ vwGrammar metaRulesSize
 ]
 
 { #category : 'accessing' }
@@ -254,7 +262,8 @@ AFVWGrammar >> printString [
 
 { #category : 'accessing' }
 AFVWGrammar >> protonotions [
-	^ vwGrammar protonotions 
+
+	^ vwGrammar protonotions
 ]
 
 { #category : 'private' }

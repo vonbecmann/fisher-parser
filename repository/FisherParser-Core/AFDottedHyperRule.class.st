@@ -100,18 +100,17 @@ AFDottedHyperRule >> inspectionPureIn: aBuilder [
 				   evaluated: [ :each | each key ];
 				   width: 100;
 				   yourself);
-		  addColumn:
-		  (SpStringTableColumn
-			   title: 'Value'
-			   evaluated: [ :each | each value displayString ]);
-		  items: ({ 
+		  addColumn: (SpStringTableColumn
+				   title: 'Value'
+				   evaluated: [ :each | each value displayString ]);
+		  items: ({
 				   ('hyper rule' -> hyperRule).
 				   ('head' -> hyperRule head).
 				   ('body' -> hyperRule body).
 				   ('dotIndex' -> dotIndex).
 				   ('symbolAtDot' -> (self isFinal
 					     ifTrue: [ nil ]
-					     ifFalse: [ self symbolAtDot ])) } collect: [ :each | 
+					     ifFalse: [ self symbolAtDot ])) } collect: [ :each |
 				   StInspectorAssociationNode hostObject: each ]);
 		  yourself
 ]
@@ -129,7 +128,7 @@ AFDottedHyperRule >> isFinal [
 { #category : 'testing' }
 AFDottedHyperRule >> isInstanceOf: aDottedHyperRule [
 
-	^ dotIndex == aDottedHyperRule dotIndex and: [ 
+	^ dotIndex == aDottedHyperRule dotIndex and: [
 		  hyperRule isInstanceOf: aDottedHyperRule hyperRule ]
 ]
 

@@ -109,27 +109,29 @@ AFMetanotionSubstitutions >> inspectionSubstitutionsIn: aBuilder [
 		  items: associations asArray;
 		  addColumn: (SpStringTableColumn
 				   title: 'Metanotion'
-				   evaluated: [ :each | 
+				   evaluated: [ :each |
 					   StObjectPrinter asTruncatedTextFrom: each key ]);
 		  addColumn: (SpStringTableColumn
 				   title: 'Substitute'
-				   evaluated: [ :each | 
+				   evaluated: [ :each |
 					   StObjectPrinter asTruncatedTextFrom: each value ]);
 		  yourself
 ]
 
 { #category : 'testing' }
 AFMetanotionSubstitutions >> isEmpty [
-	^ associations isEmpty 
+
+	^ associations isEmpty
 ]
 
 { #category : 'printing' }
 AFMetanotionSubstitutions >> printOn: aStream [
+
 	aStream
 		nextPutAll: self className;
 		nextPut: $(.
-	associations 
-		do: [ :assoc | aStream print: assoc ] 
+	associations
+		do: [ :assoc | aStream print: assoc ]
 		separatedBy: [ aStream nextPutAll: ', ' ].
 	aStream nextPut: $)
 ]

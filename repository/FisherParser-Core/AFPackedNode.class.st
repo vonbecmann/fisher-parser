@@ -102,10 +102,10 @@ AFPackedNode >> inspectionBrowserIn: aBuilder [
 
 { #category : 'testing' }
 AFPackedNode >> isAmbiguous [
+
 	AFDepthFirstVisitor new
-		preOrderNodeBlock: [ :packed | 
-			packed familiesSize > 1
-				ifTrue: [ ^ true ] ];
+		preOrderNodeBlock: [ :packed |
+			packed familiesSize > 1 ifTrue: [ ^ true ] ];
 		visit: self.
 	^ false
 ]

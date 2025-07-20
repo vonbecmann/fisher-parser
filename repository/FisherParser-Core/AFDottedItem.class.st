@@ -151,9 +151,9 @@ AFDottedItem >> isFinal [
 { #category : 'testing' }
 AFDottedItem >> isInstanceOf: anItem [
 
-	^ self class == anItem class and: [ 
-		  start = anItem start and: [ 
-			  dottedHyperRule isInstanceOf: anItem dottedHyperRule ] ]
+	^ self class == anItem class and: [
+			  start = anItem start and: [
+				  dottedHyperRule isInstanceOf: anItem dottedHyperRule ] ]
 ]
 
 { #category : 'testing' }
@@ -180,11 +180,11 @@ AFDottedItem >> moveDotForwardAfterApplying: aSubstitution [
 
 { #category : 'parsing' }
 AFDottedItem >> node [
-	^ node
-		ifNil: [ 
-			node := AFPackedNode model: self.
-			self isEpsilon ifTrue: [ node addEmptyFamily ].
-			node ]
+
+	^ node ifNil: [
+			  node := AFPackedNode model: self.
+			  self isEpsilon ifTrue: [ node addEmptyFamily ].
+			  node ]
 ]
 
 { #category : 'enumerating' }

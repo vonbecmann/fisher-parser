@@ -25,9 +25,10 @@ AFYoYoAlgorithm class >> of: aVWGrammar [
 
 { #category : 'private' }
 AFYoYoAlgorithm >> addPreterminalsWith: word at: column [
-	grammar representationRulesDo: [ :dottedHyperRule | 
-			(dottedHyperRule symbolAtDot matches: word)
-				ifTrue: [ column addDottedHyperRule: dottedHyperRule ] ]
+
+	grammar representationRulesDo: [ :dottedHyperRule |
+			(dottedHyperRule symbolAtDot matches: word) ifTrue: [
+				column addDottedHyperRule: dottedHyperRule ] ]
 ]
 
 { #category : 'private' }
@@ -46,34 +47,32 @@ AFYoYoAlgorithm >> complete: item [
 
 { #category : 'private' }
 AFYoYoAlgorithm >> evaluate: words [
+
 	| n chart |
 	n := words size + 1.
-	chart := AFChart numberOfColumns: n withStartHyperRule: grammar startHyperRule.
-	chart
-		withIndexDo: [ :column :i | 
-			column ifEmpty: [ ^ AFFailure signal: 'failed at ' , (chart at: i - 1) asString ].
-			i < n
-				ifTrue: [ self addPreterminalsWith: (words at: i) at: column ].
-			column
-				processItems: [ :item | 
+	chart := AFChart
+		         numberOfColumns: n
+		         withStartHyperRule: grammar startHyperRule.
+	chart withIndexDo: [ :column :i |
+			column ifEmpty: [
+				^ AFFailure signal: 'failed at ' , (chart at: i - 1) asString ].
+			i < n ifTrue: [ self addPreterminalsWith: (words at: i) at: column ].
+			column processItems: [ :item |
 					item isFinal
-						ifTrue: [ 
-							item head isProtonotion
-								ifTrue: [ 
-									item start = item end ifFalse: [ self bottomUpPredict: item  ].
-									self complete: item ] ]
-						ifFalse: [ 
-							(item symbolAtDot isTerminal 
-								and: [ i < n and: [ item symbolAtDot matches: (words at: i) ] ])
-										ifTrue: [ self scan: item with: (words at: i) at: (chart at: i + 1) ].
-							item symbolAtDot isProtonotion
-								ifTrue: [ 
-									self topDownPredict: item.
-									item 
-										finalItemsWithHeadMatchSymbolAtDotDo: [ :again | 
+						ifTrue: [
+								item head isProtonotion ifTrue: [
+										item start = item end ifFalse: [ self bottomUpPredict: item ].
+										self complete: item ] ]
+						ifFalse: [
+								(item symbolAtDot isTerminal and: [
+									 i < n and: [ item symbolAtDot matches: (words at: i) ] ])
+									ifTrue: [
+									self scan: item with: (words at: i) at: (chart at: i + 1) ].
+								item symbolAtDot isProtonotion ifTrue: [
+										self topDownPredict: item.
+										item finalItemsWithHeadMatchSymbolAtDotDo: [ :again |
 											self complete: again ] ].
-							item symbolAtDot isHypernotion
-								ifTrue: [ self gapScan: item ] ] ] ].
+								item symbolAtDot isHypernotion ifTrue: [ self gapScan: item ] ] ] ].
 	^ chart
 ]
 

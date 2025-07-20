@@ -58,28 +58,29 @@ AFChart >> inspectionAllSortedItemsAtColumnsIn: aBuilder [
 		  items: (OrderedCollection
 				   new:
 				   (columns inject: 0 into: [ :sum :column | sum + column size ])
-				   streamContents: [ :s | 
+				   streamContents: [ :s |
 				   columns do: [ :column | s nextPutAll: column sortedItems ] ]);
 		  yourself
 ]
 
 { #category : 'inspector extensions' }
 AFChart >> inspectionColumnBrowserIn: composite [
+
 	<gtInspectorPresentationOrder: 1>
 	^ composite tabulator
-		with: [ :tab | 
-			tab title: 'browse'.
-			columns
-				do: [ :column | 
-					tab column: column asString asSymbol.
-					tab transmit
-						to: column asString asSymbol;
-						andShow: [ :a | 
-							a fastList
-								display: [ column sortedItems ];
-								format: [ :each | StObjectPrinter asTruncatedTextFrom: each ];
-								yourself ] ] ];
-		yourself
+		  with: [ :tab |
+				  tab title: 'browse'.
+				  columns do: [ :column |
+							  tab column: column asString asSymbol.
+							  tab transmit
+								  to: column asString asSymbol;
+								  andShow: [ :a |
+										  a fastList
+											  display: [ column sortedItems ];
+											  format: [ :each |
+												  StObjectPrinter asTruncatedTextFrom: each ];
+											  yourself ] ] ];
+		  yourself
 ]
 
 { #category : 'inspector extensions' }

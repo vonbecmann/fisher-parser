@@ -13,22 +13,22 @@ Class {
 AFParser >> complete: item [
 	" complete with parsing "
 
-	item
-		predictionItemsDo: [ :previous | 
-			previous symbolAtDot
-				match: item head
-				do: [ :substitution | 
-					previous 
-						addFamilyWith: item 
-						to: (item end add: (previous moveDotForwardAfterApplying: substitution)) ] ]
+	item predictionItemsDo: [ :previous |
+			previous symbolAtDot match: item head do: [ :substitution |
+					previous
+						addFamilyWith: item
+						to:
+						(item end add:
+							 (previous moveDotForwardAfterApplying: substitution)) ] ]
 ]
 
 { #category : 'private' }
 AFParser >> gapScan: item [
 	" gap scanner with parsing "
 
-	item symbolAtDot matchEmptyDo: [ :substitution | 
-		(item end add: (item moveDotForwardAfterApplying: substitution)) addFamilyWith: item ]
+	item symbolAtDot matchEmptyDo: [ :substitution |
+			(item end add: (item moveDotForwardAfterApplying: substitution))
+				addFamilyWith: item ]
 ]
 
 { #category : 'private' }
@@ -56,11 +56,10 @@ AFParser >> scan: item with: word at: aColumn [
 	" terminal scanner "
 
 	item
-		addFamilyWith: 
-			(aColumn addTerminalItem: 
-				(AFTerminalItem 
-					given: item symbolAtDot 
-					word: word 
-					startedAt: item end))
+		addFamilyWith: (aColumn addTerminalItem:
+				 (AFTerminalItem
+					  given: item symbolAtDot
+					  word: word
+					  startedAt: item end))
 		to: (aColumn add: item moveDotForward)
 ]

@@ -9,14 +9,11 @@ JEDottedItem >> asMetanotionSubstitution [
 JEDottedItem >> asProtonotion [
 	" a new protonotion with terminals as small syntactic marks "
 
-	^ AWProtonotion
-		with:
-			(String
-				streamContents: [ :s | 
-					JETreeDepthFirstVisitor new
-						preOrderNodeBlock: [ :node | 
-							node isTerminal ifTrue: [ s nextPut: node word ] ];
-						visit: self ])
+	^ AWProtonotion with: (String streamContents: [ :s |
+				   JETreeDepthFirstVisitor new
+					   preOrderNodeBlock: [ :node |
+						   node isTerminal ifTrue: [ s nextPut: node word ] ];
+					   visit: self ])
 ]
 
 { #category : '*FisherParser-Core' }

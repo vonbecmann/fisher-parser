@@ -255,6 +255,7 @@ AFHyperRule >> isXType [
 
 { #category : 'printing' }
 AFHyperRule >> printOn: aStream [
+
 	aStream
 		print: head;
 		nextPutAll: ': ';

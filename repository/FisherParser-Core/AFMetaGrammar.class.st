@@ -34,22 +34,19 @@ AFMetaGrammar class >> metaRules: metaRuleCollection ortholetters: ortholetters 
 
 { #category : 'testing' }
 AFMetaGrammar >> checkIsLLOne [
+
 	| firstSet followSet parseTable conflictKeys |
 	firstSet := self computeFirstSet.
 	followSet := self computeFollowSetUsing: firstSet.
 	parseTable := self computeParseTableUsing: firstSet and: followSet.
-	conflictKeys := parseTable keys
-		select: [ :key | (parseTable at: key) size > 1 ].
-	conflictKeys
-		ifNotEmpty: [ 
-			Error
-				signal:
-					(String
-						streamContents: [ :s | 
-							s nextPutAll: 'CONFLICT at '.
-							conflictKeys
-								do: [ :key | s print: key ]
-								separatedBy: [ s space ] ]) ]
+	conflictKeys := parseTable keys select: [ :key |
+		                (parseTable at: key) size > 1 ].
+	conflictKeys ifNotEmpty: [
+			Error signal: (String streamContents: [ :s |
+						 s nextPutAll: 'CONFLICT at '.
+						 conflictKeys
+							 do: [ :key | s print: key ]
+							 separatedBy: [ s space ] ]) ]
 ]
 
 { #category : 'initialization' }
@@ -97,23 +94,22 @@ AFMetaGrammar >> computeParseTableUsing: firstSet and: followSet [
 	then you can test if there's a conflict "
 
 	| parseTable bodyFirstSet |
-	parseTable := MultiValuedDictionary dictionary: Dictionary collection: IdentitySet.
-	metaProductionRules
-		do: [ :rule | 
+	parseTable := MultiValuedDictionary
+		              dictionary: Dictionary
+		              collection: IdentitySet.
+	metaProductionRules do: [ :rule |
 			bodyFirstSet := firstSet firstOf: rule body.
-			(terminals intersection: bodyFirstSet)
-				do: [ :terminal | 
-					parseTable 
-						at: (OrderedPair first: rule head second: terminal) 
+			(terminals intersection: bodyFirstSet) do: [ :terminal |
+					parseTable
+						at: (OrderedPair first: rule head second: terminal)
 						put: rule ].
-			(bodyFirstSet includes: #epsilon)
-				ifTrue: [ 
-					(terminals intersection: (followSet at: rule head))
-						do: [ :terminal | 
-							parseTable 
-								at: (OrderedPair first: rule head second: terminal) 
+			(bodyFirstSet includes: #epsilon) ifTrue: [
+					(terminals intersection: (followSet at: rule head)) do: [
+							:terminal |
+							parseTable
+								at: (OrderedPair first: rule head second: terminal)
 								put: rule ] ] ].
-	^ parseTable 
+	^ parseTable
 ]
 
 { #category : 'initialization' }
@@ -127,22 +123,27 @@ AFMetaGrammar >> initialize [
 
 { #category : 'initialization' }
 AFMetaGrammar >> initializeMetaProductionRules: metaRuleCollection ortholetters: ortholetters [
+
 	self initialize.
-	terminals := ortholetters collect: [ :letter | NCTerminal character: letter ] as: Set.
-	nonterminals := 
-		(metaRuleCollection collect: [ :each | each head ] as: Set),
-		(ortholetters collect: [ :letter | NCNonterminal named: letter ] as: Set).
+	terminals := ortholetters
+		             collect: [ :letter | NCTerminal character: letter ]
+		             as: Set.
+	nonterminals := (metaRuleCollection
+		                 collect: [ :each | each head ]
+		                 as: Set) , (ortholetters
+		                 collect: [ :letter | NCNonterminal named: letter ]
+		                 as: Set).
 	metaRuleCollection
-		collect: [ :each | 
-			NCProductionRule
-				head: (nonterminals like: each head)
-				body: (each body buildBodyOf: nonterminals) ]
+		collect: [ :each |
+				NCProductionRule
+					head: (nonterminals like: each head)
+					body: (each body buildBodyOf: nonterminals) ]
 		thenDo: [ :each | metaProductionRules at: each head put: each ].
 	ortholetters
-		collect: [ :letter | 
-			NCProductionRule
-				head: (nonterminals like: (NCNonterminal named: letter))
-				body: {(terminals like: (NCTerminal character: letter))} ]
+		collect: [ :letter |
+				NCProductionRule
+					head: (nonterminals like: (NCNonterminal named: letter))
+					body: { (terminals like: (NCTerminal character: letter)) } ]
 		thenDo: [ :each | metaProductionRules at: each head put: each ]
 ]
 
@@ -178,18 +179,24 @@ AFMetaGrammar >> startAt: aHypernotion [
 
 	| startSymbol productionRules previousSize |
 	startSymbol := aHypernotion asNonterminal.
-	productionRules := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
-	productionRules at: startSymbol put: (NCProductionRule head: startSymbol body: (aHypernotion buildBodyOf: nonterminals)).
-	[ previousSize := productionRules size.
-	productionRules valuesDo: [ :rule | 
-			rule body
-				do: [ :symbol | 
-					symbol isNonterminal
-						ifTrue: [ productionRules at: symbol putAll: (metaProductionRules at: symbol) ] ] ].
-	previousSize = productionRules size ] whileFalse.
+	productionRules := MultiValuedDictionary
+		                   dictionary: IdentityDictionary
+		                   collection: IdentitySet.
+	productionRules at: startSymbol put: (NCProductionRule
+			 head: startSymbol
+			 body: (aHypernotion buildBodyOf: nonterminals)).
+	[
+		previousSize := productionRules size.
+		productionRules valuesDo: [ :rule |
+				rule body do: [ :symbol |
+						symbol isNonterminal ifTrue: [
+							productionRules
+								at: symbol
+								putAll: (metaProductionRules at: symbol) ] ] ].
+		previousSize = productionRules size ] whileFalse.
 	^ JEGrammar
-		nonterminals: productionRules keys
-		terminals: terminals
-		productionRules: productionRules
-		startNonterminal: startSymbol
+		  nonterminals: productionRules keys
+		  terminals: terminals
+		  productionRules: productionRules
+		  startNonterminal: startSymbol
 ]

@@ -72,21 +72,19 @@ AFHypernotion class >> withAll: aNotionCollection [
 
 { #category : 'comparing' }
 AFHypernotion >> = anObject [
-	self == anObject
-		ifTrue: [ ^ true ].
-	self class == anObject class
-		ifFalse: [ ^ false ].
-	self size == anObject size
-		ifFalse: [ ^ false ].
-	1 to: notions size do: [ :index | 
-		(notions at: index) = (anObject at: index)
-			ifFalse: [ ^ false ] ].
+
+	self == anObject ifTrue: [ ^ true ].
+	self class == anObject class ifFalse: [ ^ false ].
+	self size == anObject size ifFalse: [ ^ false ].
+	1 to: notions size do: [ :index |
+		(notions at: index) = (anObject at: index) ifFalse: [ ^ false ] ].
 	^ true
 ]
 
 { #category : 'cross references' }
-AFHypernotion >> addBackwardCrossReference: anAFHyperRule [ 
-	backwardCrossReferences add: anAFHyperRule 
+AFHypernotion >> addBackwardCrossReference: anAFHyperRule [
+
+	backwardCrossReferences add: anAFHyperRule
 ]
 
 { #category : 'cross references' }
@@ -107,15 +105,12 @@ AFHypernotion >> apply: aSubstitution [
 AFHypernotion >> asNonterminal [
 	" must be a unique nonterminal "
 
-	^ NCNonterminal
-		named:
-			(String
-				streamContents: [ :s | 
-					self isEmpty
-						ifTrue: [ s nextPutAll: '_empty_' ]
-						ifFalse: [ self printOn: s ].
-					s nextPut: $#.
-					self identityHash printOn: s ])
+	^ NCNonterminal named: (String streamContents: [ :s |
+				   self isEmpty
+					   ifTrue: [ s nextPutAll: '_empty_' ]
+					   ifFalse: [ self printOn: s ].
+				   s nextPut: $#.
+				   self identityHash printOn: s ])
 ]
 
 { #category : 'accessing' }
@@ -124,7 +119,8 @@ AFHypernotion >> at: index [
 ]
 
 { #category : 'cross references' }
-AFHypernotion >> backwardCrossReferences: aHyperRuleCollection [ 
+AFHypernotion >> backwardCrossReferences: aHyperRuleCollection [
+
 	backwardCrossReferences := aHyperRuleCollection
 ]
 
@@ -134,25 +130,23 @@ AFHypernotion >> backwardCrossReferencesDo: aBlock [
 ]
 
 { #category : 'accessing' }
-AFHypernotion >> belongsTo: aMetaGrammar [ 
+AFHypernotion >> belongsTo: aMetaGrammar [
+
 	metaGrammar := aMetaGrammar
-	
 ]
 
 { #category : 'accessing' }
 AFHypernotion >> buildBodyOf: symbols [
 	"build body of symbols using those given as parameters"
 
-	^ Array
-		streamContents: [ :s | 
-			notions
-				do: [ :each | 
-					each isMetanotion
-						ifTrue: [ s nextPut: (symbols detect: [ :symbol | symbol = each ]) ].
-					each isProtonotion
-						ifTrue: [ s nextPutAll: (each buildBodyOf: symbols) ].
-					each isTerminal
-						ifTrue: [ s nextPut: (symbols detect: [ :symbol | symbol = each ]) ] ] ]
+	^ Array streamContents: [ :s |
+			  notions do: [ :each |
+					  each isMetanotion ifTrue: [
+						  s nextPut: (symbols detect: [ :symbol | symbol = each ]) ].
+					  each isProtonotion ifTrue: [
+						  s nextPutAll: (each buildBodyOf: symbols) ].
+					  each isTerminal ifTrue: [
+						  s nextPut: (symbols detect: [ :symbol | symbol = each ]) ] ] ]
 ]
 
 { #category : 'testing' }
@@ -186,68 +180,76 @@ AFHypernotion >> checkIsLLOne [
 
 { #category : 'accessing' }
 AFHypernotion >> computeFirstSet [
+
 	| previousSize |
-	firstSet := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
-	self grammar nonterminals do: [ :each | firstSet at: each putAll: #() ].
-	[	previousSize := firstSet size.
-		self grammar productionRules 
-			do: [ :rule | firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
+	firstSet := MultiValuedDictionary
+		            dictionary: IdentityDictionary
+		            collection: IdentitySet.
+	self grammar nonterminals do: [ :each |
+		firstSet at: each putAll: #(  ) ].
+	[
+		previousSize := firstSet size.
+		self grammar productionRules do: [ :rule |
+			firstSet at: rule head putAll: (firstSet firstOf: rule body) ].
 		previousSize = firstSet size ] whileFalse
 ]
 
 { #category : 'private' }
 AFHypernotion >> computeFollowSet [
+
 	| followSet previousSize previousNonterminals symbolFollowSet rest restFirstSet |
-	followSet := MultiValuedDictionary dictionary: IdentityDictionary collection: IdentitySet.
-	self grammar nonterminals do: [ :each | followSet at: each putAll: #() ].
+	followSet := MultiValuedDictionary
+		             dictionary: IdentityDictionary
+		             collection: IdentitySet.
+	self grammar nonterminals do: [ :each |
+		followSet at: each putAll: #(  ) ].
 	followSet at: self grammar startSymbol put: #endmarker.
-	[ previousSize := followSet size.
-	self grammar productionRules
-		do: [ :rule | 
-			previousNonterminals := IdentitySet new.
-			rule body
-				withIndexDo: [ :symbol :index | 
-					(symbol isNonterminal and: [ (previousNonterminals includes: symbol) not ])
-						ifTrue: [ 
-							previousNonterminals add: symbol.
-							symbolFollowSet := IdentitySet new.
-							rest := rule body allButFirst: index.
-							rest isEmpty
-								ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ]
-								ifFalse: [ 
-									restFirstSet := firstSet firstOf: rest.
-									(restFirstSet includes: #epsilon)
-										ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ].
-									symbolFollowSet addAll: (restFirstSet copyWithout: #epsilon) ].
-							followSet at: symbol putAll: symbolFollowSet ] ] ].
-	previousSize = followSet size ] whileFalse.
-	^ followSet 
+	[
+		previousSize := followSet size.
+		self grammar productionRules do: [ :rule |
+				previousNonterminals := IdentitySet new.
+				rule body withIndexDo: [ :symbol :index |
+						(symbol isNonterminal and: [
+							 (previousNonterminals includes: symbol) not ]) ifTrue: [
+								previousNonterminals add: symbol.
+								symbolFollowSet := IdentitySet new.
+								rest := rule body allButFirst: index.
+								rest isEmpty
+									ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ]
+									ifFalse: [
+											restFirstSet := firstSet firstOf: rest.
+											(restFirstSet includes: #epsilon) ifTrue: [
+												symbolFollowSet addAll: (followSet at: rule head) ].
+											symbolFollowSet addAll:
+												(restFirstSet copyWithout: #epsilon) ].
+								followSet at: symbol putAll: symbolFollowSet ] ] ].
+		previousSize = followSet size ] whileFalse.
+	^ followSet
 ]
 
 { #category : 'private' }
 AFHypernotion >> computeParseTableUsing: followSet [
 	" compute parse table using first set and follow test. 
 	  then you can test if there's a conflict "
+
 	| parseTable |
-	parseTable := MultiValuedDictionary dictionary: Dictionary collection: IdentitySet.
-	self grammar productionRules
-		do: [ :rule | 
+	parseTable := MultiValuedDictionary
+		              dictionary: Dictionary
+		              collection: IdentitySet.
+	self grammar productionRules do: [ :rule |
 			| bodyFirstSet |
 			bodyFirstSet := firstSet firstOf: rule body.
-			(self grammar terminals intersection: bodyFirstSet)
-				do: [ :terminal | 
-					parseTable 
-						at: (OrderedPair first: rule head second: terminal) 
+			(self grammar terminals intersection: bodyFirstSet) do: [ :terminal |
+					parseTable
+						at: (OrderedPair first: rule head second: terminal)
 						put: rule ].
-			(bodyFirstSet includes: #epsilon)
-				ifTrue: [ 
+			(bodyFirstSet includes: #epsilon) ifTrue: [
 					(self grammar terminals intersection: (followSet at: rule head))
-						do: [ :terminal | 
-							parseTable 
-								at: (OrderedPair first: rule head second: terminal) 
-								put: rule ] ] ].
-	^ parseTable 					
-
+						do: [ :terminal |
+								parseTable
+									at: (OrderedPair first: rule head second: terminal)
+									put: rule ] ] ].
+	^ parseTable
 ]
 
 { #category : 'displaying' }
@@ -264,7 +266,8 @@ AFHypernotion >> forwardCrossReferences [
 ]
 
 { #category : 'cross references' }
-AFHypernotion >> forwardCrossReferences: aHyperRuleCollection [ 
+AFHypernotion >> forwardCrossReferences: aHyperRuleCollection [
+
 	forwardCrossReferences := aHyperRuleCollection
 ]
 
@@ -353,9 +356,9 @@ AFHypernotion >> isNonterminal [
 AFHypernotion >> isProtonotion [
 	"its metanotion free"
 
-	^ metanotions isEmpty
-		and: [ notions isNotEmpty 
-					and: [ notions allSatisfy: [ :notion | notion isProtonotion ] ] ]
+	^ metanotions isEmpty and: [
+			  notions isNotEmpty and: [
+				  notions allSatisfy: [ :notion | notion isProtonotion ] ] ]
 ]
 
 { #category : 'testing' }
@@ -389,8 +392,9 @@ AFHypernotion >> matchEmptyDo: aBlock [
 ]
 
 { #category : 'matching' }
-AFHypernotion >> matches: aCharacter [ 
-	^ notions first matches: aCharacter 
+AFHypernotion >> matches: aCharacter [
+
+	^ notions first matches: aCharacter
 ]
 
 { #category : 'testing' }
@@ -404,8 +408,9 @@ AFHypernotion >> metanotions [
 ]
 
 { #category : 'testing' }
-AFHypernotion >> occurrencesOf: aNotion [ 
-	^ notions occurrencesOf: aNotion 
+AFHypernotion >> occurrencesOf: aNotion [
+
+	^ notions occurrencesOf: aNotion
 ]
 
 { #category : 'printing' }
@@ -439,9 +444,10 @@ AFHypernotion >> startFirstSet [
 AFHypernotion >> superMatches: anAFHypernotion [
 
 	self = anAFHypernotion ifTrue: [ ^ true ].
-	self isProtonotion ifTrue: [ 
+	self isProtonotion ifTrue: [
 		^ (anAFHypernotion match: self) isSolution ].
-	anAFHypernotion isProtonotion ifTrue: [ 
+	anAFHypernotion isProtonotion ifTrue: [
 		^ (self match: anAFHypernotion) isSolution ].
-	^ (self startFirstSet intersection: anAFHypernotion startFirstSet) isNotEmpty
+	^ (self startFirstSet intersection: anAFHypernotion startFirstSet)
+		  isNotEmpty
 ]

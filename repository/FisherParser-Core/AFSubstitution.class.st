@@ -67,7 +67,8 @@ AFSubstitution >> applyTo: aMetanotion [
 ]
 
 { #category : 'displaying' }
-AFSubstitution >> displaySubstitutionStringOn: aStream [ 
+AFSubstitution >> displaySubstitutionStringOn: aStream [
+
 	^ self subclassResponsibility
 ]
 

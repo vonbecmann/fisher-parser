@@ -32,17 +32,17 @@ AFParseForest >> extractSingleParseTree [
 	| stack |
 	stack := SinglyLinkedStack new.
 	JETreeDepthFirstVisitor new
-		postOrderNodeBlock: [ :node | 
-			node model isTerminal
-				ifTrue: [ stack push: (ESTreeNode	model: node model asSyntaxNode) ]
-				ifFalse: [ 
-					node model isFinal
-						ifTrue: [ 
-							stack
-								push:
-									(ESTreeNode
-										model: (node model asSyntaxNode)
-										children: (stack popReversed: node model dottedHyperRule body size)) ] ] ];
+		postOrderNodeBlock: [ :node |
+				node model isTerminal
+					ifTrue: [
+						stack push: (ESTreeNode model: node model asSyntaxNode) ]
+					ifFalse: [
+							node model isFinal ifTrue: [
+										stack push: (ESTreeNode
+													 model: node model asSyntaxNode
+													 children:
+														 (stack popReversed:
+																  node model dottedHyperRule body size)) ] ] ];
 		visit: syntaxForest.
 	self assert: [ stack size = 1 ].
 	^ ESParseTree given: (ESTree rootNode: stack pop) of: grammar
@@ -63,10 +63,10 @@ AFParseForest >> inspectionBrowserIn: builder [
 
 { #category : 'testing' }
 AFParseForest >> isAmbiguous [
+
 	AFDepthFirstVisitor new
-		preOrderNodeBlock: [ :packed | 
-			packed familiesSize > 1
-				ifTrue: [ ^ true ] ];
+		preOrderNodeBlock: [ :packed |
+			packed familiesSize > 1 ifTrue: [ ^ true ] ];
 		visit: syntaxForest.
 	^ false
 ]

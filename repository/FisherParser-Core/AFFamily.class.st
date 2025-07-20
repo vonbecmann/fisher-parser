@@ -31,10 +31,10 @@ AFFamily class >> with: firstPackedNode with: secondPackedNode [
 
 { #category : 'comparing' }
 AFFamily >> = anObject [
-	^ self class == anObject class
-		and: [ parent == anObject parent
-				and: [ first == anObject first 
-					and: [ second == anObject second ] ] ]
+
+	^ self class == anObject class and: [
+			  parent == anObject parent and: [
+				  first == anObject first and: [ second == anObject second ] ] ]
 ]
 
 { #category : 'visiting' }
@@ -61,11 +61,11 @@ AFFamily >> children [
 AFFamily >> displayStringOn: aStream [
 
 	aStream nextPut: $(.
-	first ifNotNil: [ 
-		first displayStringOn: aStream.
-		second ifNotNil: [ 
-			aStream nextPutAll: ', '.
-			second displayStringOn: aStream ] ].
+	first ifNotNil: [
+			first displayStringOn: aStream.
+			second ifNotNil: [
+					aStream nextPutAll: ', '.
+					second displayStringOn: aStream ] ].
 	aStream nextPut: $)
 ]
 
@@ -76,12 +76,13 @@ AFFamily >> first [
 
 { #category : 'comparing' }
 AFFamily >> hash [
+
 	| hash |
 	hash := (self class hash + parent identityHash) hashMultiply.
-	first
-		ifNotNil: 
-			[	hash := (hash + first identityHash) hashMultiply.
-				second ifNotNil: [ hash := (hash + second identityHash) hashMultiply ] ].
+	first ifNotNil: [
+			hash := (hash + first identityHash) hashMultiply.
+			second ifNotNil: [
+				hash := (hash + second identityHash) hashMultiply ] ].
 	^ hash
 ]
 
@@ -109,12 +110,8 @@ AFFamily >> isEmpty [
 
 { #category : 'accessing' }
 AFFamily >> members [
-	^ first
-		ifNil: [ #() ]
-		ifNotNil: [ 
-			second
-				ifNil: [ {first} ]
-				ifNotNil: [ {first. second} ] ]
+
+	^ first ifNil: [ #(  ) ] ifNotNil: [ second ifNil: [ { first } ] ifNotNil: [ { first. second } ] ]
 ]
 
 { #category : 'accessing' }

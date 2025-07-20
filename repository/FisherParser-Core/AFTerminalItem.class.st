@@ -21,7 +21,10 @@ AFTerminalItem class >> given: aTerminal word: aWord startedAt: firstColumn [
 	that started its recognition at first column
 	"
 
-	^ self basicNew initializeTerminal: aTerminal word: aWord startedAt: firstColumn
+	^ self basicNew
+		  initializeTerminal: aTerminal
+		  word: aWord
+		  startedAt: firstColumn
 ]
 
 { #category : 'comparing' }

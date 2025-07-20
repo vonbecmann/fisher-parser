@@ -1,6 +1,7 @@
 Extension { #name : 'AWMetanotion' }
 
 { #category : '*FisherParser-Core' }
-AWMetanotion >> apply: aSubstitution [ 
+AWMetanotion >> apply: aSubstitution [
+
 	^ aSubstitution applyTo: self
 ]

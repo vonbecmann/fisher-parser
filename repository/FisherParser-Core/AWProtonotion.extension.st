@@ -1,7 +1,8 @@
 Extension { #name : 'AWProtonotion' }
 
 { #category : '*FisherParser-Core' }
-AWProtonotion >> apply: aSubstitution [ 
+AWProtonotion >> apply: aSubstitution [
+
 	^ self
 ]
 

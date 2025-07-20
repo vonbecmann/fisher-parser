@@ -24,13 +24,11 @@ AFHyperAlternative class >> withAll: anAFHypernotionCollection [
 
 { #category : 'comparing' }
 AFHyperAlternative >> = anObject [
-	self class == anObject class
-		ifFalse: [ ^ false ].
-	hypernotions size == anObject size
-		ifFalse: [ ^ false ].
-	1 to: hypernotions size do: [ :index | 
-		(hypernotions at: index) = (anObject at: index)
-			ifFalse: [ ^ false ] ].
+
+	self class == anObject class ifFalse: [ ^ false ].
+	hypernotions size == anObject size ifFalse: [ ^ false ].
+	1 to: hypernotions size do: [ :index |
+		(hypernotions at: index) = (anObject at: index) ifFalse: [ ^ false ] ].
 	^ true
 ]
 
@@ -57,10 +55,10 @@ AFHyperAlternative >> displayStringOn: aStream withDotAt: dotIndex [
 
 	| middleDot |
 	middleDot := Character value: 183.
-	hypernotions withIndexDo: [ :each :index | 
-		index == 1 ifFalse: [ aStream nextPutAll: ', ' ].
-		index == dotIndex ifTrue: [ aStream nextPut: middleDot ].
-		each displayStringOn: aStream ].
+	hypernotions withIndexDo: [ :each :index |
+			index == 1 ifFalse: [ aStream nextPutAll: ', ' ].
+			index == dotIndex ifTrue: [ aStream nextPut: middleDot ].
+			each displayStringOn: aStream ].
 	dotIndex > hypernotions size ifTrue: [ aStream nextPut: middleDot ]
 ]
 
@@ -125,17 +123,14 @@ AFHyperAlternative >> printOn: aStream [
 
 { #category : 'printing' }
 AFHyperAlternative >> printOn: aStream withDotAt: dotIndex [
+
 	| middleDot |
 	middleDot := Character value: 183.
-	hypernotions
-		withIndexDo: [ :each :index | 
-			index == 1
-				ifFalse: [ aStream nextPutAll: ', ' ].
-			index == dotIndex
-				ifTrue: [ aStream nextPut: middleDot ].
+	hypernotions withIndexDo: [ :each :index |
+			index == 1 ifFalse: [ aStream nextPutAll: ', ' ].
+			index == dotIndex ifTrue: [ aStream nextPut: middleDot ].
 			each printOn: aStream ].
-	dotIndex > hypernotions size
-		ifTrue: [ aStream nextPut: middleDot ]
+	dotIndex > hypernotions size ifTrue: [ aStream nextPut: middleDot ]
 ]
 
 { #category : 'printing' }
@@ -155,6 +150,7 @@ AFHyperAlternative >> size [
 ]
 
 { #category : 'enumerating' }
-AFHyperAlternative >> withIndexDo: aBlock [ 
-	hypernotions withIndexDo: aBlock 
+AFHyperAlternative >> withIndexDo: aBlock [
+
+	hypernotions withIndexDo: aBlock
 ]
