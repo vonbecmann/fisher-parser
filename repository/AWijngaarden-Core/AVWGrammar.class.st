@@ -7,8 +7,8 @@ https://en.wikipedia.org/wiki/Van_Wijngaarden_grammar
 
 "
 Class {
-	#name : #AVWGrammar,
-	#superclass : #Object,
+	#name : 'AVWGrammar',
+	#superclass : 'Object',
 	#instVars : [
 		'metanotions',
 		'ortholetters',
@@ -20,55 +20,57 @@ Class {
 		'hyperRulesHypernotions',
 		'startNotion'
 	],
-	#category : #'AWijngaarden-Core'
+	#category : 'AWijngaarden-Core',
+	#package : 'AWijngaarden-Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AVWGrammar class >> metanotions: metanotionSet protonotions: protonotionSet hypernotions: hypernotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startAt: aHypernotion [
+
 	^ self basicNew
-		initializeMetanotions: metanotionSet
-			protonotions: protonotionSet
-			hypernotions: hypernotionSet 
-			terminals: terminalSet
-			metaRules: metaRuleCollection
-			hyperRules: hyperRuleCollection
-			startNotion: aHypernotion;
-		yourself
+		  initializeMetanotions: metanotionSet
+		  protonotions: protonotionSet
+		  hypernotions: hypernotionSet
+		  terminals: terminalSet
+		  metaRules: metaRuleCollection
+		  hyperRules: hyperRuleCollection
+		  startNotion: aHypernotion;
+		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> hyperRuleAt: index [
 	^ hyperRules at: index
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> hyperRuleAtAll: indexArray [
 	^ hyperRules atAll: indexArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> hyperRules [
 	^ hyperRules
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> hyperRulesHypernotions [
 	" hyperRule's hypernotions "
 
 	^ hyperRulesHypernotions
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> hyperRulesSize [
 	^ hyperRules size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> hypernotions [
 	^ hypernotions
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet hypernotions: hypernotionSet terminals: terminalSet metaRules: metaRuleCollection hyperRules: hyperRuleCollection startNotion: aHypernotion [
 	self initialize.
 	metanotions := metanotionSet.
@@ -85,7 +87,7 @@ AVWGrammar >> initializeMetanotions: metanotionSet protonotions: protonotionSet 
 	startNotion := aHypernotion
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AVWGrammar >> inspectionDefinitionIn: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Definition'>
@@ -95,7 +97,7 @@ AVWGrammar >> inspectionDefinitionIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AVWGrammar >> inspectionHyperRulesIn: aBuilder [
 
 	<inspectorPresentationOrder: 2 title: 'Hyper Rules'>
@@ -107,7 +109,7 @@ AVWGrammar >> inspectionHyperRulesIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #'inspector extensions' }
+{ #category : 'inspector extensions' }
 AVWGrammar >> inspectionMetaRulesIn: aBuilder [
 
 	<inspectorPresentationOrder: 1 title: 'Meta Rules'>
@@ -119,22 +121,23 @@ AVWGrammar >> inspectionMetaRulesIn: aBuilder [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> metaRules [
 	^ metaRules
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> metaRulesSize [
 	^ metaRules size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> metanotions [
-	^ metanotions 
+
+	^ metanotions
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> ortholetters [
 	" alphabet used to define protonotions [languageless programming].
 	protonotions is a finite vocabulary whose letters are called ortholetters."
@@ -142,7 +145,7 @@ AVWGrammar >> ortholetters [
 	^ ortholetters
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AVWGrammar >> printOn: aStream [
 	aStream
 		nextPutAll: self className;
@@ -151,22 +154,23 @@ AVWGrammar >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AVWGrammar >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> protonotions [
 	^ protonotions
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> startNotion [
 	^ startNotion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVWGrammar >> terminals [
-	^ terminals 
+
+	^ terminals
 ]

@@ -4,65 +4,66 @@
 
 "
 Class {
-	#name : #AWProtonotion,
-	#superclass : #Object,
+	#name : 'AWProtonotion',
+	#superclass : 'Object',
 	#instVars : [
 		'smallSyntacticMarks'
 	],
-	#category : #'AWijngaarden-Core'
+	#category : 'AWijngaarden-Core',
+	#package : 'AWijngaarden-Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AWProtonotion class >> new [
 	^ self with: String new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AWProtonotion class >> with: aSmallSyntacticMarkString [
 	^ self basicNew
 		initializeSmallSyntacticMarks: aSmallSyntacticMarkString;
 		yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AWProtonotion >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
 	^ self class == anObject class and: [ smallSyntacticMarks = anObject smallSyntacticMarks ]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AWProtonotion >> hash [
 	^ (self class hash + smallSyntacticMarks hash) hashMultiply
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AWProtonotion >> initializeSmallSyntacticMarks: aSmallSyntacticMarkString [
 	self initialize.
 	smallSyntacticMarks := aSmallSyntacticMarkString
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AWProtonotion >> isEmpty [
 	^ smallSyntacticMarks isEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AWProtonotion >> isMetanotion [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AWProtonotion >> isProtonotion [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AWProtonotion >> isTerminal [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AWProtonotion >> letters [
 	"ortholetters (alphabet): letters used"
 
@@ -71,17 +72,17 @@ AWProtonotion >> letters [
 		yourself
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AWProtonotion >> printOn: aStream [
 	aStream nextPutAll: smallSyntacticMarks
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AWProtonotion >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AWProtonotion >> smallSyntacticMarks [
 	^ smallSyntacticMarks
 ]

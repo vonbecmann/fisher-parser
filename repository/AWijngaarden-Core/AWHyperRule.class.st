@@ -16,53 +16,49 @@ rules.
 
 "
 Class {
-	#name : #AWHyperRule,
-	#superclass : #Object,
+	#name : 'AWHyperRule',
+	#superclass : 'Object',
 	#instVars : [
 		'head',
 		'body'
 	],
-	#category : #'AWijngaarden-Core'
+	#category : 'AWijngaarden-Core',
+	#package : 'AWijngaarden-Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AWHyperRule class >> head: aHypernotion [
 	^ self basicNew
 		initializeHead: aHypernotion body: {};
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AWHyperRule class >> head: aHypernotion body: aHypernotionCollection [
 	^ self basicNew
 		initializeHead: aHypernotion body: aHypernotionCollection;
 		yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AWHyperRule >> = anObject [
-	self == anObject
-		ifTrue: [ ^ true ].
-	self class  == anObject class
-		ifFalse: [ ^ false ].
-	head = anObject head
-		ifFalse: [ ^ false ].
-	body size == anObject body size
-		ifFalse: [ ^ false ].
+
+	self == anObject ifTrue: [ ^ true ].
+	self class == anObject class ifFalse: [ ^ false ].
+	head = anObject head ifFalse: [ ^ false ].
+	body size == anObject body size ifFalse: [ ^ false ].
 	body
 		with: anObject body
-		do: [ :first :second | 
-			first = second
-				ifFalse: [ ^ false ] ].
+		do: [ :first :second | first = second ifFalse: [ ^ false ] ].
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AWHyperRule >> body [
 	^ body
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AWHyperRule >> hash [
 	| hash |
 	hash := (self class hash + head hash) hashMultiply.
@@ -70,12 +66,12 @@ AWHyperRule >> hash [
 	^ hash
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AWHyperRule >> head [
 	^ head
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AWHyperRule >> hypernotions [
 	^ Set new
 		add: head;
@@ -83,21 +79,21 @@ AWHyperRule >> hypernotions [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AWHyperRule >> initializeHead: aHypernotion body: aHypernotionCollection [
 	self initialize.
 	head := aHypernotion.
 	body := aHypernotionCollection
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AWHyperRule >> isRepresentation [
 	"head is metanotion free and the body is a terminal"
 
 	^ head isProtonotion and: [ body size = 1 and: [ body first isTerminal ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AWHyperRule >> notions [
 	| notions |
 	notions := Set new.
@@ -106,16 +102,19 @@ AWHyperRule >> notions [
 	^ notions
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AWHyperRule >> printOn: aStream [
+
 	aStream
 		print: head;
 		nextPutAll: ': '.
-	body do: [ :hn | aStream print: hn ] separatedBy: [ aStream nextPutAll: ', ' ].
+	body
+		do: [ :hn | aStream print: hn ]
+		separatedBy: [ aStream nextPutAll: ', ' ].
 	aStream nextPut: $.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AWHyperRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]

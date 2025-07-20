@@ -1,6 +1,6 @@
-Extension { #name : #Symbol }
+Extension { #name : 'Symbol' }
 
-{ #category : #'*AWijngaarden-Core' }
+{ #category : '*AWijngaarden-Core' }
 Symbol >> asNotion [
 	^ AWMetanotion named: self
 ]

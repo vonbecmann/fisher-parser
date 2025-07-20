@@ -15,30 +15,31 @@ body is a hypernotion.
 
 "
 Class {
-	#name : #AWMetaProductionRule,
-	#superclass : #Object,
+	#name : 'AWMetaProductionRule',
+	#superclass : 'Object',
 	#instVars : [
 		'head',
 		'body'
 	],
-	#category : #'AWijngaarden-Core'
+	#category : 'AWijngaarden-Core',
+	#package : 'AWijngaarden-Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AWMetaProductionRule class >> head: aMetanotion [
 	^ self basicNew
 		initializeHead: aMetanotion body: AWHypernotion new;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AWMetaProductionRule class >> head: aMetanotion body: aHypernotion [
 	^ self basicNew
 		initializeHead: aMetanotion body: aHypernotion;
 		yourself
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AWMetaProductionRule >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
@@ -51,37 +52,38 @@ AWMetaProductionRule >> = anObject [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AWMetaProductionRule >> body [
 	^ body
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 AWMetaProductionRule >> hash [
 	^ ((self class hash + head hash) hashMultiply + body hash) hashMultiply
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AWMetaProductionRule >> head [
 	^ head
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AWMetaProductionRule >> initializeHead: aMetanotion body: aHypernotion [
 	self initialize.
 	head := aMetanotion.
 	body := aHypernotion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AWMetaProductionRule >> notions [
 	^ (Set with: head)
 		addAll: body notions;
 		yourself
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AWMetaProductionRule >> printOn: aStream [
+
 	aStream
 		print: head;
 		nextPutAll: ':: ';
@@ -89,7 +91,7 @@ AWMetaProductionRule >> printOn: aStream [
 		nextPut: $.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AWMetaProductionRule >> printString [
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]

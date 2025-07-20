@@ -7,17 +7,18 @@ However, care must be taken in choosing the metanotions so that any sequence of 
 a metanotion is a nonterminal of the meta level of a vw-grammar.
 "
 Class {
-	#name : #AWMetanotion,
-	#superclass : #NCNonterminal,
-	#category : #'AWijngaarden-Core'
+	#name : 'AWMetanotion',
+	#superclass : 'NCNonterminal',
+	#category : 'AWijngaarden-Core',
+	#package : 'AWijngaarden-Core'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 AWMetanotion >> isMetanotion [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AWMetanotion >> isProtonotion [
 	^ false
 ]

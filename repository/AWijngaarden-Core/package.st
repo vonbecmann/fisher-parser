@@ -1,1 +1,1 @@
-Package { #name : #'AWijngaarden-Core' }
+Package { #name : 'AWijngaarden-Core' }

@@ -1,11 +1,11 @@
-Extension { #name : #Array }
+Extension { #name : 'Array' }
 
-{ #category : #'*AWijngaarden-Core' }
+{ #category : '*AWijngaarden-Core' }
 Array >> asNotion [
 	^ AWHypernotion withAll: self asNotions
 ]
 
-{ #category : #'*AWijngaarden-Core' }
+{ #category : '*AWijngaarden-Core' }
 Array >> asNotions [
 	^ self collect: [ :each | each asNotion ]
 ]

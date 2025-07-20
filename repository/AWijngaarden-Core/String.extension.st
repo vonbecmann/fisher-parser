@@ -1,6 +1,6 @@
-Extension { #name : #String }
+Extension { #name : 'String' }
 
-{ #category : #'*AWijngaarden-Core' }
+{ #category : '*AWijngaarden-Core' }
 String >> asNotion [
 	^ AWProtonotion with: self
 ]
