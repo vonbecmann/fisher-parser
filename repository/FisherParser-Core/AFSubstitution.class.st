@@ -66,6 +66,11 @@ AFSubstitution >> applyTo: aMetanotion [
 	self subclassResponsibility
 ]
 
+{ #category : 'displaying' }
+AFSubstitution >> displaySubstitutionStringOn: aStream [ 
+	^ self subclassResponsibility
+]
+
 { #category : 'testing' }
 AFSubstitution >> ifSolution: aBlock [
 	"Evaluate a block when I'm a solution"

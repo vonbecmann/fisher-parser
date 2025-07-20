@@ -15,6 +15,11 @@ Class {
 	#tag : 'Implementation'
 }
 
+{ #category : 'converting' }
+AFItem >> asSyntaxNode [
+	^ self subclassResponsibility
+]
+
 { #category : 'inspector extensions' }
 AFItem >> displayIntervalString [
 	^ String streamContents: [ :s | self printIntervalOn: s ]
