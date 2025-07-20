@@ -36,7 +36,7 @@ AFSubstitution class >> noSolution [
 	^ noSolution ifNil: [ noSolution := AFNoSolution new ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'class initialization' }
 AFSubstitution class >> reset [
 	" reset the usual solutions "
 
