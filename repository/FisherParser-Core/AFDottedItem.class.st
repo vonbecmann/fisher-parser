@@ -64,7 +64,7 @@ AFDottedItem >> addFamilyWith: completeItem to: parentItem [
 		ifFalse: [ parentItem addFamilyWith: self and: completeItem ]
 ]
 
-{ #category : 'parsing' }
+{ #category : 'converting' }
 AFDottedItem >> asSyntaxNode [
 	^ ESSyntaxNode
 		symbol: self head

@@ -39,7 +39,7 @@ AFTerminalItem >> = anObject [
 	^ true
 ]
 
-{ #category : 'parsing' }
+{ #category : 'converting' }
 AFTerminalItem >> asSyntaxNode [
 	^ ESSyntaxNode
 		symbol: terminal
