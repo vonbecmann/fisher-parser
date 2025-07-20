@@ -8,3 +8,10 @@ Class {
 	#package : 'AWijngaarden-Core',
 	#tag : 'Manifest'
 }
+
+{ #category : 'code-critics' }
+ManifestAWijngaardenCore class >> ruleReCompactSourceCodeRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#AWHyperRule #printOn: #false)) #'2025-07-20T02:21:19.997332-03:00') #(#(#RGMethodDefinition #(#AWMetaProductionRule #printOn: #false)) #'2025-07-20T02:21:19.997704-03:00') )
+]
