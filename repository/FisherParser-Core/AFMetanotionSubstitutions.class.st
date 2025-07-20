@@ -63,10 +63,9 @@ AFMetanotionSubstitutions >> associations [
 
 { #category : 'accessing' }
 AFMetanotionSubstitutions >> at: aMetanotion [
-	associations
-		do: [ :assoc | 
-			assoc key = aMetanotion
-				ifTrue: [ ^ assoc value ] ].
+
+	associations do: [ :assoc |
+		assoc key = aMetanotion ifTrue: [ ^ assoc value ] ].
 	^ aMetanotion
 ]
 
@@ -97,6 +96,8 @@ AFMetanotionSubstitutions >> includesMetanotion: aMetanotion [
 
 { #category : 'initialization' }
 AFMetanotionSubstitutions >> initialize [
+
+	super initialize.
 	associations := SinglyLinkedList new
 ]
 

@@ -26,18 +26,18 @@ Class {
 
 { #category : 'instance creation' }
 AFVWGrammar class >> evw: aVWRuleString representations: terminalNotionToRepresentationList [
+
 	^ self basicNew
-		initializeVWGrammar: 
-			(AVWGrammar 
-				evw: aVWRuleString 
-				representations: terminalNotionToRepresentationList);
-		checkMetaGrammarIsLLOne;
-		computeHypernotionsFirstSet;
-		checkHypernotionsAreLLOne;
-		checkHyperRulesLeftHandSides;
-		checkBoundness;
-		computeCrossReferences;
-		yourself
+		  initializeVWGrammar: (AVWGrammar
+				   evw: aVWRuleString
+				   representations: terminalNotionToRepresentationList);
+		  checkMetaGrammarIsLLOne;
+		  computeHypernotionsFirstSet;
+		  checkHypernotionsAreLLOne;
+		  checkHyperRulesLeftHandSides;
+		  checkBoundness;
+		  computeCrossReferences;
+		  yourself
 ]
 
 { #category : 'testing' }
@@ -111,29 +111,21 @@ AFVWGrammar >> checkMetaGrammarIsLLOne [
 AFVWGrammar >> computeCrossReferences [
 	" compute cross-references "
 
-	hyperRules
-		do: [ :hyperRule | 
-			hyperRule body
-				withIndexDo: [ :rightHypernotion :index | 
-					rightHypernotion isTerminal
-						ifFalse: [ 
-							hyperRules
-								do: [ :crossHyperRule | 
-									(crossHyperRule head superMatches: rightHypernotion)
-										ifTrue: [ 
-											index == 1
-												ifTrue: [ crossHyperRule head addBackwardCrossReference: hyperRule ].
+	hyperRules do: [ :hyperRule |
+			hyperRule body withIndexDo: [ :rightHypernotion :index |
+					rightHypernotion isTerminal ifFalse: [
+							hyperRules do: [ :crossHyperRule |
+									(crossHyperRule head superMatches: rightHypernotion) ifTrue: [
+											index == 1 ifTrue: [
+												crossHyperRule head addBackwardCrossReference: hyperRule ].
 											rightHypernotion addForwardCrossReference: crossHyperRule ] ].
-							(rightHypernotion isProtonotion and: [ rightHypernotion forwardCrossReferences isEmpty ])
-								ifTrue: [ 
-									Error
-										signal:
-											(String
-												streamContents: [ :s | 
-													s
-														nextPutAll: 'Protonotion ';
-														print: rightHypernotion;
-														nextPutAll: ' used but not defined' ]) ] ] ] ]
+							(rightHypernotion isProtonotion and: [
+								 rightHypernotion forwardCrossReferences isEmpty ]) ifTrue: [
+									Error signal: (String streamContents: [ :s |
+												 s
+													 nextPutAll: 'Protonotion ';
+													 print: rightHypernotion;
+													 nextPutAll: ' used but not defined' ]) ] ] ] ]
 ]
 
 { #category : 'initialization' }

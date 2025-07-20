@@ -7,11 +7,11 @@ AWProtonotion >> apply: aSubstitution [
 
 { #category : '*FisherParser-Core' }
 AWProtonotion >> buildBodyOf: symbols [
-	^ Array
-		new: smallSyntacticMarks size
-		streamContents: [ :s | 
-			smallSyntacticMarks
-				collect: [ :letter | NCNonterminal named: letter ]
-				thenDo: [ :orthoNonterminal | 
-					s nextPut: (symbols detect: [ :symbol | symbol = orthoNonterminal ]) ] ]
+
+	^ Array new: smallSyntacticMarks size streamContents: [ :s |
+			  smallSyntacticMarks
+				  collect: [ :letter | NCNonterminal named: letter ]
+				  thenDo: [ :orthoNonterminal |
+					  s nextPut:
+						  (symbols detect: [ :symbol | symbol = orthoNonterminal ]) ] ]
 ]

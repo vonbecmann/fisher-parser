@@ -129,14 +129,13 @@ AFFamily >> parent: aPackedNode [
 
 { #category : 'printing' }
 AFFamily >> printOn: aStream [
-	aStream 
+
+	aStream
 		nextPutAll: self className;
 		nextPut: $(.
-	first
-		ifNotNil: [ 
+	first ifNotNil: [
 			aStream print: first.
-			second
-				ifNotNil: [ 
+			second ifNotNil: [
 					aStream
 						nextPutAll: ', ';
 						print: second ] ].
@@ -161,10 +160,8 @@ AFFamily >> second [
 
 { #category : 'accessing' }
 AFFamily >> size [
-	^ first 
-		ifNil: [ 0 ] 
-		ifNotNil: [ 
-			second 
-				ifNil: [ 1 ] 
-				ifNotNil: [ 2 ] ]
+
+	^ first
+		  ifNil: [ 0 ]
+		  ifNotNil: [ second ifNil: [ 1 ] ifNotNil: [ 2 ] ]
 ]

@@ -45,12 +45,14 @@ AFPackedNode >> addEmptyFamily [
 
 { #category : 'accessing' }
 AFPackedNode >> addFamily: aFamily [
+
 	families
-		detect: [ :family | family first = aFamily first and: [ family second = aFamily second ] ]
+		detect: [ :family |
+			family first = aFamily first and: [ family second = aFamily second ] ]
 		ifFound: [ :element | element ]
-		ifNone: [ 
-			aFamily parent: self.
-			families add: aFamily ]
+		ifNone: [
+				aFamily parent: self.
+				families add: aFamily ]
 ]
 
 { #category : 'visiting' }

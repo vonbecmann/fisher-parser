@@ -65,28 +65,29 @@ AFMetaGrammar >> computeFirstSet [
 
 { #category : 'initialization' }
 AFMetaGrammar >> computeFollowSetUsing: firstSet [
+
 	| followSet previousSize symbolFollowSet rest restFirstSet |
 	followSet := MultiValuedDictionary
-		dictionary: IdentityDictionary
-		collection: IdentitySet.
-	nonterminals do: [ :each | followSet at: each putAll: #() ].
-	[ previousSize := followSet size.
-	metaProductionRules
-		do: [ :rule | 
-			rule body
-				withIndexDo: [ :symbol :index | 
-					symbol isNonterminal
-						ifTrue: [ symbolFollowSet := IdentitySet new.
-							rest := rule body copyFrom: index + 1 to: rule body size.
-							rest
-								ifEmpty: [ symbolFollowSet addAll: (followSet at: rule head) ]
-								ifNotEmpty: [ 
-									restFirstSet := firstSet firstOf: rest.
-									(restFirstSet includes: #epsilon)
-										ifTrue: [ symbolFollowSet addAll: (followSet at: rule head) ].
-									symbolFollowSet addAll: (restFirstSet copyWithout: #epsilon) ].
-							followSet at: symbol putAll: symbolFollowSet ] ] ].
-	previousSize = followSet size ] whileFalse.
+		             dictionary: IdentityDictionary
+		             collection: IdentitySet.
+	nonterminals do: [ :each | followSet at: each putAll: #(  ) ].
+	[
+		previousSize := followSet size.
+		metaProductionRules do: [ :rule |
+				rule body withIndexDo: [ :symbol :index |
+						symbol isNonterminal ifTrue: [
+								symbolFollowSet := IdentitySet new.
+								rest := rule body copyFrom: index + 1 to: rule body size.
+								rest
+									ifEmpty: [ symbolFollowSet addAll: (followSet at: rule head) ]
+									ifNotEmpty: [
+											restFirstSet := firstSet firstOf: rest.
+											(restFirstSet includes: #epsilon) ifTrue: [
+												symbolFollowSet addAll: (followSet at: rule head) ].
+											symbolFollowSet addAll:
+												(restFirstSet copyWithout: #epsilon) ].
+								followSet at: symbol putAll: symbolFollowSet ] ] ].
+		previousSize = followSet size ] whileFalse.
 	^ followSet
 ]
 
@@ -117,9 +118,11 @@ AFMetaGrammar >> computeParseTableUsing: firstSet and: followSet [
 
 { #category : 'initialization' }
 AFMetaGrammar >> initialize [
+
+	super initialize.
 	metaProductionRules := MultiValuedDictionary
-		dictionary: IdentityDictionary
-		collection: SinglyLinkedList
+		                       dictionary: IdentityDictionary
+		                       collection: SinglyLinkedList
 ]
 
 { #category : 'initialization' }

@@ -169,19 +169,19 @@ AFHypernotion >> checkIsLLOne [
 	'starter' and 'follower' sets for non-terminals in the CFG. To check R1,
 	one applies one of the standard algorithms, but neglects to record followers
 	for the second and subsequent occurrences of each metanotion. "
-	
+
 	| followSet parseTable conflictKeys |
 	followSet := self computeFollowSet.
 	parseTable := self computeParseTableUsing: followSet.
-	conflictKeys := parseTable keys
-		select: [ :key | (metanotions includes: key first) and: [ (parseTable at: key) size > 1 ] ].
-	conflictKeys isEmpty
-		ifFalse: [ Error
-				signal:
-					(String
-						streamContents: [ :s | 
-							s nextPutAll: 'CONFLICT at '.
-							conflictKeys do: [ :key | s print: key ] separatedBy: [ s space ] ]) ]
+	conflictKeys := parseTable keys select: [ :key |
+			                (metanotions includes: key first) and: [
+				                (parseTable at: key) size > 1 ] ].
+	conflictKeys isEmpty ifFalse: [
+			Error signal: (String streamContents: [ :s |
+						 s nextPutAll: 'CONFLICT at '.
+						 conflictKeys
+							 do: [ :key | s print: key ]
+							 separatedBy: [ s space ] ]) ]
 ]
 
 { #category : 'accessing' }
@@ -288,6 +288,8 @@ AFHypernotion >> hash [
 
 { #category : 'initialization' }
 AFHypernotion >> initialize [
+
+	super initialize.
 	metanotions := Set new.
 	backwardCrossReferences := Set new.
 	forwardCrossReferences := Set new
@@ -295,12 +297,11 @@ AFHypernotion >> initialize [
 
 { #category : 'initialization' }
 AFHypernotion >> initializeNotions: aNotionCollection [
+
 	self initialize.
 	notions := aNotionCollection.
-	notions
-		do: [ :each | 
-			each isMetanotion
-				ifTrue: [ metanotions add: each ] ]
+	notions do: [ :each |
+		each isMetanotion ifTrue: [ metanotions add: each ] ]
 ]
 
 { #category : 'inspector extensions' }

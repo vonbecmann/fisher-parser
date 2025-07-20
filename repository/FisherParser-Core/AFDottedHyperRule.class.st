@@ -75,9 +75,10 @@ AFDottedHyperRule >> hyperRule [
 ]
 
 { #category : 'initialization' }
-AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [ 
+AFDottedHyperRule >> initializeHyperRule: aHyperRule dotAt: index [
+
 	hyperRule := aHyperRule.
-	dotIndex := index 
+	dotIndex := index
 ]
 
 { #category : 'inspector extensions' }

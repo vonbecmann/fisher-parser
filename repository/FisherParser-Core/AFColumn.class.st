@@ -129,6 +129,8 @@ AFColumn >> includesInstanceOf: anItem [
 
 { #category : 'initialization' }
 AFColumn >> initialize [
+
+	super initialize.
 	itemsToProcess := SinglyLinkedQueue new.
 	itemSet := SinglyLinkedList new.
 	orderedItems := SinglyLinkedList new.

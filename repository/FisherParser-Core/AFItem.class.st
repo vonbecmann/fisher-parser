@@ -31,7 +31,8 @@ AFItem >> end [
 ]
 
 { #category : 'accessing' }
-AFItem >> end: aColumn [ 
+AFItem >> end: aColumn [
+
 	end := aColumn
 ]
 
