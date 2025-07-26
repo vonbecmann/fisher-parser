@@ -1,39 +1,41 @@
 Class {
-	#name : #JEVWEvaluatorTest,
-	#superclass : #JEVWGrammarTest,
+	#name : 'JEVWEvaluatorTest',
+	#superclass : 'JEVWGrammarTest',
 	#instVars : [
 		'evaluator'
 	],
-	#category : #'EarleyVW-Tests'
+	#category : 'EarleyVW-Tests',
+	#package : 'EarleyVW',
+	#tag : 'Tests'
 }
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 JEVWEvaluatorTest >> assertGrammarAt: aGrammar evaluates: aString equals: expected [
 	self 
 		assert: (evaluator evaluateTree: (aGrammar parseTree: aString)) 
 		equals: expected
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 JEVWEvaluatorTest >> assertThatEvaluates: aString equals: expected [
 	self 
 		assert: (evaluator evaluate: aString) 
 		equals: expected
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 JEVWEvaluatorTest >> setUp [
 	super setUp.
 	evaluator := JEVWParserResource current evaluator
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 JEVWEvaluatorTest >> tearDown [
 	evaluator := nil.
 	super tearDown
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 JEVWEvaluatorTest >> testEvaluates [
 	self
 		assertThatEvaluates:
@@ -80,7 +82,7 @@ ALPHA: 	letter ALPHA symbol;
 	
 ]
 
-{ #category : #'tests - hyper rule' }
+{ #category : 'tests - hyper rule' }
 JEVWEvaluatorTest >> testEvaluatesHyperRule [
 	self
 		assertGrammarAt: hyperRule
@@ -88,7 +90,7 @@ JEVWEvaluatorTest >> testEvaluatesHyperRule [
 		equals: {(AWHyperRule head: (AWHypernotion with: (AWProtonotion with: 'empty')))}
 ]
 
-{ #category : #'tests - hyper rule' }
+{ #category : 'tests - hyper rule' }
 JEVWEvaluatorTest >> testEvaluatesHyperRule02 [
 	self
 		assertGrammarAt: hyperRule
@@ -96,7 +98,7 @@ JEVWEvaluatorTest >> testEvaluatesHyperRule02 [
 		equals: {(AWHyperRule head: (AWHypernotion with: (AWProtonotion with: 'empty')))}
 ]
 
-{ #category : #'tests - hyper rule' }
+{ #category : 'tests - hyper rule' }
 JEVWEvaluatorTest >> testEvaluatesHyperRule03 [
 	self
 		assertGrammarAt: hyperRule
@@ -123,7 +125,7 @@ JEVWEvaluatorTest >> testEvaluatesHyperRule03 [
 							(AWProtonotion with: 'sequence')})})}
 ]
 
-{ #category : #'tests - hyper rule' }
+{ #category : 'tests - hyper rule' }
 JEVWEvaluatorTest >> testEvaluatesHyperRule04 [
 	self
 		assertGrammarAt: hyperRule
@@ -144,7 +146,7 @@ JEVWEvaluatorTest >> testEvaluatesHyperRule04 [
 				body: {(AWHypernotion with: (AWMetanotion named: 'EMPTY'))})}
 ]
 
-{ #category : #'tests - hyper rules' }
+{ #category : 'tests - hyper rules' }
 JEVWEvaluatorTest >> testEvaluatesHyperRules [
 	self
 		assertGrammarAt: hyperRules
@@ -201,7 +203,7 @@ i LETTER s: 			LETTER symbol.'
 							(AWProtonotion with: 'symbol')})})}
 ]
 
-{ #category : #'tests - hypernotion' }
+{ #category : 'tests - hypernotion' }
 JEVWEvaluatorTest >> testEvaluatesHypernotion [
 	self
 		assertGrammarAt: hypernotion
@@ -213,7 +215,7 @@ JEVWEvaluatorTest >> testEvaluatesHypernotion [
 					(AWProtonotion with: 'option')})
 ]
 
-{ #category : #'tests - hypernotion' }
+{ #category : 'tests - hypernotion' }
 JEVWEvaluatorTest >> testEvaluatesHypernotion02 [
 	self
 		assertGrammarAt: hypernotion
@@ -221,7 +223,7 @@ JEVWEvaluatorTest >> testEvaluatesHypernotion02 [
 		equals: (AWHypernotion with: (AWProtonotion with: 'option'))
 ]
 
-{ #category : #'tests - hypernotion' }
+{ #category : 'tests - hypernotion' }
 JEVWEvaluatorTest >> testEvaluatesHypernotion03 [
 	self
 		assertGrammarAt: hypernotion
@@ -229,7 +231,7 @@ JEVWEvaluatorTest >> testEvaluatesHypernotion03 [
 		equals: (AWHypernotion with: (AWMetanotion named: 'NOTION'))
 ]
 
-{ #category : #'tests - hypernotion' }
+{ #category : 'tests - hypernotion' }
 JEVWEvaluatorTest >> testEvaluatesHypernotion04 [
 	self
 		assertGrammarAt: hypernotion
@@ -247,7 +249,7 @@ JEVWEvaluatorTest >> testEvaluatesHypernotion04 [
 					(AWProtonotion with: ')')})
 ]
 
-{ #category : #'tests - hypernotion' }
+{ #category : 'tests - hypernotion' }
 JEVWEvaluatorTest >> testEvaluatesHypernotion05 [
 	self
 		assertGrammarAt: hypernotion
@@ -265,7 +267,7 @@ JEVWEvaluatorTest >> testEvaluatesHypernotion05 [
 					(AWProtonotion with: '>')})
 ]
 
-{ #category : #'tests - metaproduction rule' }
+{ #category : 'tests - metaproduction rule' }
 JEVWEvaluatorTest >> testEvaluatesMetaProductionRule [
 	self
 		assertGrammarAt: metaproductionRule
@@ -273,7 +275,7 @@ JEVWEvaluatorTest >> testEvaluatesMetaProductionRule [
 		equals: {(AWMetaProductionRule head: (AWMetanotion named: 'EMPTY'))}
 ]
 
-{ #category : #'tests - metaproduction rule' }
+{ #category : 'tests - metaproduction rule' }
 JEVWEvaluatorTest >> testEvaluatesMetaProductionRule02 [
 	self
 		assertGrammarAt: metaproductionRule
@@ -290,7 +292,7 @@ JEVWEvaluatorTest >> testEvaluatesMetaProductionRule02 [
 				body: (AWHypernotion with: (AWProtonotion with: 'c')))}
 ]
 
-{ #category : #'tests - metaproduction rule' }
+{ #category : 'tests - metaproduction rule' }
 JEVWEvaluatorTest >> testEvaluatesMetaProductionRule03 [
 	self
 		assertGrammarAt: metaproductionRule
@@ -308,7 +310,7 @@ JEVWEvaluatorTest >> testEvaluatesMetaProductionRule03 [
 							(AWProtonotion with: 'n')}))}
 ]
 
-{ #category : #'tests - metaproductions' }
+{ #category : 'tests - metaproductions' }
 JEVWEvaluatorTest >> testEvaluatesMetaProductions [
 	self
 		assertGrammarAt: metaproductions
@@ -343,7 +345,7 @@ LETTER:: 		a; b; c.'
 				body: (AWHypernotion with: (AWProtonotion with: 'c')))}
 ]
 
-{ #category : #'tests - metaproductions' }
+{ #category : 'tests - metaproductions' }
 JEVWEvaluatorTest >> testEvaluatesMetaProductions02 [
 	self
 		assertGrammarAt: metaproductions
@@ -357,7 +359,7 @@ JEVWEvaluatorTest >> testEvaluatesMetaProductions02 [
 				body: (AWHypernotion with: (AWMetanotion named: 'EMPTY')))}
 ]
 
-{ #category : #'tests - metanotion' }
+{ #category : 'tests - metanotion' }
 JEVWEvaluatorTest >> testEvaluatesMetanotion [
 	self
 		assertGrammarAt: metanotion
@@ -365,7 +367,7 @@ JEVWEvaluatorTest >> testEvaluatesMetanotion [
 		equals: (AWMetanotion named: 'NOTION')
 ]
 
-{ #category : #'tests - metanotion' }
+{ #category : 'tests - metanotion' }
 JEVWEvaluatorTest >> testEvaluatesMetanotion02 [
 	self
 		assertGrammarAt: metanotion
@@ -373,7 +375,7 @@ JEVWEvaluatorTest >> testEvaluatesMetanotion02 [
 		equals: (AWMetanotion named: 'NOTION2')
 ]
 
-{ #category : #'tests - protonotion' }
+{ #category : 'tests - protonotion' }
 JEVWEvaluatorTest >> testEvaluatesProtonotion [
 	self
 		assertGrammarAt: protonotion

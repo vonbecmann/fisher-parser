@@ -1,10 +1,12 @@
 Class {
-	#name : #AWGrammarTest,
-	#superclass : #TestCase,
-	#category : #'EarleyVW-Tests'
+	#name : 'AWGrammarTest',
+	#superclass : 'TestCase',
+	#category : 'EarleyVW-Tests',
+	#package : 'EarleyVW',
+	#tag : 'Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 AWGrammarTest >> testDuplicatedHyperRule [
 	| duplicatedHyperRuleGrammar |
 	duplicatedHyperRuleGrammar := AVWGrammar
@@ -21,7 +23,7 @@ program:	  TALLY as, TALLY bs, TALLY cs.'
 	self assert: duplicatedHyperRuleGrammar hyperRulesSize equals: 4
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AWGrammarTest >> testDuplicatedHyperRule02 [
 	| duplicatedHyperRuleGrammar |
 	duplicatedHyperRuleGrammar := AVWGrammar
@@ -35,7 +37,7 @@ AWGrammarTest >> testDuplicatedHyperRule02 [
 	self assert: duplicatedHyperRuleGrammar hyperRulesSize equals: 4
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AWGrammarTest >> testDuplicatedMetaRule [
 	| duplicatedMetaRuleGrammar |
 	duplicatedMetaRuleGrammar := AVWGrammar
@@ -54,14 +56,14 @@ program:	 .'
 	self assert: duplicatedMetaRuleGrammar hyperRulesSize equals: 4
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AWGrammarTest >> testRepresentationsIsEmpty [
 	self 
 		should: [ AVWGrammar evw: 'EMPTY:: . program: .' representations: #() ] 
 		raise: Error
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AWGrammarTest >> testTest3 [
 	| test3 |
 	test3 :=
@@ -91,7 +93,7 @@ where <NOTION> is <NOTION>: EMPTY.'
 		hasSameElements: #(LETTER LETTER1 LETTER2 LETTER3 NOTION NOTETY EMPTY) asNotions.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AWGrammarTest >> testUnknownMetanotion [
 	self
 		should: [ 
@@ -119,7 +121,7 @@ where <NOTION> is <NOTION>: EMPTY.'
 			 ].
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AWGrammarTest >> testUnknownMetanotion02 [
 	self
 		should: [ 
@@ -148,7 +150,7 @@ where <NOTION> is <NOTION>: EMPTY.'
 			 ].
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AWGrammarTest >> testUnknownMetanotion03 [
 	self
 		should: [ 
@@ -178,7 +180,7 @@ where <NOTION> is <NOTION>: EMPTY.'
 			 ].
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AWGrammarTest >> testUnknownMetanotion04 [
 	self
 		should: [ 
@@ -209,7 +211,7 @@ where <NOTION> is <NOTION>: EMPTY.'
 			 ].
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AWGrammarTest >> testanbncn [
 	| anbncn |
 	anbncn := AVWGrammar

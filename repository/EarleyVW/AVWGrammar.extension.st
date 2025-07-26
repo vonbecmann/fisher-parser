@@ -1,6 +1,6 @@
-Extension { #name : #AVWGrammar }
+Extension { #name : 'AVWGrammar' }
 
-{ #category : #'*EarleyVW' }
+{ #category : '*EarleyVW' }
 AVWGrammar class >> evw: aVWRuleString representations: terminalNotionToRepresentationList [
 	" parse VW rules from a String and build a vw-grammar "
 

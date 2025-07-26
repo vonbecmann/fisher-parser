@@ -3,8 +3,8 @@ grammar and parser resources needed for testing.
 
 "
 Class {
-	#name : #JEVWParserResource,
-	#superclass : #TestResource,
+	#name : 'JEVWParserResource',
+	#superclass : 'TestResource',
 	#instVars : [
 		'grammar',
 		'protonotion',
@@ -16,55 +16,57 @@ Class {
 		'hyperRules',
 		'evaluator'
 	],
-	#category : #'EarleyVW-Tests'
+	#category : 'EarleyVW-Tests',
+	#package : 'EarleyVW',
+	#tag : 'Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParserResource >> evaluator [
 	^ evaluator
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParserResource >> grammar [
 	^ grammar
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParserResource >> hyperRule [
 	^ hyperRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParserResource >> hyperRules [
 	^ hyperRules
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParserResource >> hypernotion [
 	^ hypernotion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParserResource >> metanotion [
 	^ metanotion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParserResource >> metaproductionRule [
 	^ metaproductionRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParserResource >> metaproductions [
 	^ metaproductions
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParserResource >> protonotion [
 	^ protonotion
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 JEVWParserResource >> setUp [
 	super setUp.
 	grammar := JEVWParser vwGrammar.
@@ -78,7 +80,7 @@ JEVWParserResource >> setUp [
 	evaluator := JEVWParser vwEvaluator
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 JEVWParserResource >> tearDown [
 	"Does nothing. Subclasses should override this to tear down their resource"
 	grammar := protonotion := metanotion := hypernotion := nil.

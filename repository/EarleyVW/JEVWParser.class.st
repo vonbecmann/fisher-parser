@@ -6,28 +6,30 @@ see vwGrammar method on class side.
 
 "
 Class {
-	#name : #JEVWParser,
-	#superclass : #Object,
+	#name : 'JEVWParser',
+	#superclass : 'Object',
 	#instVars : [
 		'evaluator'
 	],
 	#classInstVars : [
 		'instance'
 	],
-	#category : #'EarleyVW-Core'
+	#category : 'EarleyVW-Core',
+	#package : 'EarleyVW',
+	#tag : 'Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParser class >> instance [
 	^ instance ifNil: [ instance := self new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JEVWParser class >> reset [
 	instance := nil
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 JEVWParser class >> vwEvaluator [
 	^ ESSingleSynthesizedAttributeEvaluator grammar: self vwGrammar actions: 
 {
@@ -83,7 +85,7 @@ JEVWParser class >> vwEvaluator [
 (('digit symbol' -> 1) -> [ :node | String with: node ]). }
 ]
 
-{ #category : #grammar }
+{ #category : 'grammar' }
 JEVWParser class >> vwGrammar [
 	^ JEGrammar
 		e1vw: 
@@ -161,12 +163,14 @@ separator plus:
 			('separator symbol' -> (NCTerminal charSet: Character separators)).}
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 JEVWParser >> initialize [
+
+	super initialize.
 	evaluator := self class vwEvaluator
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 JEVWParser >> parse: aString [
 	^ evaluator evaluate: aString
 ]
