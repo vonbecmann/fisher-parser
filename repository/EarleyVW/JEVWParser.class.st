@@ -24,7 +24,7 @@ JEVWParser class >> instance [
 	^ instance ifNil: [ instance := self new ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'class initialization' }
 JEVWParser class >> reset [
 	instance := nil
 ]
