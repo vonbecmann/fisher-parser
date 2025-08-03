@@ -2,8 +2,7 @@ Class {
 	#name : 'AWGrammarTest',
 	#superclass : 'TestCase',
 	#category : 'EarleyVW-Tests',
-	#package : 'EarleyVW',
-	#tag : 'Tests'
+	#package : 'EarleyVW-Tests'
 }
 
 { #category : 'tests' }

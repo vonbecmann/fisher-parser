@@ -17,8 +17,7 @@ Class {
 		'evaluator'
 	],
 	#category : 'EarleyVW-Tests',
-	#package : 'EarleyVW',
-	#tag : 'Tests'
+	#package : 'EarleyVW-Tests'
 }
 
 { #category : 'accessing' }

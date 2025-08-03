@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfFisherParser,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfFisherParser
+	#name : 'BaselineOfFisherParser',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfFisherParser',
+	#package : 'BaselineOfFisherParser'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfFisherParser >> baseline: spec [
 	<baseline>
 	spec
@@ -27,6 +28,7 @@ BaselineOfFisherParser >> baseline: spec [
 					 with: [ spec requires: #('EarleyParser') ];
 				package: 'AWijngaarden-Tests' with: [ spec requires: #('AWijngaarden-Core') ];
 				package: 'EarleyVW' with: [ spec requires: #('EarleyParser' 'AWijngaarden-Core') ];
+				package: 'EarleyVW-Tests' with: [ spec requires: #('EarleyVW') ];
 				package: 'FisherParser-Core'
 					with: [ spec requires: #('MultiValuedDictionary' 'LinkedList' 'AWijngaarden-Core' 'EarleyVW') ];
 				package: 'FisherParser-Tests' 
@@ -35,7 +37,7 @@ BaselineOfFisherParser >> baseline: spec [
 			spec
 				group: 'default' with: #('Core' 'Tests' 'UI');
 				group: 'Core' with: #('AWijngaarden-Core' 'EarleyVW' 'FisherParser-Core');
-				group: 'Tests' with: #('AWijngaarden-Tests' 'FisherParser-Tests');
+				group: 'Tests' with: #('AWijngaarden-Tests' 'EarleyVW-Tests' 'FisherParser-Tests');
 				group: 'UI' with: #('FisherParser-UI');
 				yourself ]
 ]
