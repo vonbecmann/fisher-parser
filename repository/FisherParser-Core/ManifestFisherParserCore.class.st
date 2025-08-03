@@ -10,6 +10,13 @@ Class {
 }
 
 { #category : 'code-critics' }
+ManifestFisherParserCore class >> ruleCollectionProtocolRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#AFMetanotionSubstitutions #addAll: #false)) #'2025-08-03T14:45:23.266949-03:00') )
+]
+
+{ #category : 'code-critics' }
 ManifestFisherParserCore class >> ruleReCompactSourceCodeRuleV1FalsePositive [
 
 	<ignoreForCoverage>
