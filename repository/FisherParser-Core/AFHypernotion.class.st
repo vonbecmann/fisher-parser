@@ -303,8 +303,9 @@ AFHypernotion >> initializeNotions: aNotionCollection [
 
 	self initialize.
 	notions := aNotionCollection.
-	notions do: [ :each |
-		each isMetanotion ifTrue: [ metanotions add: each ] ]
+	notions
+		select: [ :each | each isMetanotion ]
+		thenDo: [ :each | metanotions add: each ]
 ]
 
 { #category : 'inspector extensions' }
