@@ -26,7 +26,7 @@ AFParseForest class >> given: aBSPPForest of: aVWGrammar [
 
 { #category : 'parsing' }
 AFParseForest >> extractSingleParseTree [
-	"the forest has one binary tree, so we need to extract it from the forest. 
+	"the forest has one binary tree, so we need to extract it from the forest.
 	 but flatten as the production rules and using syntax nodes."
 
 	| stack |

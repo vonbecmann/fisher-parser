@@ -8,3 +8,10 @@ Class {
 	#package : 'FisherParser-Core',
 	#tag : 'Manifest'
 }
+
+{ #category : 'code-critics' }
+ManifestFisherParserCore class >> ruleReCompactSourceCodeRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#AFHyperRule #printOn: #false)) #'2025-08-03T11:16:54.347173-03:00') #(#(#RGMethodDefinition #(#AFDottedHyperRule #printOn: #false)) #'2025-08-03T11:16:54.347412-03:00') )
+]

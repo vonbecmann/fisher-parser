@@ -235,7 +235,7 @@ AFHyperRule >> isRightBound [
 { #category : 'testing' }
 AFHyperRule >> isStrict [
 	" if this hyper rule is a production rule that belongs to the strict language.
-	it has 
+	it has
 	- notions (nonterminals, for which a production rule can be derived)
 	- a symbol (a terminal symbol)
 	- empty, or

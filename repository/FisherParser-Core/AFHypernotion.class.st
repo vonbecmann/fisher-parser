@@ -152,7 +152,7 @@ AFHypernotion >> buildBodyOf: symbols [
 { #category : 'testing' }
 AFHypernotion >> checkIsLLOne [
 	" page 14.
-	The weaker version of P1 is: 
+	The weaker version of P1 is:
 	R1. For each hypernotion h in the VWG, let h' denote the value of
 		h after the following operation has been performed: for each
 		metanotion m present in h, replace the second and subsequent
@@ -229,7 +229,7 @@ AFHypernotion >> computeFollowSet [
 
 { #category : 'private' }
 AFHypernotion >> computeParseTableUsing: followSet [
-	" compute parse table using first set and follow test. 
+	" compute parse table using first set and follow test.
 	  then you can test if there's a conflict "
 
 	| parseTable |

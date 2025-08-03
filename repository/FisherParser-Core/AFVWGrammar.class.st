@@ -57,7 +57,7 @@ AFVWGrammar >> analyzeParse: aString [
 
 { #category : 'initialization' }
 AFVWGrammar >> checkBoundness [
-	" R2. The hypersyntax must not contain any type X rules. 
+	" R2. The hypersyntax must not contain any type X rules.
 	A hyper rule is of type X iif it is neither left-bound nor right-bound. "
 
 	hyperRules do: [ :hyperRule |
@@ -89,7 +89,7 @@ AFVWGrammar >> checkHyperRulesLeftHandSides [
 
 { #category : 'initialization' }
 AFVWGrammar >> checkHypernotionsAreLLOne [
-	"P1.	the defining context-free grammar of each hypernotion 
+	"P1.	the defining context-free grammar of each hypernotion
 			in the vw-grammar is LL(1) "
 
 	nonterminalHypernotions do: [ :hn | hn checkIsLLOne ]
@@ -245,7 +245,7 @@ AFVWGrammar >> parseTree: aString [
 
 { #category : 'printing' }
 AFVWGrammar >> printOn: aStream [
-	"Append to the argument, aStream, a sequence of characters that  
+	"Append to the argument, aStream, a sequence of characters that
 	identifies the receiver."
 
 	aStream

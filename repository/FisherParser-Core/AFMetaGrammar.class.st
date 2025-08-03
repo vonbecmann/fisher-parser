@@ -90,7 +90,7 @@ AFMetaGrammar >> computeFollowSetUsing: firstSet [
 
 { #category : 'initialization' }
 AFMetaGrammar >> computeParseTableUsing: firstSet and: followSet [
-	" compute parse table using first set and follow set. 
+	" compute parse table using first set and follow set.
 	then you can test if there's a conflict "
 
 	| parseTable bodyFirstSet |

@@ -213,7 +213,7 @@ AFColumn >> isEmpty [
 
 { #category : 'accessing' }
 AFColumn >> like: anItem ifFound: foundBlock ifNone: exceptionBlock [
-	" Evaluate foundBlock if an item in the receiver that is equal to anItem, 
+	" Evaluate foundBlock if an item in the receiver that is equal to anItem,
 	  Evaluate exceptionBlock if no such item is found. "
 
 	^ itemSet

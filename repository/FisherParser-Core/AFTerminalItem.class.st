@@ -17,7 +17,7 @@ Class {
 { #category : 'accessing' }
 AFTerminalItem class >> given: aTerminal word: aWord startedAt: firstColumn [
 	"
-	a terminal item for the given terminal 
+	a terminal item for the given terminal
 	that started its recognition at first column
 	"
 
