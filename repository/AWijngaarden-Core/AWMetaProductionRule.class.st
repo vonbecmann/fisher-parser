@@ -21,8 +21,9 @@ Class {
 		'head',
 		'body'
 	],
-	#category : 'AWijngaarden-Core',
-	#package : 'AWijngaarden-Core'
+	#category : 'AWijngaarden-Core-Public',
+	#package : 'AWijngaarden-Core',
+	#tag : 'Public'
 }
 
 { #category : 'instance creation' }

@@ -9,8 +9,9 @@ a metanotion is a nonterminal of the meta level of a vw-grammar.
 Class {
 	#name : 'AWMetanotion',
 	#superclass : 'NCNonterminal',
-	#category : 'AWijngaarden-Core',
-	#package : 'AWijngaarden-Core'
+	#category : 'AWijngaarden-Core-Public',
+	#package : 'AWijngaarden-Core',
+	#tag : 'Public'
 }
 
 { #category : 'testing' }

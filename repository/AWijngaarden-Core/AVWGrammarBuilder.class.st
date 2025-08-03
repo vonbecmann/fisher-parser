@@ -17,8 +17,9 @@ Class {
 		'hyperRules',
 		'representations'
 	],
-	#category : 'AWijngaarden-Core',
-	#package : 'AWijngaarden-Core'
+	#category : 'AWijngaarden-Core-Implementation',
+	#package : 'AWijngaarden-Core',
+	#tag : 'Implementation'
 }
 
 { #category : 'building' }
