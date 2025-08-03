@@ -11,8 +11,9 @@ Class {
 		'metaproductions',
 		'hyperRules'
 	],
-	#category : 'EarleyVW-Tests',
-	#package : 'EarleyVW-Tests'
+	#category : 'EarleyVW-Tests-Core',
+	#package : 'EarleyVW-Tests',
+	#tag : 'Core'
 }
 
 { #category : 'accessing' }
