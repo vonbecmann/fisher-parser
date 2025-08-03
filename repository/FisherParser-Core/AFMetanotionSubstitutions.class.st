@@ -138,12 +138,16 @@ AFMetanotionSubstitutions >> printOn: aStream [
 
 { #category : 'accessing' }
 AFMetanotionSubstitutions >> product: metanotionSubstitutionCollection [
+
 	^ metanotionSubstitutionCollection isEmpty
-		ifTrue: [ {self} ]
-		ifFalse: [ | product |
-			product := SinglyLinkedList new.
-			metanotionSubstitutionCollection do: [ :metanotionSubstitution | product add: (self union: metanotionSubstitution) ].
-			product ]
+		  ifTrue: [ { self } ]
+		  ifFalse: [
+				  | product |
+				  product := SinglyLinkedList new.
+				  metanotionSubstitutionCollection
+					  collect: [ :metanotionSubstitution | self union: metanotionSubstitution ]
+					  thenDo: [ :union | product add: union ].
+				  product ]
 ]
 
 { #category : 'initialize-release' }
