@@ -58,8 +58,8 @@ program:	 .'
 
 { #category : 'tests' }
 AWGrammarTest >> testRepresentationsIsEmpty [
-	self 
-		should: [ AVWGrammar evw: 'EMPTY:: . program: .' representations: #() ] 
+	self
+		should: [ AVWGrammar evw: 'EMPTY:: . program: .' representations: #() ]
 		raise: Error
 ]
 
@@ -88,15 +88,15 @@ where <NOTION> is <NOTION>: EMPTY.'
 					(#('j' 'symbol') -> (NCTerminal character: $j))} .
 
 	self assert: test3 startNotion equals: (AWHypernotion with: 'program' asNotion).
-	self 
+	self
 		assertCollection: test3 metanotions
-		hasSameElements: #(LETTER LETTER1 LETTER2 LETTER3 NOTION NOTETY EMPTY) asNotions.
+		hasSameElements: #(LETTER LETTER1 LETTER2 LETTER3 NOTION NOTETY EMPTY) asNotions
 ]
 
 { #category : 'tests' }
 AWGrammarTest >> testUnknownMetanotion [
 	self
-		should: [ 
+		should: [
 			AVWGrammar
 				evw:
 'LETTER::  h; i; j.
@@ -115,16 +115,16 @@ where <NOTION> is <NOTION>: EMPTY.'
 					(#('j' 'symbol') -> (NCTerminal character: $j))} ]
 		raise: Error
 		withExceptionDo: [ :ex |
-			self 
-				assert: ex messageText  
+			self
+				assert: ex messageText
 				equals: 'Unknown Metanotion LETTER1 in LETTER1 symbol'
-			 ].
+			 ]
 ]
 
 { #category : 'tests' }
 AWGrammarTest >> testUnknownMetanotion02 [
 	self
-		should: [ 
+		should: [
 			AVWGrammar
 				evw:
 'LETTER::  h; i; j.
@@ -144,16 +144,16 @@ where <NOTION> is <NOTION>: EMPTY.'
 					(#('j' 'symbol') -> (NCTerminal character: $j))} ]
 		raise: Error
 		withExceptionDo: [ :ex |
-			self 
-				assert: ex messageText  
+			self
+				assert: ex messageText
 				equals: 'Unknown Metanotion LETTER2 in LETTER2 symbol'
-			 ].
+			 ]
 ]
 
 { #category : 'tests' }
 AWGrammarTest >> testUnknownMetanotion03 [
 	self
-		should: [ 
+		should: [
 			AVWGrammar
 				evw:
 'LETTER::  h; i; j.
@@ -174,16 +174,16 @@ where <NOTION> is <NOTION>: EMPTY.'
 					(#('j' 'symbol') -> (NCTerminal character: $j))} ]
 		raise: Error
 		withExceptionDo: [ :ex |
-			self 
-				assert: ex messageText  
+			self
+				assert: ex messageText
 				equals: 'Unknown Metanotion LETTER3 in LETTER3 symbol'
-			 ].
+			 ]
 ]
 
 { #category : 'tests' }
 AWGrammarTest >> testUnknownMetanotion04 [
 	self
-		should: [ 
+		should: [
 			AVWGrammar
 				evw:
 'LETTER::  h; i; j.
@@ -205,17 +205,17 @@ where <NOTION> is <NOTION>: EMPTY.'
 					(#('j' 'symbol') -> (NCTerminal character: $j))} ]
 		raise: Error
 		withExceptionDo: [ :ex |
-			self 
-				assert: ex messageText  
+			self
+				assert: ex messageText
 				equals: 'Unknown Metanotion EMPTY in EMPTY'
-			 ].
+			 ]
 ]
 
 { #category : 'tests' }
 AWGrammarTest >> testanbncn [
 	| anbncn |
 	anbncn := AVWGrammar
-		evw: 
+		evw:
 'TALLY::		  i TALLETY.
 TALLETY::	  TALLY; EMPTY.
 EMPTY::		  .
@@ -230,31 +230,30 @@ i LETTER s:	  LETTER symbol.'
 				(#('b' 'symbol') -> (NCTerminal character: $b)).
 				(#('c' 'symbol') -> (NCTerminal character: $c))}.
 	self assert: anbncn startNotion equals: (AWHypernotion with: 'anbncn' asNotion).
-	self 
+	self
 		assertCollection: anbncn metanotions
 		hasSameElements: #(TALLY TALLETY EMPTY LETTER) asNotions.
-	self 
+	self
 		assertCollection: anbncn protonotions
 		hasSameElements: #('i' 'a' 'b' 'c' 'anbncn' 'as' 'bs' 'cs' 's' 'symbol') asNotions.
-	self 
-		assertCollection: anbncn hypernotions 
+	self
+		assertCollection: anbncn hypernotions
 		hasSameElements: {
 			#('i' TALLETY).	#(TALLY). #(EMPTY).
 			#(). #('a'). #('b'). #('c').
-			#('anbncn'). 
-			#(TALLY 'as'). #(TALLY 'bs'). #(TALLY 'cs'). 
+			#('anbncn').
+			#(TALLY 'as'). #(TALLY 'bs'). #(TALLY 'cs').
 			#('i' TALLY LETTER 's').
-			#('i' LETTER 's'). #(TALLY LETTER 's'). 
+			#('i' LETTER 's'). #(TALLY LETTER 's').
 			#(LETTER 'symbol').
 			#('a' 'symbol').  (NCTerminal character: $a).
 			#('b' 'symbol'). (NCTerminal character: $b).
 			#('c' 'symbol'). (NCTerminal character: $c)} asNotions.
-	self 
-		assertCollection: anbncn terminals 
-		hasSameElements: {(NCTerminal character: $a). 
+	self
+		assertCollection: anbncn terminals
+		hasSameElements: {(NCTerminal character: $a).
 								(NCTerminal character: $b).
 								(NCTerminal character: $c)}.
 	self assert: anbncn metaRulesSize equals: 7.
-	self assert: anbncn hyperRulesSize equals: 6.
-	
+	self assert: anbncn hyperRulesSize equals: 6
 ]

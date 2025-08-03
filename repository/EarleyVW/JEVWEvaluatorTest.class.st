@@ -11,15 +11,15 @@ Class {
 
 { #category : 'asserting' }
 JEVWEvaluatorTest >> assertGrammarAt: aGrammar evaluates: aString equals: expected [
-	self 
-		assert: (evaluator evaluateTree: (aGrammar parseTree: aString)) 
+	self
+		assert: (evaluator evaluateTree: (aGrammar parseTree: aString))
 		equals: expected
 ]
 
 { #category : 'asserting' }
 JEVWEvaluatorTest >> assertThatEvaluates: aString equals: expected [
-	self 
-		assert: (evaluator evaluate: aString) 
+	self
+		assert: (evaluator evaluate: aString)
 		equals: expected
 ]
 
@@ -60,26 +60,25 @@ ALPHA: 	letter ALPHA symbol;
  (AWMetaProductionRule
 	head: (AWMetanotion named: 'ALPHA')
 	body: (AWHypernotion with: (AWProtonotion with: 'e')))}.
-{ 
-(AWHyperRule 
+{
+(AWHyperRule
 	head: (AWHypernotion with: (AWProtonotion with: 's'))
 	body: 	{(AWHypernotion with: (AWMetanotion named: 'ALPHA'))}).
-(AWHyperRule 
+(AWHyperRule
 	head: (AWHypernotion with: (AWMetanotion named: 'ALPHA'))
 	body:{
-	(AWHypernotion 
+	(AWHypernotion
 		withAll: {(AWProtonotion with: 'letter').
 		(AWMetanotion named: 'ALPHA').
 		(AWProtonotion with: 'symbol')})}).
-(AWHyperRule 
+(AWHyperRule
 	head: (AWHypernotion with: (AWMetanotion named: 'ALPHA'))
 	body:{(AWHypernotion with: (AWMetanotion named: 'ALPHA')).
-			(AWHypernotion 
+			(AWHypernotion
 				withAll: {(AWProtonotion with: 'letter').
 							(AWMetanotion named: 'ALPHA').
 							(AWProtonotion with: 'symbol')})
-	})}}.
-	
+	})}}
 ]
 
 { #category : 'tests - hyper rule' }

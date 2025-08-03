@@ -32,7 +32,7 @@ JEVWGrammarTest >> assertGrammarAt: aGrammar accepts: words [
 		assert: (aGrammar accepts: words)
 		description:
 			(String
-				streamContents: [ :s | 
+				streamContents: [ :s |
 					s
 						print: aGrammar;
 						nextPutAll: ' doesn''t accept ';
@@ -45,7 +45,7 @@ JEVWGrammarTest >> denyGrammarAt: aGrammar accepts: words [
 		deny: (aGrammar accepts: words)
 		description:
 			(String
-				streamContents: [ :s | 
+				streamContents: [ :s |
 					s
 						print: aGrammar;
 						nextPutAll: ' accepts ';
@@ -80,7 +80,7 @@ JEVWGrammarTest >> testAccepts [
 TALLETY:: 	TALLY; EMPTY.
 EMPTY:: 		.
 LETTER:: 		a; b; c.
-		
+
 program: 				TALLY as, TALLY bs, TALLY cs.
 
 i TALLY LETTER s: 	i LETTER s, TALLY LETTER s.
@@ -104,7 +104,7 @@ JEVWGrammarTest >> testAccepts03 [
 		assertGrammarAccepts:
 'BETY::	 b BETY; EMPTY.
 EMPTY::	 .
-	
+
 program: 			growing.
 growing BETY: 	a symbol, growing b BETY, c symbol;
 					terminal BETY.
@@ -149,9 +149,9 @@ JEVWGrammarTest >> testAcceptsHyperRule07 [
 
 { #category : 'tests - hyper rules' }
 JEVWGrammarTest >> testAcceptsHyperRules [
-	self 
-		assertGrammarAt: hyperRules 
-		accepts: 
+	self
+		assertGrammarAt: hyperRules
+		accepts:
 'program:	 			TALLY as, TALLY bs, TALLY cs.
 i TALLY LETTER s: 	i LETTER s, TALLY LETTER s.
 i LETTER s: 			LETTER symbol.'
@@ -276,23 +276,23 @@ JEVWGrammarTest >> testAcceptsMetaproductionRule05 [
 
 { #category : 'tests - metaproduction rule' }
 JEVWGrammarTest >> testAcceptsMetaproductionRule06 [
-	self 
-		assertGrammarAt: metaproductionRule 
+	self
+		assertGrammarAt: metaproductionRule
 		accepts: 'INTREAL:: SIZETY integral; SIZETY real.'
 ]
 
 { #category : 'tests - metaproduction rule' }
 JEVWGrammarTest >> testAcceptsMetaproductionRule07 [
-	self 
-		assertGrammarAt: metaproductionRule 
+	self
+		assertGrammarAt: metaproductionRule
 		accepts: 'N:: n; Nn.'
 ]
 
 { #category : 'tests - metaproductions' }
 JEVWGrammarTest >> testAcceptsMetaproductions [
-	self 
+	self
 		assertGrammarAt: metaproductions
-		accepts: 
+		accepts:
 'TALLY:: 		i TALLETY.
 TALLETY:: 	TALLY; EMPTY.
 EMPTY:: 		.
@@ -301,9 +301,9 @@ LETTER:: 		a; b; c.'
 
 { #category : 'tests - metaproductions' }
 JEVWGrammarTest >> testAcceptsMetaproductions02 [
-	self 
+	self
 		assertGrammarAt: metaproductions
-		accepts: 
+		accepts:
 'VALUE:: 	i VALETY.
 VALETY:: 	VALUE; EMPTY.
 EMPTY:: 	.'

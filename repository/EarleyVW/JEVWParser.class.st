@@ -31,23 +31,23 @@ JEVWParser class >> reset [
 
 { #category : 'grammar' }
 JEVWParser class >> vwEvaluator [
-	^ ESSingleSynthesizedAttributeEvaluator grammar: self vwGrammar actions: 
+	^ ESSingleSynthesizedAttributeEvaluator grammar: self vwGrammar actions:
 {
 (('vw grammar' -> 1) -> [ :nodes | Array with: nodes first with: nodes third ]).
-(('metaproductions' -> 2) 
+(('metaproductions' -> 2)
 	-> [ :nodes | Array streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes third ]]).
-(('metaproduction rule' -> 1) 
+(('metaproduction rule' -> 1)
 	-> [ :nodes | nodes fifth collect: [ :each | AWMetaProductionRule head: nodes first body: each ]]).
 (('hypernotion alternatives' -> 1) -> [ :node | Array with: node ]).
-(('hypernotion alternatives' -> 2) 
+(('hypernotion alternatives' -> 2)
 	-> [ :nodes | Array streamContents: [:s | s nextPutAll: nodes first; nextPut: nodes fourth ]]).
 (('hypernotion option' -> 2) -> [ AWHypernotion new ]).
-(('hyper rules' -> 2) 
+(('hyper rules' -> 2)
 	-> [ :nodes | Array streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes third ]]).
-(('hyper rule' -> 1) 
+(('hyper rule' -> 1)
 	-> [ :nodes | nodes fourth collect: [ :each | AWHyperRule head: nodes first body: each ]]).
 (('hyperalternatives' -> 1) -> [ :node | Array with: node ]).
-(('hyperalternatives' -> 2) 
+(('hyperalternatives' -> 2)
 	-> [ :nodes | Array streamContents: [ :s | s nextPutAll: nodes first; nextPut: nodes fourth ]]).
 (('hyperalternative option' -> 2) -> [ Array empty ]).
 (('hyperalternative' -> 1) -> [ :node | Array with: node ]).
@@ -64,17 +64,17 @@ JEVWParser class >> vwEvaluator [
 	-> [ :nodes | Array streamContents: [ :s | s nextPut: nodes first; nextPutAll: nodes second ]]).
 (('metanotion then protonotion' -> 3)
 	-> [ :nodes | Array streamContents: [ :s | s nextPut: nodes first; nextPutAll: nodes third ]]).
-(('metanotion' -> 1) 
-	-> [ :nodes | 
-			AWMetanotion named: 
+(('metanotion' -> 1)
+	-> [ :nodes |
+			AWMetanotion named:
 				(String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ])]).
-(('uppercase letter plus' -> 2) 
+(('uppercase letter plus' -> 2)
 	-> [ :nodes | String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
-(('digit star' -> 1) 
+(('digit star' -> 1)
 	-> [ :nodes | String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
 (('digit star' -> 2) 	-> [ String empty ]).
 (('protonotion' -> 1) -> [ :node | AWProtonotion with: node ]).
-(('small syntactic mark plus' -> 2) 
+(('small syntactic mark plus' -> 2)
 	-> [ :nodes | String streamContents: [ :s | s nextPutAll: nodes first; nextPutAll: nodes second ]]).
 (('layout' -> 1) -> [ nil ]).
 (('layout' -> 2) -> [ nil ]).
@@ -88,7 +88,7 @@ JEVWParser class >> vwEvaluator [
 { #category : 'grammar' }
 JEVWParser class >> vwGrammar [
 	^ JEGrammar
-		e1vw: 
+		e1vw:
 'vw grammar: metaproductions, layout, hyper rules.
 
 metaproductions:
@@ -96,7 +96,7 @@ metaproductions:
 	metaproductions, layout, metaproduction rule.
 metaproduction rule:
 	metanotion, colon symbol, colon symbol, layout, hypernotion alternatives, dot symbol.
-hypernotion alternatives: 
+hypernotion alternatives:
 	hypernotion option;
 	hypernotion alternatives, semicolon symbol, layout, hypernotion option.
 hypernotion option: hypernotion; .
@@ -110,14 +110,14 @@ hyperalternatives:
 	hyperalternative option;
 	hyperalternatives, semicolon symbol, layout, hyperalternative option.
 hyperalternative option: hyperalternative; .
-hyperalternative: 
+hyperalternative:
 	hypernotion;
 	hyperalternative, comma symbol, layout, hypernotion.
 
 hypernotion: (protonotion or metanotion) plus.
 
 (protonotion or metanotion) plus:
-	protonotion then metanotion; 
+	protonotion then metanotion;
 	metanotion then protonotion.
 
 protonotion then metanotion:
@@ -127,23 +127,23 @@ protonotion then metanotion:
 
 metanotion then protonotion:
 	metanotion;
-	metanotion, protonotion then metanotion;	
-	metanotion, space plus, (protonotion or metanotion) plus. 
-	
+	metanotion, protonotion then metanotion;
+	metanotion, space plus, (protonotion or metanotion) plus.
+
 metanotion: uppercase letter plus, digit star.
 
-uppercase letter plus: 
+uppercase letter plus:
 	uppercase letter symbol;
 	uppercase letter plus, uppercase letter symbol.
 
 digit star: digit symbol, digit star; .
-	
+
 protonotion: small syntactic mark plus.
 small syntactic mark plus:
 	small syntactic mark symbol;
 	small syntactic mark plus, small syntactic mark symbol.
-	
-space plus: 
+
+space plus:
 	space symbol;
 	space plus, space symbol.
 
