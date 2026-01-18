@@ -24,7 +24,7 @@ BaselineOfFisherParser >> baseline: spec [
 				package: 'EarleyVW' with: [ spec requires: #('EarleyParser' 'AWijngaarden-Core') ];
 				package: 'EarleyVW-Tests' with: [ spec requires: #('EarleyVW') ];
 				package: 'FisherParser-Core'
-					with: [ spec requires: #('MultiValuedDictionary' 'LinkedList' 'AWijngaarden-Core' 'EarleyVW') ];
+					with: [ spec requires: #('AWijngaarden-Core' 'EarleyVW') ];
 				package: 'FisherParser-Tests' 
 					with: [ spec requires: #('FisherParser-Core') ];
 				package: 'FisherParser-UI'.
